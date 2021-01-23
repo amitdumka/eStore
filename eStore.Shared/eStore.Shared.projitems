@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{AD575A80-1A21-41CF-858C-41F0DD7EE827}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>eStore.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Paging\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Json\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Types\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Stores\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Identity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Json\JsonToObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Types\DataTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\BaseNT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AppInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Store.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Identity\AppUser.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,388 @@
+﻿<!--Sidebar Nav Final-->
+<div id="slide-out" class="side-nav sn-bg-3 mdb-sidenav fixed scrolling-navbar">
+    <ul class="custom-scrollbar list-unstyled"
+        style="max-height:100vh; padding-bottom:90px; position:relative;  ">
+        <li class=" d-block waves-effect">
+            @*logo-sn*@
+            <div class="text-center">
+                <img id="AR-logo" src="~/img/AprajitaRetails03.png" alt="AR Logo">
+                @*<a class="pl-0" href="/"></a>*@
+            </div>
+        </li>
+        <!--/. Logo -->
+        <!-- Side navigation links -->
+        <li>
+            <ul id="side-menu" class="collapsible collapsible-accordion">
+
+                <li id="menu-Item-Employee" class="menu-item menu-item-type-custom menu-item-object-custom menu-Item-Employee">
+                    <a class="collapsible-header waves-effect" id="link-menu-Item-Employee" asp-area="Payrolls" asp-action="Index" asp-controller="Employees"><i class="fas fa-users"></i>Employee</a>
+                </li>
+
+                <li id="menu-item-88068" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-88068">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-88068" href=""><i class="fas fa-store"></i> Sale</a>
+                </li>
+
+                <li id="menu-item-88068" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-88068">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-88068" href=""><i class="fas fa-project-diagram"></i> Products</a>
+                </li>
+
+                <li id="menu-item-59439" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children  menu-item-59439">
+                    <a class="collapsible-header waves-effect arrow-r active"><i class="fas fa-download"></i>QuickBar<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body" style="display: block;">
+                        <ul class="sub-menu">
+                            <li id="menu-item-59452" class="menu-item menu-item-type-custom menu-item-object-custom   menu-item-home  menu-item-59452 current-menu-item current_page_item"><a class="collapsible-header waves-effect" id="link-menu-item-59452" href="/">Home page</a></li>
+
+                            <li id="menu-item-DailySale" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-DailySale"><a class="collapsible-header waves-effect" id="link-menu-item-DailySale" asp-area="Sales" asp-action="Index" asp-controller="DailySales">Daily Sale</a></li>
+                            <li id="menu-item-ManualInvoice" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-ManualInvoice"><a class="collapsible-header waves-effect" id="link-menu-item-ManualInvoice" asp-area="Sales" asp-action="Index" asp-controller="ManualInvoice">Manual Invoice</a></li>
+                            @*<li id="menu-item-59453" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59453"><a class="collapsible-header waves-effect" id="link-menu-item-59453" href="/">Quick start</a></li>
+        <li id="menu-item-102460" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102460"><a class="collapsible-header waves-effect" id="link-menu-item-102460" href="/">Installation guide</a></li>
+        <li id="menu-item-111193" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-111193"><a class="collapsible-header waves-effect" id="link-menu-item-111193" href="/">Styles customization</a></li>
+        <li id="menu-item-81524" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-81524"><a class="collapsible-header waves-effect" id="link-menu-item-81524" href="/">MDB React</a></li>
+        <li id="menu-item-81525" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-81525"><a class="collapsible-header waves-effect" id="link-menu-item-81525" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                            *@
+                        </ul>
+                    </div>
+                </li>
+                <li id="menu-Item-Sales" class="menu-item menu-item-type-custom  menu-item-object-custom menu-item-has-children menu-Item-Sales">
+                    <a class="collapsible-header waves-effect arrow-r"><i class="fas  fa-th-large"></i>Sale(s)<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body" style="display: block;">
+                        <ul class="sub-menu">
+                            <li id="menu_Item_DailySale" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-type-post_type menu-item-object-page menu_Item_DailySale"><a class="collapsible-header waves-effect" id="link-menu-Item-DailySale" asp-area="Sales" asp-action="Index" asp-controller="DailySales">Daily Sale</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li id="menu-item-payroll" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  menu-item-payroll">
+                    <a class="collapsible-header waves-effect arrow-r "><i class="fas fa-users"></i>Payroll<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul class="sub-menu">
+                            <li id="menu-item-employee" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-employee"><a class="collapsible-header waves-effect" id="link-menu-item-employee" asp-area="Payrolls" asp-action="Index" asp-controller="Employees">Employee</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li id="menu-item-Reports" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-Reports">
+                    <a class="collapsible-header waves-effect arrow-r "> <i class="fa fa-star"></i> Reports<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul class="sub-menu" id="homeSubmenu">
+                            <li id="menu-item-EmpReport" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-EmpReport"><a id="link-menu-item-44070" class="collapsible-header waves-effect" asp-area="Reports" asp-controller="EmpAttReport" asp-action="Index">Employee</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Saved reports</span>
+                <a class="d-flex align-items-center text-muted" asp-area="" asp-controller="" asp-action="Index">
+                    <i class="fas fa-plus-circle unique-ic "></i>
+                </a>
+            </h6>
+
+            <ul id="side-menu" class="collapsible collapsible-accordion nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                        <span data-feather="file-text"></span>
+                        Current Month
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                        <span data-feather="file-text"></span>
+                        Last Quarter
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                        <span data-feather="file-text"></span>
+                        Last Month
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                        <span data-feather="file-text"></span>
+                        Year-end Sale
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+    </ul>
+    <div class="sidenav-bg mask-strong"></div>
+</div>
+
+<!--/. Sidebar Nav Final-->
+<!-- Sidebar navigation -->
+<div id="slide-out" class="side-nav sn-bg-3 mdb-sidenav fixed scrolling-navbar d-xl-none">
+    <ul class="custom-scrollbar list-unstyled" style="max-height:100vh; padding-bottom:90px; position:relative;">
+
+        <li>
+            <ul id="side-menu" class="collapsible collapsible-accordion">
+                <li id="menu-item-59439" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children  menu-item-59439">
+                    <a class="collapsible-header waves-effect arrow-r active"><i class="fas fa-download"></i>Getting Started<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body" style="display: block;">
+                        <ul class="sub-menu">
+                            <li id="menu-item-59452" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home  menu-item-59452"><a class="collapsible-header waves-effect" id="link-menu-item-59452" href="/">Home page</a></li>
+                            <li id="menu-item-81400" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-81400"><a class="collapsible-header waves-effect" id="link-menu-item-81400" href="/docs/jquery/">About Us</a></li>
+                            <li id="menu-item-59452" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home  menu-item-59452"><a class="collapsible-header waves-effect" id="link-menu-item-59452" href="https://mdbootstrap.com/">Home page</a></li>
+                            <li id="menu-item-81400" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-81208 current_page_item  menu-item-81400"><a class="collapsible-header waves-effect" id="link-menu-item-81400" href="https://mdbootstrap.com/docs/jquery/">About MDB</a></li>
+
+                            <li id="menu-item-44015" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44015"><a class="collapsible-header waves-effect" id="link-menu-item-44015" href="/docs/jquery/getting-started/download/">Download</a></li>
+                            <li id="menu-item-59453" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59453"><a class="collapsible-header waves-effect" id="link-menu-item-59453" href="/education/bootstrap/quick-start/">Quick start</a></li>
+                            <li id="menu-item-102460" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-102460"><a class="collapsible-header waves-effect" id="link-menu-item-102460" href="/docs/jquery/getting-started/installation-guide/">Installation guide</a></li>
+                            <li id="menu-item-111193" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-111193"><a class="collapsible-header waves-effect" id="link-menu-item-111193" href="/docs/jquery/getting-started/styles-customization/">Styles customization</a></li>
+                            <li id="menu-item-81524" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-81524"><a class="collapsible-header waves-effect" id="link-menu-item-81524" href="/docs/react/">MDB React</a></li>
+                            <li id="menu-item-81525" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-81525"><a class="collapsible-header waves-effect" id="link-menu-item-81525" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="menu-item-43620" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  menu-item-43620">
+                    <a class="collapsible-header waves-effect arrow-r "><i class="fas  fa-th-large"></i>Layout<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul class="sub-menu">
+                            <li id="menu-item-44240" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44240"><a class="collapsible-header waves-effect" id="link-menu-item-44240" href="/docs/jquery/layout/overview/">Layout overview</a></li>
+                            <li id="menu-item-44241" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44241"><a class="collapsible-header waves-effect" id="link-menu-item-44241" href="/docs/jquery/layout/grid-usage/">Grid usage</a></li>
+                            <li id="menu-item-44242" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44242"><a class="collapsible-header waves-effect" id="link-menu-item-44242" href="/docs/jquery/layout/grid-examples/">Grid examples</a></li>
+                            <li id="menu-item-44243" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44243"><a class="collapsible-header waves-effect" id="link-menu-item-44243" href="/docs/jquery/layout/media-object/">Media object</a></li>
+                            <li id="menu-item-59009" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59009"><a class="collapsible-header waves-effect" id="link-menu-item-59009" href="/docs/jquery/layout/media-queries/">Media queries</a></li>
+                            <li id="menu-item-44245" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44245"><a class="collapsible-header waves-effect" id="link-menu-item-44245" href="/docs/jquery/layout/utilities/">Utilities for layout</a></li>
+                            <li id="menu-item-84711" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-84711"><a class="collapsible-header waves-effect" id="link-menu-item-84711" href="/docs/jquery/layout/bootstrap-masonry/">Masonry</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li id="menu-item-59025" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  menu-item-59025">
+                    <a class="collapsible-header waves-effect arrow-r "><i class="fas  fa-edit"></i> Forms<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul class="sub-menu">
+                            <li id="menu-item-44070" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-44070">
+                                <a class="collapsible-header waves-effect" id="link-menu-item-44070" href="/docs/jquery/forms/basic/">Basic examples</a>
+                            </li>
+                            <li id="menu-item-59034" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59034"><a class="collapsible-header waves-effect" id="link-menu-item-59034" href="/docs/jquery/forms/autocomplete/">Autocomplete</a></li>
+                            <li id="menu-item-80290" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-80290"><a class="collapsible-header waves-effect" id="link-menu-item-80290" href="/docs/jquery/forms/builder/">Builder</a></li>
+                            <li id="menu-item-59026" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59026"><a class="collapsible-header waves-effect" id="link-menu-item-59026" href="/docs/jquery/forms/checkbox/">Checkbox</a></li>
+                            <li id="menu-item-59027" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59027"><a class="collapsible-header waves-effect" id="link-menu-item-59027" href="/docs/jquery/forms/contact/">Contact form</a></li>
+                            <li id="menu-item-61615" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-61615"><a class="collapsible-header waves-effect" id="link-menu-item-61615" href="/docs/jquery/forms/customization/">Customization</a></li>
+                            <li id="menu-item-118072" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-118072"><a class="collapsible-header waves-effect" id="link-menu-item-118072" href="/docs/jquery/forms/date-picker/">Date Picker</a></li>
+                            <li id="menu-item-80923" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-80923"><a class="collapsible-header waves-effect" id="link-menu-item-80923" href="/plugins/jquery/file-upload/">Drag and drop</a></li>
+                            <li id="menu-item-59028" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59028"><a class="collapsible-header waves-effect" id="link-menu-item-59028" href="/docs/jquery/forms/file-input/">File Input</a></li>
+                            <li id="menu-item-116970" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-116970"><a class="collapsible-header waves-effect" id="link-menu-item-116970" href="/docs/jquery/forms/time-picker/">Time Picker</a></li>
+                            <li id="menu-item-59924" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-59924"><a class="collapsible-header waves-effect" id="link-menu-item-59924" href="/docs/jquery/forms/validation/">Validation</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li id="menu-item-118678" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-118678">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" href=""><i class="fas fa-users"></i>Employee</a>
+                </li>
+                <li id="menu-item-88068" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-88068">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-88068" href=""><i class="fas fa-store"></i> Sale</a>
+                </li>
+                <li id="menu-item-88068" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-88068">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-88068" href=""><i class="fas fa-project-diagram"></i> Products</a>
+                </li>
+
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" asp-area="Payroll" asp-controller="Employees" asp-action="Index">  <i class="fas fa-users "></i> Employee</a>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" asp-area="Sales" asp-controller="DailySales" asp-action="Index"><i class="fa fa-file"></i>  Sale</a>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" asp-area="Purchase" asp-controller="ProductItems" asp-action="Index"><i class="fa fa-shopping-cart"></i>  Products</a>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" asp-area="Voyager" asp-controller="Customers" asp-action="Index"><i class="fa fa-users"></i>  Customers</a>
+                </li>
+
+                @*<li id="menu-item-201001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-201001">
+                        <a class="collapsible-header waves-effect arrow-r "> <i class="fa fa-star"></i> Reports<i class="fa fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul class="sub-menu" id="homeSubmenu">
+                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-101">
+                                    <a id="link-menu-item-44070" class="collapsible-header waves-effect"
+                                       asp-area="Reports" asp-controller="EmpAttReport" asp-action="Index"> <i class="fa fa-book-open"></i>  Employee</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>*@
+
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" asp-area="" asp-controller="" asp-action="Index"><i class="fa fa-layers"></i>   Integrations</a>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class=" nav-link dropdown-toggle"> <i class="fa fa-star"></i>  Tailoring</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Tailoring" asp-controller="TalioringBookings" asp-action="Index" class="nav-link  sidebar-font"> <i class="fa fa-book-open"></i>  Booking</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Tailoring" asp-controller="TalioringDeliveries" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-shopping-cart"></i>  Delivery</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Tailoring" asp-controller="TalioringBookings" asp-action="PendingBooking" class="nav-link sidebar-font"> <i class="fa fa-book"></i>  Pending Booking</a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-users"></i>  Accounts</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-action="Index" asp-controller="CashDetails" asp-area="" class="nav-link sidebar-font"> <i class="fa fa-book-open"></i>  Cash Details</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Accounts" asp-controller="Receipts" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Receipts</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Expenses" asp-controller="Payments" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Payments</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Expenses" asp-controller="Expenses" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Expenses</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Accounts" asp-controller="DuesLists" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Due List</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Expenses" asp-controller="ElectricityConnections" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Electricity Connection</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Expenses" asp-controller="EletricityBills" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Electricity Bill</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Expenses" asp-controller="RentedLocations" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Rent Location</a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a class="collapsible-header waves-effect" id="link-menu-item-118678" active " asp-area="ToDo" asp-controller="Home" asp-action="Index">  <i class="fa fa-book-open"></i>   Todo List</a>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a href="#utilSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-users"></i>  Utility</a>
+                    <ul class="collapse list-unstyled" id="utilSubmenu">
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="AddressBook" asp-action="Index" asp-controller="Contacts" class="nav-link sidebar-font"> <i class="fa fa-book-open"></i>  Address Book</a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a href="#uploaderSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-upload-cloud"></i>  Upload</a>
+                    <ul class="collapse list-unstyled" id="uploaderSubmenu">
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="ImportAddressBook" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-book-open"></i>  Address Book</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="ImportAttendance" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-check-square"></i>  Attendance</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="SalesUploader" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-shopping-cart"></i>  Sales</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="PurchaseUploader" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-shopping-bag"></i>  Purchase</a>
+                        </li>
+
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="ImportBookEntry" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-book"></i>  Book Entry</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="BankStatementUpload" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-book"></i>  Bank Statement</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                    <a href="#importSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-users"></i>  Imports</a>
+                    <ul class="collapse list-unstyled" id="importSubmenu">
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Imported" asp-controller="ImportInWards" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Import InWards</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Imported" asp-controller="ImportPurchases" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Import Purchases</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Imported" asp-controller="ImportSaleItemWises" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Import Sale ItemWises</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Imported" asp-controller="ImportSaleRegisters" asp-action="Index" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Import Sale Registers</a>
+                        </li>
+
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="PurchaseUploader" asp-action="ListUpLoad" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Purchase List</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="SalesUploader" asp-action="SaleList" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Sale List</a>
+                        </li>
+
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="ImportBookEntry" asp-action="ListUpLoad" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  Book Entry List</a>
+                        </li>
+                        <li id="menu-item-101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-101">
+                            <a asp-area="Uploader" asp-controller="PurchaseUploader" asp-action="ViewList" class="nav-link sidebar-font"> <i class="fa fa-trello"></i>  InvoiceSearch</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a href="#NewAcc" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"> <span data-feather="users"></span>Accountings</a>
+                    <ul class="collapse list-unstyled" id="NewAcc">
+
+                        <li class="nav-item">
+                            <a asp-area="Accountings" asp-controller="Receipts" asp-action="Index" class="nav-link sidebar-font"> <span data-feather="check-square"></span>Receipts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Accountings" asp-controller="Payments" asp-action="Index" class="nav-link sidebar-font"> <span data-feather="check-square"></span>Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Accountings" asp-controller="Expenses" asp-action="Index" class="nav-link sidebar-font"> <span data-feather="check-square"></span>Expenses</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+            @*<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+                    <a class="d-flex align-items-center text-muted" asp-area="" asp-controller="" asp-action="Index">
+                        <i class="fas fa-plus-circle unique-ic "></i>
+                    </a>
+                </h6>
+
+                <ul id="side-menu" class="collapsible collapsible-accordion nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                            <span data-feather="file-text"></span>
+                            Current Month
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                            <span data-feather="file-text"></span>
+                            Last Quarter
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                            <span data-feather="file-text"></span>
+                            Last Month
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="collapsible-header waves-effect" id="link-menu-item-118678" " asp-area="" asp-controller="" asp-action="Index">
+                            <span data-feather="file-text"></span>
+                            Year-end Sale
+                        </a>
+                    </li>
+                </ul>*@
+        </li>
+    </ul>
+
+    <!--AprajitaRetails-->
+
+    <div class="sidenav-bg mask-strong"></div>
+</div>
+
+@*<nav class="col-md-2 d-none d-md-block bg-danger sidebar " id="nav-side-bar">
+        <div class="sidebar-sticky">
+        </div>
+    </nav>*@
+
+<!-- Sidebar navigation -->
