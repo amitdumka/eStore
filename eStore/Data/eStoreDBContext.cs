@@ -22,6 +22,9 @@ namespace eStore.DL.Data
         public DbSet<Store> Stores { get; set; } //Ok//UI
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<AppInfo> Apps { get; set; } //ok
+        public DbSet<StoreClose> StoreCloses { get; set; }
+        public DbSet<StoreHoliday> StoreHolidays { get; set; }
+        public DbSet<StoreOpen> StoreOpens { get; set; }
 
         ////Payrolls
         public DbSet<Employee> Employees { get; set; } //ok//UI

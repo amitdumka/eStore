@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using eStore.Shared.Models.Identity;
+using eStore.DL.Data;
+using eStore.Ops;
 
 namespace eStore.Areas.Identity.Pages.Account
 {
@@ -22,14 +24,16 @@ namespace eStore.Areas.Identity.Pages.Account
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly eStoreDbContext db;
 
         public LoginModel(SignInManager<AppUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager, eStoreDbContext contextref)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            db = contextref;
         }
 
         [BindProperty]
@@ -45,7 +49,8 @@ namespace eStore.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            //[EmailAddress]
+            [Display(Name = "User Name")]
             public string Email { get; set; }
 
             [Required]
@@ -87,6 +92,8 @@ namespace eStore.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    //Setting UserSession
+                    PostLogin.SetUserSession(HttpContext.Session, db, Input.Email);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

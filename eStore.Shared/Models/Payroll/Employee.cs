@@ -51,6 +51,7 @@ namespace eStore.Shared.Models.Payroll
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
+
         public string AdharNumber { get; set; }
         public string PanNo { get; set; }
         public string OtherIdDetails { get; set; }
@@ -70,6 +71,19 @@ namespace eStore.Shared.Models.Payroll
         public ICollection<Salesman> Salesmen { get; set; }
         public ICollection<Attendance> Attendances { get; set; }
         public virtual EmployeeUser User { get; set; }
+
+        public string PrintIt()
+        {
+            String d = this.UserId + "\t";
+            d += this.StoreId + "\t" + this.State + "\t";
+            d = d + $"{this.StaffName}\t{this.PanNo}\t{this.OtherIdDetails}\t{this.MobileNo}\t";
+            d = d + $"{this.LeavingDate}\t{this.JoiningDate}\t{this.IsWorking}\t{this.IsTailors}\t{this.HighestQualification}\t";
+            d = d + $"{this.FatherName}\t{this.EntryStatus}\t{this.EMail}\t{this.DateOfBirth}\t{this.City}\t{this.Category}\t";
+            d = d + $"{this.AdharNumber}\t{this.Address}\t";
+
+
+            return d;
+        }
 
     }
     /// <summary>

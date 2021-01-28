@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eStore.Areas.Stores.Controllers
 {
-    [Area("Store")]
+    [Area("Stores")]
     //[Authorize]
     public class StoresController : Controller
     {

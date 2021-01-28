@@ -75,5 +75,25 @@ namespace eStore.Shared.Models.Stores
         public virtual ICollection<Store> Stores { get; set; }
     }
 
-
+    public enum HolidayReason { GovertmentHoliday, Bandha, Festivals, WeeklyOff, ApproveHoliday, Other}
+    public class StoreHoliday:BaseST
+    {
+        public int StoreHolidayId { get; set; }
+        public DateTime OnDate { get; set; }
+        public HolidayReason Reason { get; set; }
+        public string Remarks { get; set; }
+        public string ApprovedBy { get; set; }
+    }
+    public class StoreClose: BaseSNT
+    {
+        public int StoreCloseId { get; set; }
+        public DateTime ClosingDate { get; set; }
+        public string Remarks { get; set; }
+    }
+    public class StoreOpen : BaseSNT
+    {
+        public int StoreOpenId { get; set; }
+        public DateTime OpenningTime { get; set; }
+        public string Remarks { get; set; }
+    }
 }

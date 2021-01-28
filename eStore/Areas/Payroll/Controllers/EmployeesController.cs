@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using eStore.Shared.Models.Identity;
 using eStore.Payroll;
-
+using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace eStore.Areas.Payrolls.Controllers
 {
@@ -56,7 +57,7 @@ namespace eStore.Areas.Payrolls.Controllers
         // GET: Payrolls/Employees/Create
         public IActionResult Create()
         {
-            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = storeInfo.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
@@ -69,21 +70,30 @@ namespace eStore.Areas.Payrolls.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,MobileNo,JoiningDate,LeavingDate,IsWorking,Category,IsTailors,EMail,DateOfBirth,AdharNumber,PanNo,OtherIdDetails,Address,City,State,FatherName,HighestQualification,StoreId,UserId,EntryStatus,IsReadOnly")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,MobileNo, JoiningDate,LeavingDate,IsWorking,Category,IsTailors,EMail,DateOfBirth,AdharNumber,PanNo,OtherIdDetails,Address,City,State,FatherName,HighestQualification,StoreId,UserId,EntryStatus,IsReadOnly")] Employee employee)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
-                await EmployeeManager.AddEmployeeLoginAsync(_context, employee, _userManager);
+                await EmployeeManager.PostEmployeeAdditionAsync(_context, employee, _userManager);
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", employee.StoreId);
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = storeInfo.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
+            //Console.WriteLine("Model is Invalid ="+employee.PrintIt());
+            //Console.WriteLine("aa=" + ModelState.IsValid);
+            //foreach (var modelState in ViewData.ModelState.Values)
+            //{
+            //    foreach (ModelError error in modelState.Errors)
+            //    {
+            //        Console.WriteLine(error.ErrorMessage);
+            //    }
+            //}
 
-            return PartialView(employee);
+            return View(employee);
         }
 
         // GET: Payrolls/Employees/Edit/5

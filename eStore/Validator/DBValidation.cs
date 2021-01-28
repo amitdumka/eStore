@@ -28,4 +28,23 @@ namespace eStore.Validator
 
         }
     }
+
+    public class DBDataChecker
+    {
+        /// <summary>
+        /// Check for Salesman Name exist or not
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="name"></param>
+        /// <param name="storeid"></param>
+        /// <returns></returns>
+        public static bool IsSalesmanExists(eStoreDbContext db, string name, int storeid)
+        {
+            var d = db.Salesmen.Where(c => c.SalesmanName == name && c.StoreId == storeid).FirstOrDefault();
+            if (d != null)
+                return true;
+            else
+                return false;
+        }
+    }
 }
