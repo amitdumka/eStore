@@ -6,14 +6,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\net5.0\eStore.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
@@ -24,21 +19,33 @@
 </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
+    <PackageReference Include="MailKit" Version="2.10.1" />
+    <PackageReference Include="MimeKit" Version="2.10.1" />
+    <PackageReference Include="NodaTime" Version="3.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\css\font\" />
-    <Folder Include="Areas\Stores\" />
-    <Folder Include="Areas\Stores\Views\" />
-    <Folder Include="Areas\Stores\Controllers\" />
+    <Folder Include="Areas\Store\" />
+    <Folder Include="Areas\Store\Views\" />
+    <Folder Include="Areas\Store\Controllers\" />
+    <Folder Include="Areas\Payroll\" />
+    <Folder Include="Areas\Payroll\Views\" />
+    <Folder Include="Areas\Payroll\Controllers\" />
+    <Folder Include="Ops\" />
+    <Folder Include="Ops\Session\" />
+    <Folder Include="Ops\Extensions\" />
+    <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Payroll\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\eStore.DL\eStore.DL.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\eStore.DM\eStore.DM.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
+    <Compile Remove="Data\ApplicationDbContext.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\eStoreDbContextModelSnapshot.cs" />
+    <Compile Remove="Data\Migrations\20210123095810_Mig1.Designer.cs" />
+    <Compile Remove="Data\ApplicationDbContext.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

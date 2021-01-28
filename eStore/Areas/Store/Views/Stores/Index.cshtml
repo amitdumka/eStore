@@ -1,0 +1,126 @@
+﻿@model IEnumerable<eStore.Shared.Models.Stores.Store>
+
+@{
+    ViewData["Title"] = " Stores";
+    var host = "https://localhost:44335/";
+    var uri2 = host + "api/Stores";
+    var uri = "https://localhost:44335/api/Stores";
+    var activityName = "Store";
+}
+
+<!-- Table with panel -->
+<div class="card card-cascade narrower mb-5">
+    <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+        <div>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-th-large mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-columns mt-0"></i>
+            </button>
+        </div>
+
+        <h3 class="white-text mx-3 ">Stores</h3>
+
+        <div>
+            <a asp-action="Create" class="btn btn-outline-white btn-rounded btn-sm px-2" id="create" data_modal=""> <i class="fas fa-plus-circle mt-0"></i></a>
+
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-pencil-alt mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="far fa-trash-alt mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-info-circle mt-0"></i>
+            </button>
+        </div>
+    </div>
+    <div class="px-4">
+
+        <div class="table-wrapper ">
+            <table id="dtStore" cellspacing=" 0" width="100%" class="table bg-white table-hover  table-bordered table-sm  mb-0">
+                <thead class="mdb-color-text text-center">
+                    <tr>
+                        <th></th>
+                        <th class="th-sm">
+                            @Html.DisplayNameFor(model => model.StoreCode)
+                        </th>
+                        <th class="th-sm">
+                            @Html.DisplayNameFor(model => model.StoreName)
+                        </th>
+
+                        <th class="th-sm">
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+
+                        <th class="th-sm">
+                            @Html.DisplayNameFor(model => model.PhoneNo)
+                        </th>
+                        <th class="th-lg">
+                            @Html.DisplayNameFor(model => model.StoreManagerName)
+                        </th>
+                        <th class="th-sm">
+                            @Html.DisplayNameFor(model => model.GSTNO)
+                        </th>
+
+                        <th class="th-lg">
+                            @Html.DisplayNameFor(model => model.OpeningDate)
+                        </th>
+
+                        <th class="th-sm"></th>
+                    </tr>
+                </thead>
+                <tbody class="text-center text-primary">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-left"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StoreCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StoreName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StoreManagerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GSTNO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OpeningDate)
+                            </td>
+                            <td class="btn-group d-inline-flex">
+                                <a class="btn btn-warning btn-sm btn-rounded" id="edit" data_modal="" asp-action="Edit" asp-route-id="@item.StoreId"><i class="fas fa-pencil-alt mt-0"></i></a>
+                                <a class="btn btn-info btn-sm" id="detail" data_modal="" asp-action="Details" asp-route-id="@item.StoreId"><i class="fas fa-info-circle mt-0"></i></a>
+                                <a class="btn btn-danger btn-sm btn-rounded" id="delete_JS" onclick="deleteM(@item.StoreId)"><i class="fas fa-trash-alt mt-0"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card-deck"></div>
+
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        initDataTable("dtStore");
+        function deleteM(id) {
+            deleteModal('@activityName' ,'@uri', id);
+        }
+    </script>
+}

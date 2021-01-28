@@ -1,57 +1,58 @@
 ﻿using System;
 using System.Linq;
 using eStore.Shared.Models;
+using eStore.Shared.Models.Common;
 using eStore.Shared.Models.Identity;
+using eStore.Shared.Models.Payroll;
 using eStore.Shared.Models.Stores;
+using eStore.Shared.Models.Todos;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace eStore.DL.Data
+namespace eStore.Shared.DL.Data
 {
-    public class eStoreDBContext : IdentityDbContext<AppUser>
+    public class eStoreDbContext : IdentityDbContext<AppUser>
     {
-        public eStoreDBContext(DbContextOptions<eStoreDBContext> options) : base(options)
+        public eStoreDbContext(DbContextOptions<eStoreDbContext> options) : base(options)
         {
             ApplyMigrations(this);
         }
 
         public DbSet<Store> Stores { get; set; } //Ok//UI
+        public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+        public DbSet<AppInfo> Apps { get; set; } //ok
 
-        //public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI
-        //public DbSet<Salesman> Salesmen { get; set; } //ok
+        ////Payrolls
+        public DbSet<Employee> Employees { get; set; } //ok//UI
+        public DbSet<EmployeeUser> EmployeeUsers { get; set; }
+        public DbSet<Attendance> Attendances { get; set; } //ok//UI
+        public DbSet<Salesman> Salesmen { get; set; } //ok
+
+
+        public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI
+        public DbSet<SaleTaxType> SaleTaxTypes { get; set; } //ok//UI
+        public DbSet<PurchaseTaxType> PurchaseTaxTypes { get; set; }//UI
 
         ////Banking
         //public DbSet<Bank> Banks { get; set; } //ok
 
         ////TODO
-        //public DbSet<ToDoMessage> ToDoMessages { get; set; }
+        public DbSet<ToDoMessage> ToDoMessages { get; set; }
 
-        //public DbSet<TodoItem> Todos { get; set; }
-        //public DbSet<FileInfo> Files { get; set; }
-        //public DbSet<SaleTaxType> SaleTaxTypes { get; set; } //ok//UI
-        //public DbSet<PurchaseTaxType> PurchaseTaxTypes { get; set; }//UI
-        public DbSet<RegisteredUser> RegisteredUsers { get; set; }
-        public DbSet<AppInfo> Apps { get; set; } //ok
-
-        ////Payrolls
-        //public DbSet<Employee> Employees { get; set; } //ok//UI
-
-        //public DbSet<EmployeeUser> EmployeeUsers { get; set; }
-        //public DbSet<Attendance> Attendances { get; set; } //ok//UI
+        public DbSet<TodoItem> Todos { get; set; }
+        public DbSet<FileInfo> Files { get; set; }
+        
 
         ////Tailoring
         //public DbSet<TalioringBooking> TalioringBookings { get; set; }//UI
-
         //public DbSet<TalioringDelivery> TailoringDeliveries { get; set; }//UI
 
         ////End of Day
         //public DbSet<EndOfDay> EndOfDays { get; set; }//UI
-
         //public DbSet<CashDetail> CashDetail { get; set; }//UI
 
         ////Rent and Electricity
         //public DbSet<RentedLocation> RentedLocations { get; set; }//UI
-
         //public DbSet<Rent> Rents { get; set; }//UI
         //public DbSet<ElectricityConnection> ElectricityConnections { get; set; }//UI
         //public DbSet<EletricityBill> EletricityBills { get; set; }//UI
@@ -133,10 +134,10 @@ namespace eStore.DL.Data
                 StoreManagerPhoneNo = ""
             });
 
-            //modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 1, SalesmanName = "Sanjeev Mishra", StoreId = 1 });
-            //modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 2, SalesmanName = "Mukesh Mandal", StoreId = 1 });
-            //modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 3, SalesmanName = "Manager", StoreId = 1 });
-            //modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 4, SalesmanName = "Bikash Kumar Sah", StoreId = 1 });
+            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 1, SalesmanName = "Sanjeev Mishra", StoreId = 1 });
+            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 2, SalesmanName = "Mukesh Mandal", StoreId = 1 });
+            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 3, SalesmanName = "Manager", StoreId = 1 });
+            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 4, SalesmanName = "Bikash Kumar Sah", StoreId = 1 });
 
             //modelBuilder.Entity<Bank>().HasData(new Bank() { BankId = 1, BankName = "State Bank of India" });
             //modelBuilder.Entity<Bank>().HasData(new Bank() { BankId = 2, BankName = "ICICI Bank" });
@@ -165,7 +166,7 @@ namespace eStore.DL.Data
 
         }
 
-        public void ApplyMigrations(eStoreDBContext context)
+        public void ApplyMigrations(eStoreDbContext context)
         {
             if (context.Database.GetPendingMigrations().Any())
             {

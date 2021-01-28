@@ -17,6 +17,9 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Stores\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Identity\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Payroll\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Todos\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
@@ -26,5 +29,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Store.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Identity\AppUser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\Employee.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Salesman.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\Attendance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\SalaryPayment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Todos\TodoItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Types\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Types\UploadTypeString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Common\TranscationMode.cs" />
   </ItemGroup>
 </Project>

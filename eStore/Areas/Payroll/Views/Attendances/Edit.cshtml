@@ -1,0 +1,68 @@
+﻿@model eStore.Shared.Models.Payroll.Attendance
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h4 class="purple-text">Attendance</h4>
+<hr class="text-info" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AttendanceId" />
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group datepicker">
+                <label asp-for="AttDate" class="control-label"></label>
+                <input asp-for="AttDate" class="form-control form-control-sm datepicker" />
+                <span asp-validation-for="AttDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group timepicker">
+                <label asp-for="EntryTime" class="control-label"></label>
+                <input type="text" class="form-control timepicker" asp-for="EntryTime">
+               
+                <span asp-validation-for="EntryTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control" asp-items="@Html.GetEnumSelectList<AttUnit>()"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group md-outline">
+                <label asp-for="Remarks" class="control-label"></label>
+                <input asp-for="Remarks" class="form-control" />
+                <span asp-validation-for="Remarks" class="text-danger"></span>
+            </div>
+
+            <div class="form-check text-primary">
+                <input class="form-check-input" asp-for="IsTailoring" type="checkbox" data-val="true" />
+                <label class="form-check-label" asp-for="IsTailoring"></label>
+                <span asp-validation-for="IsTailoring" class="text-danger"></span>
+            </div>
+
+            <div>
+                <input type="hidden" asp-for="UserId" value="@User.Identity.Name" />
+                <input type="hidden" asp-for="StoreId" value="@ViewBag.StoreId" />
+                <input type="hidden" asp-for="EntryStatus" value="0" />
+                <input type="hidden" asp-for="IsReadOnly" value="false" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+                <span asp-validation-for="StoreId" class="text-danger"></span>
+                <span asp-validation-for="IsReadOnly" class="text-danger"></span>
+                <span asp-validation-for="EntryStatus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary btn-rounded btn-sm float-right" />
+            </div>
+        </form>
+    </div>
+</div>
+

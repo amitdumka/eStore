@@ -1,25 +1,6 @@
-﻿using System.Collections.Generic;
-
-// <summary>
-/// Status of Data Entry Maded by User.
-/// </summary>
-public enum EntryStatus { Added, Approved, Rejected, Updated, Deleted, DeleteApproved }
+﻿public enum EntryStatus { Added, Approved, Rejected, Updated, Deleted, DeleteApproved }
 
 public enum ArvindAccount { ArvindLimited, ALBL, AFL, Others }
-
-
-
-public static class Constants
-{
-    public const string AdministratorRole = "Administrator";
-    public const string UserRole = "User";
-    public const int MAX_TAGS = 10;   //TODO: increase tag size
-
-    public const string STOREID = "_StoreId";
-    public const string STORECODE = "StoreCode";
-    public const string EMPID = "_EMPID";
-    public const string USERNAME = "_UserName";
-}
 public enum ConnectionType { Commercial, Domestic, HighTension }
 public enum RentType { WorkShop, Shop, Goods, Office, House, Others }
 
@@ -57,10 +38,4 @@ public enum LedgerTo { CashSales, POSSale, Cash, TailorBook, Suspense }
 public enum Head { Sale, HDFCCA, TailorBook, BikashPatwari, Sanjeev, Zafar, Suspense, IDBICA, ICICIBankCA, BandhanCA, SBIOD, SBICC, AmitKumar, Others }
 public enum LedgerBy { AmitKumar, Cash, BandhanCA, BHARATQR, EDCBandhan, EDCEASYTAP, EDCHDFC, EDCICICI, EDCSBI, EXPUNDEF, HDFCCA, ICICIBankCA, IDBICA, Others, SBICC, Suspense, Zafar }
 public enum Remark { Uploaded, Payment, Reciept, Expenses, BankDeposit, BankWithdrawal, Others }
-
-public static class UploadTypeString
-{
-
-    public static List<string> Types = new List<string> { "Purchase", "SaleItemWise", "SaleRegister", "InWard", "Customer" };
-}
 

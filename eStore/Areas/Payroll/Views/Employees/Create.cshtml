@@ -1,0 +1,133 @@
+﻿@model eStore.Shared.Models.Payroll.Employee
+@*@using (Html.BeginScripts())
+{
+    <script>// Material Select Initialization
+        $('.mdb-select').materialSelect();</script>
+}*@
+
+<h4 class=" text-default">Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" style="color: #757575;" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="md-form ">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="MobileNo" class="control-label"></label>
+                <input asp-for="MobileNo" class="form-control" />
+                <span asp-validation-for="MobileNo" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="JoiningDate" class="control-label"></label>
+                <input asp-for="JoiningDate" class="form-control" />
+                <span asp-validation-for="JoiningDate" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="LeavingDate" class="control-label"></label>
+                <input asp-for="LeavingDate" class="form-control" />
+                <span asp-validation-for="LeavingDate" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsWorking" type="checkbox" data-val="true" />
+                <label class="form-check-label" asp-for="IsWorking"></label>
+            </div>
+
+            <div class=" form-check">
+                <input class="form-check-input" type="checkbox" asp-for="IsTailors" data-val="true" />
+                <label class="form-check-label" asp-for="IsTailors"></label>
+            </div>
+            <div class="md-form ">
+                <label asp-for="EMail" class="control-label"></label>
+                <input asp-for="EMail" class="form-control" />
+                <span asp-validation-for="EMail" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control datepicker date" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="AdharNumber" class="control-label"></label>
+                <input asp-for="AdharNumber" class="form-control" />
+                <span asp-validation-for="AdharNumber" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="PanNo" class="control-label"></label>
+                <input asp-for="PanNo" class="form-control" />
+                <span asp-validation-for="PanNo" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="OtherIdDetails" class="control-label"></label>
+                <input asp-for="OtherIdDetails" class="form-control" />
+                <span asp-validation-for="OtherIdDetails" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="FatherName" class="control-label"></label>
+                <input asp-for="FatherName" class="form-control" />
+                <span asp-validation-for="FatherName" class="text-danger"></span>
+            </div>
+            <div class="md-form ">
+                <label asp-for="HighestQualification" class="control-label"></label>
+                <input asp-for="HighestQualification" class="form-control" />
+                <span asp-validation-for="HighestQualification" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="browser-default custom-select" asp-items="@Html.GetEnumSelectList<EmpType>()"></select>
+
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="UserId" value="@User.Identity.Name" />
+            <input type="hidden" asp-for="StoreId" value="@ViewBag.StoreId" />
+            <input type="hidden" asp-for="EntryStatus" value="0" />
+            <input type="hidden" asp-for="IsReadOnly" value="0" />
+            @*<div class="form-group">
+                    <label asp-for="StoreId" class="control-label"></label>
+                    <select asp-for="StoreId"class="browser-default custom-select" asp-items="ViewBag.StoreId"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EntryStatus" class="control-label"></label>
+                    <select asp-for="EntryStatus" class="browser-default custom-select" asp-items="@Html.GetEnumSelectList<EntryStatus>()"></select>
+                    <span asp-validation-for="EntryStatus" class="text-danger"></span>
+                </div>
+                <div class="md-form ">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <input asp-for="UserId" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class=" form-check">
+                    <input class="form-check-input" asp-for="IsReadOnly" />
+                    <label class="form-check-label" asp-for="IsReadOnly"></label>
+                </div>*@
+            <div class="md-form ">
+                <input type="submit" value="Create" class="btn btn-primary btn-sm btn-rounded " />
+            </div>
+        </form>
+    </div>
+</div>

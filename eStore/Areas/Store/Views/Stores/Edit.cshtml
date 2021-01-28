@@ -1,0 +1,102 @@
+﻿@model eStore.Shared.Models.Stores.Store
+
+@{
+    ViewData["Title"] = "Edit";
+    var host = "https://localhost:44335/api/";
+    var uri = host + "Stores";
+    var activityName = "Store";
+    var ID = Model.StoreId;
+    var forName = "EditStore";
+}
+
+<h4>Store</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form  id="EditStore" action="javascript:void(0);" onsubmit="updateData('EditStore', '@activityName', '@uri',@Model.StoreId);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StoreId" />
+            <div class="form-group">
+                <label asp-for="StoreCode" class="control-label"></label>
+                <input asp-for="StoreCode" class="form-control" />
+                <span asp-validation-for="StoreCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreName" class="control-label"></label>
+                <input asp-for="StoreName" class="form-control" />
+                <span asp-validation-for="StoreName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PinCode" class="control-label"></label>
+                <input asp-for="PinCode" class="form-control" />
+                <span asp-validation-for="PinCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreManagerName" class="control-label"></label>
+                <input asp-for="StoreManagerName" class="form-control" />
+                <span asp-validation-for="StoreManagerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreManagerPhoneNo" class="control-label"></label>
+                <input asp-for="StoreManagerPhoneNo" class="form-control" />
+                <span asp-validation-for="StoreManagerPhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PanNo" class="control-label"></label>
+                <input asp-for="PanNo" class="form-control" />
+                <span asp-validation-for="PanNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GSTNO" class="control-label"></label>
+                <input asp-for="GSTNO" class="form-control" />
+                <span asp-validation-for="GSTNO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfEmployees" class="control-label"></label>
+                <input asp-for="NoOfEmployees" class="form-control" />
+                <span asp-validation-for="NoOfEmployees" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpeningDate" class="control-label"></label>
+                <input asp-for="OpeningDate" class="form-control" />
+                <span asp-validation-for="OpeningDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClosingDate" class="control-label"></label>
+                <input asp-for="ClosingDate" class="form-control" />
+                <span asp-validation-for="ClosingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+
+                <input class="form-check-input" asp-for="Status" data-val="true" checked="@Model.Status" />
+                <label class="form-check-label" asp-for="Status">            
+                </label>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-sm btn-outline-amber" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

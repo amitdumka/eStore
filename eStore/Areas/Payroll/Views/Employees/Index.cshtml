@@ -1,0 +1,266 @@
+﻿@model IEnumerable<eStore.Shared.Models.Payroll.Employee>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card card-cascade narrower">
+    <!--Table Struct-->
+    <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center rounded-pill">
+
+        <div>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-th-large mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-columns mt-0"></i>
+            </button>
+        </div>
+
+        <h3 class="white-text mx-3 ">Employee</h3>
+
+        <div>
+            <a asp-action="Create" class="btn btn-outline-white btn-rounded btn-sm px-2" id="create" data_modal=""> <i class="fas fa-plus-circle mt-0"></i></a>
+
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-pencil-alt mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="far fa-trash-alt mt-0"></i>
+            </button>
+            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="toastr.success('Sorry!, Button is not Implemented.');">
+                <i class="fas fa-info-circle mt-0"></i>
+            </button>
+        </div>
+    </div>
+    <!--\Table Struct-->
+    <!--Body Data-->
+    <div class="px-4">
+
+        <div class="table-wrapper ">
+            <table id="dtEmployee" cellspacing=" 0" width="100%" class="table bg-white table-hover table-bordered  table-sm  mb-0">
+                <thead class="mdb-color-text text-center">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StaffName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MobileNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JoiningDate)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.LeavingDate)
+                            </th>*@
+                        <th>
+                            
+                            @Html.DisplayNameFor(model => model.IsWorking)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.IsTailors)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EMail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AdharNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PanNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OtherIdDetails)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.State)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FatherName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HighestQualification)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Store)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EntryStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsReadOnly)
+                            </th>*@
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-center text-primary">
+                    @foreach (var item in Model)
+                    {
+                        <tr >
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StaffName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JoiningDate)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.LeavingDate)
+                                </td>*@
+                            <td class="smaller">
+                                <input type="checkbox" checked="@item.IsWorking" class="form-check-input smaller"/><label></label>
+                                @*@Html.DisplayFor(modelItem => item.IsWorking)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.IsTailors)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EMail)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdharNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PanNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OtherIdDetails)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FatherName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HighestQualification)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Store.City)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.UserId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                                </td>*@
+                            <td class="btn-group d-inline-flex">
+                                <a class="btn btn-warning btn-sm btn-rounded" id="edit" data_modal="" asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="fas fa-pencil-alt mt-0"></i></a>
+                                <a class="btn btn-info btn-sm btn-rounded" id="detail" data_modal="" asp-action="Details" asp-route-id="@item.EmployeeId"><i class="fas fa-info-circle mt-0"></i></a>
+                                <a class="btn btn-danger btn-sm btn-rounded" id="delete" data_modal="" asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="fas fa-trash-alt mt-0"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="skip"></th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                           
+                        </th>
+                        <th>
+                           
+                        </th>
+                        <th class="skip">
+                           
+                        </th>
+                        <th>
+                          
+                        <th>
+                           
+                        </th>
+
+                        <th class="skip"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<partial name="_OnlyModalPopUp" />
+@section Scripts
+{
+    <script>
+       
+        $('#dtEmployee').dataTable({
+            "pagingType": "full_numbers",
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox select-checkbox-all',
+                targets: 0
+            }],
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+
+            },
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                   
+                        var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                   
+                });
+            }
+        });
+        $(".skip").empty();
+        $(".skip").removeClass();
+
+
+    </script>
+}
