@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using eStore.Shared.Models.Accounts.Expenses;
 using eStore.Shared.Models.Sales;
 using eStore.Shared.Models.Purchases;
+using eStore.Shared.Models.Accounts;
 
 //namespace eStore.DL.Data
 namespace eStore.DL.Data
@@ -108,6 +109,21 @@ namespace eStore.DL.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ProductItem> ProductItems { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+
+        // New Accounting section
+        public DbSet<LedgerType> LedgerTypes { get; set; }
+
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<LedgerMaster> LedgerMasters { get; set; }
+        public DbSet<LedgerEntry> LedgerEntries { get; set; }
+       
+        // new Expenses/Reciept System with Party Support
+        public DbSet<Expense> Expenses { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Receipt> Receipts { get; set; }
+
+        public DbSet<BankAccount> BankAccounts { get; set; }
 
 
 

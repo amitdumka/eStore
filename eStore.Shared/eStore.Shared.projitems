@@ -27,6 +27,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\Sales\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Purchases\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Banking\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
@@ -72,5 +73,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\PaySlip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\ArvindPayment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\EndOfDay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Accounts\Expense.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Banking\BankDeposit.cs" />
   </ItemGroup>
 </Project>
