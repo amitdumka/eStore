@@ -1,0 +1,83 @@
+﻿@model IEnumerable<eStore.Shared.Models.Tailoring.TalioringDelivery>
+
+@{
+    ViewData["Title"] = "Deliveries";
+}
+
+<h1>Deliveries</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadOnly)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.TalioringBookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.StoreId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReadOnly)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TalioringDeliveryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TalioringDeliveryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TalioringDeliveryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
