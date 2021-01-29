@@ -1,0 +1,59 @@
+﻿@model IEnumerable<eStore.Shared.Models.Common.SaleTaxType>
+
+@{
+    ViewData["Title"] = "Sale Tax Type";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/SaleTaxTypes";
+    var activityName = "SaleTaxType";
+}
+
+
+<table class="table" id="dtSaleTaxType">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompositeRate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompositeRate)
+                </td>
+                <td>
+                    <a class="btn-amber" asp-action="Edit" asp-route-id="@item.SaleTaxTypeId">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.SaleTaxTypeId">Details</a> 
+                    <a asp-action="Delete" asp-route-id="@item.SaleTaxTypeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtSaleTaxType", "Sale Tax Type", "SaleTaxTypes");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

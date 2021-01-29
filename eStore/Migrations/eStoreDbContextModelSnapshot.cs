@@ -148,6 +148,281 @@ namespace eStore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.EBillPayment", b =>
+                {
+                    b.Property<int>("EBillPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("EletricityBillId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsBillCleared")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPartialPayment")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PaymentDetails")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EBillPaymentId");
+
+                    b.HasIndex("EletricityBillId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("BillPayments");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.ElectricityConnection", b =>
+                {
+                    b.Property<int>("ElectricityConnectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ConnectinDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConnectioName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Connection")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConsumerNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConusumerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DisconnectionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("KVLoad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LocationName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("OwnedMetter")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PinCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("SecurityDeposit")
+                        .HasColumnType("money");
+
+                    b.Property<string>("State")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalConnectionCharges")
+                        .HasColumnType("money");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ElectricityConnectionId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("ElectricityConnections");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.EletricityBill", b =>
+                {
+                    b.Property<int>("EletricityBillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("ArrearAmount")
+                        .HasColumnType("money");
+
+                    b.Property<DateTime>("BillDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BillNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("money");
+
+                    b.Property<double>("CurrentMeterReading")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ElectricityConnectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("MeterReadingDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("NetDemand")
+                        .HasColumnType("money");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("TotalUnit")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EletricityBillId");
+
+                    b.HasIndex("ElectricityConnectionId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("EletricityBills");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.Rent", b =>
+                {
+                    b.Property<int>("RentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PaymentDetails")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RentType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RentedLocationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RentId");
+
+                    b.HasIndex("RentedLocationId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Rents");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.RentedLocation", b =>
+                {
+                    b.Property<int>("RentedLocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("AdvanceAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRented")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MobileNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PlaceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("RentAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RentType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("VacatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RentedLocationId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("RentedLocations");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.AppInfo", b =>
                 {
                     b.Property<int>("AppInfoId")
@@ -223,6 +498,68 @@ namespace eStore.Migrations
                             BankId = 7,
                             BankName = "HDFC Bank"
                         });
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Common.CashInBank", b =>
+                {
+                    b.Property<int>("CashInBankId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CIBDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CashIn")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("CashOut")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("ClosingBalance")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("OpenningBalance")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CashInBankId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("CashInBanks");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Common.CashInHand", b =>
+                {
+                    b.Property<int>("CashInHandId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CIHDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CashIn")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("CashOut")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("ClosingBalance")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("OpenningBalance")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CashInHandId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("CashInHands");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Common.PurchaseTaxType", b =>
@@ -624,6 +961,966 @@ namespace eStore.Migrations
                     b.ToTable("EmployeeUsers");
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Brand", b =>
+                {
+                    b.Property<int>("BrandId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BrandName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("BrandId");
+
+                    b.ToTable("Brand");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsPrimaryCategory")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSecondaryCategory")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.HSN", b =>
+                {
+                    b.Property<long>("HSNCode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("CESS")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("HSNCode");
+
+                    b.ToTable("HSN");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductItem", b =>
+                {
+                    b.Property<int>("ProductItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Barcode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Categorys")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("money");
+
+                    b.Property<string>("HSNCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ItemDesc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("MRP")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("MainCategoryCategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ProductCategoryCategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ProductTypeCategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StyleCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Units")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductItemId");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("MainCategoryCategoryId");
+
+                    b.HasIndex("ProductCategoryCategoryId");
+
+                    b.HasIndex("ProductTypeCategoryId");
+
+                    b.ToTable("ProductItems");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductPurchase", b =>
+                {
+                    b.Property<int>("ProductPurchaseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("InWardDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InWardNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ShippingCost")
+                        .HasColumnType("money");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("TotalBasicAmount")
+                        .HasColumnType("money");
+
+                    b.Property<double>("TotalQty")
+                        .HasColumnType("REAL");
+
+                    b.Property<decimal>("TotalTax")
+                        .HasColumnType("money");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ProductPurchaseId");
+
+                    b.HasIndex("StoreId");
+
+                    b.HasIndex("SupplierID");
+
+                    b.ToTable("ProductPurchase");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.PurchaseItem", b =>
+                {
+                    b.Property<int>("PurchaseItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Barcode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("CostValue")
+                        .HasColumnType("money");
+
+                    b.Property<int>("ProductItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductPurchaseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PurchaseTaxTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Qty")
+                        .HasColumnType("REAL");
+
+                    b.Property<decimal>("TaxAmout")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Unit")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PurchaseItemId");
+
+                    b.HasIndex("ProductItemId");
+
+                    b.HasIndex("ProductPurchaseId");
+
+                    b.HasIndex("PurchaseTaxTypeId");
+
+                    b.ToTable("PurchaseItem");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Stock", b =>
+                {
+                    b.Property<int>("StockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("PurchaseQty")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("SaleQty")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Units")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StockId");
+
+                    b.HasIndex("ProductItemId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Stocks");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Supplier", b =>
+                {
+                    b.Property<int>("SupplierID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SuppilerName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Warehouse")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SupplierID");
+
+                    b.ToTable("Supplier");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.CardDetail", b =>
+                {
+                    b.Property<int>("CardDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("AuthCode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CardCode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CardType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LastDigit")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CardDetailId");
+
+                    b.HasIndex("InvoiceNo")
+                        .IsUnique();
+
+                    b.ToTable("CardDetails");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.CouponPayment", b =>
+                {
+                    b.Property<int>("CouponPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("CouponNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DailySaleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CouponPaymentId");
+
+                    b.HasIndex("DailySaleId")
+                        .IsUnique();
+
+                    b.ToTable("CouponPayments");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DailySale", b =>
+                {
+                    b.Property<int>("DailySaleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("CashAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("EDCTranscationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsManualBill")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsMatchedWithVOy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSaleReturn")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsTailoringBill")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("MixAndCouponPaymentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PayMode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SalesmanId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DailySaleId");
+
+                    b.HasIndex("EDCTranscationId");
+
+                    b.HasIndex("MixAndCouponPaymentId");
+
+                    b.HasIndex("SalesmanId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("DailySales");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DueRecoverd", b =>
+                {
+                    b.Property<int>("DueRecoverdId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("money");
+
+                    b.Property<int>("DuesListId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPartialPayment")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Modes")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PaidDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DueRecoverdId");
+
+                    b.HasIndex("DuesListId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("DueRecoverds");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DuesList", b =>
+                {
+                    b.Property<int>("DuesListId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("DailySaleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPartialRecovery")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRecovered")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("RecoveryDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DuesListId");
+
+                    b.HasIndex("DailySaleId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("DuesLists");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.EDC", b =>
+                {
+                    b.Property<int>("EDCId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AccountNumberId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EDCName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsWorking")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EDCId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("CardMachine");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.EDCTranscation", b =>
+                {
+                    b.Property<int>("EDCTranscationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("CardEndingNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CardTypes")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EDCId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EDCTranscationId");
+
+                    b.HasIndex("EDCId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("CardTranscations");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.MixAndCouponPayment", b =>
+                {
+                    b.Property<int>("MixAndCouponPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ModeMixAndCouponPaymentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("MixAndCouponPaymentId");
+
+                    b.HasIndex("ModeMixAndCouponPaymentId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("MixPayments");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineSale", b =>
+                {
+                    b.Property<int>("OnlineSaleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OnlineVendorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("ProfitValue")
+                        .HasColumnType("money");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShippingMode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("VendorFee")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("VoyagerAmount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("VoyagerInvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("VoygerDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OnlineSaleId");
+
+                    b.HasIndex("OnlineVendorId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("OnlineSales");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineSaleReturn", b =>
+                {
+                    b.Property<int>("OnlineSaleReturnId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRecived")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OnlineSaleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("RecivedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("VoyagerAmount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("VoyagerInvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("VoygerDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OnlineSaleReturnId");
+
+                    b.HasIndex("OnlineSaleId")
+                        .IsUnique();
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("OnlineSaleReturns");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineVendor", b =>
+                {
+                    b.Property<int>("OnlineVendorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("OffDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VendorName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OnlineVendorId");
+
+                    b.ToTable("OnlineVendors");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.PaymentDetail", b =>
+                {
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CardAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("CashAmount")
+                        .HasColumnType("money");
+
+                    b.Property<bool>("IsManualBill")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("MixAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("PayMode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PaymentDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("InvoiceNo");
+
+                    b.ToTable("PaymentDetails");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.PointRedeemed", b =>
+                {
+                    b.Property<int>("PointRedeemedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("CustomerMobileNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DailySaleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PointRedeemedId");
+
+                    b.HasIndex("DailySaleId")
+                        .IsUnique();
+
+                    b.ToTable("PointRedeemeds");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.RegularInvoice", b =>
+                {
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsManualBill")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RegularInvoiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("RoundOffAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalBillAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("TotalDiscountAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("TotalItems")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("TotalQty")
+                        .HasColumnType("REAL");
+
+                    b.Property<decimal>("TotalTaxAmount")
+                        .HasColumnType("money");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("InvoiceNo");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("RegularInvoices");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.RegularSaleItem", b =>
+                {
+                    b.Property<int>("RegularSaleItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BarCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("BasicAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("BillAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("money");
+
+                    b.Property<long?>("HSNCode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("HSNCode1")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InvoiceNo1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("MRP")
+                        .HasColumnType("money");
+
+                    b.Property<int>("ProductItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Qty")
+                        .HasColumnType("REAL");
+
+                    b.Property<int?>("SaleTaxTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SalesmanId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Units")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RegularSaleItemId");
+
+                    b.HasIndex("HSNCode1");
+
+                    b.HasIndex("InvoiceNo1");
+
+                    b.HasIndex("ProductItemId");
+
+                    b.HasIndex("SaleTaxTypeId");
+
+                    b.HasIndex("SalesmanId");
+
+                    b.ToTable("RegularSaleItems");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.Stores.Company", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -654,6 +1951,48 @@ namespace eStore.Migrations
                     b.HasKey("CompanyId");
 
                     b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Stores.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MobileNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NoOfBills")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("money");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Stores.Salesman", b =>
@@ -1176,6 +2515,103 @@ namespace eStore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.EBillPayment", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Accounts.Expenses.EletricityBill", "Bill")
+                        .WithMany()
+                        .HasForeignKey("EletricityBillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bill");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.ElectricityConnection", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.EletricityBill", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Accounts.Expenses.ElectricityConnection", "Connection")
+                        .WithMany()
+                        .HasForeignKey("ElectricityConnectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Connection");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.Rent", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Accounts.Expenses.RentedLocation", "Location")
+                        .WithMany()
+                        .HasForeignKey("RentedLocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Accounts.Expenses.RentedLocation", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Common.CashInBank", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Common.CashInHand", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId");
+
+                    b.Navigation("Store");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.Payroll.Attendance", b =>
                 {
                     b.HasOne("eStore.Shared.Models.Payroll.Employee", "Employee")
@@ -1215,6 +2651,350 @@ namespace eStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductItem", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Purchases.Brand", "BrandName")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Purchases.Category", "MainCategory")
+                        .WithMany()
+                        .HasForeignKey("MainCategoryCategoryId");
+
+                    b.HasOne("eStore.Shared.Models.Purchases.Category", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryCategoryId");
+
+                    b.HasOne("eStore.Shared.Models.Purchases.Category", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeCategoryId");
+
+                    b.Navigation("BrandName");
+
+                    b.Navigation("MainCategory");
+
+                    b.Navigation("ProductCategory");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductPurchase", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Purchases.Supplier", "Supplier")
+                        .WithMany("ProductPurchases")
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.PurchaseItem", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Purchases.ProductItem", "ProductItem")
+                        .WithMany("PurchaseItems")
+                        .HasForeignKey("ProductItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Purchases.ProductPurchase", "ProductPurchase")
+                        .WithMany("PurchaseItems")
+                        .HasForeignKey("ProductPurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Common.PurchaseTaxType", "PurchaseTaxType")
+                        .WithMany()
+                        .HasForeignKey("PurchaseTaxTypeId");
+
+                    b.Navigation("ProductItem");
+
+                    b.Navigation("ProductPurchase");
+
+                    b.Navigation("PurchaseTaxType");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Stock", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Purchases.ProductItem", "ProductItem")
+                        .WithMany()
+                        .HasForeignKey("ProductItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductItem");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.CardDetail", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.PaymentDetail", "PaymentDetail")
+                        .WithOne("CardDetail")
+                        .HasForeignKey("eStore.Shared.Models.Sales.CardDetail", "InvoiceNo");
+
+                    b.Navigation("PaymentDetail");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.CouponPayment", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
+                        .WithOne("CouponPayment")
+                        .HasForeignKey("eStore.Shared.Models.Sales.CouponPayment", "DailySaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailySale");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DailySale", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.EDCTranscation", "EDCTranscation")
+                        .WithMany()
+                        .HasForeignKey("EDCTranscationId");
+
+                    b.HasOne("eStore.Shared.Models.Sales.MixAndCouponPayment", "MixAndCouponPayment")
+                        .WithMany()
+                        .HasForeignKey("MixAndCouponPaymentId");
+
+                    b.HasOne("eStore.Shared.Models.Stores.Salesman", "Salesman")
+                        .WithMany()
+                        .HasForeignKey("SalesmanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EDCTranscation");
+
+                    b.Navigation("MixAndCouponPayment");
+
+                    b.Navigation("Salesman");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DueRecoverd", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.DuesList", "DuesList")
+                        .WithMany("Recoverds")
+                        .HasForeignKey("DuesListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DuesList");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DuesList", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
+                        .WithMany()
+                        .HasForeignKey("DailySaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailySale");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.EDC", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.EDCTranscation", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.EDC", "CardMachine")
+                        .WithMany()
+                        .HasForeignKey("EDCId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CardMachine");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.MixAndCouponPayment", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.MixAndCouponPayment", "Mode")
+                        .WithMany()
+                        .HasForeignKey("ModeMixAndCouponPaymentId");
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mode");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineSale", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.OnlineVendor", "Vendor")
+                        .WithMany("OnlineSales")
+                        .HasForeignKey("OnlineVendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineSaleReturn", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.OnlineSale", "OnlineSale")
+                        .WithOne("SaleReturn")
+                        .HasForeignKey("eStore.Shared.Models.Sales.OnlineSaleReturn", "OnlineSaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OnlineSale");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.PaymentDetail", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.RegularInvoice", "Invoice")
+                        .WithOne("PaymentDetail")
+                        .HasForeignKey("eStore.Shared.Models.Sales.PaymentDetail", "InvoiceNo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.PointRedeemed", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
+                        .WithOne("PointRedeemed")
+                        .HasForeignKey("eStore.Shared.Models.Sales.PointRedeemed", "DailySaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailySale");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.RegularInvoice", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Stores.Customer", "Customer")
+                        .WithMany("Invoices")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.RegularSaleItem", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Purchases.HSN", "HSN")
+                        .WithMany("RegularSaleItems")
+                        .HasForeignKey("HSNCode1");
+
+                    b.HasOne("eStore.Shared.Models.Sales.RegularInvoice", "Invoice")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("InvoiceNo1");
+
+                    b.HasOne("eStore.Shared.Models.Purchases.ProductItem", "ProductItem")
+                        .WithMany()
+                        .HasForeignKey("ProductItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eStore.Shared.Models.Common.SaleTaxType", "SaleTaxType")
+                        .WithMany()
+                        .HasForeignKey("SaleTaxTypeId");
+
+                    b.HasOne("eStore.Shared.Models.Stores.Salesman", "Salesman")
+                        .WithMany()
+                        .HasForeignKey("SalesmanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HSN");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("ProductItem");
+
+                    b.Navigation("Salesman");
+
+                    b.Navigation("SaleTaxType");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Stores.Salesman", b =>
@@ -1324,9 +3104,68 @@ namespace eStore.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.HSN", b =>
+                {
+                    b.Navigation("RegularSaleItems");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductItem", b =>
+                {
+                    b.Navigation("PurchaseItems");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.ProductPurchase", b =>
+                {
+                    b.Navigation("PurchaseItems");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Purchases.Supplier", b =>
+                {
+                    b.Navigation("ProductPurchases");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DailySale", b =>
+                {
+                    b.Navigation("CouponPayment");
+
+                    b.Navigation("PointRedeemed");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.DuesList", b =>
+                {
+                    b.Navigation("Recoverds");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineSale", b =>
+                {
+                    b.Navigation("SaleReturn");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.OnlineVendor", b =>
+                {
+                    b.Navigation("OnlineSales");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.PaymentDetail", b =>
+                {
+                    b.Navigation("CardDetail");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Sales.RegularInvoice", b =>
+                {
+                    b.Navigation("PaymentDetail");
+
+                    b.Navigation("SaleItems");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.Stores.Company", b =>
                 {
                     b.Navigation("Stores");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Stores.Customer", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Tailoring.TalioringBooking", b =>

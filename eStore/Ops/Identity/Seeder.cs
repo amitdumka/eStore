@@ -63,7 +63,7 @@ namespace eStore.Ops.Identity
             var poweruser = new AppUser
             {
                 UserName = "Admin",
-                Email = "Admin@AprajitaRetails.In",
+                Email = "Admin@eStore.In",
                 EmployeeId = 0,
                 IsEmployee = false,
                 IsWorking = false,
@@ -72,7 +72,7 @@ namespace eStore.Ops.Identity
 
             };
             string UserPassword = "Admin@1234";
-            var _user = await UserManager.FindByEmailAsync("Admin@AprajitaRetails.In");
+            var _user = await UserManager.FindByEmailAsync("Admin@eStore.In");
             if (_user == null)
             {
                 var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);

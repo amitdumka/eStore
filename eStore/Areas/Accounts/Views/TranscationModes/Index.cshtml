@@ -1,0 +1,50 @@
+﻿@model IEnumerable<eStore.Shared.Models.Common.TranscationMode>
+
+@{
+    ViewData["Title"] = "Transcation Modes";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/TranscationModes";
+    var activityName = "TranscationMode";
+}
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="dtTranscationMode">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Transcation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Transcation)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TranscationModeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TranscationModeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TranscationModeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtTranscationMode", "Transcation Modes", "TranscationModes");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

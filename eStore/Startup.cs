@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -77,7 +77,7 @@ namespace eStore
                 options.IdleTimeout = TimeSpan.FromHours(4);//You can set Time
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
-                options.Cookie.Name = ".AprajitaRetails.Session";
+                options.Cookie.Name = ".eStore.Session";
             });
            
             services.AddRazorPages();

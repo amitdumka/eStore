@@ -1,0 +1,117 @@
+﻿@model IEnumerable<eStore.Shared.Models.Accounts.Expenses.EBillPayment>
+@{
+    ViewData["Title"] = "EBill Payments";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/EBillPayments";
+    var activityName = "EBillPayment";
+}
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="dtEBillPayment">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPartialPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBillCleared)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadOnly)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill.EletricityBillId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDetails)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPartialPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBillCleared)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EBillPaymentId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EBillPaymentId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EBillPaymentId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtEBillPayment", "EBill Payments", "EBillPayments");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

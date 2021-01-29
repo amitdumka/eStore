@@ -10,6 +10,9 @@ using eStore.Shared.Models.Todos;
 using eStore.Shared.Models.Banking;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using eStore.Shared.Models.Accounts.Expenses;
+using eStore.Shared.Models.Sales;
+using eStore.Shared.Models.Purchases;
 
 //namespace eStore.DL.Data
 namespace eStore.DL.Data
@@ -53,18 +56,18 @@ namespace eStore.DL.Data
         public DbSet<TalioringBooking> TalioringBookings { get; set; }//UI
         public DbSet<TalioringDelivery> TailoringDeliveries { get; set; }//UI
 
-        
+
 
         ////End of Day
         //public DbSet<EndOfDay> EndOfDays { get; set; }//UI
         //public DbSet<CashDetail> CashDetail { get; set; }//UI
 
-        ////Rent and Electricity
-        //public DbSet<RentedLocation> RentedLocations { get; set; }//UI
-        //public DbSet<Rent> Rents { get; set; }//UI
-        //public DbSet<ElectricityConnection> ElectricityConnections { get; set; }//UI
-        //public DbSet<EletricityBill> EletricityBills { get; set; }//UI
-        //public DbSet<EBillPayment> BillPayments { get; set; } //UI
+        //Rent and Electricity
+        public DbSet<RentedLocation> RentedLocations { get; set; }//UI
+        public DbSet<Rent> Rents { get; set; }//UI
+        public DbSet<ElectricityConnection> ElectricityConnections { get; set; }//UI
+        public DbSet<EletricityBill> EletricityBills { get; set; }//UI
+        public DbSet<EBillPayment> BillPayments { get; set; } //UI
 
         //public DbSet<Contact> Contacts { get; set; }
 
@@ -80,32 +83,32 @@ namespace eStore.DL.Data
         //Bots
         //public DbSet<TelegramAuthUser> TelegramAuthUsers { get; set; }
 
-        //public DbSet<DailySale> DailySales { get; set; }
+        public DbSet<DailySale> DailySales { get; set; }
 
-        //public DbSet<OnlineSale> OnlineSales { get; set; }
-        //public DbSet<OnlineSaleReturn> OnlineSaleReturns { get; set; }
-        //public DbSet<OnlineVendor> OnlineVendors { get; set; }
+        public DbSet<OnlineSale> OnlineSales { get; set; }
+        public DbSet<OnlineSaleReturn> OnlineSaleReturns { get; set; }
+        public DbSet<OnlineVendor> OnlineVendors { get; set; }
 
 
-        //public DbSet<RegularInvoice> RegularInvoices { get; set; }
-        //public DbSet<RegularSaleItem> RegularSaleItems { get; set; }
-        //public DbSet<PaymentDetail> PaymentDetails { get; set; }
-        //public DbSet<CardDetail> CardDetails { get; set; }
+        public DbSet<RegularInvoice> RegularInvoices { get; set; }
+        public DbSet<RegularSaleItem> RegularSaleItems { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<CardDetail> CardDetails { get; set; }
 
-        //public DbSet<EDC> CardMachine { get; set; }
-        //public DbSet<EDCTranscation> CardTranscations { get; set; }
-        //public DbSet<MixAndCouponPayment> MixPayments { get; set; }
-        //public DbSet<CouponPayment> CouponPayments { get; set; }
-        //public DbSet<PointRedeemed> PointRedeemeds { get; set; }
-        //public DbSet<DuesList> DuesLists { get; set; }
-        //public DbSet<DueRecoverd> DueRecoverds { get; set; }
+        public DbSet<EDC> CardMachine { get; set; }
+        public DbSet<EDCTranscation> CardTranscations { get; set; }
+        public DbSet<MixAndCouponPayment> MixPayments { get; set; }
+        public DbSet<CouponPayment> CouponPayments { get; set; }
+        public DbSet<PointRedeemed> PointRedeemeds { get; set; }
+        public DbSet<DuesList> DuesLists { get; set; }
+        public DbSet<DueRecoverd> DueRecoverds { get; set; }
 
-        //public DbSet<CashInHand> CashInHands { get; set; }
-        //public DbSet<CashInBank> CashInBanks { get; set; }
+        public DbSet<CashInHand> CashInHands { get; set; }
+        public DbSet<CashInBank> CashInBanks { get; set; }
 
-        //public DbSet<Customer> Customers { get; set; }
-        //public DbSet<ProductItem> ProductItems { get; set; }
-        //public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
 
 

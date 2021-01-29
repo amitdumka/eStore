@@ -38,7 +38,7 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbar-tools">
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="SaleTaxTypes" asp-action="Index">Sales Tax</a>
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="PurchaseTaxTypes" asp-action="Index">Purchase Tax</a>
-                        <a class="dropdown-item" asp-area="Accounts" asp-controller="CasgBooks" asp-action="Index">Cash Book</a>
+                        <a class="dropdown-item" asp-area="Accounts" asp-controller="CashBooks" asp-action="Index">Cash Book</a>
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="TranscationModes" asp-action="Index">Trans Mode</a>
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="Payments" asp-action="Index">Payments</a>
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="Reciepts" asp-action="Index">Recipets</a>
@@ -62,12 +62,17 @@
                         <i class="fas fa-wrench"></i><span class="d-none d-xl-inline-block ml-1">Sale/Purchase</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbar-tools">
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="About">Sales</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">Purchase</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">DailySale</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Online Sale</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Payments</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Recipets</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="" asp-action="Index">Sales</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="" asp-action="Index">Purchase</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="DailySales" asp-action="Index"><i class="fas fa-shopping-cart"></i> DailySale</a>
+
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="ManualInvoice" asp-action="Index">Invoice</a>
+
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="OnlineSales" asp-action="Index">Online Sale</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="OnlineSaleReturns" asp-action="Index">Online Sale Return</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="OnlineVendors" asp-action="Index">Online Vendors</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="Home" asp-action="Index">Payments</a>
+                        <a class="dropdown-item" asp-area="Sales" asp-controller="Home" asp-action="Index">Recipets</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
