@@ -20,6 +20,8 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\Payroll\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Todos\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Common\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Tailoring\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Banking\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
@@ -37,5 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Types\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Types\UploadTypeString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Common\TranscationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Tailoring\TalioringBooking.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Banking\Bank.cs" />
   </ItemGroup>
 </Project>

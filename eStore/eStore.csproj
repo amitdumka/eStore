@@ -44,6 +44,9 @@
     <Folder Include="Areas\Stores\Views\StoreOperations\" />
     <Folder Include="Areas\Admin\" />
     <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Tailoring\" />
+    <Folder Include="Areas\Tailoring\Controllers\" />
+    <Folder Include="Areas\Tailoring\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
