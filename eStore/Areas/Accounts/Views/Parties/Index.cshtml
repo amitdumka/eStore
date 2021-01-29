@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<eStore.Shared.Models.Accounts.Party>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Party";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/Parties";
+    var activityName = "Party";
 }
 
-<h1>Party</h1>
 
-<p>
-    <a class="btn btn-outline-amber btn-sm waves-button" asp-action="Create">Create New</a>
-</p>
-<table class="table table-sm table-bordered table-hover table-success table-striped">
+<table class="table" id="dtParty">
     <thead>
         <tr>
             <th>
@@ -37,35 +36,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpenningDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpenningBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PANNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GSTNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LedgerType.LedgerNameType)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PartyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PartyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PartyId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpenningDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpenningBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PANNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GSTNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LedgerType.LedgerNameType)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PartyId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PartyId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PartyId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtParty", "Party", "Parties");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

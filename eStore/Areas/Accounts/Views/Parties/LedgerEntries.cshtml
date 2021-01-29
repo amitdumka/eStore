@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "LedgerEntries";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/LedgerEntries";
+    var activityName = "LedgerEntry";
 }
 
-<h1>LedgerEntries</h1>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
+<table class="table" id="dtLedgerEntry">
     <thead>
         <tr>
             <th>
@@ -43,41 +42,54 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Party.PartyId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferanceId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VoucherType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Particulars)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LedgerEntryRefId)
-            </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.LedgerEntryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LedgerEntryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LedgerEntryId">Delete</a>
-            </td>*@
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Party.PartyId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferanceId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VoucherType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Particulars)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LedgerEntryRefId)
+                </td>
+                @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.LedgerEntryId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.LedgerEntryId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.LedgerEntryId">Delete</a>
+                    </td>*@
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtLedgerEntry", "Ledger Entry", "LedgerEntries");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

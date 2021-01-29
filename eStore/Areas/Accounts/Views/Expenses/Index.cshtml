@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<eStore.Shared.Models.Accounts.Expense>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Expense";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/Expenses";
+    var activityName = "Expense";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtExpense">
     <thead>
         <tr>
             <th>
@@ -46,8 +45,8 @@
                 @Html.DisplayNameFor(model => model.IsCash)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Party)
             </th>
@@ -58,56 +57,69 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Particulars)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaidBy.EmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PayMode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FromAccount.BankAccountId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentDetails)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LedgerEnteryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsCash)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Party.PartyId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ExpenseId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ExpenseId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ExpenseId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Particulars)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidBy.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayMode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromAccount.BankAccountId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDetails)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LedgerEnteryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCash)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Party.PartyId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ExpenseId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ExpenseId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ExpenseId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtExpense", "Expense", "Expenses");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

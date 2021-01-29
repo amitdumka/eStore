@@ -15,15 +15,12 @@ using Microsoft.AspNetCore.Http;
 namespace eStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,PowerUser")]
+    //[Authorize(Roles = "Admin,PowerUser")]
     public class RolesController : Controller
     {
         private readonly eStoreDbContext _context;
 
-        public RolesController(eStoreDbContext context)
-        {
-            _context = context;
-        }
+         
 
         readonly RoleManager<IdentityRole> roleManager;
         readonly UserManager<AppUser> UserManager;
@@ -52,7 +49,7 @@ namespace eStore.Areas.Admin.Controllers
             return View(onRols);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AssignRole()
         {
             //var roles = roleManager.Roles.ToList ();
@@ -67,7 +64,7 @@ namespace eStore.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignRole([Bind("UserId,RoleId")] RoleUserView ruView)
         {
             if (ModelState.IsValid)

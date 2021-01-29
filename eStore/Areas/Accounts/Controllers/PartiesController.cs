@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eStore.Areas.Accountings.Controllers
+namespace eStore.Areas.Accounts.Controllers
 {
-    [Area("Accountings")]
+    [Area("Accounts")]
     [Authorize(Roles = "Admin,PowerUser,StoreManager")]
     public class PartiesController : Controller
     {

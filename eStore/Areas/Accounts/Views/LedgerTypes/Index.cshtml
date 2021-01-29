@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<eStore.Shared.Models.Accounts.LedgerType>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "LedgerType";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/LedgerTypes";
+    var activityName = "LedgerType";
 }
 
-<h1>Ledger Type</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtLedgerType">
     <thead>
         <tr>
             <th>
@@ -25,23 +24,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LedgerNameType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remark)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.LedgerTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LedgerTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LedgerTypeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LedgerNameType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remark)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LedgerTypeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LedgerTypeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LedgerTypeId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtLedgerType", "Ledger Type", "LedgerTypes");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}
