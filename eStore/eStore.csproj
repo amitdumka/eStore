@@ -41,6 +41,9 @@
     <Folder Include="Payroll\" />
     <Folder Include="Ops\Identity\" />
     <Folder Include="BL\Commons\" />
+    <Folder Include="Areas\Stores\Views\StoreOperations\" />
+    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

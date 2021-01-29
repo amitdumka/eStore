@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = " Store Operation";
+
+}
+
+<h2 class="text-primary text-center"> Store Operation</h2>
+<h3 class="text-danger">  Store Name: @ViewBag.StoreName</h3>
+<h3 class="text-success"> Store City: @ViewBag.StoreCity</h3>
+
+@if (ViewBag.Open == "false")
+{
+    <button class="btn" onclick="StoreOpenning(@ViewBag.StoreId)">Store Openning</button>
+}
+
+@if (ViewBag.Close == "false")
+{
+    <button class="btn" onclick="StoreClosing(@ViewBag.StoreId)">Store Closing</button>
+}
+
+@section Scripts{
+
+    <script>function StoreOpenning(storeid) {
+            //TODO: JS Needed
+
+        }
+        function StoreClosing(storeid) {
+            //TODO: JS Needed
+        }
+    </script>
+}
