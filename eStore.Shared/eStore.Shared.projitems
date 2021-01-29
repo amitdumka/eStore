@@ -67,5 +67,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Common\CashDetail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CashBook.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Common\CashInHand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\StaffAdvanceReceipt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\CurrentSalary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\PaySlip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\ArvindPayment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\EndOfDay.cs" />
   </ItemGroup>
 </Project>

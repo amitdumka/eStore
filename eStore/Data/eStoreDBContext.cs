@@ -47,7 +47,6 @@ namespace eStore.DL.Data
 
         ////TODO
         public DbSet<ToDoMessage> ToDoMessages { get; set; }
-
         public DbSet<TodoItem> Todos { get; set; }
         public DbSet<FileInfo> Files { get; set; }
 
@@ -59,8 +58,8 @@ namespace eStore.DL.Data
 
 
         ////End of Day
-        //public DbSet<EndOfDay> EndOfDays { get; set; }//UI
-        //public DbSet<CashDetail> CashDetail { get; set; }//UI
+        public DbSet<EndOfDay> EndOfDays { get; set; }//UI
+        public DbSet<CashDetail> CashDetail { get; set; }//UI
 
         //Rent and Electricity
         public DbSet<RentedLocation> RentedLocations { get; set; }//UI
@@ -69,7 +68,7 @@ namespace eStore.DL.Data
         public DbSet<EletricityBill> EletricityBills { get; set; }//UI
         public DbSet<EBillPayment> BillPayments { get; set; } //UI
 
-        //public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         ////Import Table Data
         //public DbSet<ImportSearchList> ImportSearches { get; set; }
