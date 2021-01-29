@@ -16,18 +16,18 @@ namespace eStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin,PowerUser")]
-    public class RoleController : Controller
+    public class RolesController : Controller
     {
         private readonly eStoreDbContext _context;
 
-        public RoleController(eStoreDbContext context)
+        public RolesController(eStoreDbContext context)
         {
             _context = context;
         }
 
         readonly RoleManager<IdentityRole> roleManager;
         readonly UserManager<AppUser> UserManager;
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<AppUser> um)
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<AppUser> um)
         {
             this.roleManager = roleManager;
             UserManager = um;

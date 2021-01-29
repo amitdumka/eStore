@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/EletricityBills";
+    var activityName = "EletricityBill";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtEletricityBill">
     <thead>
         <tr>
             <th>
@@ -18,12 +17,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.BillDate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.MeterReadingDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CurrentMeterReading)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.TotalUnit)
             </th>
@@ -37,7 +36,7 @@
                 @Html.DisplayNameFor(model => model.NetDemand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Connection)
+                @*@Html.DisplayNameFor(model => model.Connection)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Store)
@@ -47,55 +46,68 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsReadOnly)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeterReadingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentMeterReading)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArrearAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NetDemand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Connection.ElectricityConnectionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsReadOnly)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EletricityBillId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EletricityBillId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EletricityBillId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillDate)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.MeterReadingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentMeterReading)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrearAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetDemand)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Connection.ElectricityConnectionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EletricityBillId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EletricityBillId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EletricityBillId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtEletricityBill", "Eletricity Bill", "EletricityBills");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

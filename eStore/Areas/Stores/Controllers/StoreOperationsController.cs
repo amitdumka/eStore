@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eStore.Areas.Stores.Controllers
 {
+    [Area("Stores")]
     public class StoreOperationsController : Controller
     {
         private readonly eStoreDbContext _context;

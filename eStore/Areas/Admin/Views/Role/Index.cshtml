@@ -4,10 +4,10 @@
 
 @{ ViewData["Title"] = "Role"; }
 
-<h1>List of Roles</h1>
 <a asp-action="Create" class="btn btn-outline-deep-orange btn-sm">Create</a>
 <a asp-action="AssignRole" class="btn btn-outline-deep-purple btn-sm">Assign Role</a>
-<table class="table table-striped table-bordered table-sm">
+
+<table class="table table-striped table-bordered table-sm" id="dtRole">
     <thead class="table-danger">
         <tr>
             @*<td>Id</td>*@
@@ -24,6 +24,19 @@
     <td>
         <a class="btn btn-outline-info btn-sm" id="detail" asp-action="Details" asp-route-id="@role.Id">Details</a>
     </td>
-</tr>}
+</tr>
+}
     </tbody>
 </table>
+@*<partial name="_OnlyModalPopUp" />
+@section Scripts{*@
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtRole", "Roles", "Roles");
+         @*function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }*@
+    </script>
+}

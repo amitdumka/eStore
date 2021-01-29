@@ -1,15 +1,13 @@
 @model IEnumerable<eStore.Shared.Models.Stores.StoreHoliday>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index";
 
-<h1>Index</h1>
+    var host = "https://localhost:44335/";
+    var uri = host + "api/StoreHolidays";
+    var activityName = "StoreHoliday"; }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<table class="table" id="dtStoreHoliday">
     <thead>
         <tr>
             <th>
@@ -27,35 +25,47 @@
             <th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
-            
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreName)
-            </td>
-           
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StoreHolidayId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StoreHolidayId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StoreHolidayId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OnDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Reason)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Remarks)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ApprovedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Store.StoreName)
+    </td>
+
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.StoreHolidayId">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.StoreHolidayId">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.StoreHolidayId">Delete</a>
+    </td>
+</tr>}
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtStoreHoliday", "Store Holiday", "StoreHolidays");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

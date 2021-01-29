@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "Deliveries";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/TalioringDeliverys";
+    var activityName = "TalioringDelivery";
 }
 
-<h1>Deliveries</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtTalioringDelivery">
     <thead>
         <tr>
             <th>
@@ -43,41 +42,54 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Booking.TalioringBookingId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsReadOnly)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TalioringDeliveryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TalioringDeliveryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TalioringDeliveryId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Booking.TalioringBookingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TalioringDeliveryId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TalioringDeliveryId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TalioringDeliveryId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtTalioringDelivery", "Talioring Delivery", "TalioringDeliverys");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

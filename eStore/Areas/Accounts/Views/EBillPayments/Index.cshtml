@@ -7,11 +7,7 @@
 }
 
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+ 
 <table class="table" id="dtEBillPayment">
     <thead>
         <tr>
@@ -27,19 +23,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Mode)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PaymentDetails)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.IsPartialPayment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsBillCleared)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
             <th>
@@ -50,7 +46,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsReadOnly)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -70,19 +66,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Mode)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.PaymentDetails)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Remarks)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.IsPartialPayment)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsBillCleared)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Store.StoreId)
                 </td>
                 <td>
@@ -93,7 +89,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsReadOnly)
-                </td>
+                </td>*@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.EBillPaymentId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.EBillPaymentId">Details</a> |

@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "Bookings";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/TalioringBookings";
+    var activityName = "TalioringBooking";
 }
 
-<h1>Bookings</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtTalioringBooking">
     <thead>
         <tr>
             <th>
@@ -88,86 +87,99 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingSlipNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShirtQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShirtPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PantQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PantPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoatQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoatPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KurtaQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KurtaPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BundiQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BundiPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Others)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OthersPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDelivered)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsReadOnly)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TalioringBookingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TalioringBookingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TalioringBookingId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingSlipNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShirtQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShirtPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PantQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PantPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoatQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoatPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KurtaQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KurtaPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BundiQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BundiPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Others)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OthersPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelivered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TalioringBookingId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TalioringBookingId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TalioringBookingId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtTalioringBooking", "Talioring Booking", "TalioringBookings");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

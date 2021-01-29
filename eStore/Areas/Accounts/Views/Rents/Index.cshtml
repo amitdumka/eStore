@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/Rents";
+    var activityName = "Rent";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" id="dtRent">
     <thead>
         <tr>
             <th>
@@ -27,7 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Mode)
             </th>
             <th>
@@ -47,55 +46,68 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsReadOnly)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.RentedLocationId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Period)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentDetails)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.StoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsReadOnly)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RentId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.RentedLocationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Period)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Mode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDetails)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RentId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.RentId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RentId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtRent", "Rent", "Rents");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}
