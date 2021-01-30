@@ -1,5 +1,6 @@
 ﻿using eStore.BL.SalePurchase;
 using eStore.DL.Data;
+using eStore.Ops;
 using eStore.Shared.Models.Sales;
 using eStore.Shared.ViewModels.SalePuchase;
 using Microsoft.AspNetCore.Authorization;
@@ -25,18 +26,38 @@ namespace eStore.Areas.Sales.Controllers
     public class ManualInvoiceController : Controller
     {
         private readonly eStoreDbContext aprajitaContext;
-        private readonly int StoreId = 1; //TODO: Fixed now
-       // private readonly UserManager<IdentityUser> UserManager;
-        private readonly ILogger<ManualInvoiceController> _logger;
+       // private readonly int StoreId = 1; //TODO: Fixed now
+         private readonly ILogger<ManualInvoiceController> logger;
 
-        public ManualInvoiceController(eStoreDbContext aCtx, /*UserManager<IdentityUser> userManager,*/ ILogger<ManualInvoiceController> logger)
+        public ManualInvoiceController(eStoreDbContext aCtx,  ILogger<ManualInvoiceController> loggers)
         {
-            aprajitaContext = aCtx; //UserManager = userManager;
-            _logger = logger;
+            aprajitaContext = aCtx;  
+            logger = loggers;
         }
 
         public IActionResult Index()
         {
+            // Setting Store Info Here
+            StoreInfo storeInfo = null;
+
+            if (PostLogin.IsSessionSet(HttpContext.Session))
+            {
+                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
+                if (storeInfo != null)
+                {
+                    logger.Log(LogLevel.Information, "Store Info is not null!");
+                    ViewBag.StoreId = storeInfo.StoreId;
+                }
+                else
+                {
+                    //TODO: Redirect to login Page
+                }
+            }
+            else
+            {
+                //TODO: Redirect to login Page
+            }
+
             var vm = aprajitaContext.RegularInvoices.Include(c => c.Customer).Include(c => c.SaleItems).Include(c => c.PaymentDetail)
                 .Where(c => c.IsManualBill).OrderByDescending(c => c.OnDate).ThenByDescending(c => c.InvoiceNo).ToList();
 
@@ -50,10 +71,29 @@ namespace eStore.Areas.Sales.Controllers
 
         public IActionResult ReprintInvoice(int? id, int? Download)
         {
+            // Setting Store Info Here
+            StoreInfo storeInfo = null;
+
+            if (PostLogin.IsSessionSet(HttpContext.Session))
+            {
+                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
+                if (storeInfo != null)
+                {
+                    ViewBag.StoreID = storeInfo.StoreId;
+                }
+                else
+                {
+                    //TODO: Redirect to login Page
+                }
+            }
+            else
+            {
+                //TODO: Redirect to login Page
+            }
             var vm = aprajitaContext.RegularInvoices.Include(c => c.Customer).Include(c => c.SaleItems).Include(c => c.PaymentDetail).
                 ThenInclude(c => c.CardDetail).Where(c => c.RegularInvoiceId == id).FirstOrDefault();
 
-            string fileName = new RegularSaleManager().RePrintManaulInvoice(aprajitaContext, vm, StoreId);
+            string fileName = new RegularSaleManager().RePrintManaulInvoice(aprajitaContext, vm, storeInfo.StoreId);
 
             if (Download != null && Download == 101)
             {
@@ -71,14 +111,14 @@ namespace eStore.Areas.Sales.Controllers
             if (id == null)
             {
                 errMsg = "Kindly send Invoice No!";
-                _logger.LogError("ManualInvoice:GetInvoiceDetails # Id is Null!");
+                logger.LogError("ManualInvoice:GetInvoiceDetails # Id is Null!");
                 return Json(new { Msg = errMsg, Error = "true" });
             }
             retunDetails = SaleHelper.GetInvoiceData(aprajitaContext, (int)id);
             if (retunDetails == null)
             {
                 errMsg = "Invoice Number Not found!";
-                _logger.LogError($"ManualInvoice:GetInvoiceDetails # {errMsg}!");
+                logger.LogError($"ManualInvoice:GetInvoiceDetails # {errMsg}!");
                 return Json(new { Msg = errMsg, Error = "true" });
             }
             retunDetails.Msg = "Data is loaded successfully";
@@ -131,9 +171,9 @@ namespace eStore.Areas.Sales.Controllers
         //TODO: make it API Based as much possible . mosty JSON Based function.
 
         [HttpGet]
-        public JsonResult GetSalesmanList()
+        public JsonResult GetSalesmanList(int storeid)
         {
-            var list = aprajitaContext.Salesmen.Where(c => c.StoreId == StoreId).OrderBy(c => c.SalesmanId).Select(c => new { c.SalesmanId, c.SalesmanName }).ToList();
+            var list = aprajitaContext.Salesmen.Where(c => c.StoreId == storeid).OrderBy(c => c.SalesmanId).Select(c => new { c.SalesmanId, c.SalesmanName }).ToList();
             return new JsonResult(list);
         }
 
@@ -143,7 +183,7 @@ namespace eStore.Areas.Sales.Controllers
             string result = "Error! Order Is Not Complete!";
             if (dTO.Name != null && dTO.Address != null && dTO.SaleItems != null)
             {
-                InvoiceSaveReturn x = new RegularSaleManager().OnInsert(aprajitaContext, dTO, User.Identity.Name, StoreId);
+                InvoiceSaveReturn x = new RegularSaleManager().OnInsert(aprajitaContext, dTO, User.Identity.Name, dTO.StoreId);
                 if (x.NoOfRecord <= 0)
                     result = "Error while saving bill, Kindly try again!";
                 else

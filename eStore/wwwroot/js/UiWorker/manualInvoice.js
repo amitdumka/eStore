@@ -285,6 +285,7 @@ $("#deleteInvoice").click(function (e) {
         console.log(err);
     });
 });
+
 //Collect Multiple Order List For Pass To Controller
 $("#saveOrder").click(function (e) {
     e.preventDefault();
@@ -311,6 +312,7 @@ $("#saveOrder").click(function (e) {
         CardNo: $("#cardNo").val()
     };
 
+    var sID = $("#storeId").val();
 
     var data = JSON.stringify({
         name: $("#name").val(),
@@ -318,7 +320,8 @@ $("#saveOrder").click(function (e) {
         mobileNo: $("#mobileNo").val(),
         onDate: $("#onDate").val(),
         saleItems: orderArr,
-        paymentInfo: payar
+        paymentInfo: payar,
+        storeId:sID
 
     });
     console.log(data);
@@ -330,13 +333,22 @@ $("#saveOrder").click(function (e) {
 });
 
 // Here
+
 var Salesman = [];
 function LoadSaleman(element) {
+    var sID = $("#storeId").val();
     if (Salesman.length == 0) {
         //ajax function for fetch data
         $.ajax({
             type: "GET",
-            url: '@Url.Action("GetSalesmanList", "ManualInvoice")',//'/home/GetSalesmanList',
+            data:sID,
+            //url: '@Url.Action("GetSalesmanList", "ManualInvoice")',//'/home/GetSalesmanList',
+
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            
+            url: "/Sales/ManualInvoice/GetSalesmanList?storeid=" + sID,
+
             success: function (data) {
                 console.log(data);
                 Salesman = data;

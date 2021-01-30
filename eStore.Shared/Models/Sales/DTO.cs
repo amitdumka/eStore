@@ -19,6 +19,7 @@ namespace eStore.Shared.Models.Sales
         public DateTime OnDate { get; set; }
 
         public PaymentInfo PaymentInfo { get; set; }
+        public int StoreId { get; set; }
     }
 
     public class EditOrderDTO
@@ -34,6 +35,7 @@ namespace eStore.Shared.Models.Sales
 
         public List<SaleItemList> SaleItems { get; set; }
         public PaymentInfo PaymentInfo { get; set; }
+        public int StoreId { get; set; }
     }
 
     public class SaleItemList
