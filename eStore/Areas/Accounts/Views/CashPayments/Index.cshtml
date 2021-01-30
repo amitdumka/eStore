@@ -1,0 +1,99 @@
+@model IEnumerable<eStore.Shared.Models.Accounts.CashPayment>
+
+@{ ViewData["Title"] = "Index";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/CashPayments";
+    var activityName = "CashPayment"; }
+
+
+<table class="table" id="dtCashPayment">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SlipNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadOnly)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaymentDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Mode.TranscationModeId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaidTo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SlipNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Remarks)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Store.StoreId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EntryStatus)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsReadOnly)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.CashPaymentId">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.CashPaymentId">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.CashPaymentId">Delete</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtCashPayment", "Payment/Expenses", "CashPayments");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

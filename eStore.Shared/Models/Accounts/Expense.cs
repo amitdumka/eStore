@@ -42,6 +42,9 @@ namespace eStore.Shared.Models.Accounts
         [DefaultValue(false), Display(Name = "Cash")]
         public bool IsCash { get; set; }
 
+        [DefaultValue(false), Display(Name = "ON")]
+        public bool? IsOn { get; set; }
+
         public virtual Party Party { get; set; }
         public virtual LedgerEntry LedgerEntry { get; set; }
 

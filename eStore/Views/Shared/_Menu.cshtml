@@ -96,13 +96,19 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbar-tools">
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="Expenses" asp-action="Index">Expenses</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Cash Payment</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Cash Reciepts</a>
+
+                        <a class="dropdown-item" asp-area="Accounts" asp-controller="CashPayments" asp-action="Index">Cash Payment</a>
+                        <a class="dropdown-item" asp-area="Accounts" asp-controller="CashReciepts" asp-action="Index">Cash Reciepts</a>
+                        <a class="dropdown-item" asp-area="Accounts" asp-controller="Payments" asp-action="Index">Payments</a>
+
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="Receipts" asp-action="Index">Reciepts</a>
+
                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Bank Deposit</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Dues Recovered</a>
+
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="Rents" asp-action="Index">Rent</a>
                         <a class="dropdown-item" asp-area="Accounts" asp-controller="EBillPayments" asp-action="Index">Electricity</a>
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -124,8 +130,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbar-tools">
                         <a class="dropdown-item" asp-area="Admin" asp-controller="Roles" asp-action="Index">Roles</a>
-                        @*<a class="dropdown-item" asp-area="Admin" asp-controller="Attendances" asp-action="Index">Register</a>
-                        <a href="" class="dropdown-item" data-toggle="modal" data-target="#newLoginForm">Login</a>*@
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="UserManagement" asp-action="Index">UserManagement</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="AppUsers" asp-action="Index">Users</a>
+
+                        @*<a href="" class="dropdown-item" data-toggle="modal" data-target="#newLoginForm">Login</a>*@
                     </div>
                 </li>
 

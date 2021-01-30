@@ -123,6 +123,9 @@ namespace eStore.DL.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
 
+        public DbSet<CashPayment> CashPayments { get; set; }
+        public DbSet<CashReceipt> CashReceipts { get; set; }
+
         public DbSet<BankAccount> BankAccounts { get; set; }
 
 
