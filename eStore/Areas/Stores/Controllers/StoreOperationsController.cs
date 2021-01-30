@@ -27,14 +27,25 @@ namespace eStore.Areas.Stores.Controllers
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             int CurrentStore = storeInfo.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
+
             var store = await _context.Stores.FindAsync(CurrentStore);
-            ViewBag.StoreName = store.StoreName;
-            ViewBag.StoreCity = store.City;
+            if (store != null)
+            {
+                ViewBag.StoreName = store.StoreName;
+                ViewBag.StoreCity = store.City;
+
+            }
+            else
+            {
+                ViewBag.StoreName = "N/A";
+                ViewBag.StoreCity = "N/A";
+             }
             ViewBag.StoreId = CurrentStore;
 
             // Check for Today Close and Openning Entry
             DateTime date = DateTime.Today.Date;
             //TODO: Update to IST Time zone
+            //TODO: either of one should be shown
             var openToday = await _context.StoreOpens.Where(c => c.OpenningTime.Date == date.Date && c.StoreId == CurrentStore).FirstOrDefaultAsync();
             var closeToday = await _context.StoreCloses.Where(c => c.ClosingDate.Date == date.Date && c.StoreId == CurrentStore).FirstOrDefaultAsync();
             ViewBag.Open = "true";

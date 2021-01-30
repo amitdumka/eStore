@@ -61,6 +61,11 @@
     <Compile Remove="Data\Migrations\20210123095810_Mig1.Designer.cs" />
     <Compile Remove="Data\ApplicationDbContext.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Areas\Accounts\Views\CashPayments\Edit.cshtml" />
+    <Content Remove="Areas\Accounts\Views\CashPayments\Details.cshtml" />
+    <Content Remove="Areas\Accounts\Views\CashPayments\Delete.cshtml" />
+  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

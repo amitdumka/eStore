@@ -1,0 +1,100 @@
+@model IEnumerable<eStore.Shared.Models.Stores.Customer>
+
+@{ ViewData["Title"] = "Customer";
+    var host = "https://localhost:44335/";
+    var uri = host + "api/Customers";
+    var activityName = "Customer";
+    }
+
+
+<table class="table" id="dtCustomer">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfBills)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.Age)
+    </td>*@
+    @*<td>
+        @Html.DisplayFor(modelItem => item.DateOfBirth)
+    </td>*@
+    @*<td>
+        @Html.DisplayFor(modelItem => item.City)
+    </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.MobileNo)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.NoOfBills)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalAmount)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.CreatedDate)
+    </td>*@
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+<partial name="_OnlyModalPopUp" />
+@section Scripts{
+    <script src="~/js/curdjs.js"></script>
+    <script>
+        cardTableInit("dtCustomer", "Customer", "Customers");
+         function deleteM(id) {
+             deleteModal('@activityName', '@uri', id);
+            // alert(id);
+             return false;
+        }
+    </script>
+}

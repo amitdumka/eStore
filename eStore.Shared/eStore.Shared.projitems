@@ -75,5 +75,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\EndOfDay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Accounts\Expense.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Banking\BankDeposit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\SaleInfoUIVM.cs" />
   </ItemGroup>
 </Project>
