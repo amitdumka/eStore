@@ -8,8 +8,14 @@
             <input type="hidden" asp-for="InvoiceNumber" />
             <input type="hidden" asp-for="StoreId" />
             <input type="hidden" asp-for="EDCTranscationId" />
+
+            <input type="hidden" asp-for="UserId" value="@User.Identity.Name" />
+            <input type="hidden" asp-for="IsReadOnly" value="false" />
+
             <label class="text-danger text-monospace font-italic text-capitalize">InvoiceNo: @Model.InvoiceNumber</label>
+
             @*<input type="hidden" asp-for="OnDateDate" />*@
+
             <div class="form-group">
                 <label asp-for="OnDate" class="control-label"></label>
                 <div class="input-group">

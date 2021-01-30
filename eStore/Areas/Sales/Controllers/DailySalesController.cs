@@ -1,8 +1,10 @@
 ﻿using eStore.Areas.Sales.Ops;
+using eStore.BL.SalePurchase;
 using eStore.DL.Data;
 using eStore.Ops;
 using eStore.Shared.Data.Paging;
 using eStore.Shared.Models.Sales;
+using eStore.Shared.ViewModels.SalePuchase;
 
 //using eStore.Ops.Triggers;
 //using eStore.Ops.Utility;
@@ -46,6 +48,7 @@ namespace eStore.Areas.Sales.Controllers
         // GET: DailySales
         public async Task<IActionResult> Index(int? id, string salesmanId, string currentFilter, string searchString, DateTime? SaleDate, string sortOrder, int? pageNumber)
         {
+            //TODO: Dailysale: have to reduce data fecthing
             // Setting Store Info Here
             StoreInfo storeInfo = null;
 
@@ -135,39 +138,43 @@ namespace eStore.Areas.Sales.Controllers
             #region FixedUI
 
             //Fixed Query
-            var totalSale =(decimal)( db.DailySales.Where(c => c.IsManualBill == false && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            var totalManualSale = (decimal)(db.DailySales.Where(c => c.IsManualBill == true && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            var totalMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            var totalLastMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month - 1 && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            var duesamt = (decimal)(db.DuesLists.Where(c => c.IsRecovered == false && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            var cashinhand = (decimal)0.00;
-            try
-            {
-                var chin = db.CashInHands.Where(c => c.CIHDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).FirstOrDefault();
-                if(chin!=null)
-                    cashinhand = chin.InHand;
-                else
-                {
-                    // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
-                 //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
+            //var totalSale =(decimal)( db.DailySales.Where(c => c.IsManualBill == false && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
+            //var totalManualSale = (decimal)(db.DailySales.Where(c => c.IsManualBill == true && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
+            //var totalMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
+            //var totalLastMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month - 1 && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
+            //var duesamt = (decimal)(db.DuesLists.Where(c => c.IsRecovered == false && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
+            //var cashinhand = (decimal)0.00;
+            //try
+            //{
+            //    var chin = db.CashInHands.Where(c => c.CIHDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).FirstOrDefault();
+            //    if(chin!=null)
+            //        cashinhand = chin.InHand;
+            //    else
+            //    {
+            //        // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
+            //     //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
 
-                    cashinhand = (decimal)0.00;
-                }
-            }
-            catch (Exception)
-            {
-                // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
-             //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
-                cashinhand = (decimal)0.00;
-                //Log.Error("Cash In Hand is null");
-            }
+            //        cashinhand = (decimal)0.00;
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
+            // //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
+            //    cashinhand = (decimal)0.00;
+            //    //Log.Error("Cash In Hand is null");
+            //}
+
+            SaleInfoUIVM uIVM = new SaleInfoUIVM();
+            uIVM = uIVM.GetSaleInfo(db, storeInfo.StoreId);
+
             // Fixed UI
-            ViewBag.TodaySale = totalSale;
-            ViewBag.ManualSale = totalManualSale;
-            ViewBag.MonthlySale = totalMonthlySale;
-            ViewBag.DuesAmount = duesamt;
-            ViewBag.CashInHand = cashinhand;
-            ViewBag.LastMonthSale = totalLastMonthlySale;
+            ViewBag.TodaySale = uIVM.TodaySale;
+            ViewBag.ManualSale = uIVM.ManualSale;
+            ViewBag.MonthlySale = uIVM.MonthlySale;
+            ViewBag.DuesAmount = uIVM.DuesAmount;
+            ViewBag.CashInHand = uIVM.CashInHand;
+            ViewBag.LastMonthSale = uIVM.LastMonthSale;
 
             #endregion FixedUI
 
@@ -222,15 +229,11 @@ namespace eStore.Areas.Sales.Controllers
                     dailySales = dailySales.OrderBy(s => s.InvNo);
                     break;
             }
-            //For Day or All Questry
-            //return View(await dailySales.ToListAsync());
-
+             
             int pageSize = 10;
             return View(await PaginatedList<DailySale>.CreateAsync(dailySales.AsNoTracking(), pageNumber ?? 1, pageSize));
 
-            //OrignalCode
-            // var aprajitaRetailsContext = db.DailySales.Include(d => d.Salesman);
-            //return View(await aprajitaRetailsContext.ToListAsync());
+            
         }
 
         // GET: DailySales/Details/5
@@ -238,19 +241,15 @@ namespace eStore.Areas.Sales.Controllers
         {
             if (id == null)
             {
-                logger.LogWarning("DailySale:Details/ID is null");
                 return NotFound();
             }
-
             var dailySale = await db.DailySales
                 .Include(d => d.Salesman)
                 .FirstOrDefaultAsync(m => m.DailySaleId == id);
             if (dailySale == null)
             {
-                logger.LogError("DailySale:Details  Not Found");
                 return NotFound();
             }
-
             return PartialView(dailySale);
         }
 
@@ -266,7 +265,6 @@ namespace eStore.Areas.Sales.Controllers
                 if (storeInfo != null)
                 {
                     ViewBag.StoreID = storeInfo.StoreId;
-                    ViewBag.UserNAME = storeInfo.UserName;
                 }
                 else
                 {
@@ -291,7 +289,6 @@ namespace eStore.Areas.Sales.Controllers
                 if (storeInfo != null)
                 {
                     ViewBag.StoreID = storeInfo.StoreId;
-                    ViewBag.UserNAME = storeInfo.UserName;
                 }
                 else
                 {
@@ -327,7 +324,7 @@ namespace eStore.Areas.Sales.Controllers
         public async Task<IActionResult> AddEditPaymentDetails(int id, [Bind("Amount, InvoiceNumber, CardEndingNumber,  CardType, EDCId, EDCTranscationId, OnDate, StoreId")] EDCTranscation eDC)
         {
             if (ModelState.IsValid)
-            {
+            { 
                 //Insert
                 if (eDC.EDCTranscationId == 0)
                 {
@@ -364,21 +361,17 @@ namespace eStore.Areas.Sales.Controllers
         {
             if (ModelState.IsValid)
             {
-                //version 3.0  StoreCode
-               // dailySale.StoreId = storeInfo.StoreId;
-                dailySale.UserId = User.Identity.Name;
-
+                
                 db.Add(dailySale);
 
-               //TODO: new SalesManager().OnInsert(db, dailySale);
+                new SalesManager().OnInsert(db, dailySale);
                 
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            logger.LogWarning("DailySale:Create[Post] ModelState is not Valid!");
             ViewData["SalesmanId"] = new SelectList(db.Salesmen, "SalesmanId", "SalesmanName", dailySale.SalesmanId);
-            return PartialView(dailySale);
+            return View(dailySale);
         }
 
         // GET: DailySales/Edit/5
@@ -386,39 +379,36 @@ namespace eStore.Areas.Sales.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             // Setting Store Info Here
-            StoreInfo storeInfo = null;
+            //StoreInfo storeInfo = null;
 
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    ViewBag.StoreID = storeInfo.StoreId;
-                    ViewBag.UserNAME = storeInfo.UserName;
-                }
-                else
-                {
-                    //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
+            //if (PostLogin.IsSessionSet(HttpContext.Session))
+            //{
+            //    storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
+            //    if (storeInfo != null)
+            //    {
+            //        ViewBag.StoreID = storeInfo.StoreId;
+            //        ViewBag.UserNAME = storeInfo.UserName;
+            //    }
+            //    else
+            //    {
+            //        //TODO: Redirect to login Page
+            //    }
+            //}
+            //else
+            //{
+            //    //TODO: Redirect to login Page
+            //}
 
             if (id == null)
             {
-                logger.LogWarning("DailySale:Edit[Get] ID is null!");
-                return NotFound();
+                 return NotFound();
             }
 
             var dailySale = await db.DailySales.FindAsync(id);
             if (dailySale == null)
             {
-                logger.LogWarning("DailySale:Edit[Get] DailSale  not found!");
-                return NotFound();
+                 return NotFound();
             }
-            logger.LogWarning("DailySale:Edit[Get] ModelState is not Valid!");
             ViewData["SalesmanId"] = new SelectList(db.Salesmen, "SalesmanId", "SalesmanName", dailySale.SalesmanId);
             return PartialView(dailySale);
         }
@@ -440,8 +430,6 @@ namespace eStore.Areas.Sales.Controllers
             {
                 try
                 {
-                   // dailySale.StoreId = storeInfo.StoreId;
-                    dailySale.UserId = User.Identity.Name;
                     db.Update(dailySale);
                     await db.SaveChangesAsync();
                 }
@@ -489,9 +477,7 @@ namespace eStore.Areas.Sales.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dailySale = await db.DailySales.FindAsync(id);
-
-            //TODO:  new SalesManager().OnDelete(db, dailySale);
-
+            new SalesManager().OnDelete(db, dailySale);
             db.DailySales.Remove(dailySale);
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

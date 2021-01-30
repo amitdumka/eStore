@@ -9,7 +9,15 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="UserId" value="@User.Identity.Name" />
+            <input type="hidden" asp-for="StoreId" />
+            <input type="hidden" asp-for="EntryStatus" value="1" />
+            <input type="hidden" asp-for="IsReadOnly"  />
+            <input type="hidden" asp-for="IsMatchedWithVOy" />
+
             <input type="hidden" asp-for="DailySaleId" />
+
             <div class="form-group">
                 <label asp-for="SaleDate" class="control-label"></label>
                 <input asp-for="SaleDate" class="form-control" />
