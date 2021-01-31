@@ -6,6 +6,37 @@ using Microsoft.AspNetCore.Http;
 
 namespace eStore.Ops
 {
+
+    public class ActiveSession
+    {
+        public static int GetActiveSession(ISession session, HttpResponse response, string returnUrl)
+        {
+            StoreInfo storeInfo;
+
+            if (PostLogin.IsSessionSet(session))
+            {
+                storeInfo = PostLogin.ReadStoreInfo(session);
+                if (storeInfo != null)
+                {
+                    return storeInfo.StoreId;
+                }
+                else
+                {
+
+                    response.Redirect(returnUrl);
+                    return -1;
+
+
+                }
+            }
+            else
+            {
+                response.Redirect(returnUrl);
+                return -1;
+            }
+        }
+    }
+
     public class PostLogin
     {
         public string UserName { get; set; }

@@ -48,27 +48,9 @@ namespace eStore.Areas.Sales.Controllers
         // GET: DailySales
         public async Task<IActionResult> Index(int? id, string salesmanId, string currentFilter, string searchString, DateTime? SaleDate, string sortOrder, int? pageNumber)
         {
-            //TODO: Dailysale: have to reduce data fecthing
             // Setting Store Info Here
-            StoreInfo storeInfo = null;
+            int StoreId = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Sales/DailySales");
 
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    logger.Log(LogLevel.Information, "Store Info is not null!");
-                }
-                else
-                {
-                    //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
-           
             ViewData["InvoiceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "inv_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["ManualSortParm"] = sortOrder == "Manual" ? "notManual_desc" : "Manual";
@@ -82,26 +64,26 @@ namespace eStore.Areas.Sales.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
             //For Current Day
-            var dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today && c.StoreId == storeInfo.StoreId);
+            var dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today && c.StoreId == StoreId);
 
             if (id != null && id == 101)
             {
                 //All
-                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.StoreId == storeInfo.StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
+                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.StoreId == StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
             }
             else if (id != null && id == 104)
             {
-                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today.AddDays(-1) && c.StoreId == storeInfo.StoreId);
+                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today.AddDays(-1) && c.StoreId == StoreId);
             }
             else if (id != null && id == 102)
             {
                 //Current Month
-                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == storeInfo.StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
+                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
             }
             else if (id != null && id == 103)
             {
                 //Last Month
-                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month - 1 && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == storeInfo.StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
+                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month - 1 && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
             }
             else
             {
@@ -110,7 +92,7 @@ namespace eStore.Areas.Sales.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.InvNo == searchString && c.StoreId == storeInfo.StoreId);
+                dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.InvNo == searchString && c.StoreId == StoreId);
                 //return View(await dls.ToListAsync());
             }
             else if (!String.IsNullOrEmpty(salesmanId) || SaleDate != null)
@@ -119,11 +101,11 @@ namespace eStore.Areas.Sales.Controllers
 
                 if (SaleDate != null)
                 {
-                    dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == SaleDate && c.StoreId == storeInfo.StoreId).OrderByDescending(c => c.DailySaleId);
+                    dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == SaleDate && c.StoreId == StoreId).OrderByDescending(c => c.DailySaleId);
                 }
                 else
                 {
-                    dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == storeInfo.StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
+                    dailySales = db.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year && c.StoreId == StoreId).OrderByDescending(c => c.SaleDate).ThenByDescending(c => c.DailySaleId);
                 }
 
                 if (!String.IsNullOrEmpty(salesmanId))
@@ -133,40 +115,11 @@ namespace eStore.Areas.Sales.Controllers
             }
 
             // For All Invoice
-            //TODO: Make a Static class and function to fetch details
 
             #region FixedUI
 
-            //Fixed Query
-            //var totalSale =(decimal)( db.DailySales.Where(c => c.IsManualBill == false && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            //var totalManualSale = (decimal)(db.DailySales.Where(c => c.IsManualBill == true && c.SaleDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            //var totalMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            //var totalLastMonthlySale = (decimal)(db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month - 1 && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            //var duesamt = (decimal)(db.DuesLists.Where(c => c.IsRecovered == false && c.StoreId == storeInfo.StoreId).Sum(c => (double?)c.Amount) ?? 0);
-            //var cashinhand = (decimal)0.00;
-            //try
-            //{
-            //    var chin = db.CashInHands.Where(c => c.CIHDate.Date == DateTime.Today.Date && c.StoreId == storeInfo.StoreId).FirstOrDefault();
-            //    if(chin!=null)
-            //        cashinhand = chin.InHand;
-            //    else
-            //    {
-            //        // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
-            //     //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
-
-            //        cashinhand = (decimal)0.00;
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    // Utility.ProcessOpenningClosingBalance(db, DateTime.Today, false, true);
-            // //TODO:   new CashWork().ProcessOpenningBalance(db, DateTime.Today, StoreCodeId, true);
-            //    cashinhand = (decimal)0.00;
-            //    //Log.Error("Cash In Hand is null");
-            //}
-
             SaleInfoUIVM uIVM = new SaleInfoUIVM();
-            uIVM = uIVM.GetSaleInfo(db, storeInfo.StoreId);
+            uIVM = uIVM.GetSaleInfo(db, StoreId);
 
             // Fixed UI
             ViewBag.TodaySale = uIVM.TodaySale;
@@ -229,11 +182,11 @@ namespace eStore.Areas.Sales.Controllers
                     dailySales = dailySales.OrderBy(s => s.InvNo);
                     break;
             }
-             
+
             int pageSize = 10;
             return View(await PaginatedList<DailySale>.CreateAsync(dailySales.AsNoTracking(), pageNumber ?? 1, pageSize));
 
-            
+
         }
 
         // GET: DailySales/Details/5
@@ -257,24 +210,9 @@ namespace eStore.Areas.Sales.Controllers
         public IActionResult Create()
         {
             // Setting Store Info Here
-            StoreInfo storeInfo = null;
 
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    ViewBag.StoreID = storeInfo.StoreId;
-                }
-                else
-                {
-                    //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Sales/DailySales");
+
             ViewData["SalesmanId"] = new SelectList(db.Salesmen, "SalesmanId", "SalesmanName");
             return PartialView();
         }
@@ -282,26 +220,9 @@ namespace eStore.Areas.Sales.Controllers
         public async Task<IActionResult> AddEditPaymentDetails(string InvNo)
         {
             // Setting Store Info Here
-            StoreInfo storeInfo = null;
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    ViewBag.StoreID = storeInfo.StoreId;
-                }
-                else
-                {
-                   //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
-
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Sales/DailySales");
             ViewData["EDCId"] = new SelectList(db.CardMachine, "EDCId", "EDCName");
-         
+
             if (String.IsNullOrEmpty(InvNo))
             {
                 return NotFound();
@@ -312,7 +233,7 @@ namespace eStore.Areas.Sales.Controllers
 
                 if (paydetails == null)
                 {
-                    return View(new EDCTranscation { OnDate = DateTime.Today.Date, InvoiceNumber = InvNo, StoreId = storeInfo.StoreId });
+                    return View(new EDCTranscation { OnDate = DateTime.Today.Date, InvoiceNumber = InvNo, StoreId = ViewBag.StoreID });
                 }
                 return View(paydetails);
             }
@@ -324,7 +245,7 @@ namespace eStore.Areas.Sales.Controllers
         public async Task<IActionResult> AddEditPaymentDetails(int id, [Bind("Amount, InvoiceNumber, CardEndingNumber,  CardType, EDCId, EDCTranscationId, OnDate, StoreId")] EDCTranscation eDC)
         {
             if (ModelState.IsValid)
-            { 
+            {
                 //Insert
                 if (eDC.EDCTranscationId == 0)
                 {
@@ -361,11 +282,11 @@ namespace eStore.Areas.Sales.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 db.Add(dailySale);
 
                 new SalesManager().OnInsert(db, dailySale);
-                
+
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -378,36 +299,17 @@ namespace eStore.Areas.Sales.Controllers
         [Authorize(Roles = "Admin,PowerUser,StoreManager")]
         public async Task<IActionResult> Edit(int? id)
         {
-            // Setting Store Info Here
-            //StoreInfo storeInfo = null;
-
-            //if (PostLogin.IsSessionSet(HttpContext.Session))
-            //{
-            //    storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-            //    if (storeInfo != null)
-            //    {
-            //        ViewBag.StoreID = storeInfo.StoreId;
-            //        ViewBag.UserNAME = storeInfo.UserName;
-            //    }
-            //    else
-            //    {
-            //        //TODO: Redirect to login Page
-            //    }
-            //}
-            //else
-            //{
-            //    //TODO: Redirect to login Page
-            //}
+             
 
             if (id == null)
             {
-                 return NotFound();
+                return NotFound();
             }
 
             var dailySale = await db.DailySales.FindAsync(id);
             if (dailySale == null)
             {
-                 return NotFound();
+                return NotFound();
             }
             ViewData["SalesmanId"] = new SelectList(db.Salesmen, "SalesmanId", "SalesmanName", dailySale.SalesmanId);
             return PartialView(dailySale);

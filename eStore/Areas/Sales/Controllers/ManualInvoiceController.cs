@@ -26,40 +26,21 @@ namespace eStore.Areas.Sales.Controllers
     public class ManualInvoiceController : Controller
     {
         private readonly eStoreDbContext aprajitaContext;
-       // private readonly int StoreId = 1; //TODO: Fixed now
-         private readonly ILogger<ManualInvoiceController> logger;
+        // private readonly int StoreId = 1; //TODO: Fixed now
+        private readonly ILogger<ManualInvoiceController> logger;
 
-        public ManualInvoiceController(eStoreDbContext aCtx,  ILogger<ManualInvoiceController> loggers)
+        public ManualInvoiceController(eStoreDbContext aCtx, ILogger<ManualInvoiceController> loggers)
         {
-            aprajitaContext = aCtx;  
+            aprajitaContext = aCtx;
             logger = loggers;
         }
 
         public IActionResult Index()
         {
-            // Setting Store Info Here
-            StoreInfo storeInfo = null;
-
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    logger.Log(LogLevel.Information, "Store Info is not null!");
-                    ViewBag.StoreId = storeInfo.StoreId;
-                }
-                else
-                {
-                    //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
+            int StoreId = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Sales/DailySales");
 
             var vm = aprajitaContext.RegularInvoices.Include(c => c.Customer).Include(c => c.SaleItems).Include(c => c.PaymentDetail)
-                .Where(c => c.IsManualBill).OrderByDescending(c => c.OnDate).ThenByDescending(c => c.InvoiceNo).ToList();
+                .Where(c => c.IsManualBill && c.StoreId == StoreId).OrderByDescending(c => c.OnDate).ThenByDescending(c => c.InvoiceNo).ToList();
 
             return View(vm);
         }
@@ -72,28 +53,13 @@ namespace eStore.Areas.Sales.Controllers
         public IActionResult ReprintInvoice(int? id, int? Download)
         {
             // Setting Store Info Here
-            StoreInfo storeInfo = null;
+            int StoreId = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Sales/DailySales");
 
-            if (PostLogin.IsSessionSet(HttpContext.Session))
-            {
-                storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
-                if (storeInfo != null)
-                {
-                    ViewBag.StoreID = storeInfo.StoreId;
-                }
-                else
-                {
-                    //TODO: Redirect to login Page
-                }
-            }
-            else
-            {
-                //TODO: Redirect to login Page
-            }
+            ViewBag.StoreID = StoreId;
             var vm = aprajitaContext.RegularInvoices.Include(c => c.Customer).Include(c => c.SaleItems).Include(c => c.PaymentDetail).
-                ThenInclude(c => c.CardDetail).Where(c => c.RegularInvoiceId == id).FirstOrDefault();
+                ThenInclude(c => c.CardDetail).Where(c => c.RegularInvoiceId == id && c.StoreId == StoreId).FirstOrDefault();
 
-            string fileName = new RegularSaleManager().RePrintManaulInvoice(aprajitaContext, vm, storeInfo.StoreId);
+            string fileName = new RegularSaleManager().RePrintManaulInvoice(aprajitaContext, vm, StoreId);
 
             if (Download != null && Download == 101)
             {
