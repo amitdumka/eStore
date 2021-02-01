@@ -83,16 +83,6 @@ namespace eStore.Areas.Payrolls.Controllers
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = storeInfo.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
-            //Console.WriteLine("Model is Invalid ="+employee.PrintIt());
-            //Console.WriteLine("aa=" + ModelState.IsValid);
-            //foreach (var modelState in ViewData.ModelState.Values)
-            //{
-            //    foreach (ModelError error in modelState.Errors)
-            //    {
-            //        Console.WriteLine(error.ErrorMessage);
-            //    }
-            //}
-
             return View(employee);
         }
 
@@ -110,8 +100,6 @@ namespace eStore.Areas.Payrolls.Controllers
             {
                 return NotFound();
             }
-            // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", employee.StoreId);
-           // StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = employee.StoreId;
             ViewData["UserName"] = employee.UserId;
 

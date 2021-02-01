@@ -157,5 +157,25 @@ namespace eStore.Areas.Tailoring.Controllers
         {
             return _context.TalioringBookings.Any(e => e.TalioringBookingId == id);
         }
+        #region OldData
+
+        public async Task<IActionResult> PendingBooking(int? id)
+        {
+            var vd = _context.TalioringBookings.Where(c => c.IsDelivered == false);
+
+            if(id!=null)
+            {
+                if (vd != null)
+                    return PartialView(await vd.ToListAsync());
+                else
+                    return NotFound();
+            }
+
+            if (vd != null)
+                return View(await vd.ToListAsync());
+            else
+                return NotFound();
+        }
+        #endregion
     }
 }

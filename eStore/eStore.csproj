@@ -52,6 +52,7 @@
     <Folder Include="Areas\Tailoring\Views\" />
     <Folder Include="BL\SalePurchase\" />
     <Folder Include="Areas\Admin\Views\UserManagement\" />
+    <Folder Include="BL\DataHelpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

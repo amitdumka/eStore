@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -77,7 +75,7 @@ namespace eStore.Areas.Payrolls.Controllers
                     StoreInfo storeInfo1 = PostLogin.ReadStoreInfo(HttpContext.Session);
                     ViewData["StoreId"] = storeInfo1.StoreId;
                     ViewData["UserName"] = storeInfo1.UserName;
-                    return PartialView(attendance);
+                    return  View(attendance);
                 }
                 _context.Add(attendance);
                 await _context.SaveChangesAsync();
@@ -88,7 +86,7 @@ namespace eStore.Areas.Payrolls.Controllers
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = storeInfo.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
-            return PartialView(attendance);
+            return  View(attendance);
         }
 
         // GET: Payrolls/Attendances/Edit/5
@@ -148,7 +146,7 @@ namespace eStore.Areas.Payrolls.Controllers
             StoreInfo storeInfo = PostLogin.ReadStoreInfo(HttpContext.Session);
             ViewData["StoreId"] = attendance.StoreId;
             ViewData["UserName"] = storeInfo.UserName;
-            return PartialView(attendance);
+            return View(attendance);
         }
 
         // GET: Payrolls/Attendances/Delete/5

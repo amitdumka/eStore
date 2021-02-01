@@ -28,6 +28,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\Purchases\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Banking\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Payroll\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
@@ -76,5 +77,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Accounts\Expense.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Banking\BankDeposit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\SaleInfoUIVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Payroll\EmployeeAttendaceInfo.cs" />
   </ItemGroup>
 </Project>
