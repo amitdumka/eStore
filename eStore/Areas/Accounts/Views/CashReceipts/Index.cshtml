@@ -1,4 +1,4 @@
-@model IEnumerable<eStore.Shared.Models.Accounts.CashReceipt>
+﻿@model IEnumerable<eStore.Shared.Models.Accounts.CashReceipt>
 
 @{ ViewData["Title"] = "Index";
     var host = "https://localhost:44335/";
@@ -77,7 +77,7 @@
         @Html.DisplayFor(modelItem => item.IsReadOnly)
     </td>
     <td>
-        <a asp-action="Edit" asp-route-id="@item.CashReceiptId">Edit</a> |
+        <a asp-action="Edit" asp-route-id="@item.CashReceiptId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.CashReceiptId">Details</a> |
         <a asp-action="Delete" asp-route-id="@item.CashReceiptId">Delete</a>
     </td>

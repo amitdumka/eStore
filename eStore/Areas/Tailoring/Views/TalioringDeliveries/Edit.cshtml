@@ -3,8 +3,6 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
 <h4>TalioringDelivery</h4>
 <hr />
 <div class="row">
@@ -38,25 +36,21 @@
                 <span asp-validation-for="Remarks" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
-                <span asp-validation-for="StoreId" class="text-danger"></span>
+                <input type="hidden" asp-for="StoreId" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
             </div>
             <div class="form-group">
-                <label asp-for="EntryStatus" class="control-label"></label>
-                <select asp-for="EntryStatus" class="form-control"></select>
-                <span asp-validation-for="EntryStatus" class="text-danger"></span>
+                <input type="hidden" value="3" asp-for="EntryStatus" class="form-control" />
             </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReadOnly" /> @Html.DisplayNameFor(model => model.IsReadOnly)
-                </label>
+
+                <input class="form-check-input" type="hidden" asp-for="IsReadOnly" />
+
             </div>
+             
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -65,6 +59,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 

@@ -1,4 +1,4 @@
-@model IEnumerable<eStore.Shared.Models.Stores.Contact>
+﻿@model IEnumerable<eStore.Shared.Models.Stores.Contact>
 
 @{ ViewData["Title"] = "Address Book";
     var host = "https://localhost:44335/";
@@ -53,7 +53,7 @@
         @Html.DisplayFor(modelItem => item.Remarks)
     </td>
     <td>
-        <a asp-action="Edit" asp-route-id="@item.ContactId">Edit</a> |
+        <a asp-action="Edit" asp-route-id="@item.ContactId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.ContactId">Details</a> |
         <a asp-action="Delete" asp-route-id="@item.ContactId">Delete</a>
     </td>

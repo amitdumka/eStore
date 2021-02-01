@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+
 
 <h4>TalioringBooking</h4>
 <hr />
@@ -108,31 +108,27 @@
                 <input asp-for="OthersPrice" class="form-control" />
                 <span asp-validation-for="OthersPrice" class="text-danger"></span>
             </div>
+            <div class=" form-check  mt-4 mb-4">
+                <input class="form-check-input" asp-for="IsDelivered" type="checkbox" checked="@Model.IsDelivered" />
+                <label class="form-check-label" asp-for="IsDelivered"></label>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" asp-for="StoreId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
+               </div>
+            <div class="form-group">
+                <input type="hidden" value="3" asp-for="EntryStatus" class="form-control" />
+               </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDelivered" /> @Html.DisplayNameFor(model => model.IsDelivered)
-                </label>
+                
+                    <input class="form-check-input" type="hidden" asp-for="IsReadOnly"  />
+                
             </div>
-            <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
-                <span asp-validation-for="StoreId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EntryStatus" class="control-label"></label>
-                <select asp-for="EntryStatus" class="form-control"></select>
-                <span asp-validation-for="EntryStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReadOnly" /> @Html.DisplayNameFor(model => model.IsReadOnly)
-                </label>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -141,6 +137,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 

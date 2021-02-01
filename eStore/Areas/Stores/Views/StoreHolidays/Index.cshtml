@@ -1,4 +1,4 @@
-@model IEnumerable<eStore.Shared.Models.Stores.StoreHoliday>
+﻿@model IEnumerable<eStore.Shared.Models.Stores.StoreHoliday>
 
 @{ ViewData["Title"] = "Store Holiday";
 
@@ -50,7 +50,7 @@
     </td>
 
     <td>
-        <a asp-action="Edit" asp-route-id="@item.StoreHolidayId">Edit</a> |
+        <a asp-action="Edit" asp-route-id="@item.StoreHolidayId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.StoreHolidayId">Details</a> |
         <a asp-action="Delete" asp-route-id="@item.StoreHolidayId">Delete</a>
     </td>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eStore.BL.Tailoring;
 using eStore.DL.Data;
 using eStore.Shared.Models.Tailoring;
 using Microsoft.AspNetCore.Mvc;
@@ -44,15 +45,15 @@ namespace eStore.Areas.Tailoring.Controllers
                 return NotFound();
             }
 
-            return View(talioringDelivery);
+            return PartialView(talioringDelivery);
         }
 
         // GET: Tailoring/TalioringDeliveries/Create
         public IActionResult Create()
         {
-            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "TalioringBookingId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            return PartialView();
         }
 
         // POST: Tailoring/TalioringDeliveries/Create
@@ -65,11 +66,12 @@ namespace eStore.Areas.Tailoring.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(talioringDelivery);
+                new TailoringManager().OnUpdateData(_context, talioringDelivery, false, false);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "TalioringBookingId", talioringDelivery.TalioringBookingId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringDelivery.StoreId);
+            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings.Where(c => !c.IsDelivered), "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
             return View(talioringDelivery);
         }
 
@@ -86,9 +88,9 @@ namespace eStore.Areas.Tailoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "TalioringBookingId", talioringDelivery.TalioringBookingId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringDelivery.StoreId);
-            return View(talioringDelivery);
+            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
+            return PartialView(talioringDelivery);
         }
 
         // POST: Tailoring/TalioringDeliveries/Edit/5
@@ -107,6 +109,7 @@ namespace eStore.Areas.Tailoring.Controllers
             {
                 try
                 {
+                    new TailoringManager().OnUpdateData(_context, talioringDelivery, true, false);
                     _context.Update(talioringDelivery);
                     await _context.SaveChangesAsync();
                 }
@@ -123,9 +126,9 @@ namespace eStore.Areas.Tailoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "TalioringBookingId", talioringDelivery.TalioringBookingId);
+            ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringDelivery.StoreId);
-            return View(talioringDelivery);
+            return  View(talioringDelivery);
         }
 
         // GET: Tailoring/TalioringDeliveries/Delete/5
@@ -145,7 +148,7 @@ namespace eStore.Areas.Tailoring.Controllers
                 return NotFound();
             }
 
-            return View(talioringDelivery);
+            return PartialView(talioringDelivery);
         }
 
         // POST: Tailoring/TalioringDeliveries/Delete/5

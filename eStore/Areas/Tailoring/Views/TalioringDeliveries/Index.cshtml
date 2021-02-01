@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Deliveries";
     var host = "https://localhost:44335/";
-    var uri = host + "api/TalioringDeliverys";
+    var uri = host + "api/TalioringDeliveries";
     var activityName = "TalioringDelivery";
 }
 
@@ -26,7 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
             <th>
@@ -37,7 +37,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsReadOnly)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -49,7 +49,7 @@
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Booking.TalioringBookingId)
+                    @Html.DisplayFor(modelItem => item.Booking.BookingSlipNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.InvNo)
@@ -60,7 +60,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Remarks)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Store.StoreId)
                 </td>
                 <td>
@@ -71,9 +71,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsReadOnly)
-                </td>
+                </td>*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.TalioringDeliveryId">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.TalioringDeliveryId">Edit</a> 
                     <a asp-action="Details" asp-route-id="@item.TalioringDeliveryId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.TalioringDeliveryId">Delete</a>
                 </td>
@@ -85,7 +85,7 @@
 @section Scripts{
     <script src="~/js/curdjs.js"></script>
     <script>
-        cardTableInit("dtTalioringDelivery", "Talioring Delivery", "TalioringDeliverys");
+        cardTableInit("dtTalioringDelivery", "Talioring Delivery", "TalioringDeliveries");
          function deleteM(id) {
              deleteModal('@activityName', '@uri', id);
             // alert(id);

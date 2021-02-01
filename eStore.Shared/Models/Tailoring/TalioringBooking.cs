@@ -73,7 +73,7 @@ namespace eStore.Shared.Models.Tailoring
         [DataType(DataType.Currency), Column(TypeName = "money"), Display(Name = "Others Price")]
         public decimal OthersPrice { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(false), Display(Name = "Delivered")]
         public bool IsDelivered { get; set; }
 
         public virtual ICollection<TalioringDelivery> Deliveries { get; set; }

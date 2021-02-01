@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Tailoring;
+using eStore.Ops;
 
 namespace eStore.Areas.Tailoring.Controllers
 {
@@ -43,14 +44,18 @@ namespace eStore.Areas.Tailoring.Controllers
                 return NotFound();
             }
 
-            return View(talioringBooking);
+            return PartialView(talioringBooking);
         }
 
         // GET: Tailoring/TalioringBookings/Create
         public IActionResult Create()
         {
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            // Setting Store Info Here
+
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Tailoring/TalioringBookings");
+
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            return PartialView();
         }
 
         // POST: Tailoring/TalioringBookings/Create
@@ -66,7 +71,8 @@ namespace eStore.Areas.Tailoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringBooking.StoreId);
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Tailoring/TalioringBookings");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringBooking.StoreId);
             return View(talioringBooking);
         }
 
@@ -83,8 +89,8 @@ namespace eStore.Areas.Tailoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringBooking.StoreId);
-            return View(talioringBooking);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringBooking.StoreId);
+            return PartialView(talioringBooking);
         }
 
         // POST: Tailoring/TalioringBookings/Edit/5
@@ -119,7 +125,7 @@ namespace eStore.Areas.Tailoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringBooking.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringBooking.StoreId);
             return View(talioringBooking);
         }
 
@@ -139,7 +145,7 @@ namespace eStore.Areas.Tailoring.Controllers
                 return NotFound();
             }
 
-            return View(talioringBooking);
+            return PartialView(talioringBooking);
         }
 
         // POST: Tailoring/TalioringBookings/Delete/5
