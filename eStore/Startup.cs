@@ -41,8 +41,13 @@ namespace eStore
             });
 
             services.AddDbContext<eStoreDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                            options.UseSqlServer(
+                                Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //services.AddDbContext<eStoreDbContext>(options =>
+            //    options.UseSqlite(
+            //        Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -79,7 +84,7 @@ namespace eStore
                 options.Cookie.IsEssential = true;
                 options.Cookie.Name = ".eStore.Session";
             });
-           
+
             services.AddRazorPages();
 
             services.AddAuthorization(options =>
@@ -136,7 +141,7 @@ namespace eStore
                 endpoints.MapRazorPages();
             });
 
-           
+
         }
     }
 }
