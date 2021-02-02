@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eStore.BL.Tailoring;
+using eStore.BL.Tailorings;
 using eStore.DL.Data;
 using eStore.Shared.Models.Tailoring;
 using Microsoft.AspNetCore.Mvc;
