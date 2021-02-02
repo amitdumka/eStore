@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eStore.BL.Tailorings;
+using eStore.BL.Tailor;
 using eStore.DL.Data;
 using eStore.Shared.Models.Tailoring;
 using Microsoft.AspNetCore.Mvc;
@@ -66,7 +66,7 @@ namespace eStore.Areas.Tailoring.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(talioringDelivery);
-                new TailoringManager().OnUpdateData(_context, talioringDelivery, false, false);
+                new TailorManager().OnUpdateData(_context, talioringDelivery, false, false);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -109,7 +109,7 @@ namespace eStore.Areas.Tailoring.Controllers
             {
                 try
                 {
-                    new TailoringManager().OnUpdateData(_context, talioringDelivery, true, false);
+                    new TailorManager().OnUpdateData(_context, talioringDelivery, true, false);
                     _context.Update(talioringDelivery);
                     await _context.SaveChangesAsync();
                 }
