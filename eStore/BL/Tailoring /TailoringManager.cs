@@ -9,7 +9,7 @@ namespace eStore.BL.Tailoring
     public class TailoringManager
     {
         /// <summary>
-        /// 
+        /// Tailoring Manager
         /// </summary>
         /// <param name="db"></param>
         /// <param name="delivery"></param>
