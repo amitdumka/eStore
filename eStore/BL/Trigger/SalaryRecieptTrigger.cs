@@ -4,12 +4,15 @@ using eStore.DL.Data;
 
 namespace eStore.BL.Triggers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class StaffAdvanceReceiptTrigger : ITrigger
     {
 
         public void OnChange<StaffAdvanceReceipt>(eStoreDbContext db, StaffAdvanceReceipt salary)
         {
-            
+
             throw new System.NotImplementedException();
         }
 
@@ -33,6 +36,6 @@ namespace eStore.BL.Triggers
             throw new System.NotImplementedException();
         }
 
-       
+
     }
 }

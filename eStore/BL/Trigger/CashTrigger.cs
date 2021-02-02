@@ -4,6 +4,9 @@ using eStore.DL.Data;
 
 namespace eStore.BL.Triggers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CashTrigger : ITrigger
     {
         void ITrigger.OnChange<T>(eStoreDbContext db, T objectValue)
