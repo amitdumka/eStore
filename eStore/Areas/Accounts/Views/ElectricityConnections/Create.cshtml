@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ConsumerNumber" class="control-label"></label>
-                <input asp-for="ConsumerNumber" class="form-control" />
+                <input asp-for="ConsumerNumber" class="form-control"  />
                 <span asp-validation-for="ConsumerNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Connection" class="control-label"></label>
-                <select asp-for="Connection" class="form-control"></select>
+                <select asp-for="Connection" class="form-control" asp-items="@Html.GetEnumSelectList<ConnectionType>()"></select>
                 <span asp-validation-for="Connection" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -67,10 +67,9 @@
                 <input asp-for="KVLoad" class="form-control" />
                 <span asp-validation-for="KVLoad" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="OwnedMetter" /> @Html.DisplayNameFor(model => model.OwnedMetter)
-                </label>
+            <div class="form-check mt-4 mb-4">
+                <input class="form-check-input" asp-for="OwnedMetter" type="checkbox" />
+                <label class="form-check-label" asp-for="OwnedMetter"> </label>
             </div>
             <div class="form-group">
                 <label asp-for="TotalConnectionCharges" class="control-label"></label>
@@ -89,18 +88,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReadOnly" /> @Html.DisplayNameFor(model => model.IsReadOnly)
-                </label>
-            </div>
+
+            <input asp-for="UserId" class="form-control" value="@User.Identity.Name" type="hidden" />
+            <input class="form-check-input" asp-for="IsReadOnly" value="false" type="hidden" />
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -109,6 +102,6 @@
 </div>
 
 <div>
-    
+
 </div>
 

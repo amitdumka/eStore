@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-
-
-<h4>EBillPayment</h4>
+<h4>EBill Payment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="EletricityBillId" class="control-label"></label>
-                <select asp-for="EletricityBillId" class ="form-control" asp-items="ViewBag.EletricityBillId"></select>
+                <select asp-for="EletricityBillId" class="form-control" asp-items="ViewBag.EletricityBillId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentDate" class="control-label"></label>
@@ -28,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Mode" class="control-label"></label>
-                <select asp-for="Mode" class="form-control"></select>
+                <select asp-for="Mode" class="form-control" asp-items="@Html.GetEnumSelectList<PaymentMode>()"></select>
                 <span asp-validation-for="Mode" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,35 +39,29 @@
                 <input asp-for="Remarks" class="form-control" />
                 <span asp-validation-for="Remarks" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPartialPayment" /> @Html.DisplayNameFor(model => model.IsPartialPayment)
-                </label>
+            <div class="form-check mt-4 mb-4">
+                <input class="form-check-input" asp-for="IsPartialPayment" type="checkbox" />
+                <label class="form-check-label" asp-for="IsPartialPayment"></label>
             </div>
-            <div class="form-group form-check">
+            <<div class="form-check mt-4 mb-4">
+                <input class="form-check-input" asp-for="IsBillCleared" type="checkbox" />
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsBillCleared" /> @Html.DisplayNameFor(model => model.IsBillCleared)
+                    @Html.DisplayNameFor(model => model.IsBillCleared)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
                 <input asp-for="UserId" class="form-control" />
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EntryStatus" class="control-label"></label>
-                <select asp-for="EntryStatus" class="form-control"></select>
-                <span asp-validation-for="EntryStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReadOnly" /> @Html.DisplayNameFor(model => model.IsReadOnly)
-                </label>
-            </div>
+             
+                <input asp-for="EntryStatus" value="0" type="hidden"/>
+             
+            <input class="form-check-input" asp-for="IsReadOnly" value="false" type="hidden"/> 
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -78,6 +70,6 @@
 </div>
 
 <div>
-    
+
 </div>
 

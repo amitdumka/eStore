@@ -42,14 +42,14 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(electricityConnection);
+            return PartialView(electricityConnection);
         }
 
         // GET: Accounts/ElectricityConnections/Create
         public IActionResult Create()
         {
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            return PartialView();
         }
 
         // POST: Accounts/ElectricityConnections/Create
@@ -65,8 +65,8 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", electricityConnection.StoreId);
-            return View(electricityConnection);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", electricityConnection.StoreId);
+            return  View(electricityConnection);
         }
 
         // GET: Accounts/ElectricityConnections/Edit/5
@@ -82,8 +82,8 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", electricityConnection.StoreId);
-            return View(electricityConnection);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", electricityConnection.StoreId);
+            return PartialView(electricityConnection);
         }
 
         // POST: Accounts/ElectricityConnections/Edit/5
@@ -118,8 +118,8 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", electricityConnection.StoreId);
-            return View(electricityConnection);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", electricityConnection.StoreId);
+            return  View(electricityConnection);
         }
 
         // GET: Accounts/ElectricityConnections/Delete/5
@@ -138,7 +138,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(electricityConnection);
+            return PartialView(electricityConnection);
         }
 
         // POST: Accounts/ElectricityConnections/Delete/5

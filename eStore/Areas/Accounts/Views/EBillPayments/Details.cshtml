@@ -4,8 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-
-
 <div>
     <h4>EBillPayment</h4>
     <hr />
@@ -62,26 +60,9 @@
             @Html.DisplayNameFor(model => model.Store)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Store.StoreId)
+            @Html.DisplayFor(model => model.Store.StoreName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EntryStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EntryStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsReadOnly)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsReadOnly)
-        </dd>
+        
     </dl>
 </div>
 <div>

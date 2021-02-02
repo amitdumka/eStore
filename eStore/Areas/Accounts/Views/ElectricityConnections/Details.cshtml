@@ -4,10 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-
-
 <div>
-    <h4>ElectricityConnection</h4>
+    <h4>Electricity Connection</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -79,8 +77,9 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.OwnedMetter)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OwnedMetter)
+        <dd class="col-sm-10 form-check">
+            <input class="form-check-input" asp-for="OwnedMetter" type="checkbox" checked="@Model.OwnedMetter"  disabled="disabled"/>
+            <label class="form-check-label" asp-for="OwnedMetter"> </label>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.TotalConnectionCharges)
@@ -106,21 +105,9 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Store.StoreId)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsReadOnly)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsReadOnly)
-        </dd>
+        
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ElectricityConnectionId">Edit</a> 
-    
+    <a asp-action="Edit" asp-route-id="@Model.ElectricityConnectionId">Edit</a>    
 </div>
