@@ -8,6 +8,13 @@ namespace eStore.BL.Tailoring
 {
     public class TailoringManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="delivery"></param>
+        /// <param name="isEdit"></param>
+        /// <param name="isDelete"></param>
         public void OnUpdateData(eStoreDbContext db, TalioringDelivery delivery, bool isEdit, bool isDelete = false)
         {
 
