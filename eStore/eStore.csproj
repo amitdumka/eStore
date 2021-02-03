@@ -64,7 +64,6 @@
     <Compile Remove="Data\Migrations\eStoreDbContextModelSnapshot.cs" />
     <Compile Remove="Data\Migrations\20210123095810_Mig1.Designer.cs" />
     <Compile Remove="Data\ApplicationDbContext.cs" />
-    <Compile Remove="Migrations\20210203073808_InitDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Areas\Accounts\Views\CashPayments\Edit.cshtml" />

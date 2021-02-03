@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eStore.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class initdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,13 +11,13 @@ namespace eStore.Migrations
                 name: "Apps",
                 columns: table => new
                 {
-                    AppInfoId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Version = table.Column<string>(type: "TEXT", nullable: true),
-                    PublishDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdateOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DatabaseVersion = table.Column<string>(type: "TEXT", nullable: true),
-                    IsEffective = table.Column<bool>(type: "INTEGER", nullable: false)
+                    AppInfoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Version = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DatabaseVersion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsEffective = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,10 +28,10 @@ namespace eStore.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,26 +42,26 @@ namespace eStore.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    IsEmployee = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsWorking = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsEmployee = table.Column<bool>(type: "bit", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    IsWorking = table.Column<bool>(type: "bit", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,9 +72,9 @@ namespace eStore.Migrations
                 name: "Banks",
                 columns: table => new
                 {
-                    BankId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    BankName = table.Column<string>(type: "TEXT", nullable: true)
+                    BankId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BankName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,10 +85,10 @@ namespace eStore.Migrations
                 name: "Brand",
                 columns: table => new
                 {
-                    BrandId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    BrandName = table.Column<string>(type: "TEXT", nullable: true),
-                    BCode = table.Column<string>(type: "TEXT", nullable: true)
+                    BrandId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,11 +99,11 @@ namespace eStore.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
-                    IsPrimaryCategory = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsSecondaryCategory = table.Column<bool>(type: "INTEGER", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPrimaryCategory = table.Column<bool>(type: "bit", nullable: false),
+                    IsSecondaryCategory = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,15 +114,15 @@ namespace eStore.Migrations
                 name: "Company",
                 columns: table => new
                 {
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    ContactPersonName = table.Column<string>(type: "TEXT", nullable: true),
-                    ContactPersonEmail = table.Column<string>(type: "TEXT", nullable: true),
-                    ContactPersonPhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    WebSite = table.Column<string>(type: "TEXT", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactPersonName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactPersonEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactPersonPhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WebSite = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -133,14 +133,14 @@ namespace eStore.Migrations
                 name: "Contacts",
                 columns: table => new
                 {
-                    ContactId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    EMailAddress = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true)
+                    ContactId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EMailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,18 +151,18 @@ namespace eStore.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    Age = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Gender = table.Column<int>(type: "INTEGER", nullable: false),
-                    NoOfBills = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    NoOfBills = table.Column<int>(type: "int", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "money", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,9 +173,9 @@ namespace eStore.Migrations
                 name: "Files",
                 columns: table => new
                 {
-                    TodoId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Size = table.Column<long>(type: "INTEGER", nullable: false)
+                    TodoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Size = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,12 +186,12 @@ namespace eStore.Migrations
                 name: "HSN",
                 columns: table => new
                 {
-                    HSNCode = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Rate = table.Column<int>(type: "INTEGER", nullable: false),
-                    EffectiveDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CESS = table.Column<decimal>(type: "TEXT", nullable: false)
+                    HSNCode = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rate = table.Column<int>(type: "int", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CESS = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,11 +202,11 @@ namespace eStore.Migrations
                 name: "LedgerTypes",
                 columns: table => new
                 {
-                    LedgerTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LedgerNameType = table.Column<string>(type: "TEXT", nullable: true),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true)
+                    LedgerTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LedgerNameType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    Remark = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -217,14 +217,14 @@ namespace eStore.Migrations
                 name: "OnlineVendors",
                 columns: table => new
                 {
-                    OnlineVendorId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    VendorName = table.Column<string>(type: "TEXT", nullable: true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true),
-                    OffDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Reason = table.Column<string>(type: "TEXT", nullable: true)
+                    OnlineVendorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VendorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Remark = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OffDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -235,10 +235,10 @@ namespace eStore.Migrations
                 name: "PurchaseTaxTypes",
                 columns: table => new
                 {
-                    PurchaseTaxTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TaxName = table.Column<string>(type: "TEXT", nullable: true),
-                    TaxType = table.Column<int>(type: "INTEGER", nullable: false),
+                    PurchaseTaxTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaxName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaxType = table.Column<int>(type: "int", nullable: false),
                     CompositeRate = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
@@ -250,13 +250,13 @@ namespace eStore.Migrations
                 name: "RegisteredUsers",
                 columns: table => new
                 {
-                    RegisteredUserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmailId = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastLoggedIn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsUserLoggedIn = table.Column<bool>(type: "INTEGER", nullable: false)
+                    RegisteredUserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastLoggedIn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsUserLoggedIn = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -267,10 +267,10 @@ namespace eStore.Migrations
                 name: "SaleTaxTypes",
                 columns: table => new
                 {
-                    SaleTaxTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TaxName = table.Column<string>(type: "TEXT", nullable: true),
-                    TaxType = table.Column<int>(type: "INTEGER", nullable: false),
+                    SaleTaxTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaxName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaxType = table.Column<int>(type: "int", nullable: false),
                     CompositeRate = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
@@ -282,10 +282,10 @@ namespace eStore.Migrations
                 name: "Supplier",
                 columns: table => new
                 {
-                    SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SuppilerName = table.Column<string>(type: "TEXT", nullable: true),
-                    Warehouse = table.Column<string>(type: "TEXT", nullable: true)
+                    SupplierID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SuppilerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Warehouse = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,15 +296,15 @@ namespace eStore.Migrations
                 name: "ToDoMessages",
                 columns: table => new
                 {
-                    ToDoMessageId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Message = table.Column<string>(type: "TEXT", nullable: true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OverDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<string>(type: "TEXT", nullable: true),
-                    IsOver = table.Column<bool>(type: "INTEGER", nullable: false)
+                    ToDoMessageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OverDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsOver = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -315,9 +315,9 @@ namespace eStore.Migrations
                 name: "TranscationModes",
                 columns: table => new
                 {
-                    TranscationModeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Transcation = table.Column<string>(type: "TEXT", nullable: true)
+                    TranscationModeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Transcation = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -328,11 +328,11 @@ namespace eStore.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -349,11 +349,11 @@ namespace eStore.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -370,10 +370,10 @@ namespace eStore.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -390,8 +390,8 @@ namespace eStore.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -414,10 +414,10 @@ namespace eStore.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -434,12 +434,12 @@ namespace eStore.Migrations
                 name: "BankAccounts",
                 columns: table => new
                 {
-                    BankAccountId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    BankId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Account = table.Column<string>(type: "TEXT", nullable: true),
-                    BranchName = table.Column<string>(type: "TEXT", nullable: true),
-                    AccountType = table.Column<int>(type: "INTEGER", nullable: false)
+                    BankAccountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BankId = table.Column<int>(type: "int", nullable: false),
+                    Account = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BranchName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccountType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -456,23 +456,23 @@ namespace eStore.Migrations
                 name: "ProductItems",
                 columns: table => new
                 {
-                    ProductItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Barcode = table.Column<string>(type: "TEXT", nullable: true),
-                    BrandId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StyleCode = table.Column<string>(type: "TEXT", nullable: true),
-                    ProductName = table.Column<string>(type: "TEXT", nullable: true),
-                    ItemDesc = table.Column<string>(type: "TEXT", nullable: true),
-                    Categorys = table.Column<int>(type: "INTEGER", nullable: false),
-                    MainCategoryCategoryId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProductCategoryCategoryId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProductTypeCategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ProductItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BrandId = table.Column<int>(type: "int", nullable: false),
+                    StyleCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ItemDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Categorys = table.Column<int>(type: "int", nullable: false),
+                    MainCategoryCategoryId = table.Column<int>(type: "int", nullable: true),
+                    ProductCategoryCategoryId = table.Column<int>(type: "int", nullable: true),
+                    ProductTypeCategoryId = table.Column<int>(type: "int", nullable: true),
                     MRP = table.Column<decimal>(type: "money", nullable: false),
                     TaxRate = table.Column<decimal>(type: "money", nullable: false),
                     Cost = table.Column<decimal>(type: "money", nullable: false),
-                    HSNCode = table.Column<string>(type: "TEXT", nullable: true),
-                    Size = table.Column<int>(type: "INTEGER", nullable: false),
-                    Units = table.Column<int>(type: "INTEGER", nullable: false)
+                    HSNCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Size = table.Column<int>(type: "int", nullable: false),
+                    Units = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -507,26 +507,26 @@ namespace eStore.Migrations
                 name: "Stores",
                 columns: table => new
                 {
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StoreCode = table.Column<string>(type: "TEXT", nullable: true),
-                    StoreName = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    PinCode = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    StoreManagerName = table.Column<string>(type: "TEXT", nullable: true),
-                    StoreManagerPhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    PanNo = table.Column<string>(type: "TEXT", nullable: true),
-                    GSTNO = table.Column<string>(type: "TEXT", nullable: true),
-                    NoOfEmployees = table.Column<int>(type: "INTEGER", nullable: false),
-                    OpeningDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ClosingDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false)
+                    StoreId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreManagerPhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PanNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GSTNO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NoOfEmployees = table.Column<int>(type: "int", nullable: false),
+                    OpeningDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -543,15 +543,15 @@ namespace eStore.Migrations
                 name: "Todos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Content = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Done = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Added = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DueTo = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    FileTodoId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    IsPublic = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Done = table.Column<bool>(type: "bit", nullable: false),
+                    Added = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FileTodoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -568,15 +568,15 @@ namespace eStore.Migrations
                 name: "Parties",
                 columns: table => new
                 {
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PartyName = table.Column<string>(type: "TEXT", nullable: true),
-                    OpenningDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PartyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PartyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OpenningDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OpenningBalance = table.Column<decimal>(type: "money", nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    PANNo = table.Column<string>(type: "TEXT", nullable: true),
-                    GSTNo = table.Column<string>(type: "TEXT", nullable: true),
-                    LedgerTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PANNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GSTNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LedgerTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -593,24 +593,24 @@ namespace eStore.Migrations
                 name: "BankTranscation",
                 columns: table => new
                 {
-                    BankTranscationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    BankAccountId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BankTranscationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: false),
                     InAmount = table.Column<decimal>(type: "money", nullable: false),
                     OutAmount = table.Column<decimal>(type: "money", nullable: false),
-                    ChequeNo = table.Column<string>(type: "TEXT", nullable: true),
-                    InNameOf = table.Column<string>(type: "TEXT", nullable: true),
-                    SignedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    ApprovedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    IsInHouse = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PaymentModes = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ChequeNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InNameOf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SignedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApprovedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsInHouse = table.Column<bool>(type: "bit", nullable: false),
+                    PaymentModes = table.Column<int>(type: "int", nullable: false),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -633,19 +633,19 @@ namespace eStore.Migrations
                 name: "CardMachine",
                 columns: table => new
                 {
-                    EDCId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TID = table.Column<int>(type: "INTEGER", nullable: false),
-                    EDCName = table.Column<string>(type: "TEXT", nullable: true),
-                    AccountNumberId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsWorking = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MID = table.Column<string>(type: "TEXT", nullable: true),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EDCId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TID = table.Column<int>(type: "int", nullable: false),
+                    EDCName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccountNumberId = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsWorking = table.Column<bool>(type: "bit", nullable: false),
+                    MID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remark = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -662,26 +662,26 @@ namespace eStore.Migrations
                 name: "CashDetail",
                 columns: table => new
                 {
-                    CashDetailId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CashDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "money", nullable: false),
-                    C2000 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C1000 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C500 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C100 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C50 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C20 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C10 = table.Column<int>(type: "INTEGER", nullable: false),
-                    C5 = table.Column<int>(type: "INTEGER", nullable: false),
-                    Coin10 = table.Column<int>(type: "INTEGER", nullable: false),
-                    Coin5 = table.Column<int>(type: "INTEGER", nullable: false),
-                    Coin2 = table.Column<int>(type: "INTEGER", nullable: false),
-                    Coin1 = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    C2000 = table.Column<int>(type: "int", nullable: false),
+                    C1000 = table.Column<int>(type: "int", nullable: false),
+                    C500 = table.Column<int>(type: "int", nullable: false),
+                    C100 = table.Column<int>(type: "int", nullable: false),
+                    C50 = table.Column<int>(type: "int", nullable: false),
+                    C20 = table.Column<int>(type: "int", nullable: false),
+                    C10 = table.Column<int>(type: "int", nullable: false),
+                    C5 = table.Column<int>(type: "int", nullable: false),
+                    Coin10 = table.Column<int>(type: "int", nullable: false),
+                    Coin5 = table.Column<int>(type: "int", nullable: false),
+                    Coin2 = table.Column<int>(type: "int", nullable: false),
+                    Coin1 = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -698,14 +698,14 @@ namespace eStore.Migrations
                 name: "CashInBanks",
                 columns: table => new
                 {
-                    CashInBankId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CIBDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CashInBankId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CIBDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OpenningBalance = table.Column<decimal>(type: "money", nullable: false),
                     ClosingBalance = table.Column<decimal>(type: "money", nullable: false),
                     CashIn = table.Column<decimal>(type: "money", nullable: false),
                     CashOut = table.Column<decimal>(type: "money", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: true)
+                    StoreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -722,14 +722,14 @@ namespace eStore.Migrations
                 name: "CashInHands",
                 columns: table => new
                 {
-                    CashInHandId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CIHDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CashInHandId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CIHDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OpenningBalance = table.Column<decimal>(type: "money", nullable: false),
                     ClosingBalance = table.Column<decimal>(type: "money", nullable: false),
                     CashIn = table.Column<decimal>(type: "money", nullable: false),
                     CashOut = table.Column<decimal>(type: "money", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: true)
+                    StoreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -746,18 +746,18 @@ namespace eStore.Migrations
                 name: "CashPayments",
                 columns: table => new
                 {
-                    CashPaymentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PaymentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TranscationModeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaidTo = table.Column<string>(type: "TEXT", nullable: false),
+                    CashPaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TranscationModeId = table.Column<int>(type: "int", nullable: false),
+                    PaidTo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    SlipNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SlipNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -780,18 +780,18 @@ namespace eStore.Migrations
                 name: "CashReceipts",
                 columns: table => new
                 {
-                    CashReceiptId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InwardDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TranscationModeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReceiptFrom = table.Column<string>(type: "TEXT", nullable: false),
+                    CashReceiptId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InwardDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TranscationModeId = table.Column<int>(type: "int", nullable: false),
+                    ReceiptFrom = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    SlipNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SlipNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -814,26 +814,26 @@ namespace eStore.Migrations
                 name: "ElectricityConnections",
                 columns: table => new
                 {
-                    ElectricityConnectionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LocationName = table.Column<string>(type: "TEXT", nullable: true),
-                    ConnectioName = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    State = table.Column<string>(type: "TEXT", nullable: true),
-                    PinCode = table.Column<string>(type: "TEXT", nullable: true),
-                    ConsumerNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    ConusumerId = table.Column<string>(type: "TEXT", nullable: true),
-                    Connection = table.Column<int>(type: "INTEGER", nullable: false),
-                    ConnectinDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DisconnectionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    KVLoad = table.Column<int>(type: "INTEGER", nullable: false),
-                    OwnedMetter = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ElectricityConnectionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConnectioName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConsumerNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConusumerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Connection = table.Column<int>(type: "int", nullable: false),
+                    ConnectinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DisconnectionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    KVLoad = table.Column<int>(type: "int", nullable: false),
+                    OwnedMetter = table.Column<bool>(type: "bit", nullable: false),
                     TotalConnectionCharges = table.Column<decimal>(type: "money", nullable: false),
                     SecurityDeposit = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -850,30 +850,30 @@ namespace eStore.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
-                    JoiningDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LeavingDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsWorking = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsTailors = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EMail = table.Column<string>(type: "TEXT", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    AdharNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PanNo = table.Column<string>(type: "TEXT", nullable: true),
-                    OtherIdDetails = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    State = table.Column<string>(type: "TEXT", nullable: true),
-                    FatherName = table.Column<string>(type: "TEXT", nullable: true),
-                    HighestQualification = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JoiningDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LeavingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsWorking = table.Column<bool>(type: "bit", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    IsTailors = table.Column<bool>(type: "bit", nullable: false),
+                    EMail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AdharNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PanNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OtherIdDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HighestQualification = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -890,20 +890,20 @@ namespace eStore.Migrations
                 name: "EndOfDays",
                 columns: table => new
                 {
-                    EndOfDayId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EOD_Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Shirting = table.Column<float>(type: "REAL", nullable: false),
-                    Suiting = table.Column<float>(type: "REAL", nullable: false),
-                    USPA = table.Column<int>(type: "INTEGER", nullable: false),
-                    FM_Arrow = table.Column<int>(type: "INTEGER", nullable: false),
-                    RWT = table.Column<int>(type: "INTEGER", nullable: false),
-                    Access = table.Column<int>(type: "INTEGER", nullable: false),
+                    EndOfDayId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EOD_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Shirting = table.Column<float>(type: "real", nullable: false),
+                    Suiting = table.Column<float>(type: "real", nullable: false),
+                    USPA = table.Column<int>(type: "int", nullable: false),
+                    FM_Arrow = table.Column<int>(type: "int", nullable: false),
+                    RWT = table.Column<int>(type: "int", nullable: false),
+                    Access = table.Column<int>(type: "int", nullable: false),
                     CashInHand = table.Column<decimal>(type: "money", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -920,17 +920,17 @@ namespace eStore.Migrations
                 name: "MixPayments",
                 columns: table => new
                 {
-                    MixAndCouponPaymentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InvoiceNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    MixAndCouponPaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    ModeMixAndCouponPaymentId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Details = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ModeMixAndCouponPaymentId = table.Column<int>(type: "int", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -953,23 +953,23 @@ namespace eStore.Migrations
                 name: "OnlineSales",
                 columns: table => new
                 {
-                    OnlineSaleId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InvNo = table.Column<string>(type: "TEXT", nullable: true),
+                    OnlineSaleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InvNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    VoyagerInvoiceNo = table.Column<string>(type: "TEXT", nullable: true),
-                    VoygerDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    VoyagerInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VoygerDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoyagerAmount = table.Column<decimal>(type: "money", nullable: false),
-                    ShippingMode = table.Column<string>(type: "TEXT", nullable: true),
+                    ShippingMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VendorFee = table.Column<decimal>(type: "money", nullable: false),
                     ProfitValue = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    OnlineVendorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnlineVendorId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -992,24 +992,24 @@ namespace eStore.Migrations
                 name: "ProductPurchase",
                 columns: table => new
                 {
-                    ProductPurchaseId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InWardNo = table.Column<string>(type: "TEXT", nullable: true),
-                    InWardDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InvoiceNo = table.Column<string>(type: "TEXT", nullable: true),
-                    TotalQty = table.Column<double>(type: "REAL", nullable: false),
+                    ProductPurchaseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InWardNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InWardDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalQty = table.Column<double>(type: "float", nullable: false),
                     TotalBasicAmount = table.Column<decimal>(type: "money", nullable: false),
                     ShippingCost = table.Column<decimal>(type: "money", nullable: false),
                     TotalTax = table.Column<decimal>(type: "money", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    SupplierID = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsPaid = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1032,17 +1032,18 @@ namespace eStore.Migrations
                 name: "RegularInvoices",
                 columns: table => new
                 {
-                    InvoiceNo = table.Column<string>(type: "TEXT", nullable: false),
-                    RegularInvoiceId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsManualBill = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalItems = table.Column<int>(type: "INTEGER", nullable: false),
-                    TotalQty = table.Column<double>(type: "REAL", nullable: false),
+                    InvoiceNo = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RegularInvoiceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsManualBill = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalItems = table.Column<int>(type: "int", nullable: false),
+                    TotalQty = table.Column<double>(type: "float", nullable: false),
                     TotalBillAmount = table.Column<decimal>(type: "money", nullable: false),
                     TotalDiscountAmount = table.Column<decimal>(type: "money", nullable: false),
                     RoundOffAmount = table.Column<decimal>(type: "money", nullable: false),
@@ -1069,22 +1070,22 @@ namespace eStore.Migrations
                 name: "RentedLocations",
                 columns: table => new
                 {
-                    RentedLocationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PlaceName = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    VacatedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    OwnerName = table.Column<string>(type: "TEXT", nullable: true),
-                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
-                    RentAmount = table.Column<decimal>(type: "TEXT", nullable: false),
-                    AdvanceAmount = table.Column<decimal>(type: "TEXT", nullable: false),
-                    IsRented = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RentType = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    RentedLocationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    VacatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OwnerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AdvanceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsRented = table.Column<bool>(type: "bit", nullable: false),
+                    RentType = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1101,16 +1102,16 @@ namespace eStore.Migrations
                 name: "Stocks",
                 columns: table => new
                 {
-                    StockId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProductItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Quantity = table.Column<double>(type: "REAL", nullable: false),
-                    SaleQty = table.Column<double>(type: "REAL", nullable: false),
-                    PurchaseQty = table.Column<double>(type: "REAL", nullable: false),
-                    Units = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StockId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
+                    SaleQty = table.Column<double>(type: "float", nullable: false),
+                    PurchaseQty = table.Column<double>(type: "float", nullable: false),
+                    Units = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1133,13 +1134,13 @@ namespace eStore.Migrations
                 name: "StoreCloses",
                 columns: table => new
                 {
-                    StoreCloseId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ClosingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StoreCloseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClosingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1156,16 +1157,16 @@ namespace eStore.Migrations
                 name: "StoreHolidays",
                 columns: table => new
                 {
-                    StoreHolidayId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Reason = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    ApprovedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StoreHolidayId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Reason = table.Column<int>(type: "int", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApprovedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1182,13 +1183,13 @@ namespace eStore.Migrations
                 name: "StoreOpens",
                 columns: table => new
                 {
-                    StoreOpenId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OpenningTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StoreOpenId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OpenningTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1205,32 +1206,32 @@ namespace eStore.Migrations
                 name: "TalioringBookings",
                 columns: table => new
                 {
-                    TalioringBookingId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    BookingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CustName = table.Column<string>(type: "TEXT", nullable: true),
-                    DeliveryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    BookingSlipNo = table.Column<string>(type: "TEXT", nullable: true),
+                    TalioringBookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CustName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingSlipNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalAmount = table.Column<decimal>(type: "money", nullable: false),
-                    TotalQty = table.Column<int>(type: "INTEGER", nullable: false),
-                    ShirtQty = table.Column<int>(type: "INTEGER", nullable: false),
+                    TotalQty = table.Column<int>(type: "int", nullable: false),
+                    ShirtQty = table.Column<int>(type: "int", nullable: false),
                     ShirtPrice = table.Column<decimal>(type: "money", nullable: false),
-                    PantQty = table.Column<int>(type: "INTEGER", nullable: false),
+                    PantQty = table.Column<int>(type: "int", nullable: false),
                     PantPrice = table.Column<decimal>(type: "money", nullable: false),
-                    CoatQty = table.Column<int>(type: "INTEGER", nullable: false),
+                    CoatQty = table.Column<int>(type: "int", nullable: false),
                     CoatPrice = table.Column<decimal>(type: "money", nullable: false),
-                    KurtaQty = table.Column<int>(type: "INTEGER", nullable: false),
+                    KurtaQty = table.Column<int>(type: "int", nullable: false),
                     KurtaPrice = table.Column<decimal>(type: "money", nullable: false),
-                    BundiQty = table.Column<int>(type: "INTEGER", nullable: false),
+                    BundiQty = table.Column<int>(type: "int", nullable: false),
                     BundiPrice = table.Column<decimal>(type: "money", nullable: false),
-                    Others = table.Column<int>(type: "INTEGER", nullable: false),
+                    Others = table.Column<int>(type: "int", nullable: false),
                     OthersPrice = table.Column<decimal>(type: "money", nullable: false),
-                    IsDelivered = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IsDelivered = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1247,17 +1248,17 @@ namespace eStore.Migrations
                 name: "LedgerEntries",
                 columns: table => new
                 {
-                    LedgerEntryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EntryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EntryType = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReferanceId = table.Column<int>(type: "INTEGER", nullable: false),
-                    VoucherType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Particulars = table.Column<string>(type: "TEXT", nullable: true),
+                    LedgerEntryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PartyId = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EntryType = table.Column<int>(type: "int", nullable: false),
+                    ReferanceId = table.Column<int>(type: "int", nullable: false),
+                    VoucherType = table.Column<int>(type: "int", nullable: false),
+                    Particulars = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AmountIn = table.Column<decimal>(type: "money", nullable: false),
                     AmountOut = table.Column<decimal>(type: "money", nullable: false),
-                    LedgerEntryRefId = table.Column<int>(type: "INTEGER", nullable: false)
+                    LedgerEntryRefId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1274,11 +1275,11 @@ namespace eStore.Migrations
                 name: "LedgerMasters",
                 columns: table => new
                 {
-                    LedgerMasterId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LedgerTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    LedgerMasterId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PartyId = table.Column<int>(type: "int", nullable: false),
+                    CreatingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LedgerTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1301,17 +1302,17 @@ namespace eStore.Migrations
                 name: "CardTranscations",
                 columns: table => new
                 {
-                    EDCTranscationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EDCId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EDCTranscationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EDCId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CardEndingNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    CardTypes = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvoiceNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CardEndingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CardTypes = table.Column<int>(type: "int", nullable: false),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1334,20 +1335,20 @@ namespace eStore.Migrations
                 name: "EletricityBills",
                 columns: table => new
                 {
-                    EletricityBillId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ElectricityConnectionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BillNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    BillDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    MeterReadingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CurrentMeterReading = table.Column<double>(type: "REAL", nullable: false),
-                    TotalUnit = table.Column<double>(type: "REAL", nullable: false),
+                    EletricityBillId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ElectricityConnectionId = table.Column<int>(type: "int", nullable: false),
+                    BillNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BillDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MeterReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CurrentMeterReading = table.Column<double>(type: "float", nullable: false),
+                    TotalUnit = table.Column<double>(type: "float", nullable: false),
                     CurrentAmount = table.Column<decimal>(type: "money", nullable: false),
                     ArrearAmount = table.Column<decimal>(type: "money", nullable: false),
                     NetDemand = table.Column<decimal>(type: "money", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1370,18 +1371,18 @@ namespace eStore.Migrations
                 name: "Attendances",
                 columns: table => new
                 {
-                    AttendanceId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AttDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EntryTime = table.Column<string>(type: "TEXT", nullable: true),
-                    Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    IsTailoring = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AttendanceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    AttDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EntryTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsTailoring = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1404,10 +1405,10 @@ namespace eStore.Migrations
                 name: "EmployeeUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsWorking = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    IsWorking = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1424,14 +1425,14 @@ namespace eStore.Migrations
                 name: "Salesmen",
                 columns: table => new
                 {
-                    SalesmanId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SalesmanName = table.Column<string>(type: "TEXT", nullable: true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SalesmanId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SalesmanName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1454,22 +1455,22 @@ namespace eStore.Migrations
                 name: "OnlineSaleReturns",
                 columns: table => new
                 {
-                    OnlineSaleReturnId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OnlineSaleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InvNo = table.Column<string>(type: "TEXT", nullable: true),
+                    OnlineSaleReturnId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OnlineSaleId = table.Column<int>(type: "int", nullable: false),
+                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InvNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    VoyagerInvoiceNo = table.Column<string>(type: "TEXT", nullable: true),
-                    VoygerDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    VoyagerInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VoygerDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoyagerAmount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    IsRecived = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RecivedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsRecived = table.Column<bool>(type: "bit", nullable: false),
+                    RecivedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1492,16 +1493,16 @@ namespace eStore.Migrations
                 name: "PurchaseItem",
                 columns: table => new
                 {
-                    PurchaseItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProductPurchaseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Barcode = table.Column<string>(type: "TEXT", nullable: true),
-                    Qty = table.Column<double>(type: "REAL", nullable: false),
-                    Unit = table.Column<int>(type: "INTEGER", nullable: false),
+                    PurchaseItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductPurchaseId = table.Column<int>(type: "int", nullable: false),
+                    ProductItemId = table.Column<int>(type: "int", nullable: false),
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Qty = table.Column<double>(type: "float", nullable: false),
+                    Unit = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<decimal>(type: "money", nullable: false),
                     TaxAmout = table.Column<decimal>(type: "money", nullable: false),
-                    PurchaseTaxTypeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PurchaseTaxTypeId = table.Column<int>(type: "int", nullable: true),
                     CostValue = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
@@ -1531,13 +1532,14 @@ namespace eStore.Migrations
                 name: "PaymentDetails",
                 columns: table => new
                 {
-                    InvoiceNo = table.Column<string>(type: "TEXT", nullable: false),
-                    PaymentDetailId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PayMode = table.Column<int>(type: "INTEGER", nullable: false),
+                    InvoiceNo = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PaymentDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PayMode = table.Column<int>(type: "int", nullable: false),
                     CashAmount = table.Column<decimal>(type: "money", nullable: false),
                     CardAmount = table.Column<decimal>(type: "money", nullable: false),
                     MixAmount = table.Column<decimal>(type: "money", nullable: false),
-                    IsManualBill = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsManualBill = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1554,20 +1556,20 @@ namespace eStore.Migrations
                 name: "Rents",
                 columns: table => new
                 {
-                    RentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RentedLocationId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RentType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Period = table.Column<string>(type: "TEXT", nullable: true),
+                    RentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RentedLocationId = table.Column<int>(type: "int", nullable: false),
+                    RentType = table.Column<int>(type: "int", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Period = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Mode = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Mode = table.Column<int>(type: "int", nullable: false),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1590,17 +1592,17 @@ namespace eStore.Migrations
                 name: "TailoringDeliveries",
                 columns: table => new
                 {
-                    TalioringDeliveryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DeliveryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TalioringBookingId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvNo = table.Column<string>(type: "TEXT", nullable: true),
+                    TalioringDeliveryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TalioringBookingId = table.Column<int>(type: "int", nullable: false),
+                    InvNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1623,26 +1625,26 @@ namespace eStore.Migrations
                 name: "Expenses",
                 columns: table => new
                 {
-                    ExpenseId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Particulars = table.Column<string>(type: "TEXT", nullable: true),
-                    PartyName = table.Column<string>(type: "TEXT", nullable: true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PayMode = table.Column<int>(type: "INTEGER", nullable: false),
-                    BankAccountId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
+                    ExpenseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Particulars = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayMode = table.Column<int>(type: "int", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: true),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: true),
-                    LedgerEnteryId = table.Column<int>(type: "INTEGER", nullable: true),
-                    IsCash = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsOn = table.Column<bool>(type: "INTEGER", nullable: true),
-                    LedgerEntryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartyId = table.Column<int>(type: "int", nullable: true),
+                    LedgerEnteryId = table.Column<int>(type: "int", nullable: true),
+                    IsCash = table.Column<bool>(type: "bit", nullable: false),
+                    IsOn = table.Column<bool>(type: "bit", nullable: true),
+                    LedgerEntryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1683,25 +1685,25 @@ namespace eStore.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PartyName = table.Column<string>(type: "TEXT", nullable: true),
-                    PaymentSlipNo = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PayMode = table.Column<int>(type: "INTEGER", nullable: false),
-                    BankAccountId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
+                    PaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PartyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentSlipNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayMode = table.Column<int>(type: "int", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: true),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: true),
-                    LedgerEnteryId = table.Column<int>(type: "INTEGER", nullable: true),
-                    IsCash = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsOn = table.Column<bool>(type: "INTEGER", nullable: true),
-                    LedgerEntryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartyId = table.Column<int>(type: "int", nullable: true),
+                    LedgerEnteryId = table.Column<int>(type: "int", nullable: true),
+                    IsCash = table.Column<bool>(type: "bit", nullable: false),
+                    IsOn = table.Column<bool>(type: "bit", nullable: true),
+                    LedgerEntryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1736,25 +1738,25 @@ namespace eStore.Migrations
                 name: "Receipts",
                 columns: table => new
                 {
-                    ReceiptId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PartyName = table.Column<string>(type: "TEXT", nullable: true),
-                    RecieptSlipNo = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PayMode = table.Column<int>(type: "INTEGER", nullable: false),
-                    BankAccountId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
+                    ReceiptId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PartyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RecieptSlipNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayMode = table.Column<int>(type: "int", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: true),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    PartyId = table.Column<int>(type: "INTEGER", nullable: true),
-                    LedgerEnteryId = table.Column<int>(type: "INTEGER", nullable: true),
-                    IsCash = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsOn = table.Column<bool>(type: "INTEGER", nullable: true),
-                    LedgerEntryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartyId = table.Column<int>(type: "int", nullable: true),
+                    LedgerEnteryId = table.Column<int>(type: "int", nullable: true),
+                    IsCash = table.Column<bool>(type: "bit", nullable: false),
+                    IsOn = table.Column<bool>(type: "bit", nullable: true),
+                    LedgerEntryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1789,20 +1791,20 @@ namespace eStore.Migrations
                 name: "BillPayments",
                 columns: table => new
                 {
-                    EBillPaymentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EletricityBillId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EBillPaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EletricityBillId = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    Mode = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentDetails = table.Column<string>(type: "TEXT", nullable: true),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    IsPartialPayment = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsBillCleared = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Mode = table.Column<int>(type: "int", nullable: false),
+                    PaymentDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPartialPayment = table.Column<bool>(type: "bit", nullable: false),
+                    IsBillCleared = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1825,26 +1827,26 @@ namespace eStore.Migrations
                 name: "DailySales",
                 columns: table => new
                 {
-                    DailySaleId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InvNo = table.Column<string>(type: "TEXT", nullable: true),
+                    DailySaleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InvNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    PayMode = table.Column<int>(type: "INTEGER", nullable: false),
+                    PayMode = table.Column<int>(type: "int", nullable: false),
                     CashAmount = table.Column<decimal>(type: "money", nullable: false),
-                    SalesmanId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsDue = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsManualBill = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsTailoringBill = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsSaleReturn = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    IsMatchedWithVOy = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EDCTranscationId = table.Column<int>(type: "INTEGER", nullable: true),
-                    MixAndCouponPaymentId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SalesmanId = table.Column<int>(type: "int", nullable: false),
+                    IsDue = table.Column<bool>(type: "bit", nullable: false),
+                    IsManualBill = table.Column<bool>(type: "bit", nullable: false),
+                    IsTailoringBill = table.Column<bool>(type: "bit", nullable: false),
+                    IsSaleReturn = table.Column<bool>(type: "bit", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsMatchedWithVOy = table.Column<bool>(type: "bit", nullable: false),
+                    EDCTranscationId = table.Column<int>(type: "int", nullable: true),
+                    MixAndCouponPaymentId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryStatus = table.Column<int>(type: "int", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1879,23 +1881,23 @@ namespace eStore.Migrations
                 name: "RegularSaleItems",
                 columns: table => new
                 {
-                    RegularSaleItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InvoiceNo = table.Column<string>(type: "TEXT", nullable: true),
-                    InvoiceNo1 = table.Column<string>(type: "TEXT", nullable: true),
-                    ProductItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BarCode = table.Column<string>(type: "TEXT", nullable: true),
-                    Qty = table.Column<double>(type: "REAL", nullable: false),
-                    Units = table.Column<int>(type: "INTEGER", nullable: false),
+                    RegularSaleItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvoiceNo1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProductItemId = table.Column<int>(type: "int", nullable: false),
+                    BarCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Qty = table.Column<double>(type: "float", nullable: false),
+                    Units = table.Column<int>(type: "int", nullable: false),
                     MRP = table.Column<decimal>(type: "money", nullable: false),
                     BasicAmount = table.Column<decimal>(type: "money", nullable: false),
                     Discount = table.Column<decimal>(type: "money", nullable: false),
                     TaxAmount = table.Column<decimal>(type: "money", nullable: false),
-                    SaleTaxTypeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    SaleTaxTypeId = table.Column<int>(type: "int", nullable: true),
                     BillAmount = table.Column<decimal>(type: "money", nullable: false),
-                    SalesmanId = table.Column<int>(type: "INTEGER", nullable: false),
-                    HSNCode = table.Column<long>(type: "INTEGER", nullable: true),
-                    HSNCode1 = table.Column<long>(type: "INTEGER", nullable: true)
+                    SalesmanId = table.Column<int>(type: "int", nullable: false),
+                    HSNCode = table.Column<long>(type: "bigint", nullable: true),
+                    HSNCode1 = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1936,14 +1938,14 @@ namespace eStore.Migrations
                 name: "CardDetails",
                 columns: table => new
                 {
-                    CardDetailId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CardType = table.Column<int>(type: "INTEGER", nullable: false),
-                    CardCode = table.Column<int>(type: "INTEGER", nullable: false),
+                    CardDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CardType = table.Column<int>(type: "int", nullable: false),
+                    CardCode = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    AuthCode = table.Column<int>(type: "INTEGER", nullable: false),
-                    LastDigit = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvoiceNo = table.Column<string>(type: "TEXT", nullable: true)
+                    AuthCode = table.Column<int>(type: "int", nullable: false),
+                    LastDigit = table.Column<int>(type: "int", nullable: false),
+                    InvoiceNo = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1960,14 +1962,14 @@ namespace eStore.Migrations
                 name: "CouponPayments",
                 columns: table => new
                 {
-                    CouponPaymentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CouponNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    CouponPaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CouponNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DailySaleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvoiceNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true)
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DailySaleId = table.Column<int>(type: "int", nullable: false),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remark = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1984,15 +1986,15 @@ namespace eStore.Migrations
                 name: "DuesLists",
                 columns: table => new
                 {
-                    DuesListId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    DuesListId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    IsRecovered = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RecoveryDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    DailySaleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsPartialRecovery = table.Column<bool>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true)
+                    IsRecovered = table.Column<bool>(type: "bit", nullable: false),
+                    RecoveryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DailySaleId = table.Column<int>(type: "int", nullable: false),
+                    IsPartialRecovery = table.Column<bool>(type: "bit", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2015,14 +2017,14 @@ namespace eStore.Migrations
                 name: "PointRedeemeds",
                 columns: table => new
                 {
-                    PointRedeemedId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CustomerMobileNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PointRedeemedId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerMobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DailySaleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvoiceNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Remark = table.Column<string>(type: "TEXT", nullable: true)
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DailySaleId = table.Column<int>(type: "int", nullable: false),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remark = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2039,16 +2041,16 @@ namespace eStore.Migrations
                 name: "DueRecoverds",
                 columns: table => new
                 {
-                    DueRecoverdId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PaidDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DuesListId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DueRecoverdId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaidDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DuesListId = table.Column<int>(type: "int", nullable: false),
                     AmountPaid = table.Column<decimal>(type: "money", nullable: false),
-                    IsPartialPayment = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Modes = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true)
+                    IsPartialPayment = table.Column<bool>(type: "bit", nullable: false),
+                    Modes = table.Column<int>(type: "int", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2070,72 +2072,30 @@ namespace eStore.Migrations
             migrationBuilder.InsertData(
                 table: "Banks",
                 columns: new[] { "BankId", "BankName" },
-                values: new object[] { 1, "State Bank of India" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 2, "ICICI Bank" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 3, "Bandhan Bank" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 4, "Punjab National Bank" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 5, "Bank of Baroda" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 6, "Axis Bank" });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "BankName" },
-                values: new object[] { 7, "HDFC Bank" });
+                values: new object[,]
+                {
+                    { 1, "State Bank of India" },
+                    { 2, "ICICI Bank" },
+                    { 3, "Bandhan Bank" },
+                    { 4, "Punjab National Bank" },
+                    { 5, "Bank of Baroda" },
+                    { 6, "Axis Bank" },
+                    { 7, "HDFC Bank" }
+                });
 
             migrationBuilder.InsertData(
                 table: "SaleTaxTypes",
                 columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 7, 5m, "Output Vat Free  ", 4 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 6, 12m, "Output VAT@ 5%  ", 4 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 4, 12m, "Output IGST@ 12%  ", 3 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 5, 5m, "Output Vat@ 12%  ", 4 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 2, 12m, "Local Output GST@ 12%  ", 0 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 1, 5m, "Local Output GST@ 5%  ", 0 });
-
-            migrationBuilder.InsertData(
-                table: "SaleTaxTypes",
-                columns: new[] { "SaleTaxTypeId", "CompositeRate", "TaxName", "TaxType" },
-                values: new object[] { 3, 5m, "Output IGST@ 5%  ", 3 });
+                values: new object[,]
+                {
+                    { 7, 5m, "Output Vat Free  ", 4 },
+                    { 6, 12m, "Output VAT@ 5%  ", 4 },
+                    { 4, 12m, "Output IGST@ 12%  ", 3 },
+                    { 5, 5m, "Output Vat@ 12%  ", 4 },
+                    { 2, 12m, "Local Output GST@ 12%  ", 0 },
+                    { 1, 5m, "Local Output GST@ 5%  ", 0 },
+                    { 3, 5m, "Output IGST@ 5%  ", 3 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Stores",
@@ -2145,62 +2105,28 @@ namespace eStore.Migrations
             migrationBuilder.InsertData(
                 table: "TranscationModes",
                 columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 8, "Regular" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 1, "Home Expenses" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 2, "Other Home Expenses" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 3, "Mukesh(Home Staff)" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 4, "Amit Kumar" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 5, "Amit Kumar Expenses" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 6, "CashIn" });
-
-            migrationBuilder.InsertData(
-                table: "TranscationModes",
-                columns: new[] { "TranscationModeId", "Transcation" },
-                values: new object[] { 7, "CashOut" });
+                values: new object[,]
+                {
+                    { 8, "Regular" },
+                    { 1, "Home Expenses" },
+                    { 2, "Other Home Expenses" },
+                    { 3, "Mukesh(Home Staff)" },
+                    { 4, "Amit Kumar" },
+                    { 5, "Amit Kumar Expenses" },
+                    { 6, "CashIn" },
+                    { 7, "CashOut" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Salesmen",
                 columns: new[] { "SalesmanId", "EmployeeId", "EntryStatus", "IsReadOnly", "SalesmanName", "StoreId", "UserId" },
-                values: new object[] { 1, null, 0, false, "Sanjeev Mishra", 1, null });
-
-            migrationBuilder.InsertData(
-                table: "Salesmen",
-                columns: new[] { "SalesmanId", "EmployeeId", "EntryStatus", "IsReadOnly", "SalesmanName", "StoreId", "UserId" },
-                values: new object[] { 2, null, 0, false, "Mukesh Mandal", 1, null });
-
-            migrationBuilder.InsertData(
-                table: "Salesmen",
-                columns: new[] { "SalesmanId", "EmployeeId", "EntryStatus", "IsReadOnly", "SalesmanName", "StoreId", "UserId" },
-                values: new object[] { 3, null, 0, false, "Manager", 1, null });
-
-            migrationBuilder.InsertData(
-                table: "Salesmen",
-                columns: new[] { "SalesmanId", "EmployeeId", "EntryStatus", "IsReadOnly", "SalesmanName", "StoreId", "UserId" },
-                values: new object[] { 4, null, 0, false, "Bikash Kumar Sah", 1, null });
+                values: new object[,]
+                {
+                    { 1, null, 0, false, "Sanjeev Mishra", 1, null },
+                    { 2, null, 0, false, "Mukesh Mandal", 1, null },
+                    { 3, null, 0, false, "Manager", 1, null },
+                    { 4, null, 0, false, "Bikash Kumar Sah", 1, null }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -2211,7 +2137,8 @@ namespace eStore.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -2237,7 +2164,8 @@ namespace eStore.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_EmployeeId",
@@ -2278,7 +2206,8 @@ namespace eStore.Migrations
                 name: "IX_CardDetails_InvoiceNo",
                 table: "CardDetails",
                 column: "InvoiceNo",
-                unique: true);
+                unique: true,
+                filter: "[InvoiceNo] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CardMachine_StoreId",
@@ -2689,7 +2618,8 @@ namespace eStore.Migrations
                 name: "IX_TranscationModes_Transcation",
                 table: "TranscationModes",
                 column: "Transcation",
-                unique: true);
+                unique: true,
+                filter: "[Transcation] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
