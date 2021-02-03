@@ -47,7 +47,7 @@ namespace eStore
 
             //services.AddDbContext<eStoreDbContext>(options =>
             //    options.UseSqlite(
-            //        Configuration.GetConnectionString("DefaultConnection")));
+            //        Configuration.GetConnectionString("DefaultConnectionMac")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

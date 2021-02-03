@@ -15,7 +15,6 @@ using eStore.Shared.Models.Sales;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Accounts;
 
-//namespace eStore.DL.Data
 namespace eStore.DL.Data
 {
     public class eStoreDbContext : IdentityDbContext<AppUser>
