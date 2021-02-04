@@ -43,14 +43,14 @@ namespace eStore.Areas.Stores.Controllers
                 return NotFound();
             }
 
-            return View(storeHoliday);
+            return PartialView(storeHoliday);
         }
 
         // GET: Store/StoreHolidays/Create
         public IActionResult Create()
         {
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Store/StoreHolidays/Create
@@ -67,7 +67,7 @@ namespace eStore.Areas.Stores.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", storeHoliday.StoreId);
-            return View(storeHoliday);
+            return PartialView(storeHoliday);
         }
 
         // GET: Store/StoreHolidays/Edit/5
@@ -84,7 +84,7 @@ namespace eStore.Areas.Stores.Controllers
                 return NotFound();
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", storeHoliday.StoreId);
-            return View(storeHoliday);
+            return PartialView(storeHoliday);
         }
 
         // POST: Store/StoreHolidays/Edit/5
@@ -120,7 +120,7 @@ namespace eStore.Areas.Stores.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", storeHoliday.StoreId);
-            return View(storeHoliday);
+            return PartialView(storeHoliday);
         }
 
         // GET: Store/StoreHolidays/Delete/5
@@ -139,7 +139,7 @@ namespace eStore.Areas.Stores.Controllers
                 return NotFound();
             }
 
-            return View(storeHoliday);
+            return PartialView(storeHoliday);
         }
 
         // POST: Store/StoreHolidays/Delete/5

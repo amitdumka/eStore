@@ -44,7 +44,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(dueRecoverd);
+            return PartialView(dueRecoverd);
         }
 
         // GET: Accounts/DueRecoverds/Create
@@ -52,7 +52,7 @@ namespace eStore.Areas.Accounts.Controllers
         {
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/DueRecoverds/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
-            return View(dueRecoverd);
+            return PartialView(dueRecoverd);
         }
 
         // GET: Accounts/DueRecoverds/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
-            return View(dueRecoverd);
+            return PartialView(dueRecoverd);
         }
 
         // POST: Accounts/DueRecoverds/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
-            return View(dueRecoverd);
+            return PartialView(dueRecoverd);
         }
 
         // GET: Accounts/DueRecoverds/Delete/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(dueRecoverd);
+            return PartialView(dueRecoverd);
         }
 
         // POST: Accounts/DueRecoverds/Delete/5

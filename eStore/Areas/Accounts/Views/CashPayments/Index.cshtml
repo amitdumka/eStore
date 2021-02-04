@@ -30,15 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsReadOnly)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -50,7 +42,7 @@
         @Html.DisplayFor(modelItem => item.PaymentDate)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Mode.TranscationModeId)
+        @Html.DisplayFor(modelItem => item.Mode.Transcation)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.PaidTo)
@@ -65,17 +57,9 @@
         @Html.DisplayFor(modelItem => item.Remarks)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Store.StoreId)
+        @Html.DisplayFor(modelItem => item.Store.StoreName)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EntryStatus)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.IsReadOnly)
-    </td>
+    
     <td>
         <a asp-action="Edit" asp-route-id="@item.CashPaymentId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.CashPaymentId">Details</a> |

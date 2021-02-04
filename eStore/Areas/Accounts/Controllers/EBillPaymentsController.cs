@@ -44,7 +44,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(eBillPayment);
+            return PartialView(eBillPayment);
         }
 
         // GET: Accounts/EBillPayments/Create
@@ -52,7 +52,7 @@ namespace eStore.Areas.Accounts.Controllers
         {
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/EBillPayments/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
-            return View(eBillPayment);
+            return PartialView(eBillPayment);
         }
 
         // GET: Accounts/EBillPayments/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
-            return View(eBillPayment);
+            return PartialView(eBillPayment);
         }
 
         // POST: Accounts/EBillPayments/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
-            return View(eBillPayment);
+            return PartialView(eBillPayment);
         }
 
         // GET: Accounts/EBillPayments/Delete/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(eBillPayment);
+            return PartialView(eBillPayment);
         }
 
         // POST: Accounts/EBillPayments/Delete/5

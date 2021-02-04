@@ -49,14 +49,14 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(party);
+            return PartialView(party);
         }
 
         // GET: Accountings/Parties/Create
         public IActionResult Create()
         {
             ViewData["LedgerTypeId"] = new SelectList(_context.LedgerTypes, "LedgerTypeId", "LedgerNameType");
-            return View();
+            return PartialView();
         }
 
         // POST: Accountings/Parties/Create
@@ -74,7 +74,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LedgerTypeId"] = new SelectList(_context.LedgerTypes, "LedgerTypeId", "LedgerNameType", party.LedgerTypeId);
-            return View(party);
+            return PartialView(party);
         }
 
         // GET: Accountings/Parties/Edit/5
@@ -91,7 +91,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
             ViewData["LedgerTypeId"] = new SelectList(_context.LedgerTypes, "LedgerTypeId", "LedgerNameType", party.LedgerTypeId);
-            return View(party);
+            return PartialView(party);
         }
 
         // POST: Accountings/Parties/Edit/5
@@ -128,7 +128,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LedgerTypeId"] = new SelectList(_context.LedgerTypes, "LedgerTypeId", "LedgerNameType", party.LedgerTypeId);
-            return View(party);
+            return PartialView(party);
         }
 
         // GET: Accountings/Parties/Delete/5
@@ -147,7 +147,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(party);
+            return PartialView(party);
         }
 
         // POST: Accountings/Parties/Delete/5

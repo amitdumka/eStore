@@ -43,14 +43,14 @@ namespace eStore.Areas.Sales.Controllers
                 return NotFound();
             }
 
-            return View(OnlineSales);
+            return PartialView(OnlineSales);
         }
 
         // GET: Sales/OnlineSales/Create
         public IActionResult Create()
         {
             ViewData["OnlineVendorId"] = new SelectList(_context.Set<OnlineVendor>(), "OnlineVendorId", "OnlineVendorId");
-            return View();
+            return PartialView();
         }
 
         // POST: Sales/OnlineSales/Create
@@ -68,7 +68,7 @@ namespace eStore.Areas.Sales.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OnlineVendorId"] = new SelectList(_context.Set<OnlineVendor>(), "OnlineVendorId", "OnlineVendorId", OnlineSales.OnlineVendorId);
-            return View(OnlineSales);
+            return PartialView(OnlineSales);
         }
 
         // GET: Sales/OnlineSales/Edit/5
@@ -85,7 +85,7 @@ namespace eStore.Areas.Sales.Controllers
             //     return NotFound();
             // }
             //// ViewData["OnlineVendorId"] = new SelectList(_context.Set<OnlineVendor>(), "OnlineVendorId", "OnlineVendorId", OnlineSales.OnlineVendorId);
-            // return View(OnlineSales);
+            // return PartialView(OnlineSales);
             return View();
         }
 
@@ -123,7 +123,7 @@ namespace eStore.Areas.Sales.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OnlineVendorId"] = new SelectList(_context.Set<OnlineVendor>(), "OnlineVendorId", "OnlineVendorId", OnlineSales.OnlineVendorId);
-            return View(OnlineSales);
+            return PartialView(OnlineSales);
         }
 
         // GET: Sales/OnlineSales/Delete/5
@@ -142,7 +142,7 @@ namespace eStore.Areas.Sales.Controllers
                 return NotFound();
             }
 
-            return View(OnlineSales);
+            return PartialView(OnlineSales);
         }
 
         // POST: Sales/OnlineSales/Delete/5

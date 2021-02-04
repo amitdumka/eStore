@@ -43,7 +43,7 @@ namespace eStore.Areas.Sales.Controllers
                 return NotFound();
             }
 
-            return View(onlineSaleReturn);
+            return PartialView(onlineSaleReturn);
         }
 
         // GET: Sales/OnlineSaleReturns/Create
@@ -51,7 +51,7 @@ namespace eStore.Areas.Sales.Controllers
         {
             ViewData["OnlineSaleId"] = new SelectList(_context.OnlineSales, "OnlineSaleId", "InvNo");
             ViewData["OnlineVendorId"] = new SelectList(_context.OnlineVendors, "OnlineVendorId", "OnlineVendorId");
-            return View();
+            return PartialView();
         }
 
         // POST: Sales/OnlineSaleReturns/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Sales.Controllers
             }
             ViewData["OnlineSaleId"] = new SelectList(_context.OnlineSales, "OnlineSaleId", "InvNo", onlineSaleReturn.OnlineSaleId);
            // ViewData["OnlineVendorId"] = new SelectList(_context.OnlineVendor, "OnlineVendorId", "OnlineVendorId", onlineSaleReturn.OnlineVendorId);
-            return View(onlineSaleReturn);
+            return PartialView(onlineSaleReturn);
         }
 
         // GET: Sales/OnlineSaleReturns/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Sales.Controllers
             // }
             //// ViewData["OnlineSaleId"] = new SelectList(_context.OnlineSale, "OnlineSaleId", "InvNo", onlineSaleReturn.OnlineSaleId);
             // ViewData["OnlineVendorId"] = new SelectList(_context.OnlineVendor, "OnlineVendorId", "OnlineVendorId", onlineSaleReturn.OnlineVendorId);
-            // return View(onlineSaleReturn);
+            // return PartialView(onlineSaleReturn);
             return View();
         }
 
@@ -127,7 +127,7 @@ namespace eStore.Areas.Sales.Controllers
             }
            // ViewData["OnlineSaleId"] = new SelectList(_context.OnlineSale, "OnlineSaleId", "InvNo", onlineSaleReturn.OnlineSaleId);
           //  ViewData["OnlineVendorId"] = new SelectList(_context.OnlineVendor, "OnlineVendorId", "OnlineVendorId", onlineSaleReturn.OnlineVendorId);
-            return View(onlineSaleReturn);
+            return PartialView(onlineSaleReturn);
         }
 
         // GET: Sales/OnlineSaleReturns/Delete/5
@@ -147,7 +147,7 @@ namespace eStore.Areas.Sales.Controllers
                 return NotFound();
             }
 
-            return View(onlineSaleReturn);
+            return PartialView(onlineSaleReturn);
         }
 
         // POST: Sales/OnlineSaleReturns/Delete/5

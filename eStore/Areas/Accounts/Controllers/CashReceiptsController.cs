@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
+using eStore.Ops;
 
 namespace eStore.Areas.Accounts.Controllers
 {
@@ -14,6 +15,8 @@ namespace eStore.Areas.Accounts.Controllers
     public class CashReceiptsController : Controller
     {
         private readonly eStoreDbContext _context;
+        private readonly string _returnUrl = "/Identity/Account/Login?ReturnUrl=/Accounts/CashReceipts";
+
 
         public CashReceiptsController(eStoreDbContext context)
         {
@@ -44,13 +47,13 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(cashReceipt);
+            return PartialView(cashReceipt);
         }
 
         // GET: Accounts/CashReceipts/Create
         public IActionResult Create()
         {
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId");
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View();
         }
@@ -68,9 +71,11 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashReceipt.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
-            return View(cashReceipt);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashReceipt.TranscationModeId);
+            // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return PartialView(cashReceipt);
         }
 
         // GET: Accounts/CashReceipts/Edit/5
@@ -86,9 +91,10 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashReceipt.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
-            return View(cashReceipt);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashReceipt.TranscationModeId);
+           // ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
+            return PartialView(cashReceipt);
         }
 
         // POST: Accounts/CashReceipts/Edit/5
@@ -123,9 +129,9 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashReceipt.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
-            return View(cashReceipt);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashReceipt.TranscationModeId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashReceipt.StoreId);
+            return PartialView(cashReceipt);
         }
 
         // GET: Accounts/CashReceipts/Delete/5
@@ -145,7 +151,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(cashReceipt);
+            return PartialView(cashReceipt);
         }
 
         // POST: Accounts/CashReceipts/Delete/5

@@ -40,13 +40,13 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(ledgerType);
+            return PartialView(ledgerType);
         }
 
         // GET: Accountings/LedgerTypes/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Accountings/LedgerTypes/Create
@@ -62,7 +62,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ledgerType);
+            return PartialView(ledgerType);
         }
 
         // GET: Accountings/LedgerTypes/Edit/5
@@ -78,7 +78,7 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            return View(ledgerType);
+            return PartialView(ledgerType);
         }
 
         // POST: Accountings/LedgerTypes/Edit/5
@@ -113,7 +113,7 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ledgerType);
+            return PartialView(ledgerType);
         }
 
         // GET: Accountings/LedgerTypes/Delete/5
@@ -131,7 +131,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(ledgerType);
+            return PartialView(ledgerType);
         }
 
         // POST: Accountings/LedgerTypes/Delete/5

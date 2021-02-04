@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
+using eStore.Ops;
 
 namespace eStore.Areas.Accounts.Controllers
 {
@@ -14,6 +15,8 @@ namespace eStore.Areas.Accounts.Controllers
     public class CashPaymentsController : Controller
     {
         private readonly eStoreDbContext _context;
+        private readonly string _returnUrl = "/Identity/Account/Login?ReturnUrl=/Accounts/Payments";
+
 
         public CashPaymentsController(eStoreDbContext context)
         {
@@ -44,14 +47,16 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(cashPayment);
+            return PartialView(cashPayment);
         }
 
         // GET: Accounts/CashPayments/Create
         public IActionResult Create()
         {
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
             return View();
         }
 
@@ -69,8 +74,10 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
-            return View(cashPayment);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return PartialView(cashPayment);
         }
 
         // GET: Accounts/CashPayments/Edit/5
@@ -88,7 +95,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
-            return View(cashPayment);
+            return PartialView(cashPayment);
         }
 
         // POST: Accounts/CashPayments/Edit/5
@@ -125,7 +132,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
-            return View(cashPayment);
+            return PartialView(cashPayment);
         }
 
         // GET: Accounts/CashPayments/Delete/5
@@ -145,7 +152,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(cashPayment);
+            return PartialView(cashPayment);
         }
 
         // POST: Accounts/CashPayments/Delete/5

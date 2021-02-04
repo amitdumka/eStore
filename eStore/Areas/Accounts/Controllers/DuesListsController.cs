@@ -44,7 +44,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(duesList);
+            return PartialView(duesList);
         }
 
         // GET: Accounts/DuesLists/Create
@@ -52,7 +52,7 @@ namespace eStore.Areas.Accounts.Controllers
         {
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "DailySaleId");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/DuesLists/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "DailySaleId", duesList.DailySaleId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", duesList.StoreId);
-            return View(duesList);
+            return PartialView(duesList);
         }
 
         // GET: Accounts/DuesLists/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "DailySaleId", duesList.DailySaleId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", duesList.StoreId);
-            return View(duesList);
+            return PartialView(duesList);
         }
 
         // POST: Accounts/DuesLists/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "DailySaleId", duesList.DailySaleId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", duesList.StoreId);
-            return View(duesList);
+            return PartialView(duesList);
         }
 
         // GET: Accounts/DuesLists/Delete/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(duesList);
+            return PartialView(duesList);
         }
 
         // POST: Accounts/DuesLists/Delete/5

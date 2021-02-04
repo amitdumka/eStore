@@ -44,7 +44,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(eletricityBill);
+            return PartialView(eletricityBill);
         }
 
         // GET: Accounts/EletricityBills/Create
@@ -52,7 +52,7 @@ namespace eStore.Areas.Accounts.Controllers
         {
             ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/EletricityBills/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
-            return View(eletricityBill);
+            return PartialView(eletricityBill);
         }
 
         // GET: Accounts/EletricityBills/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
-            return View(eletricityBill);
+            return PartialView(eletricityBill);
         }
 
         // POST: Accounts/EletricityBills/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
-            return View(eletricityBill);
+            return PartialView(eletricityBill);
         }
 
         // GET: Accounts/EletricityBills/Delete/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(eletricityBill);
+            return PartialView(eletricityBill);
         }
 
         // POST: Accounts/EletricityBills/Delete/5

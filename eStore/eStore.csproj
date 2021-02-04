@@ -67,11 +67,6 @@
     <Compile Remove="Migrations\20210203085850_initdb.cs" />
      <Compile Remove="Migrations\20210203085850_initdb.Designer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Areas\Accounts\Views\CashPayments\Edit.cshtml" />
-    <Content Remove="Areas\Accounts\Views\CashPayments\Details.cshtml" />
-    <Content Remove="Areas\Accounts\Views\CashPayments\Delete.cshtml" />
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

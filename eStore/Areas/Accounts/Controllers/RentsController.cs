@@ -44,7 +44,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(rent);
+            return PartialView(rent);
         }
 
         // GET: Accounts/Rents/Create
@@ -52,7 +52,7 @@ namespace eStore.Areas.Accounts.Controllers
         {
             ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId");
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/Rents/Create
@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
-            return View(rent);
+            return PartialView(rent);
         }
 
         // GET: Accounts/Rents/Edit/5
@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
-            return View(rent);
+            return PartialView(rent);
         }
 
         // POST: Accounts/Rents/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
-            return View(rent);
+            return PartialView(rent);
         }
 
         // GET: Accounts/Rents/Delete/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(rent);
+            return PartialView(rent);
         }
 
         // POST: Accounts/Rents/Delete/5

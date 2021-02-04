@@ -41,13 +41,13 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(purchaseTaxType);
+            return PartialView(purchaseTaxType);
         }
 
         // GET: Accounts/PurchaseTaxTypes/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/PurchaseTaxTypes/Create
@@ -63,7 +63,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(purchaseTaxType);
+            return PartialView(purchaseTaxType);
         }
 
         // GET: Accounts/PurchaseTaxTypes/Edit/5
@@ -79,7 +79,7 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            return View(purchaseTaxType);
+            return PartialView(purchaseTaxType);
         }
 
         // POST: Accounts/PurchaseTaxTypes/Edit/5
@@ -114,7 +114,7 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(purchaseTaxType);
+            return PartialView(purchaseTaxType);
         }
 
         // GET: Accounts/PurchaseTaxTypes/Delete/5
@@ -132,7 +132,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(purchaseTaxType);
+            return PartialView(purchaseTaxType);
         }
 
         // POST: Accounts/PurchaseTaxTypes/Delete/5

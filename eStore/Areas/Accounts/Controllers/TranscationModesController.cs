@@ -42,13 +42,13 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(transcationMode);
+            return PartialView(transcationMode);
         }
 
         // GET: Accounts/TranscationModes/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/TranscationModes/Create
@@ -64,7 +64,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(transcationMode);
+            return  View(transcationMode);
         }
 
         // GET: Accounts/TranscationModes/Edit/5
@@ -80,7 +80,7 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            return View(transcationMode);
+            return PartialView(transcationMode);
         }
 
         // POST: Accounts/TranscationModes/Edit/5
@@ -115,7 +115,7 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(transcationMode);
+            return PartialView(transcationMode);
         }
 
         // GET: Accounts/TranscationModes/Delete/5
@@ -133,7 +133,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(transcationMode);
+            return PartialView(transcationMode);
         }
 
         // POST: Accounts/TranscationModes/Delete/5

@@ -63,7 +63,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return PartialView(saleTaxType);
+            return View(saleTaxType);
         }
 
         // GET: Accounts/SaleTaxTypes/Edit/5

@@ -43,15 +43,16 @@
                 <input asp-for="Remarks" class="form-control" />
                 <span asp-validation-for="Remarks" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+            <div>
+                <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
+                <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
+                <input asp-for="EntryStatus" class="form-control" type="hidden" value="0" />
+                <input asp-for="IsReadOnly" type="hidden" value="false" />
+
+                <span asp-validation-for="EntryStatus" class="text-danger"></span>
                 <span asp-validation-for="StoreId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
                 <span asp-validation-for="UserId" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -43,14 +43,14 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(rentedLocation);
+            return PartialView(rentedLocation);
         }
 
         // GET: Accounts/RentedLocations/Create
         public IActionResult Create()
         {
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/RentedLocations/Create
@@ -67,7 +67,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
-            return View(rentedLocation);
+            return PartialView(rentedLocation);
         }
 
         // GET: Accounts/RentedLocations/Edit/5
@@ -84,7 +84,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
-            return View(rentedLocation);
+            return PartialView(rentedLocation);
         }
 
         // POST: Accounts/RentedLocations/Edit/5
@@ -120,7 +120,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
-            return View(rentedLocation);
+            return PartialView(rentedLocation);
         }
 
         // GET: Accounts/RentedLocations/Delete/5
@@ -139,7 +139,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(rentedLocation);
+            return PartialView(rentedLocation);
         }
 
         // POST: Accounts/RentedLocations/Delete/5

@@ -41,13 +41,13 @@ namespace eStore.Areas.Stores.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return PartialView(customer);
         }
 
         // GET: Stores/Customers/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Stores/Customers/Create
@@ -63,7 +63,7 @@ namespace eStore.Areas.Stores.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return PartialView(customer);
         }
 
         // GET: Stores/Customers/Edit/5
@@ -79,7 +79,7 @@ namespace eStore.Areas.Stores.Controllers
             {
                 return NotFound();
             }
-            return View(customer);
+            return PartialView(customer);
         }
 
         // POST: Stores/Customers/Edit/5
@@ -114,7 +114,7 @@ namespace eStore.Areas.Stores.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return PartialView(customer);
         }
 
         // GET: Stores/Customers/Delete/5
@@ -132,7 +132,7 @@ namespace eStore.Areas.Stores.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return PartialView(customer);
         }
 
         // POST: Stores/Customers/Delete/5
