@@ -284,7 +284,7 @@ namespace eStore.Areas.Sales.Controllers
             {
 
                 db.Add(dailySale);
-
+                await db.SaveChangesAsync();
                 new SalesManager().OnInsert(db, dailySale);
 
                 await db.SaveChangesAsync();

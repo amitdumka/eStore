@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using eStore.BL.Triggers;
 using eStore.DL.Data;
 using eStore.Shared.Models.Sales;
@@ -45,6 +46,26 @@ namespace eStore.BL.SalePurchase
                 if (dId != null)
                 {
                     db.DuesLists.Remove(dId);
+                    decimal dueAmt;
+                    if (dailySale.Amount != dailySale.CashAmount)
+                    {
+                        dueAmt = dailySale.Amount - dailySale.CashAmount;
+                    }
+                    else
+                        dueAmt = dailySale.Amount;
+
+                    DuesList dl = new DuesList()
+                    {
+                        Amount = dueAmt,
+                        DailySale = dailySale,
+                        DailySaleId = dailySale.DailySaleId,
+                        StoreId = dailySale.StoreId
+                        ,
+                        IsPartialRecovery = false,
+                        IsRecovered = false,
+                        UserId = dailySale.UserId
+                    };
+                    db.DuesLists.Add(dl);
                 }
                 else
                 {
@@ -61,8 +82,11 @@ namespace eStore.BL.SalePurchase
                 else
                     dueAmt = dailySale.Amount;
 
-                DuesList dl = new DuesList() { Amount = dueAmt, DailySale = dailySale, DailySaleId = dailySale.DailySaleId };
+                DuesList dl = new DuesList() { Amount = dueAmt, DailySale = dailySale  , DailySaleId = dailySale.DailySaleId, StoreId=dailySale.StoreId
+                    , IsPartialRecovery=false,  IsRecovered=false, UserId=dailySale.UserId
+                };
                 db.DuesLists.Add(dl);
+                
             }
 
 
