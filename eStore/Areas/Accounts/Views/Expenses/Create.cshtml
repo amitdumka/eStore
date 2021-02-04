@@ -4,8 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-
-
 <h4>Expense</h4>
 <hr />
 <div class="row">
@@ -24,7 +22,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OnDate" class="control-label"></label>
@@ -33,12 +32,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="PayMode" class="control-label"></label>
-                <select asp-for="PayMode" class="form-control"></select>
+                <select asp-for="PayMode" class="form-control" asp-items="@Html.GetEnumSelectList<PaymentMode>()"></select>
                 <span asp-validation-for="PayMode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BankAccountId" class="control-label"></label>
-                <select asp-for="BankAccountId" class ="form-control" asp-items="ViewBag.BankAccountId"></select>
+                <select asp-for="BankAccountId" class="form-control" asp-items="ViewBag.BankAccountId"></select>
+                <span asp-validation-for="BankAccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentDetails" class="control-label"></label>
@@ -57,27 +57,31 @@
             </div>
             <div class="form-group">
                 <label asp-for="PartyId" class="control-label"></label>
-                <select asp-for="PartyId" class ="form-control" asp-items="ViewBag.PartyId"></select>
+                <select asp-for="PartyId" class="form-control" asp-items="ViewBag.PartyId"></select>
+                <span asp-validation-for="PartyId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LedgerEnteryId" class="control-label"></label>
                 <input asp-for="LedgerEnteryId" class="form-control" />
                 <span asp-validation-for="LedgerEnteryId" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsCash" /> @Html.DisplayNameFor(model => model.IsCash)
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsCash" type="checkbox" />
+                <label class="form-check-label text-primary" asp-for="IsCash">
+                    @Html.DisplayNameFor(model => model.IsCash)
                 </label>
+                <span asp-validation-for="IsCash" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
+            <div>
+                <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
+                <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
+                <input asp-for="EntryStatus" class="form-control" type="hidden" value="0" />
+                <span asp-validation-for="EntryStatus" class="text-danger"></span>
+                <span asp-validation-for="StoreId" class="text-danger"></span>
                 <span asp-validation-for="UserId" class="text-danger"></span>
+
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -85,7 +89,7 @@
     </div>
 </div>
 
-<div>
-    
-</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+}

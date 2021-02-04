@@ -21,10 +21,7 @@ namespace eStore.Shared.Models.Payroll
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalary { get; set; }
 
-        //[DataType(DataType.Currency), Column(TypeName = "money")]
-        //public decimal SundaySalary { get; set; }
-
-        [DataType(DataType.Currency), Column(TypeName = "money")]
+         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal LPRate { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]

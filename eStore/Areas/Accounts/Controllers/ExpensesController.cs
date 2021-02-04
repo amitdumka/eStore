@@ -1,9 +1,12 @@
 ﻿using eStore.DL.Data;
+using eStore.Ops;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +17,7 @@ namespace eStore.Areas.Accounts.Controllers
     public class ExpensesController : Controller
     {
         private readonly eStoreDbContext _context;
+        private readonly string _returnUrl = "/Identity/Account/Login?ReturnUrl=/Accounts/Expenses";
 
         public ExpensesController(eStoreDbContext context)
         {
@@ -46,17 +50,19 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(expense);
+            return PartialView(expense);
         }
 
         // GET: Accountings/Expenses/Create
         public IActionResult Create()
         {
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "StaffName");
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName");
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return PartialView();
         }
 
         // POST: Accountings/Expenses/Create
@@ -64,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExpenseId,Particulars,PartyName,EmployeeId,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserName")] Expense expense)
+        public async Task<IActionResult> Create([Bind("ExpenseId,Particulars,PartyName,EmployeeId,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserId,EntryStatus")] Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -72,10 +78,20 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", expense.BankAccountId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", expense.EmployeeId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", expense.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", expense.StoreId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", expense.BankAccountId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "StaffName", expense.EmployeeId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", expense.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            Console.WriteLine($"StoreId+{expense.StoreId}\tEnt {expense.EntryStatus},\t us {expense.UserId}, \taa=" + ModelState.IsValid);
+            foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
             return View(expense);
         }
 
@@ -92,11 +108,11 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", expense.BankAccountId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", expense.EmployeeId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", expense.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", expense.StoreId);
-            return View(expense);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", expense.BankAccountId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "StaffName", expense.EmployeeId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", expense.PartyId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", expense.StoreId);
+            return PartialView(expense);
         }
 
         // POST: Accountings/Expenses/Edit/5
@@ -104,7 +120,7 @@ namespace eStore.Areas.Accounts.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExpenseId,Particulars,PartyName,EmployeeId,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserName")] Expense expense)
+        public async Task<IActionResult> Edit(int id, [Bind("ExpenseId,Particulars,PartyName,EmployeeId,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserId")] Expense expense)
         {
             if (id != expense.ExpenseId)
             {
@@ -131,10 +147,10 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", expense.BankAccountId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", expense.EmployeeId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", expense.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", expense.StoreId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", expense.BankAccountId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "StaffName", expense.EmployeeId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", expense.PartyId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", expense.StoreId);
             return View(expense);
         }
 
@@ -157,7 +173,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(expense);
+            return PartialView(expense);
         }
 
         // POST: Accountings/Expenses/Delete/5

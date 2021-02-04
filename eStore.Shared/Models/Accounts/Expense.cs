@@ -29,19 +29,13 @@ namespace eStore.Shared.Models.Accounts
 
         [DataType(DataType.Currency), Column(TypeName = "money"), Display(Name = "Amount")]
         public decimal Amount { get; set; }
-
         public string Remarks { get; set; }
-
         [Display(Name = "Party")]
         public int? PartyId { get; set; }
-
         [Display(Name = "Leger")]
         public int? LedgerEnteryId { get; set; }
-
-
         [DefaultValue(false), Display(Name = "Cash")]
         public bool IsCash { get; set; }
-
         [DefaultValue(false), Display(Name = "ON")]
         public bool? IsOn { get; set; }
 
@@ -52,36 +46,28 @@ namespace eStore.Shared.Models.Accounts
     public class Expense : BasicVoucher
     {
         public int ExpenseId { get; set; }
-
         public string Particulars { get; set; }
-
         [Display(Name = "Paid To")]
         public new string PartyName { get; set; }
-
         [Display(Name = "Paid By")]
         public int EmployeeId { get; set; }
         public virtual Employee PaidBy { get; set; }
-
     }
 
     public class Payment : BasicVoucher
     {
         public int PaymentId { get; set; }
-
         [Display(Name = "Paid To")]
         public new string PartyName { get; set; }
-
         [Display(Name = "Payment Slip No")]
         public string PaymentSlipNo { get; set; }
-
     }
+
     public class Receipt : BasicVoucher
     {
         public int ReceiptId { get; set; }
-
         [Display(Name = "Receipt From ")]
         public new string PartyName { get; set; }
-
         [Display(Name = "Receipt Slip No ")]
         public string RecieptSlipNo { get; set; }
     }
@@ -90,24 +76,19 @@ namespace eStore.Shared.Models.Accounts
     {
         public int PartyId { get; set; }
         public string PartyName { get; set; }
-
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "On Date")]
         public DateTime OpenningDate { get; set; }
-
         [Display(Name = "Opening Balance")]
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal OpenningBalance { get; set; }
-
         public string Address { get; set; }
         public string PANNo { get; set; }
         public string GSTNo { get; set; }
-
         [Display(Name = "Ledger Type")]
         // public LedgerCategory LedgerType { get; set; }
         public int LedgerTypeId { get; set; }
         public virtual LedgerType LedgerType { get; set; }
-
         public LedgerMaster LedgerMaster { get; set; }
         public virtual ICollection<LedgerEntry> Ledgers { get; set; }
     }

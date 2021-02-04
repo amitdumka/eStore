@@ -26,9 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PayMode)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.FromAccount)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.PaymentDetails)
             </th>
@@ -38,21 +38,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.LedgerEnteryId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsCash)
-            </th>
+            </th>*@
             @*<th>
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>*@
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Party)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Store)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -67,7 +67,7 @@
                     @Html.DisplayFor(modelItem => item.PartyName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PaidBy.EmployeeId)
+                    @Html.DisplayFor(modelItem => item.PaidBy.StaffName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OnDate)
@@ -75,9 +75,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PayMode)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.FromAccount.BankAccountId)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.PaymentDetails)
                 </td>
@@ -87,21 +87,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Remarks)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.LedgerEnteryId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsCash)
-                </td>
+                </td>*@
                 @*<td>
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>*@
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Party.PartyId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Store.StoreId)
-                </td>
+                </td>*@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ExpenseId">Edit</a> 
                     <a asp-action="Details" asp-route-id="@item.ExpenseId">Details</a> |
@@ -118,8 +118,7 @@
         cardTableInit("dtExpense", "Expense", "Expenses");
          function deleteM(id) {
              deleteModal('@activityName', '@uri', id);
-            // alert(id);
-             return false;
+            
         }
     </script>
 }

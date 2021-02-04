@@ -40,14 +40,14 @@ namespace eStore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<eStoreDbContext>(options =>
-                            options.UseSqlServer(
-                                Configuration.GetConnectionString("DefaultConnection")));
-
-
             //services.AddDbContext<eStoreDbContext>(options =>
-            //    options.UseSqlite(
-            //        Configuration.GetConnectionString("DefaultConnectionMac")));
+            //                options.UseSqlServer(
+            //                    Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddDbContext<eStoreDbContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("DefaultConnectionMac")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
