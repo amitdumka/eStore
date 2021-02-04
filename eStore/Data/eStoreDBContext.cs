@@ -14,6 +14,7 @@ using eStore.Shared.Models.Accounts.Expenses;
 using eStore.Shared.Models.Sales;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Accounts;
+using eStore.Shared.ViewModels.Banking;
 
 namespace eStore.DL.Data
 {
@@ -36,6 +37,15 @@ namespace eStore.DL.Data
         public DbSet<EmployeeUser> EmployeeUsers { get; set; }
         public DbSet<Attendance> Attendances { get; set; } //ok//UI
         public DbSet<Salesman> Salesmen { get; set; } //ok
+
+        //TODO: review
+        public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        //public DbSet<StaffAdvancePayment> StaffAdvancePayments { get; set; }
+        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
+        public DbSet<BankDeposit> BankDeposits { get; set; }
+        public DbSet<BankWithdrawal> BankWithdrawals { get; set; }
+
+
 
 
         public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI

@@ -27,6 +27,7 @@
     <PackageReference Include="itext7" Version="7.1.14" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.1" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.0" />
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,15 @@
     <Folder Include="BL\DataHelpers\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="BL\Tailor\" />
+    <Folder Include="BL\Reports\" />
+    <Folder Include="BL\Reports\Accounts\" />
+    <Folder Include="BL\ViewComponets\" />
+    <Folder Include="BL\ViewComponets\ChartJs\" />
+    <Folder Include="BL\Exporter\" />
+    <Folder Include="Areas\Reports\" />
+    <Folder Include="Areas\Reports\Controllers\" />
+    <Folder Include="Areas\Reports\Views\" />
+    <Folder Include="Areas\Reports\Views\CashBook\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
@@ -66,6 +76,16 @@
     <Compile Remove="Data\ApplicationDbContext.cs" />
     <Compile Remove="Migrations\20210203085850_initdb.cs" />
      <Compile Remove="Migrations\20210203085850_initdb.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\CashInHands\Create.cshtml" />
+    <Content Remove="Views\CashInHands\Edit.cshtml" />
+    <Content Remove="Views\CashInHands\Details.cshtml" />
+    <Content Remove="Views\CashInHands\Index.cshtml" />
+    <Content Remove="Views\CashInBanks\Create.cshtml" />
+    <Content Remove="Views\CashInBanks\Edit.cshtml" />
+    <Content Remove="Views\CashInBanks\Details.cshtml" />
+    <Content Remove="Views\CashInBanks\Delete.cshtml" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
