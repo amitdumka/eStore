@@ -70,6 +70,10 @@ namespace eStore.Areas.Accounts.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (receipt.PayMode == PaymentMode.Cash)
+                {
+                    receipt.BankAccountId = null;
+                }
                 _context.Add(receipt);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,6 +121,10 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 try
                 {
+                    if (receipt.PayMode == PaymentMode.Cash)
+                    {
+                        receipt.BankAccountId = null;
+                    }
                     _context.Update(receipt);
                     await _context.SaveChangesAsync();
                 }

@@ -27,12 +27,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -44,7 +44,7 @@
         @Html.DisplayFor(modelItem => item.PaidDate)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.DuesList.DuesListId)
+        @Html.DisplayFor(modelItem => item.DuesList.DailySale.InvNo)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.AmountPaid)
@@ -58,12 +58,12 @@
     <td>
         @Html.DisplayFor(modelItem => item.Remarks)
     </td>
-    <td>
+    @*<td>
         @Html.DisplayFor(modelItem => item.Store.StoreId)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.UserId)
-    </td>
+    </td>*@
     <td>
         <a asp-action="Edit" asp-route-id="@item.DueRecoverdId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.DueRecoverdId">Details</a> |

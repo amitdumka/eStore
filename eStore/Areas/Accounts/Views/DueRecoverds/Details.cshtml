@@ -7,7 +7,7 @@
 
 
 <div>
-    <h4>DueRecoverd</h4>
+    <h4>Due Recovery</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.DuesList)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DuesList.DuesListId)
+            @Html.DisplayFor(model => model.DuesList.DailySale.InvNo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AmountPaid)
@@ -31,8 +31,8 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsPartialPayment)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPartialPayment)
+        <dd class="col-sm-10 form-check">
+                <input class="form-check-input" asp-for="IsPartialPayment" type="checkbox" />
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Modes)
@@ -46,7 +46,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Remarks)
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Store)
         </dt>
         <dd class = "col-sm-10">
@@ -57,7 +57,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserId)
-        </dd>
+        </dd>*@
     </dl>
 </div>
 <div>

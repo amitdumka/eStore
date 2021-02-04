@@ -63,26 +63,15 @@
             @Html.DisplayNameFor(model => model.Connection)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Connection.ElectricityConnectionId)
+            @Html.DisplayFor(model => model.Connection.ConnectioName)
         </dd class>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Store)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Store.StoreId)
+            @Html.DisplayFor(model => model.Store.StoreName)
         </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsReadOnly)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsReadOnly)
-        </dd>
+        
     </dl>
     
     <form asp-action="Delete">

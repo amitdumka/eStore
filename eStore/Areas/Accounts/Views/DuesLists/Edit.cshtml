@@ -18,9 +18,9 @@
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsRecovered" /> @Html.DisplayNameFor(model => model.IsRecovered)
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsRecovered" type="checkbox" />
+                <label class="form-check-label" asp-for="IsRecovered">
                 </label>
             </div>
             <div class="form-group">
@@ -33,18 +33,14 @@
                 <select asp-for="DailySaleId" class="form-control" asp-items="ViewBag.DailySaleId"></select>
                 <span asp-validation-for="DailySaleId" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPartialRecovery" /> @Html.DisplayNameFor(model => model.IsPartialRecovery)
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsPartialRecovery" type="checkbox" />
+                <label class="form-check-label" asp-for="IsPartialRecovery">
                 </label>
             </div>
             <div>
                 <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
                 <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
-                <input asp-for="EntryStatus" class="form-control" type="hidden" value="0" />
-                <input asp-for="IsReadOnly" type="hidden" value="false" />
-
-                <span asp-validation-for="EntryStatus" class="text-danger"></span>
                 <span asp-validation-for="StoreId" class="text-danger"></span>
                 <span asp-validation-for="UserId" class="text-danger"></span>
 

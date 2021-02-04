@@ -58,14 +58,15 @@
                 <input asp-for="AdvanceAmount" class="form-control" />
                 <span asp-validation-for="AdvanceAmount" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsRented" /> @Html.DisplayNameFor(model => model.IsRented)
+            <div class="form-check">
+
+                <input class="form-check-input" asp-for="IsRented" type="checkbox" />
+                <label class="form-check-label" asp-for="IsRented">
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="RentType" class="control-label"></label>
-                <select asp-for="RentType" class="form-control"></select>
+                <select asp-for="RentType" class="form-control" asp-items="Html.GetEnumSelectList<RentType>()"></select>
                 <span asp-validation-for="RentType" class="text-danger"></span>
             </div>
             <div>

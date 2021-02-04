@@ -6,7 +6,7 @@
 
 
 
-<h4>DueRecoverd</h4>
+<h4>Due Recoverd</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,21 +19,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="DuesListId" class="control-label"></label>
-                <select asp-for="DuesListId" class ="form-control" asp-items="ViewBag.DuesListId"></select>
+                <select asp-for="DuesListId" class="form-control" asp-items="ViewBag.DuesListId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="AmountPaid" class="control-label"></label>
                 <input asp-for="AmountPaid" class="form-control" />
                 <span asp-validation-for="AmountPaid" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPartialPayment" /> @Html.DisplayNameFor(model => model.IsPartialPayment)
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsPartialPayment" type="checkbox" />
+                <label class="form-check-label" asp-for="IsPartialPayment">
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="Modes" class="control-label"></label>
-                <select asp-for="Modes" class="form-control"></select>
+                <select asp-for="Modes" class="form-control" asp-items="Html.GetEnumSelectList< PaymentMode>()"></select>
                 <span asp-validation-for="Modes" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,10 +44,6 @@
             <div>
                 <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
                 <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
-                <input asp-for="EntryStatus" class="form-control" type="hidden" value="0" />
-                <input asp-for="IsReadOnly" type="hidden" value="false" />
-
-                <span asp-validation-for="EntryStatus" class="text-danger"></span>
                 <span asp-validation-for="StoreId" class="text-danger"></span>
                 <span asp-validation-for="UserId" class="text-danger"></span>
 

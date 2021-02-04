@@ -20,8 +20,9 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsRecovered)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsRecovered)
+        <dd class="col-sm-10 form-check">
+            <input class="form-check-input" asp-for="IsRecovered" checked="@Model.IsRecovered." type="checkbox" disabled/>
+
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.RecoveryDate)
@@ -38,10 +39,11 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsPartialRecovery)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPartialRecovery)
+        <dd class="col-sm-10 form-check">
+            <input class="form-check-input" asp-for="IsPartialRecovery" checked="@Model.IsPartialRecovery." type="checkbox" disabled/>
+
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Store)
         </dt>
         <dd class = "col-sm-10">
@@ -52,7 +54,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserId)
-        </dd>
+        </dd>*@
     </dl>
     
     <form asp-action="Delete">
