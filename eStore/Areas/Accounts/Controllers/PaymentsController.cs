@@ -1,4 +1,5 @@
 ﻿using eStore.DL.Data;
+using eStore.Ops;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace eStore.Areas.Accounts.Controllers
     public class PaymentsController : Controller
     {
         private readonly eStoreDbContext _context;
+        private readonly string _returnUrl = "/Identity/Account/Login?ReturnUrl=/Accounts/Payments";
 
         public PaymentsController(eStoreDbContext context)
         {
@@ -45,16 +47,16 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(payment);
+            return PartialView(payment);
         }
 
         // GET: Accountings/Payments/Create
         public IActionResult Create()
         {
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId");
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account");
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName");
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+            return PartialView();
         }
 
         // POST: Accountings/Payments/Create
@@ -62,7 +64,7 @@ namespace eStore.Areas.Accounts.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentId,PartyName,PaymentSlipNo,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserName")] Payment payment)
+        public async Task<IActionResult> Create([Bind("PaymentId,PartyName,PaymentSlipNo,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserId")] Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -70,10 +72,11 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", payment.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", payment.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", payment.StoreId);
-            return View(payment);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", payment.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", payment.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return  View(payment);
         }
 
         // GET: Accountings/Payments/Edit/5
@@ -89,10 +92,10 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", payment.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", payment.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", payment.StoreId);
-            return View(payment);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", payment.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", payment.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+            return PartialView(payment);
         }
 
         // POST: Accountings/Payments/Edit/5
@@ -100,7 +103,7 @@ namespace eStore.Areas.Accounts.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,PartyName,PaymentSlipNo,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserName")] Payment payment)
+        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,PartyName,PaymentSlipNo,OnDate,PayMode,BankAccountId,PaymentDetails,Amount,Remarks,PartyId,LedgerEnteryId,IsCash,StoreId,UserId")] Payment payment)
         {
             if (id != payment.PaymentId)
             {
@@ -127,10 +130,11 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", payment.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", payment.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", payment.StoreId);
-            return View(payment);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", payment.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", payment.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return  View(payment);
         }
 
         // GET: Accountings/Payments/Delete/5
@@ -151,7 +155,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(payment);
+            return PartialView(payment);
         }
 
         // POST: Accountings/Payments/Delete/5

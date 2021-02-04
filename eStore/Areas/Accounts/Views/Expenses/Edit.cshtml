@@ -74,8 +74,16 @@
                     @Html.DisplayNameFor(model => model.IsCash)
                 </label>
             </div>
-            <input asp-for="StoreId" class="form-control" type="hidden" asp-items="@ViewBag.StoreId" />
-            <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
+            <div>
+                <input asp-for="StoreId" class="form-control" type="hidden"  readonly/>
+                <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
+                <input asp-for="EntryStatus" class="form-control" type="hidden" value="3" />
+
+                <span asp-validation-for="EntryStatus" class="text-danger"></span>
+                <span asp-validation-for="StoreId" class="text-danger"></span>
+                 <span asp-validation-for="UserId" class="text-danger"></span>
+
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

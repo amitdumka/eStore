@@ -1,4 +1,5 @@
 ﻿using eStore.DL.Data;
+using eStore.Ops;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,8 @@ namespace eStore.Areas.Accounts.Controllers
     public class ReceiptsController : Controller
     {
         private readonly eStoreDbContext _context;
+        private readonly string _returnUrl = "/Identity/Account/Login?ReturnUrl=/Accounts/Payments";
+
 
         public ReceiptsController(eStoreDbContext context)
         {
@@ -45,16 +48,17 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(receipt);
+            return PartialView(receipt);
         }
 
         // GET: Accountings/Receipts/Create
         public IActionResult Create()
         {
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId");
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
-            return View();
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account");
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName");
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return PartialView();
         }
 
         // POST: Accountings/Receipts/Create
@@ -70,9 +74,10 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", receipt.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", receipt.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", receipt.StoreId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", receipt.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", receipt.PartyId);
+             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
             return View(receipt);
         }
 
@@ -89,10 +94,11 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", receipt.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", receipt.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", receipt.StoreId);
-            return View(receipt);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", receipt.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", receipt.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
+            return PartialView(receipt);
         }
 
         // POST: Accountings/Receipts/Edit/5
@@ -127,9 +133,10 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "BankAccountId", receipt.BankAccountId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId", receipt.PartyId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", receipt.StoreId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", receipt.BankAccountId);
+            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", receipt.PartyId);
+            ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
+
             return View(receipt);
         }
 
@@ -151,7 +158,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return View(receipt);
+            return PartialView(receipt);
         }
 
         // POST: Accountings/Receipts/Delete/5
