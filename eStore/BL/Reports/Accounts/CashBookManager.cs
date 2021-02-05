@@ -709,7 +709,7 @@ namespace eStore.BL.Reports.Accounts.Old
             }
             foreach (var item in eDepo)
             {
-                CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = "Bank Depo# " + item.Id + " Acc: " + item.Account.Account, CashOut = item.Amount, CashBalance = 0 };
+                CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = "Bank Depo# " + item.BankDepositId + " Acc: " + item.Account.Account, CashOut = item.Amount, CashBalance = 0 };
                 book.Add(b);
             }
             foreach (var item in eCashEx)

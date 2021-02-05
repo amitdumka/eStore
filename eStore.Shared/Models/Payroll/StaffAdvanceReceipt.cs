@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eStore.Shared.Models.Accounts;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace eStore.Shared.Models.Payroll
@@ -24,5 +25,6 @@ namespace eStore.Shared.Models.Payroll
 
         [Display(Name = "Party")]
         public int? PartyId { get; set; }
+        public virtual Party Party { get; set; }
     }
 }

@@ -56,18 +56,19 @@
                 <select asp-for="PartyId" class="form-control" asp-items="ViewBag.PartyId"></select>
                 <span asp-validation-for="PartyId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LedgerEnteryId" class="control-label"></label>
-                <input asp-for="LedgerEnteryId" class="form-control" />
-                <span asp-validation-for="LedgerEnteryId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="LedgerEnteryId" class="form-control" />
             <div class="form-check">
-                
-                <input class="form-check-input" asp-for="IsCash"  checked="@Model.IsCash"/>
+
+                <input class="form-check-input" asp-for="IsCash" checked="@Model.IsCash" />
                 <label class="form-check-label" asp-for="IsCash"></label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsDyn" type="checkbox"   checked="@Model.IsDyn"/>
+                <label class="form-check-label text-primary" asp-for="IsDyn"></label>
+                <span asp-validation-for="IsDyn" class="text-danger"></span>
+            </div>
             <div>
-                <input asp-for="StoreId" class="form-control" type="hidden"/>
+                <input asp-for="StoreId" class="form-control" type="hidden" />
                 <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
                 <input asp-for="EntryStatus" class="form-control" type="hidden" value="3" />
                 <span asp-validation-for="EntryStatus" class="text-danger"></span>

@@ -38,15 +38,7 @@ namespace eStore.DL.Data
         public DbSet<Attendance> Attendances { get; set; } //ok//UI
         public DbSet<Salesman> Salesmen { get; set; } //ok
 
-        //TODO: review
-        public DbSet<SalaryPayment> SalaryPayments { get; set; }
-        //public DbSet<StaffAdvancePayment> StaffAdvancePayments { get; set; }
-        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
-        public DbSet<BankDeposit> BankDeposits { get; set; }
-        public DbSet<BankWithdrawal> BankWithdrawals { get; set; }
-
-
-
+        
 
         public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI
         public DbSet<SaleTaxType> SaleTaxTypes { get; set; } //ok//UI
@@ -136,6 +128,12 @@ namespace eStore.DL.Data
         public DbSet<CashReceipt> CashReceipts { get; set; }
 
         public DbSet<BankAccount> BankAccounts { get; set; }
+        //TODO: review
+        public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        //public DbSet<StaffAdvancePayment> StaffAdvancePayments { get; set; }
+        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
+        public DbSet<BankDeposit> BankDeposits { get; set; }
+        public DbSet<BankWithdrawal> BankWithdrawals { get; set; }
 
 
 

@@ -30,15 +30,21 @@ namespace eStore.Shared.Models.Accounts
         [DataType(DataType.Currency), Column(TypeName = "money"), Display(Name = "Amount")]
         public decimal Amount { get; set; }
         public string Remarks { get; set; }
+       
         [Display(Name = "Party")]
         public int? PartyId { get; set; }
+        
         [Display(Name = "Leger")]
         public int? LedgerEnteryId { get; set; }
+       
         [DefaultValue(false), Display(Name = "Cash")]
         public bool IsCash { get; set; }
+        
         [DefaultValue(false), Display(Name = "ON")]
         public bool? IsOn { get; set; }
 
+        [DefaultValue(true), Display(Name = "Dyn")]
+        public bool IsDyn { get; set; }
         public virtual Party Party { get; set; }
         public virtual LedgerEntry LedgerEntry { get; set; }
 
@@ -85,7 +91,7 @@ namespace eStore.Shared.Models.Accounts
         public string Address { get; set; }
         public string PANNo { get; set; }
         public string GSTNo { get; set; }
-        [Display(Name = "Ledger Type")]
+        [Display(Name = "Ledger Group")]
         // public LedgerCategory LedgerType { get; set; }
         public int LedgerTypeId { get; set; }
         public virtual LedgerType LedgerType { get; set; }
@@ -111,7 +117,7 @@ namespace eStore.Shared.Models.Accounts
 
 
     }
-
+    //TODO: LedgerEntry Need to update based on better concept and check the use of LedgerMaster
     public class LedgerEntry
     {
         public int LedgerEntryId { get; set; }
@@ -123,17 +129,22 @@ namespace eStore.Shared.Models.Accounts
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public DateTime EntryDate { get; set; }
+        
         [Display(Name = "On Account Off")]
         public LedgerEntryType EntryType { get; set; }
         public int ReferanceId { get; set; }
+        
         public VoucherType VoucherType { get; set; }
         public string Particulars { get; set; }
+        
         [Display(Name = "Amount In")]
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal AmountIn { get; set; }
+        
         [Display(Name = "Amount Out")]
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal AmountOut { get; set; }
+        
         //Ref of itself for double entry system.
         public int LedgerEntryRefId { get; set; }
     }

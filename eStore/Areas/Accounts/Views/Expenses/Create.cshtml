@@ -60,17 +60,18 @@
                 <select asp-for="PartyId" class="form-control" asp-items="ViewBag.PartyId"></select>
                 <span asp-validation-for="PartyId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LedgerEnteryId" class="control-label"></label>
-                <input asp-for="LedgerEnteryId" class="form-control" />
-                <span asp-validation-for="LedgerEnteryId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="LedgerEnteryId" class="form-control" />
             <div class="form-check">
                 <input class="form-check-input" asp-for="IsCash" type="checkbox" />
                 <label class="form-check-label text-primary" asp-for="IsCash">
                     @Html.DisplayNameFor(model => model.IsCash)
                 </label>
                 <span asp-validation-for="IsCash" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input text-danger" asp-for="IsDyn" type="checkbox" />
+                <label class="form-check-label text-primary" asp-for="IsDyn"></label>
+                <span asp-validation-for="IsDyn" class="text-danger"></span>
             </div>
             <div>
                 <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
@@ -81,7 +82,7 @@
                 <span asp-validation-for="UserId" class="text-danger"></span>
 
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

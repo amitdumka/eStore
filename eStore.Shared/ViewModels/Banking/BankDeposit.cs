@@ -9,7 +9,7 @@ namespace eStore.Shared.ViewModels.Banking
 {
     public class BankDeposit
     {
-        public int Id { get; set; }
+        public int BankDepositId { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Deposit Date")]
@@ -45,7 +45,7 @@ namespace eStore.Shared.ViewModels.Banking
     }
     public class BankWithdrawal
     {
-        public int Id { get; set; }
+        public int BankWithdrawalId { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Withdrawal Date")]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eStore.Shared.ViewModels.Banking;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -42,7 +43,8 @@ namespace eStore.Shared.Models.Banking
         public AccountType AccountType { get; set; }
 
         public ICollection<BankTranscation> BankTranscations { get; set; }
-
+        public ICollection<BankDeposit> BankDeposits { get; set; }
+        public ICollection<BankWithdrawal> BankWithdrawals { get; set; }
 
     }
     public class BankTranscation: BaseST
