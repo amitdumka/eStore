@@ -27,7 +27,10 @@
     <PackageReference Include="itext7" Version="7.1.14" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.1" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.0" />
-    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <!--<PackageReference Include="EPPlus.Core" Version="1.5.4" />-->
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="Dexiom.EPPlusExporter" Version="1.1.110" />
+    <PackageReference Include="EPPlus" Version="5.5.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +69,10 @@
     <Folder Include="Areas\Reports\Controllers\" />
     <Folder Include="Areas\Reports\Views\" />
     <Folder Include="Areas\Reports\Views\CashBook\" />
+    <Folder Include="ImportDatabase\" />
+    <Folder Include="ImportDatabase\Models\" />
+    <Folder Include="ImportDatabase\Data\" />
+    <Folder Include="BL\Exporter\Database\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
@@ -76,6 +83,7 @@
     <Compile Remove="Data\ApplicationDbContext.cs" />
     <Compile Remove="Migrations\20210203085850_initdb.cs" />
      <Compile Remove="Migrations\20210203085850_initdb.Designer.cs" />
+     <Compile Remove="Migrations\20210205083729_NewDBUpdate2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\CashInHands\Create.cshtml" />
@@ -86,6 +94,9 @@
     <Content Remove="Views\CashInBanks\Edit.cshtml" />
     <Content Remove="Views\CashInBanks\Details.cshtml" />
     <Content Remove="Views\CashInBanks\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

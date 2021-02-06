@@ -11,6 +11,9 @@ using eStore.Shared.Models.Identity;
 using eStore.Payroll;
 using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using eStore.BL.Exporter.Database;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace eStore.Areas.Payrolls.Controllers
 {
@@ -183,5 +186,21 @@ namespace eStore.Areas.Payrolls.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeId == id);
         }
+
+        public IActionResult DowloadExcel()
+        {
+            using (XLWorkbook wb = new PayRollExporter().ToExcel(_context))
+            {
+                string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                using (var stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, contentType, "Employee.xlsx");
+                }
+            }
+        }
+
     }
 }

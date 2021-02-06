@@ -26,6 +26,10 @@ namespace eStore.Shared.Models.Payroll
         [Display(Name = "Tailor")]
         public bool IsTailoring { get; set; }
 
+        //public static implicit operator Attendance(Attendance v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 }

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Configuration;
@@ -40,15 +35,16 @@ namespace eStore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<eStoreDbContext>(options =>
-                            options.UseSqlServer(
-                                Configuration.GetConnectionString("DefaultConnection")));
 
-/*
+            //services.AddDbContext<eStoreDbContext>(options =>
+            //                options.UseSqlServer(
+            //                    Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddDbContext<eStoreDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnectionMac")));
-*/
+                            options.UseSqlite(
+                                Configuration.GetConnectionString("DefaultConnectionMac")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -108,6 +104,8 @@ namespace eStore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Console.WriteLine($"EnvName:{env.EnvironmentName}");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
