@@ -18,8 +18,15 @@ namespace eStore.BL.Exporter.Database
             xs.AddSheet<CashPayment>("CashPayments", db.CashPayments.OrderBy(c => c.PaymentDate));
             xs.AddSheet<PettyCashExpense>("PettyCashExpenses", db.PettyCashExpenses.OrderBy(c => c.ExpDate));
             xs.AddSheet<ArvindPayment>("ArvindPayments", db.ArvindPayments.OrderBy(c => c.OnDate));
+            //Rent
+            xs.AddSheet<Rent>("Rent", db.Rents.OrderBy(c => c.OnDate));
+            xs.AddSheet<RentedLocation>("RentedLocation", db.RentedLocations.OrderBy(c => c.RentedLocationId));
+            //Electricity
+            xs.AddSheet<ElectricityConnection>("ElectricityConnection", db.ElectricityConnections.OrderBy(c => c.ConusumerId));
+            xs.AddSheet<EletricityBill>("EletricityBill", db.EletricityBills.OrderBy(c => c.BillDate));
+            xs.AddSheet<EBillPayment>("BillPayments", db.BillPayments.OrderBy(c => c.PaymentDate));
             return xs.WB;
         }
     }
-
 }
+

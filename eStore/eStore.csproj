@@ -73,6 +73,7 @@
     <Folder Include="ImportDatabase\Models\" />
     <Folder Include="ImportDatabase\Data\" />
     <Folder Include="BL\Exporter\Database\" />
+    <Folder Include="Views\DatabaseExporters\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

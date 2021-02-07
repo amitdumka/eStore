@@ -14,6 +14,8 @@ namespace eStore.BL.Exporter.Database
             XS.AddSheet<EndOfDay>("EndOfDays", db.EndOfDays.OrderBy(c => c.EOD_Date));
             XS.AddSheet<Shared.Models.Stores.Customer>("EndOfDays", db.Customers.OrderBy(c => c.FullName));
             XS.AddSheet<Contact>("EndOfDays", db.Contact.OrderBy(c => c.FirstName));
+            XS.AddSheet<CashDetail>("CashDetails", db.CashDetail.OrderBy(c => c.OnDate));
+
             return XS.WB;
         }
     }
