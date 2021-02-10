@@ -38,13 +38,18 @@ namespace eStore.Controllers
         public IActionResult DownloadAsZip(int? id)
         {
             AprajitaRetailsDBExport dm = new AprajitaRetailsDBExport(_db, this.Environment.WebRootPath);
+            
             string fileName = "";
             if (id==1)
              fileName = dm.DownloadFirstToExcell();
             else if (id == 2)
                 fileName = dm.DownloadSecondToExcel();
-            else if (id == 2)
+            else if (id == 3)
                 fileName = dm.DownloadThirdToExcel();
+
+            Console.WriteLine(fileName);
+            fileName = fileName.Replace(this.Environment.WebRootPath, "");
+            Console.WriteLine(fileName);
             return File(fileName, "application/zip", "StoreDB.zip");
         }
         
