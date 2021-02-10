@@ -62,8 +62,6 @@
     <Folder Include="BL\Tailor\" />
     <Folder Include="BL\Reports\" />
     <Folder Include="BL\Reports\Accounts\" />
-    <Folder Include="BL\ViewComponets\" />
-    <Folder Include="BL\ViewComponets\ChartJs\" />
     <Folder Include="BL\Exporter\" />
     <Folder Include="Areas\Reports\" />
     <Folder Include="Areas\Reports\Controllers\" />
@@ -74,6 +72,8 @@
     <Folder Include="ImportDatabase\Data\" />
     <Folder Include="BL\Exporter\Database\" />
     <Folder Include="Views\DatabaseExporters\" />
+    <Folder Include="BL\Widgets\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
@@ -85,6 +85,7 @@
     <Compile Remove="Migrations\20210203085850_initdb.cs" />
      <Compile Remove="Migrations\20210203085850_initdb.Designer.cs" />
      <Compile Remove="Migrations\20210205083729_NewDBUpdate2.cs" />
+     <Compile Remove="BL\ViewComponets\ChartJs\ChartJsViewComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\CashInHands\Create.cshtml" />

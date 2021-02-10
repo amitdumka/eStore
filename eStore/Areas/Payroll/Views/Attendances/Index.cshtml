@@ -4,6 +4,74 @@
     ViewData["Title"] = "Attendance";
 }
 
+<table class="table table-sm table-borderless table-responsive-sm">
+    <tr class="d-inline">
+
+        <td class="btn-group btn-group-sm  " role="group">
+            <a class="btn btn-light-green btn-sm" asp-action="Create" id="create" data_modal="">Create</a>
+            <a class="btn btn-orange btn-sm" asp-action="Index" asp-route-id="">Today</a>
+            <a class="btn btn-cyan btn-sm" asp-action="Index" asp-route-id="100">Month</a>
+            <a class="btn btn-brown btn-sm" asp-action="Index" asp-route-id="102">Last Month</a>
+            <a class="btn btn-deep-orange btn-sm" asp-action="Index" asp-route-id="101">All</a>
+        </td>
+        <td class="btn-group btn-group-sm text-success m-0 p-0 " role="group">
+
+            <form method="get" asp-action="Index">
+                Date <input class="form-control-sm" type="date" name="OnDate" id="OnDate" /><button class="btn btn-amber btn-sm" type="submit" value="Get"><span data-feather="search"></span>Get</button>
+            </form>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td class="btn-group btn-group-sm mb-2" role="group">
+
+            @foreach (var item in ViewBag.YearList)
+            {
+
+                <a class="btn btn-outline-dark-green " asp-action="Index" asp-route-id=@item>@item</a>
+
+            }
+
+
+            @if (ViewBag.YearName != null)
+            {
+
+                <div class="btn-group btn-group-sm mr-5" role="group">
+                    <a class="btn btn-outline-default dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Month<span class="caret"></span>
+                    </a>
+                    @*<div class="btn-group btn-group-sm">*@
+                    <div class="dropdown-menu">
+                        @foreach (var item in ViewBag.MonthList)
+                        {
+                            if (item == "")
+                            {
+                                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.YearName asp-route-MonthName="@item">All</a>
+                                ////btn btn-sm btn - outline - deep - purple
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.YearName asp-route-MonthName="@item">@item</a>
+                                //@*btn btn-sm btn-outline-deep-purple"*@
+                            }
+                        }
+                    </div>
+                </div>
+
+
+
+            }
+
+        </td>
+
+
+
+    </tr>
+</table>
+
+
+
 <div class="card card-cascade narrower ">
     <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center rounded-pill">
 
@@ -80,12 +148,14 @@
                             <td class="btn-group d-inline-flex">
                                 <a class="btn btn-warning btn-sm btn-rounded" id="edit" data_modal="" asp-action="Edit" asp-route-id="@item.AttendanceId"><i class="fas fa-pencil-alt mt-0"></i></a>
                                 <a class="btn btn-info btn-sm" id="detail" data_modal="" asp-action="Details" asp-route-id="@item.AttendanceId"><i class="fas fa-info-circle mt-0"></i></a>
-                                <a class="btn btn-danger btn-sm btn-rounded" id="delete" data_modal="" asp-action="Delete" asp-route-id="@item.AttendanceId"><i class="fas fa-trash-alt mt-0"></i></a>
+                                <a class="btn btn-danger " id="delete" data_modal="" asp-action="Delete" asp-route-id="@item.AttendanceId"><i class="fas fa-trash-alt mt-0"></i></a>
+                                <a class="btn btn-default btn-sm btn-rounded" asp-action="EmpDetails" asp-route-id="@item.AttendanceId" asp-route-ondate="@item.AttDate.Date.ToString("dd-MM-yyyy")" id="detail" data_modal="">List</a>
+
                             </td>
                         </tr>
                     }
                 </tbody>
-                <tfoot >
+                <tfoot>
                     <tr>
                         <th class="skip"></th>
                         <td></td>
@@ -107,8 +177,7 @@
 <partial name="_OnlyModalPopUp" />
 @section Scripts
 {
-    <script>
-        $('#dtAttendance').dataTable({
+    <script>$('#dtAttendance').dataTable({
             "pagingType": "full_numbers",
             columnDefs: [{
                 orderable: false,
@@ -124,31 +193,28 @@
                 this.api().columns().every(function () {
                     var column = this;
 
-                     
-                        var select = $('<select  class="browser-default custom-select form-control-sm small"><option value="" selected>Search</option></select>')
-                            .appendTo($(column.footer()).empty())
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
 
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                            });
+                    var select = $('<select  class="browser-default custom-select form-control-sm small"><option value="" selected>Search</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
 
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
                         });
-                    
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+
 
                 });
             }
         });
         //$(".skip").children().addClass("invisible disable");
         $(".skip").empty();
-        $(".skip").removeClass();
-
-
-    </script>
+        $(".skip").removeClass();</script>
 }

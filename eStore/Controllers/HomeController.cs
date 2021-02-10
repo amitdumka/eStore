@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using eStore.Models;
+using eStore.BL.Widgets;
+using eStore.DL.Data;
 
 namespace eStore.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly eStoreDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, eStoreDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            MasterViewReport mvr = DashboardWidget.GetMasterViewReport(_context);
+            return View(mvr);
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,102 @@
+﻿public ActionResult UploadExcel() {  
+            return View();  
+}  
+  
+[HttpPost]  
+public ActionResult UploadExcel(HttpPostedFileBase file)  
+{  
+            DataTable dt = new DataTable();  
+            //Checking file content length and Extension must be .xlsx  
+            if (file != null && file.ContentLength>0 && System.IO.Path.GetExtension(file.FileName).ToLower()==".xlsx") {  
+                string path = Path.Combine(Server.MapPath("~/UploadFile"), Path.GetFileName(file.FileName));  
+                //Saving the file  
+                file.SaveAs(path);  
+                //Started reading the Excel file.  
+                using (XLWorkbook workbook=new XLWorkbook(path)) {  
+                    IXLWorksheet worksheet= workbook.Worksheet(1);  
+                    bool FirstRow = true;  
+                    //Range for reading the cells based on the last cell used.  
+                    string readRange = "1:1";  
+                    foreach (IXLRow row in worksheet.RowsUsed()) {  
+                        //If Reading the First Row (used) then add them as column name  
+                        if (FirstRow)  
+                        {  
+                       //Checking the Last cellused for column generation in datatable  
+                            readRange = string.Format("{0}:{1}", 1, row.LastCellUsed().Address.ColumnNumber);  
+                            foreach (IXLCell cell in row.Cells(readRange)) {  
+                                dt.Columns.Add(cell.Value.ToString());  
+                            }  
+                            FirstRow = false;  
+                        }  
+                        else {  
+                            //Adding a Row in datatable  
+                            dt.Rows.Add();  
+                            int cellIndex = 0;  
+                            //Updating the values of datatable  
+                            foreach (IXLCell cell in row.Cells(readRange))  
+                            {  
+                                dt.Rows[dt.Rows.Count - 1][cellIndex] = cell.Value.ToString();  
+                                cellIndex++;  
+                            }  
+                        }  
+                    }  
+                    //If no data in Excel file  
+                    if (FirstRow) {  
+                        ViewBag.Message = "Empty Excel File!";  
+                    }  
+                }  
+            }  
+            else  
+            {  
+                //If file extension of the uploaded file is different then .xlsx  
+                ViewBag.Message = "Please select file with .xlsx extension!";  
+            }  
+            return View(dt);  
+}
+
+
+protected void ImportExcel(object sender, EventArgs e)
+{
+    //Save the uploaded Excel file.
+    string filePath = Server.MapPath("~/Files/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+    FileUpload1.SaveAs(filePath);
+ 
+    //Open the Excel file using ClosedXML.
+    using (XLWorkbook workBook = new XLWorkbook(filePath))
+    {
+        //Read the first Sheet from Excel file.
+        IXLWorksheet workSheet = workBook.Worksheet(1);
+ 
+        //Create a new DataTable.
+        DataTable dt = new DataTable();
+ 
+        //Loop through the Worksheet rows.
+        bool firstRow = true;
+        foreach (IXLRow row in workSheet.Rows())
+        {
+            //Use the first row to add columns to DataTable.
+            if (firstRow)
+            {
+                foreach (IXLCell cell in row.Cells())
+                {
+                    dt.Columns.Add(cell.Value.ToString());
+                }
+                firstRow = false;
+            }
+            else
+            {
+                //Add rows to DataTable.
+                dt.Rows.Add();
+                int i = 0;
+                foreach (IXLCell cell in row.Cells())
+                {
+                    dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                    i++;
+                }
+            }
+ 
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+        }
+    }
+}
