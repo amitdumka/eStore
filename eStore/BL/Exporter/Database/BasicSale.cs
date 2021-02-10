@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AprajitaRetails.ImportDatabase.Models;
 using ClosedXML.Excel;
 using eStore.ImportDatabase.Data;
@@ -18,6 +19,11 @@ namespace eStore.BL.Exporter.Database
             xs.AddSheet<EDC>("CardMachine", db.CardMachine.OrderBy(c => c.EDCId));
             xs.AddSheet<Salesman>("Salesmans", db.Salesmen.OrderBy(c => c.SalesmanId));
             return xs.WB;
+        }
+
+        Task<XLWorkbook> IXSE.ToExcelAsync(AprajitaRetailsDbContext db, string path)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

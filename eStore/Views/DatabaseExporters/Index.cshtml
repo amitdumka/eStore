@@ -6,6 +6,10 @@
 
 <div><h1 class="text-danger">Database Exporter</h1></div>
 
-<div>
-    <a action="DownloadAsZip()" class="btn btn-rounded btn-primary" >Download(Zip)</a>
+<div class="btn-group">
+    <a asp-action="DownloadAsZip" class="btn btn-rounded btn-primary btn-sm" asp-route-id="1">First</a>
+
+    <a asp-action="DownloadAsZip" class="btn btn-primary btn-sm" asp-route-id="2">Second</a>
+
+    <a asp-action="DownloadAsZip" class="btn btn-rounded btn-primary btn-sm" asp-route-id="3">Third</a>
 </div>

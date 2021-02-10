@@ -10,7 +10,7 @@ namespace eStore.BL.Exporter.Database
         public XLWorkbook WB { get; private set; }
         protected IXLWorksheet TocWS { get; set; }
         public string FilePath { get; private set; }
-        public XSheet(string Title, string path)
+        public XSheet(string path, string Title)
         {
             this.WB = GetWorkBook(Title, path);
             FilePath = path;
@@ -21,7 +21,8 @@ namespace eStore.BL.Exporter.Database
         {
             TocWS.Cell(Row, 1).Value = (++SN);
             TocWS.Cell(Row, 2).Value = TName;
-            TocWS.Cell(Row++, 3).Value = Rem;
+            TocWS.Cell(Row, 3).Value = Rem;
+            Row++;
         }
 
         private XLWorkbook GetWorkBook(string Title, string path)
@@ -41,7 +42,8 @@ namespace eStore.BL.Exporter.Database
             TocWS.Cell(8, 1).Value = "TableName";
             TocWS.Cell(8, 2).Value = "SheetName";
             TocWS.Cell(8, 1).Value = "Remarks";
-            WBs.SaveAs(Path.Combine(path, $"{Title}_{DateTime.UtcNow.ToString()}.xlsx"));
+           
+            WBs.SaveAs(Path.Combine(path, $"{Title}_ {DateTime.UtcNow.ToFileTimeUtc().ToString()}.xlsx"));
             return WBs;
 
         }

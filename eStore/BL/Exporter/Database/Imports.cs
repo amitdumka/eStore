@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ClosedXML.Excel;
 using eStore.ImportDatabase.Data;
 
@@ -19,6 +20,11 @@ namespace eStore.BL.Exporter.Database
             xs.AddSheet("ImportSearches", db.ImportSearches.OrderBy(c => c.OnDate));
 
             return xs.WB;
+        }
+
+        Task<XLWorkbook> IXSE.ToExcelAsync(AprajitaRetailsDbContext db, string path)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

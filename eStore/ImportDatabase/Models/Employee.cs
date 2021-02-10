@@ -37,7 +37,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string Notes { get; set; }
 
         public int VBInvoiceid { get; set; }
-        public virtual VBInvoice Invoice { get; set; }
+      //  public virtual VBInvoice Invoice { get; set; }
     }
 
     public class VBLineItem
@@ -53,7 +53,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public decimal LineTotalAmount { get; set; }
 
         public int VBInvoiceid { get; set; }
-        public virtual VBInvoice Invoice { get; set; }
+      //  public virtual VBInvoice Invoice { get; set; }
     }
     //Banking Section
     public class Bank
@@ -62,8 +62,8 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Bank Name")]
         public string BankName { get; set; }
 
-        public ICollection<AccountNumber> Accounts { get; set; }
-        public ICollection<BankAccountInfo> BankAccounts { get; set; }
+       // public ICollection<AccountNumber> Accounts { get; set; }
+       // public ICollection<BankAccountInfo> BankAccounts { get; set; }
         //public ICollection<Areas.Uploader.Models.BankSetting> BankSettings { get; set; }
         //public ICollection<Areas.Accountings.Models.BankAccount> BankAcc { get; set; }
 
@@ -76,8 +76,8 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Transaction Mode")]
         public string Transcation { get; set; }
 
-        public virtual ICollection<CashReceipt> CashReceipts { get; set; }
-        public virtual ICollection<CashPayment> CashPayments { get; set; }
+       // public virtual ICollection<CashReceipt> CashReceipts { get; set; }
+       // public virtual ICollection<CashPayment> CashPayments { get; set; }
         //Modes Name  write Seed 
         // Amit Kumar , Mukesh, HomeExp, OtherHomeExpenses,CashInOut
     }
@@ -121,21 +121,21 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         public string HighestQualification { get; set; }
 
-        public ICollection<Attendance> Attendances { get; set; }
-        public ICollection<SalaryPayment> SalaryPayments { get; set; }
-        public ICollection<StaffAdvancePayment> AdvancePayments { get; set; }
-        public ICollection<StaffAdvanceReceipt> AdvanceReceipts { get; set; }
-        public ICollection<PettyCashExpense> CashExpenses { get; set; }
-        public ICollection<Expense> Expenses { get; set; }
+       // public ICollection<Attendance> Attendances { get; set; }
+       // public ICollection<SalaryPayment> SalaryPayments { get; set; }
+       // public ICollection<StaffAdvancePayment> AdvancePayments { get; set; }
+       // public ICollection<StaffAdvanceReceipt> AdvanceReceipts { get; set; }
+      //  public ICollection<PettyCashExpense> CashExpenses { get; set; }
+       // public ICollection<Expense> Expenses { get; set; }
 
-        public ICollection<Salesman> Salesmen { get; set; }
+       // public ICollection<Salesman> Salesmen { get; set; }
 
-        public virtual ICollection<CurrentSalary> CurrentSalaries { get; set; }
-        public virtual EmployeeUser User { get; set; }
+       // public virtual ICollection<CurrentSalary> CurrentSalaries { get; set; }
+       // public virtual EmployeeUser User { get; set; }
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -146,7 +146,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Key]
         public int Id { get; set; }
         public int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+      //  public virtual Employee Employee { get; set; }
         public string UserName { get; set; }
         public bool IsWorking { get; set; }
     }
@@ -156,7 +156,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Staff Name")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+       // public virtual Employee Employee { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Attendance Date")]
@@ -171,7 +171,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }
@@ -182,7 +182,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int CurrentSalaryId { get; set; }
 
         public int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+      //  public virtual Employee Employee { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalary { get; set; }
@@ -219,7 +219,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [DefaultValue(false)]
         public bool IsTailoring { get; set; }
 
-        public virtual ICollection<PaySlip> PaySlips { get; set; }
+      //  public virtual ICollection<PaySlip> PaySlips { get; set; }
 
         public string UserName { get; set; }
     }
@@ -234,10 +234,10 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int Year { get; set; }
 
         public int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+      //  public virtual Employee Employee { get; set; }
 
         public int? CurrentSalaryId { get; set; }
-        public virtual CurrentSalary CurrentSalary { get; set; }
+      //  public virtual CurrentSalary CurrentSalary { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalary { get; set; }
@@ -285,7 +285,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Staff Name")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+       // public Employee Employee { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Receipt Date")]
@@ -303,7 +303,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -316,7 +316,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Staff Name")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+      //  public Employee Employee { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Payment Date")]
@@ -336,7 +336,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
         [DefaultValue(false)]
@@ -352,17 +352,17 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Salesman")]
         public string SalesmanName { get; set; }
 
-        public virtual ICollection<DailySale> DailySales { get; set; }
+      //  public virtual ICollection<DailySale> DailySales { get; set; }
         //public virtual ICollection<RegularSaleItem> SaleItems { get; set; }
 
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
         // public int StoreLocationId { get; internal set; }
 
         public int? EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+      //  public virtual Employee Employee { get; set; }
     }
 
 
@@ -374,7 +374,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Staff Name")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+       // public Employee Employee { get; set; }
 
         [Display(Name = "Salary/Year")]
         public string SalaryMonth { get; set; }
@@ -396,7 +396,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -432,7 +432,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -477,7 +477,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
     }
     public class CashPayment
     {
@@ -502,7 +502,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -529,7 +529,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }
@@ -576,7 +576,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public DateTime PaidDate { get; set; }
 
         public int DuesListId { get; set; }
-        public virtual DuesList DuesList { get; set; }
+      //  public virtual DuesList DuesList { get; set; }
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal AmountPaid { get; set; }
         [Display(Name = "Is Partial Payment")]
@@ -587,7 +587,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -606,15 +606,15 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Recovery Date")]
         public DateTime? RecoveryDate { get; set; }
         public int DailySaleId { get; set; }
-        public virtual DailySale DailySale { get; set; }
+      //  public virtual DailySale DailySale { get; set; }
 
         public bool IsPartialRecovery { get; set; }
 
-        public virtual ICollection<DueRecoverd> Recoverds { get; set; }
+      //  public virtual ICollection<DueRecoverd> Recoverds { get; set; }
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
     }
     public class EndOfDay
     {
@@ -643,7 +643,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
     }
     public class Expense
     {
@@ -666,7 +666,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Paid By")]
         public int EmployeeId { get; set; }//Ok
-        public virtual Employee PaidBy { get; set; }//Ok
+      //  public virtual Employee PaidBy { get; set; }//Ok
 
         [Display(Name = "Paid To")]
         public string PaidTo { get; set; }//Ok
@@ -678,7 +678,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; } //Ok
-        public virtual Store Store { get; set; }//Ok
+      //  public virtual Store Store { get; set; }//Ok
 
         public string UserName { get; set; }//Ok
 
@@ -710,7 +710,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
 
@@ -731,7 +731,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Paid By")]
         public int EmployeeId { get; set; }
-        public virtual Employee PaidBy { get; set; }
+      //  public virtual Employee PaidBy { get; set; }
 
 
         [Display(Name = "Paid To")]
@@ -742,7 +742,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }
@@ -777,7 +777,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [DefaultValue(1)]
         public int? StoreId { get; set; }
 
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
         public string UserName { get; set; }
     }
 
@@ -808,7 +808,7 @@ namespace AprajitaRetails.ImportDatabase.Models
     {
         public int ID { get; set; }
         public int AccountNumberId { get; set; }
-        public virtual AccountNumber AccountNumber { get; set; }
+      //  public virtual AccountNumber AccountNumber { get; set; }
         public DateTime OnDateValue { get; set; }
         public DateTime OnDateTranscation { get; set; }
         public string ChequeNumber { get; set; }
@@ -844,7 +844,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }
@@ -860,9 +860,9 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Account Type")]
         public AccountType? AccountType { get; set; }
 
-        public ICollection<BankDeposit> Deposits { get; set; }
-        public ICollection<BankWithdrawal> Withdrawals { get; set; }
-        public ICollection<BankStatement> BankStatements { get; set; }
+      ////  public ICollection<BankDeposit> Deposits { get; set; }
+      //  public ICollection<BankWithdrawal> Withdrawals { get; set; }
+      //  public ICollection<BankStatement> BankStatements { get; set; }
     }
     public class BankAccountInfo
     {
@@ -870,13 +870,13 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string AccountHolder { get; set; }
         public string AccountNumber { get; set; }
         public int BankId { get; set; }
-        public virtual Bank Bank { get; set; }
+      //  public virtual Bank Bank { get; set; }
         public string BranchName { get; set; }
         public string IFSCCode { get; set; }
         public AccountType AccountType { get; set; }
         [Display(Name = "Client Account")]
         public bool IsClientAccount { get; set; }
-        public virtual BankAccountSecurityInfo AccountSecurityInfo { get; set; }
+      //  public virtual BankAccountSecurityInfo AccountSecurityInfo { get; set; }
 
     }
 
@@ -895,7 +895,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int ATMPin { get; set; }
         public int TPIN { get; set; }
 
-        public virtual BankAccountInfo BankAccountInfo { get; set; }
+      //  public virtual BankAccountInfo BankAccountInfo { get; set; }
     }
 
     public class Store
@@ -930,17 +930,17 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Operative")]
         public bool Status { get; set; }
 
-        public virtual ICollection<ImportPurchase> ImportPurchases { get; set; }
-        public virtual ICollection<ImportInWard> ImportInWards { get; set; }
-        public virtual ICollection<ImportSaleItemWise> ImportSaleItemWises { get; set; }
-        public virtual ICollection<ImportSaleRegister> ImportSaleRegisters { get; set; }
+       // public virtual ICollection<ImportPurchase> ImportPurchases { get; set; }
+       // public virtual ICollection<ImportInWard> ImportInWards { get; set; }
+       // public virtual ICollection<ImportSaleItemWise> ImportSaleItemWises { get; set; }
+      ////  public virtual ICollection<ImportSaleRegister> ImportSaleRegisters { get; set; }
 
         //Purchase
-        public virtual ICollection<ProductPurchase> ProductPurchases { get; set; }
-        public virtual ICollection<Stock> Stocks { get; set; }
+      ////  public virtual ICollection<ProductPurchase> ProductPurchases { get; set; }
+       // public virtual ICollection<Stock> Stocks { get; set; }
 
-        public virtual ICollection<DailySale> DailySales { get; set; }
-        public virtual ICollection<Salesman> Salesmen { get; set; }
+       // public virtual ICollection<DailySale> DailySales { get; set; }
+       // public virtual ICollection<Salesman> Salesmen { get; set; }
        // public virtual ICollection<CashInHand> CashInHands { get; set; }
        // public virtual ICollection<CashInBank> CashInBanks { get; set; }
 
@@ -976,7 +976,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string ContactPersonPhoneNo { get; set; }
         public string WebSite { get; set; }
 
-        public virtual ICollection<Store> Stores { get; set; }
+      //  public virtual ICollection<Store> Stores { get; set; }
     }
 
     //global Class
@@ -1004,7 +1004,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Supplier")]
         public string SuppilerName { get; set; }
         public string Warehouse { get; set; }
-        public ICollection<ProductPurchase> ProductPurchases { get; set; }
+       // public ICollection<ProductPurchase> ProductPurchases { get; set; }
     }
     public class PurchaseTaxType
     {
@@ -1017,7 +1017,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal CompositeRate { get; set; }
         //Navigation
-        public ICollection<PurchaseItem> PurchaseItems { get; set; }
+        //public ICollection<PurchaseItem> PurchaseItems { get; set; }
     }
 
 
@@ -1031,7 +1031,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Brand")]
         public int BrandId { get; set; }
-        public virtual Brand BrandName { get; set; }
+      //  public virtual Brand BrandName { get; set; }
 
         [Display(Name = "Style Code")]
         public string StyleCode { get; set; }
@@ -1043,11 +1043,11 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Category")]
         public ProductCategory Categorys { get; set; }
         [Display(Name = "Product Type")]
-        public Category MainCategory { get; set; }
+        public int MainCategoryCategoryId { get; set; }
         [Display(Name = "Product Series")]
-        public Category ProductCategory { get; set; }
+        public int ProductCategoryCategoryId { get; set; }
         [Display(Name = "Sub Category")]
-        public Category ProductType { get; set; }
+        public int ProductTypeCategoryId { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal MRP { get; set; }
@@ -1062,7 +1062,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public Unit Units { get; set; }
 
 
-        public virtual ICollection<PurchaseItem> PurchaseItems { get; set; }
+        //public virtual ICollection<PurchaseItem> PurchaseItems { get; set; }
 
 
     }
@@ -1073,7 +1073,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Store")]
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string InWardNo { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -1097,7 +1097,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string Remarks { get; set; }
         [Display(Name = "Supplier")]
         public int SupplierID { get; set; }
-        public virtual Supplier Supplier { get; set; }
+      //  public virtual Supplier Supplier { get; set; }
         [Display(Name = "Paid")]
         public bool IsPaid { get; set; }
         public ICollection<PurchaseItem> PurchaseItems { get; set; }
@@ -1113,10 +1113,10 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int PurchaseItemId { get; set; }//Pk
         [Display(Name = "Purchase ID")]
         public int ProductPurchaseId { get; set; }//FK
-        public virtual ProductPurchase ProductPurchase { get; set; }     //Nav
+      //  public virtual ProductPurchase ProductPurchase { get; set; }     //Nav
         [Display(Name = "Product")]
         public int ProductItemId { get; set; } //FK 
-        public virtual ProductItem ProductItem { get; set; }
+      //  public virtual ProductItem ProductItem { get; set; }
         public string Barcode { get; set; }// TODO: if not working then link with productitemid
         public double Qty { get; set; }
         public Unit Unit { get; set; }
@@ -1127,7 +1127,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public decimal TaxAmout { get; set; }
         [Display(Name = "Input Tax")]
         public int? PurchaseTaxTypeId { get; set; } //TODO: Temp Purpose. need to calculate tax here
-        public virtual PurchaseTaxType PurchaseTaxType { get; set; }
+      //  public virtual PurchaseTaxType PurchaseTaxType { get; set; }
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal CostValue { get; set; }
     }
@@ -1137,10 +1137,10 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int StockID { set; get; }
         [Display(Name = "Store")]
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
         [Display(Name = "Product")]
         public int ProductItemId { set; get; }
-        public virtual ProductItem ProductItem { get; set; }
+      //  public virtual ProductItem ProductItem { get; set; }
         public double Quantity { set; get; }
         [Display(Name = "Sale Qty")]
         public double SaleQty { get; set; }
@@ -1175,7 +1175,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public decimal CashAmount { get; set; }
         [ForeignKey("Salesman")]
         public int SalesmanId { get; set; }
-        public virtual Salesman Salesman { get; set; }
+      //  public virtual Salesman Salesman { get; set; }
         [Display(Name = "Due")]
         public bool IsDue { get; set; }
         [Display(Name = "Manual Bill")]
@@ -1189,19 +1189,19 @@ namespace AprajitaRetails.ImportDatabase.Models
         public bool IsMatchedWithVOy { get; set; }
 
         public int? EDCTranscationId { get; set; }
-        public virtual EDCTranscation EDCTranscation { get; set; }
+      //  public virtual EDCTranscation EDCTranscation { get; set; }
 
         public int? MixAndCouponPaymentId { get; set; }
-        public virtual MixAndCouponPayment MixAndCouponPayment { get; set; }
+      //  public virtual MixAndCouponPayment MixAndCouponPayment { get; set; }
 
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
         public string UserName { get; set; }
 
-        public virtual CouponPayment CouponPayment { get; set; }
-        public virtual PointRedeemed PointRedeemed { get; set; }
+      //  public virtual CouponPayment CouponPayment { get; set; }
+      //  public virtual PointRedeemed PointRedeemed { get; set; }
     }
 
     public class CouponPayment
@@ -1216,7 +1216,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public DateTime OnDate { get; set; }
 
         public int DailySaleId { get; set; }
-        public virtual DailySale DailySale { get; set; }
+      //  public virtual DailySale DailySale { get; set; }
         public string InvoiceNumber { get; set; }
 
         public string Remark { get; set; }
@@ -1234,7 +1234,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public DateTime OnDate { get; set; }
 
         public int DailySaleId { get; set; }
-        public virtual DailySale DailySale { get; set; }
+      //  public virtual DailySale DailySale { get; set; }
         public string InvoiceNumber { get; set; }
 
         public string Remark { get; set; }
@@ -1256,14 +1256,14 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string MID { get; set; }
         public string Remark { get; set; }
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
     }
     public class EDCTranscation
     {
         public int EDCTranscationId { get; set; }
         public int EDCId { get; set; }
-        public virtual EDC CardMachine { get; set; }
+      //  public virtual EDC CardMachine { get; set; }
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal Amount { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -1273,7 +1273,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string InvoiceNumber { get; set; }
 
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
     }
 
@@ -1292,7 +1292,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public string Remarks { get; set; }
 
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
 
     }
@@ -1327,7 +1327,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         public int RentId { get; set; }
         [Display(Name = "Location")]
         public int RentedLocationId { get; set; }
-        public virtual RentedLocation Location { get; set; }
+      //  public virtual RentedLocation Location { get; set; }
         public RentType RentType { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -1402,7 +1402,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         [Display(Name = "Net Amount"), DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal NetDemand { get; set; }
 
-        public ElectricityConnection Connection { get; set; }
+        //public ElectricityConnection Connection { get; set; }
 
     }
     public class Contact
@@ -1430,7 +1430,7 @@ namespace AprajitaRetails.ImportDatabase.Models
     {
         public int EBillPaymentId { get; set; }
         public int EletricityBillId { get; set; }
-        public virtual EletricityBill Bill { get; set; }
+      //  public virtual EletricityBill Bill { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), Display(Name = "Payment Date")]
         public DateTime PaymentDate { get; set; }
@@ -1522,7 +1522,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         //Store Based Started
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         // public DateTime? ImportDate { get; set; } = DateTime.Now;
@@ -1596,7 +1596,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         //Store Based Started
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
     }
 
     //TODO: Need to Create View So String Date error problem will be solved
@@ -1703,7 +1703,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         //Store Based Started
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
     }
 
@@ -1835,7 +1835,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         //Store Based Started
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
     }
 
     public class ImportSaleRegister
@@ -1891,7 +1891,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         //Store Based Started
         public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
     }
 
@@ -2008,12 +2008,12 @@ namespace AprajitaRetails.ImportDatabase.Models
         [DefaultValue(false)]
         public bool IsDelivered { get; set; }
 
-        public virtual ICollection<TalioringDelivery> Deliveries { get; set; }
+      //  public virtual ICollection<TalioringDelivery> Deliveries { get; set; }
 
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }
@@ -2028,7 +2028,7 @@ namespace AprajitaRetails.ImportDatabase.Models
 
         [Display(Name = "Booking ID")]
         public int TalioringBookingId { get; set; }
-        public TalioringBooking Booking { get; set; }
+       // public TalioringBooking Booking { get; set; }
 
         [Display(Name = "Voy Inv No")]
         public string InvNo { get; set; }
@@ -2040,7 +2040,7 @@ namespace AprajitaRetails.ImportDatabase.Models
         //Version 3.0
         [DefaultValue(1)]
         public int? StoreId { get; set; }
-        public virtual Store Store { get; set; }
+      //  public virtual Store Store { get; set; }
 
         public string UserName { get; set; }
     }

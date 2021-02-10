@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eStore.BL.Exporter.Database;
 using eStore.ImportDatabase.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,11 @@ namespace eStore.Controllers
     public class DatabaseExportersController : Controller
     {
         private AprajitaRetailsDbContext _db;
-        public DatabaseExportersController(AprajitaRetailsDbContext context)
+        private IWebHostEnvironment Environment;
+        public DatabaseExportersController(AprajitaRetailsDbContext context, IWebHostEnvironment _environment)
         {
             _db = context;
+            Environment = _environment;
         }
         // GET: DatabaseExporters
         public ActionResult Index()
@@ -32,13 +35,17 @@ namespace eStore.Controllers
         }
 
         // GET: DatabaseExporters/Create
-        public IActionResult DownloadAsZip()
+        public IActionResult DownloadAsZip(int? id)
         {
-            AprajitaRetailsDBExport dm = new AprajitaRetailsDBExport(_db);
-            string fileName = dm.DownloadDToExcel();
-            
+            AprajitaRetailsDBExport dm = new AprajitaRetailsDBExport(_db, this.Environment.WebRootPath);
+            string fileName = "";
+            if (id==1)
+             fileName = dm.DownloadFirstToExcell();
+            else if (id == 2)
+                fileName = dm.DownloadSecondToExcel();
+            else if (id == 2)
+                fileName = dm.DownloadThirdToExcel();
             return File(fileName, "application/zip", "StoreDB.zip");
-
         }
         
         // POST: DatabaseExporters/Create

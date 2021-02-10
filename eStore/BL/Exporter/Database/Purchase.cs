@@ -1,7 +1,9 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AprajitaRetails.ImportDatabase.Models;
 using ClosedXML.Excel;
 using eStore.ImportDatabase.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace eStore.BL.Exporter.Database
 {
@@ -20,6 +22,11 @@ namespace eStore.BL.Exporter.Database
             xs.AddSheet("PurchaseTaxType"/*ArvindPayments*/, db.PurchaseTaxTypes.OrderBy(c => c.PurchaseTaxTypeId));
 
             return xs.WB;
+        }
+
+        Task<XLWorkbook> IXSE.ToExcelAsync(AprajitaRetailsDbContext db, string path)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

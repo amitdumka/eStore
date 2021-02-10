@@ -13,6 +13,7 @@ using eStore.Shared.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using eStore.ImportDatabase.Data;
 
 namespace eStore
 {
@@ -36,14 +37,17 @@ namespace eStore
             });
 
 
-            //services.AddDbContext<eStoreDbContext>(options =>
-            //                options.UseSqlServer(
-            //                    Configuration.GetConnectionString("DefaultConnection")));
-
-
             services.AddDbContext<eStoreDbContext>(options =>
-                            options.UseSqlite(
-                                Configuration.GetConnectionString("DefaultConnectionMac")));
+                            options.UseSqlServer(
+                                Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AprajitaRetailsDbContext>(options =>
+                           options.UseSqlServer(
+                               Configuration.GetConnectionString("ARConnection")));
+
+
+            //services.AddDbContext<eStoreDbContext>(options =>
+            //                options.UseSqlite(
+            //                    Configuration.GetConnectionString("DefaultConnectionMac")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
