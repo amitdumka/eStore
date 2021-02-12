@@ -87,6 +87,9 @@
      <Compile Remove="Migrations\20210203085850_initdb.Designer.cs" />
      <Compile Remove="Migrations\20210205083729_NewDBUpdate2.cs" />
      <Compile Remove="BL\ViewComponets\ChartJs\ChartJsViewComponent.cs" />
+     <Compile Remove="Migrations_Win\20210210064430_InitDB.cs" />
+     <Compile Remove="Migrations_Win\20210210064430_InitDB.Designer.cs" />
+     <Compile Remove="Migrations_Win\eStoreDbContextModelSnapshot.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\CashInHands\Create.cshtml" />
@@ -100,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Migrations_Win\.DS_Store" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

@@ -63,7 +63,7 @@ namespace eStore.BL.Exporter.Database
                 db.SaveChanges();
 
 
-                AddEmployee(xS.GetWS("Employees"));
+                AddEmployees(xS.GetWS("Employees"));
                 AddAllSheet();
             }
             else
@@ -93,8 +93,14 @@ namespace eStore.BL.Exporter.Database
 
         }
 
+        private int IsEmpExsits(string Name)
+        {
+           var id= db.Employees.Where(c => (c.FirstName+" " + c.LastName) == Name).Select(c=>c.EmployeeId).FirstOrDefault();
+            return id;
 
-        private void AddEmployee(IXLWorksheet ws)
+        }
+        
+        private void AddEmployees(IXLWorksheet ws)
         {
 
             var nonEmptyDataRows = ws.RowsUsed();
@@ -113,83 +119,78 @@ namespace eStore.BL.Exporter.Database
                     //AdharNumber	PanNo	OtherIdDetails	Address	City	State	FatherName	HighestQualification	StoreId	UserName
 
                     var name1 = dR.Cell(2).Value.ToString();
-                    var name = name1.Split(" ");
-                    var FName = name[0];
-                    var LName = "";
-                    for (int i = 1; i < name.Length; i++)
-                    {
-                        LName = LName + name[i] + " ";
-
-                    }
-                    Console.WriteLine(name1);
-                    Console.WriteLine(name);
-                    Console.WriteLine(FName);
-                    Console.WriteLine(LName);
-
-                    Employee emp = new Employee
-                    {
-                        FirstName = FName,
-                        LastName = LName,
-                        EntryStatus = 0,
-                        IsReadOnly = true,
-                        MobileNo = dR.Cell(3).Value.ToString(),
-                        JoiningDate = dR.Cell(4).GetDateTime().Date,
-                        IsWorking = dR.Cell(6).GetBoolean(),
-                        Category = dR.Cell(7).GetValue<EmpType>(),
-                        IsTailors = dR.Cell(8).GetBoolean(),
-                        EMail = dR.Cell(9).Value.ToString(),
-                        AdharNumber = dR.Cell(11).Value.ToString(),
-                        PanNo = dR.Cell(12).Value.ToString(),
-                        OtherIdDetails = dR.Cell(13).Value.ToString(),
-                        Address = dR.Cell(14).Value.ToString(),
-                        City = dR.Cell(15).Value.ToString(),
-                        State = dR.Cell(16).Value.ToString(),
-                        FatherName = dR.Cell(17).Value.ToString(),
-                        HighestQualification = dR.Cell(18).Value.ToString(),
-                        StoreId = dR.Cell(19).GetValue<int>(),
-                        UserId = dR.Cell(20).Value.ToString()
-
-
-                    };
-                    try
-                    {
-                        emp.LeavingDate = (DateTime?)dR.Cell(5).GetDateTime().Date ?? null;
-                        emp.DateOfBirth = (DateTime?)dR.Cell(10).GetDateTime().Date ?? new DateTime(1947, 07, 15).Date;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error: " + ex.Message);
-
-                        Console.WriteLine($"SN: {dR.Cell(2).Value.ToString()}");
-
-                        Console.WriteLine($"DOB: {dR.Cell(10).Value.ToString()}");
-                        Console.WriteLine($"LD: {dR.Cell(5).Value.ToString()}");
-                    }
-                    db.Employees.Add(emp);
-                    db.SaveChanges();
-
-                    Party party = new Party
-                    {
-                        Address = emp.Address,
-                        GSTNo = "",
-                        OpenningDate = emp.JoiningDate,
-                        PartyName = "EMP# " + emp.StaffName,
-                        OpenningBalance = (decimal)0,
-                        PANNo = "",
-                        LedgerTypeId = this.SalaryLedgerID
-                    };
-                    db.Parties.Add(party);
-                    db.SaveChanges();
-
 
                     EmpCodes codes = new EmpCodes
                     {
                         OldId = dR.Cell(1).GetValue<int>(),
                         StaffName = dR.Cell(2).Value.ToString(),
-                        NewId = emp.EmployeeId,
-                        PartyId = party.PartyId
+                        
                     };
+                    var xId = IsEmpExsits(name1);
+                    if (xId>0)
+                    {
+                       codes.NewId = xId;
+                       codes.PartyId = AddOrGetParty(xId);
+                    }
+                    else
+                    {
+                        var name = name1.Split(" ");
+                        var FName = name[0];
+                        var LName = "";
+                        for (int i = 1; i < name.Length; i++)
+                        {
+                            LName = LName + name[i] + " ";
+
+                        }
+                        Employee emp = new Employee
+                        {
+                            FirstName = FName,
+                            LastName = LName,
+                            EntryStatus = 0,
+                            IsReadOnly = true,
+                            MobileNo = dR.Cell(3).Value.ToString(),
+                            JoiningDate = dR.Cell(4).GetDateTime().Date,
+                            IsWorking = dR.Cell(6).GetBoolean(),
+                            Category = dR.Cell(7).GetValue<EmpType>(),
+                            IsTailors = dR.Cell(8).GetBoolean(),
+                            EMail = dR.Cell(9).Value.ToString(),
+                            AdharNumber = dR.Cell(11).Value.ToString(),
+                            PanNo = dR.Cell(12).Value.ToString(),
+                            OtherIdDetails = dR.Cell(13).Value.ToString(),
+                            Address = dR.Cell(14).Value.ToString(),
+                            City = dR.Cell(15).Value.ToString(),
+                            State = dR.Cell(16).Value.ToString(),
+                            FatherName = dR.Cell(17).Value.ToString(),
+                            HighestQualification = dR.Cell(18).Value.ToString(),
+                            StoreId = dR.Cell(19).GetValue<int>(),
+                            UserId = dR.Cell(20).Value.ToString()
+
+
+                        };
+                        try
+                        {
+                            emp.LeavingDate = (DateTime?)dR.Cell(5).GetDateTime().Date ?? null;
+                            emp.DateOfBirth = (DateTime?)dR.Cell(10).GetDateTime().Date ?? new DateTime(1947, 07, 15).Date;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error: " + ex.Message);
+
+                            Console.WriteLine($"SN: {dR.Cell(2).Value.ToString()}");
+
+                            Console.WriteLine($"DOB: {dR.Cell(10).Value.ToString()}");
+                            Console.WriteLine($"LD: {dR.Cell(5).Value.ToString()}");
+                        }
+                        db.Employees.Add(emp);
+                        db.SaveChanges();
+                        codes.NewId = emp.EmployeeId;
+                        codes.PartyId = AddOrGetParty(emp);
+
+
+                    }
+
+                    
                     EmpRecord.Add(codes);
                 }
             }
@@ -283,6 +284,61 @@ namespace eStore.BL.Exporter.Database
             db.SalaryPayments.AddRange(SalList);
             db.SaveChanges();
 
+        }
+
+
+        private int AddOrGetParty(int empID)
+        {
+            var PName = "EMP# " + db.Employees.Find(empID).StaffName;
+
+            var id = db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefault();
+            if (id > 0)
+            {
+                return id;
+            }
+            else
+            {
+                var emp = db.Employees.Find(empID);
+                Party party = new Party
+                {
+                    Address = emp.Address,
+                    GSTNo = "",
+                    OpenningDate = emp.JoiningDate,
+                    PartyName = "EMP# " + emp.StaffName,
+                    OpenningBalance = (decimal)0,
+                    PANNo = "",
+                    LedgerTypeId = this.SalaryLedgerID
+                };
+                db.Parties.Add(party);
+                db.SaveChanges();
+                return party.PartyId;
+
+            }
+        }
+        private int AddOrGetParty(Employee emp)
+        {
+            var PName = "EMP# " + emp.StaffName;
+            var id = db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefault();
+            if (id > 0) {
+                return id;
+            }
+            else
+            {
+                Party party = new Party
+                {
+                    Address = emp.Address,
+                    GSTNo = "",
+                    OpenningDate = emp.JoiningDate,
+                    PartyName = "EMP# " + emp.StaffName,
+                    OpenningBalance = (decimal)0,
+                    PANNo = "",
+                    LedgerTypeId = this.SalaryLedgerID
+                };
+                db.Parties.Add(party);
+                db.SaveChanges();
+                return party.PartyId;
+
+            }
         }
     }
 
