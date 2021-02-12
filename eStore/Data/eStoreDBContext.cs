@@ -22,7 +22,7 @@ namespace eStore.DL.Data
     {
         public eStoreDbContext(DbContextOptions<eStoreDbContext> options) : base(options)
         {
-            ApplyMigrations(this);
+            //ApplyMigrations(this);
         }
 
         public DbSet<Store> Stores { get; set; } //Ok//UI

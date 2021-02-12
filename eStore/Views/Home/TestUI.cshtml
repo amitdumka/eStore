@@ -1,0 +1,43 @@
+﻿@using System.Data
+@model DataTable
+
+
+
+@using (Html.BeginForm("TestUI", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label>Upload File:</label>
+        <input type="file" id="file" name="file" />
+        <input type="submit" value="Upload File" />
+    </div>
+    <!--Display Error Message-->
+    <div style="color:red;">@ViewBag.Message</div>
+    <!--Show the Data Table on the View after reading the Excel File-->
+    if (Model != null)
+    {
+
+        <table class="table table-sm table-bordered">
+            <tr class="text-danger">
+                @for (int i = 0; i < Model.Columns.Count; i++)
+                {
+                    <th>@Model.Columns[i].ColumnName</th>
+
+                }
+            </tr>
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr class="text-sucess">
+                    @for (int j = 0; j < Model.Columns.Count; j++)
+                    {
+                        <td>@Model.Rows[i][j]</td>
+
+                    }
+                </tr>
+
+            }
+        </table>
+    }
+    <div>
+
+    </div>
+}  

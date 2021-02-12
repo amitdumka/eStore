@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using eStore.Models;
 using eStore.BL.Widgets;
 using eStore.DL.Data;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using eStore.BL.Exporter.Database;
 
 namespace eStore.Controllers
 {
@@ -37,6 +40,45 @@ namespace eStore.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult TestUI()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> TestUIAsync(IFormFile file)
+        {
+            if (file.Length > 0)
+            {
+                //var filePath = Path.GetTempFileName();
+                string filename = file.FileName;
+
+                string pathToExcelFile = Path.GetTempPath() + filename;
+                Console.WriteLine(pathToExcelFile);
+
+                using (var stream = System.IO.File.Create(pathToExcelFile))
+                {
+                    await file.CopyToAsync(stream);
+                    
+                }
+
+                // TestImport t = new TestImport();
+                // var data= t.TestImportExcel(_context, pathToExcelFile);
+                // return  View(data);
+                DBImport im = new DBImport(_context);
+                bool a=im.ImportData(pathToExcelFile);
+                if (a)
+                {
+                    ViewBag.Message = "It DOne";
+                }
+                else
+                {
+                    ViewBag.Message = "Not Done";
+                }
+            }
+
+            return View();
         }
     }
 }

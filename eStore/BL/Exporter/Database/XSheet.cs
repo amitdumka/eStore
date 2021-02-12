@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
@@ -93,4 +94,12 @@ namespace eStore.BL.Exporter.Database
         }
     }
 
+     
+
+    public interface IXSRead 
+    {
+        public IEnumerable<T>FromXL<T>(IXLWorksheet ws);        
+    }
+
+    
 }
