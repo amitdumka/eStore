@@ -4,8 +4,11 @@ using System.Data;
 using System.Linq;
 using ClosedXML.Excel;
 using eStore.DL.Data;
+using eStore.Payroll;
 using eStore.Shared.Models.Accounts;
+using eStore.Shared.Models.Identity;
 using eStore.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Identity;
 
 namespace eStore.BL.Exporter.Database
 {
@@ -15,10 +18,11 @@ namespace eStore.BL.Exporter.Database
         private List<EmpCodes> EmpRecord;
         private int SalaryLedgerID = 0;
         private eStoreDbContext db;
-
-        public ImportPayroll(eStoreDbContext context)
+        private UserManager<AppUser> _userManager;
+        public ImportPayroll(eStoreDbContext context, UserManager<AppUser> userManager)
         {
             db = context;
+            _userManager = userManager;
         }
 
         public void ReadPayRoll(string fileName)
@@ -77,9 +81,7 @@ namespace eStore.BL.Exporter.Database
         {
 
             var nonEmptyDataRows = ws.RowsUsed();
-
             int Row = 6;//Title;
-
             this.SalaryLedgerID = AddOrGetEmployeeLedger();
             List<Employee> empList = new List<Employee>();
             EmpRecord = new List<EmpCodes>();
@@ -157,6 +159,8 @@ namespace eStore.BL.Exporter.Database
                         }
                         db.Employees.Add(emp);
                         db.SaveChanges();
+
+                        _ = EmployeeManager.PostEmployeeAdditionAsync(db, emp, _userManager);
                         codes.NewId = emp.EmployeeId;
                         codes.PartyId = AddOrGetParty(emp);
 

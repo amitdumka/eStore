@@ -11,6 +11,8 @@ using eStore.DL.Data;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using eStore.BL.Exporter.Database;
+using eStore.Shared.Models.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace eStore.Controllers
 {
@@ -18,11 +20,14 @@ namespace eStore.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly eStoreDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, eStoreDbContext context)
+
+        public HomeController(ILogger<HomeController> logger, eStoreDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -66,7 +71,7 @@ namespace eStore.Controllers
                 // TestImport t = new TestImport();
                 // var data= t.TestImportExcel(_context, pathToExcelFile);
                 // return  View(data);
-                DBImport im = new DBImport(_context);
+                DBImport im = new DBImport(_context,_userManager);
                 bool a=im.ImportData(pathToExcelFile);
                 if (a)
                 {
