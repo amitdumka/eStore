@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eStore.Migrations
 {
-    public partial class MacInitDBs : Migration
+    public partial class MacInitDBNEW : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1490,6 +1490,40 @@ namespace eStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Salaries",
+                columns: table => new
+                {
+                    CurrentSalaryId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BasicSalary = table.Column<decimal>(type: "money", nullable: false),
+                    LPRate = table.Column<decimal>(type: "money", nullable: false),
+                    IncentiveRate = table.Column<decimal>(type: "money", nullable: false),
+                    IncentiveTarget = table.Column<decimal>(type: "money", nullable: false),
+                    WOWBillRate = table.Column<decimal>(type: "money", nullable: false),
+                    WOWBillTarget = table.Column<decimal>(type: "money", nullable: false),
+                    IsFullMonth = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsSundayBillable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CloseDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsEffective = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsTailoring = table.Column<bool>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true),
+                    EntryStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salaries", x => x.CurrentSalaryId);
+                    table.ForeignKey(
+                        name: "FK_Salaries_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SalaryPayments",
                 columns: table => new
                 {
@@ -1973,6 +2007,54 @@ namespace eStore.Migrations
                         principalTable: "Stores",
                         principalColumn: "StoreId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaySlips",
+                columns: table => new
+                {
+                    PaySlipId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OnDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Month = table.Column<int>(type: "INTEGER", nullable: false),
+                    Year = table.Column<int>(type: "INTEGER", nullable: false),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CurrentSalaryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    BasicSalary = table.Column<decimal>(type: "money", nullable: false),
+                    NoOfDaysPresent = table.Column<int>(type: "INTEGER", nullable: false),
+                    TotalSale = table.Column<decimal>(type: "money", nullable: false),
+                    SaleIncentive = table.Column<decimal>(type: "money", nullable: false),
+                    WOWBillAmount = table.Column<decimal>(type: "money", nullable: false),
+                    WOWBillIncentive = table.Column<decimal>(type: "money", nullable: false),
+                    LastPcsAmount = table.Column<decimal>(type: "money", nullable: false),
+                    LastPCsIncentive = table.Column<decimal>(type: "money", nullable: false),
+                    OthersIncentive = table.Column<decimal>(type: "money", nullable: false),
+                    GrossSalary = table.Column<decimal>(type: "money", nullable: false),
+                    StandardDeductions = table.Column<decimal>(type: "money", nullable: false),
+                    TDSDeductions = table.Column<decimal>(type: "money", nullable: false),
+                    PFDeductions = table.Column<decimal>(type: "money", nullable: false),
+                    AdvanceDeducations = table.Column<decimal>(type: "money", nullable: false),
+                    OtherDeductions = table.Column<decimal>(type: "money", nullable: false),
+                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
+                    IsTailoring = table.Column<bool>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true),
+                    IsReadOnly = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaySlips", x => x.PaySlipId);
+                    table.ForeignKey(
+                        name: "FK_PaySlips_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PaySlips_Salaries_CurrentSalaryId",
+                        column: x => x.CurrentSalaryId,
+                        principalTable: "Salaries",
+                        principalColumn: "CurrentSalaryId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -2679,6 +2761,16 @@ namespace eStore.Migrations
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PaySlips_CurrentSalaryId",
+                table: "PaySlips",
+                column: "CurrentSalaryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaySlips_EmployeeId",
+                table: "PaySlips",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PointRedeemeds_DailySaleId",
                 table: "PointRedeemeds",
                 column: "DailySaleId",
@@ -2798,6 +2890,11 @@ namespace eStore.Migrations
                 name: "IX_Rents_StoreId",
                 table: "Rents",
                 column: "StoreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salaries_EmployeeId",
+                table: "Salaries",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalaryPayments_EmployeeId",
@@ -2977,6 +3074,9 @@ namespace eStore.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
+                name: "PaySlips");
+
+            migrationBuilder.DropTable(
                 name: "PointRedeemeds");
 
             migrationBuilder.DropTable(
@@ -3041,6 +3141,9 @@ namespace eStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "OnlineSales");
+
+            migrationBuilder.DropTable(
+                name: "Salaries");
 
             migrationBuilder.DropTable(
                 name: "ProductPurchase");

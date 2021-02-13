@@ -128,6 +128,8 @@ namespace eStore.DL.Data
         public DbSet<CashReceipt> CashReceipts { get; set; }
 
         public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<CurrentSalary> Salaries { get; set; }
+        public DbSet<PaySlip> PaySlips { get; set; }
         //TODO: review
         public DbSet<SalaryPayment> SalaryPayments { get; set; }
         //public DbSet<StaffAdvancePayment> StaffAdvancePayments { get; set; }

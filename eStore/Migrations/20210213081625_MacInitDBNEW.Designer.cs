@@ -9,8 +9,8 @@ using eStore.DL.Data;
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    [Migration("20210212175832_MacInitDBs")]
-    partial class MacInitDBs
+    [Migration("20210213081625_MacInitDBNEW")]
+    partial class MacInitDBNEW
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1454,6 +1454,67 @@ namespace eStore.Migrations
                     b.ToTable("Attendances");
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Payroll.CurrentSalary", b =>
+                {
+                    b.Property<int>("CurrentSalaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("BasicSalary")
+                        .HasColumnType("money");
+
+                    b.Property<DateTime?>("CloseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EntryStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("IncentiveRate")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("IncentiveTarget")
+                        .HasColumnType("money");
+
+                    b.Property<bool>("IsEffective")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsFullMonth")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSundayBillable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsTailoring")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("LPRate")
+                        .HasColumnType("money");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("WOWBillRate")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("WOWBillTarget")
+                        .HasColumnType("money");
+
+                    b.HasKey("CurrentSalaryId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Salaries");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.Payroll.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
@@ -1551,6 +1612,93 @@ namespace eStore.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeUsers");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Payroll.PaySlip", b =>
+                {
+                    b.Property<int>("PaySlipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("AdvanceDeducations")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("BasicSalary")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("CurrentSalaryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("GrossSalary")
+                        .HasColumnType("money");
+
+                    b.Property<bool>("IsReadOnly")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsTailoring")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("LastPCsIncentive")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("LastPcsAmount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NoOfDaysPresent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("OtherDeductions")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("OthersIncentive")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("PFDeductions")
+                        .HasColumnType("money");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("SaleIncentive")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("StandardDeductions")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("TDSDeductions")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("TotalSale")
+                        .HasColumnType("money");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("WOWBillAmount")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("WOWBillIncentive")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PaySlipId");
+
+                    b.HasIndex("CurrentSalaryId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("PaySlips");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Payroll.SalaryPayment", b =>
@@ -3709,6 +3857,17 @@ namespace eStore.Migrations
                     b.Navigation("Store");
                 });
 
+            modelBuilder.Entity("eStore.Shared.Models.Payroll.CurrentSalary", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Payroll.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("eStore.Shared.Models.Payroll.Employee", b =>
                 {
                     b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
@@ -3727,6 +3886,23 @@ namespace eStore.Migrations
                         .HasForeignKey("eStore.Shared.Models.Payroll.EmployeeUser", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Payroll.PaySlip", b =>
+                {
+                    b.HasOne("eStore.Shared.Models.Payroll.CurrentSalary", "CurrentSalary")
+                        .WithMany("PaySlips")
+                        .HasForeignKey("CurrentSalaryId");
+
+                    b.HasOne("eStore.Shared.Models.Payroll.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CurrentSalary");
 
                     b.Navigation("Employee");
                 });
@@ -4286,6 +4462,11 @@ namespace eStore.Migrations
                     b.Navigation("BankTranscations");
 
                     b.Navigation("BankWithdrawals");
+                });
+
+            modelBuilder.Entity("eStore.Shared.Models.Payroll.CurrentSalary", b =>
+                {
+                    b.Navigation("PaySlips");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Payroll.Employee", b =>

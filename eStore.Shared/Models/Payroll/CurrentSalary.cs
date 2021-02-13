@@ -13,6 +13,7 @@ namespace eStore.Shared.Models.Payroll
     {
         //TODO: Think some thing others also
         //TODO: Implement tailoring division on this model
+
         public int CurrentSalaryId { get; set; }
 
         public int EmployeeId { get; set; }
