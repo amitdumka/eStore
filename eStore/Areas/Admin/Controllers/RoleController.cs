@@ -46,7 +46,7 @@ namespace eStore.Areas.Admin.Controllers
 
 
 
-            return View(onRols);
+            return PartialView(onRols);
         }
 
         [Authorize(Roles = "Admin")]

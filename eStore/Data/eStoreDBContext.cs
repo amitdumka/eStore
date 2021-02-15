@@ -172,10 +172,10 @@ namespace eStore.DL.Data
                 StoreManagerPhoneNo = ""
             });
 
-            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 1, SalesmanName = "Sanjeev Mishra", StoreId = 1 });
-            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 2, SalesmanName = "Mukesh Mandal", StoreId = 1 });
-            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 3, SalesmanName = "Manager", StoreId = 1 });
-            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 4, SalesmanName = "Bikash Kumar Sah", StoreId = 1 });
+           // modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 1, SalesmanName = "Sanjeev Mishra", StoreId = 1 });
+           // modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 2, SalesmanName = "Mukesh Mandal", StoreId = 1 });
+            modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 1, SalesmanName = "Manager", StoreId = 1 });
+           // modelBuilder.Entity<Salesman>().HasData(new Salesman { SalesmanId = 4, SalesmanName = "Bikash Kumar Sah", StoreId = 1 });
 
             modelBuilder.Entity<Bank>().HasData(new Bank() { BankId = 1, BankName = "State Bank of India" });
             modelBuilder.Entity<Bank>().HasData(new Bank() { BankId = 2, BankName = "ICICI Bank" });
@@ -193,6 +193,18 @@ namespace eStore.DL.Data
             modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 6, Transcation = "CashIn" });
             modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 7, Transcation = "CashOut" });
             modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 8, Transcation = "Regular" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 9, Transcation = "Suspence" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 10, Transcation = "OnLinePurchase" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 11, Transcation = "Petty Cash Expenses" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 12, Transcation = "Dan" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 13, Transcation = "Breakfast" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 14, Transcation = "Lunch" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 15, Transcation = "Coffee" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 16, Transcation = "Cup Glass" });
+            modelBuilder.Entity<TranscationMode>().HasData(new TranscationMode { TranscationModeId = 17, Transcation = "Battery" });
+
+
+
 
             modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 1, CompositeRate = 5, TaxName = "Local Output GST@ 5%  ", TaxType = TaxType.GST });
             modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 2, CompositeRate = 12, TaxName = "Local Output GST@ 12%  ", TaxType = TaxType.GST });

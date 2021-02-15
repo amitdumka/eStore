@@ -9,6 +9,7 @@ using eStore.Shared.Models.Accounts;
 using eStore.Shared.Models.Identity;
 using eStore.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace eStore.BL.Exporter.Database
 {
@@ -25,7 +26,7 @@ namespace eStore.BL.Exporter.Database
             _userManager = userManager;
         }
 
-        public void ReadPayRoll(string fileName)
+        public async System.Threading.Tasks.Task ReadPayRollAsync(string fileName)
         {
             xS = new XSReader(fileName);
 
@@ -38,9 +39,9 @@ namespace eStore.BL.Exporter.Database
                 db.SaveChanges();
 
 
-                AddEmployees(xS.GetWS("Employees"));
-                AddAllSheet();
-                AddCurrentSalar(xS.GetWS("CurrentSalaries"));
+                await AddEmployeesAsync(xS.GetWS("Employees"));
+                await AddAllSheetAsync();
+                await AddCurrentSalarAsync(xS.GetWS("CurrentSalaries"));
 
             }
             else
@@ -70,14 +71,14 @@ namespace eStore.BL.Exporter.Database
 
         }
 
-        private int IsEmpExsits(string Name)
+        private async System.Threading.Tasks.Task<int> IsEmpExsitsAsync(string Name)
         {
-            var id = db.Employees.Where(c => (c.FirstName + " " + c.LastName) == Name).Select(c => c.EmployeeId).FirstOrDefault();
+            var id = await db.Employees.Where(c => (c.FirstName + " " + c.LastName) == Name).Select(c => c.EmployeeId).FirstOrDefaultAsync();
             return id;
 
         }
 
-        private void AddEmployees(IXLWorksheet ws)
+        private async System.Threading.Tasks.Task AddEmployeesAsync(IXLWorksheet ws)
         {
 
             var nonEmptyDataRows = ws.RowsUsed();
@@ -85,6 +86,7 @@ namespace eStore.BL.Exporter.Database
             this.SalaryLedgerID = AddOrGetEmployeeLedger();
             List<Employee> empList = new List<Employee>();
             EmpRecord = new List<EmpCodes>();
+           // int e = 1;
             foreach (var dR in nonEmptyDataRows)
             {
                 //for row number check
@@ -99,13 +101,13 @@ namespace eStore.BL.Exporter.Database
                     {
                         OldId = dR.Cell(1).GetValue<int>(),
                         StaffName = dR.Cell(2).Value.ToString(),
-
+                       // NewId = e
                     };
-                    var xId = IsEmpExsits(name1);
+                    var xId = await IsEmpExsitsAsync(name1);
                     if (xId > 0)
                     {
                         codes.NewId = xId;
-                        codes.PartyId = AddOrGetParty(xId);
+                        codes.PartyId = await AddOrGetPartyAsync(xId);
                     }
                     else
                     {
@@ -119,6 +121,7 @@ namespace eStore.BL.Exporter.Database
                         }
                         Employee emp = new Employee
                         {
+                           // EmployeeId=e,
                             FirstName = FName,
                             LastName = LName,
                             EntryStatus = 0,
@@ -148,7 +151,7 @@ namespace eStore.BL.Exporter.Database
                             emp.DateOfBirth = (DateTime?)dR.Cell(10).GetDateTime().Date ?? new DateTime(1947, 07, 15).Date;
 
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             //Console.WriteLine("Error: " + ex.Message);
 
@@ -157,16 +160,13 @@ namespace eStore.BL.Exporter.Database
                             //Console.WriteLine($"DOB: {dR.Cell(10).Value.ToString()}");
                             //Console.WriteLine($"LD: {dR.Cell(5).Value.ToString()}");
                         }
-                        db.Employees.Add(emp);
-                        db.SaveChanges();
-
-                        _ = EmployeeManager.PostEmployeeAdditionAsync(db, emp, _userManager);
+                        await db.Employees.AddAsync(emp);
+                        await db.SaveChangesAsync();
+                      //  e++;
+                        await EmployeeManager.PostEmployeeAdditionAsync(db, emp, _userManager);
                         codes.NewId = emp.EmployeeId;
-                        codes.PartyId = AddOrGetParty(emp);
-
-
+                        codes.PartyId = await AddOrGetPartyAsync(emp);
                     }
-
 
                     EmpRecord.Add(codes);
                 }
@@ -174,17 +174,17 @@ namespace eStore.BL.Exporter.Database
 
         }
 
-        private void AddAllSheet()
+        private async System.Threading.Tasks.Task AddAllSheetAsync()
         {
             foreach (var item in EmpRecord)
             {
-                AddAttendence(xS.GetWS("Att_" + item.StaffName), item.NewId);
-                AddSalaryPayment(xS.GetWS("Sal_" + item.StaffName), item.NewId, item.PartyId);
+               await  AddAttendenceAsync(xS.GetWS("Att_" + item.StaffName), item.NewId);
+               await AddSalaryPaymentAsync(xS.GetWS("Sal_" + item.StaffName), item.NewId, item.PartyId);
             }
 
         }
 
-        private void AddAttendence(IXLWorksheet ws, int EmpId)
+        private async System.Threading.Tasks.Task AddAttendenceAsync(IXLWorksheet ws, int EmpId)
         {
 
             var nonEmptyDataRows = ws.RowsUsed();
@@ -222,11 +222,11 @@ namespace eStore.BL.Exporter.Database
                     attList.Add(att);
                 }
             }
-            db.Attendances.AddRange(attList);
-            db.SaveChanges();
+           await db.Attendances.AddRangeAsync(attList);
+           await db.SaveChangesAsync();
         }
 
-        private void AddSalaryPayment(IXLWorksheet ws, int EmpId, int PartyId)
+        private async System.Threading.Tasks.Task AddSalaryPaymentAsync(IXLWorksheet ws, int EmpId, int PartyId)
         {
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 9;//Title;
@@ -258,24 +258,24 @@ namespace eStore.BL.Exporter.Database
                     SalList.Add(salary);
                 }
             }
-            db.SalaryPayments.AddRange(SalList);
-            db.SaveChanges();
+           await db.SalaryPayments.AddRangeAsync(SalList);
+           await  db.SaveChangesAsync();
 
         }
 
 
-        private int AddOrGetParty(int empID)
+        private async System.Threading.Tasks.Task<int> AddOrGetPartyAsync(int empID)
         {
             var PName = "EMP# " + db.Employees.Find(empID).StaffName;
 
-            var id = db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefault();
+            var id = await db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefaultAsync();
             if (id > 0)
             {
                 return id;
             }
             else
             {
-                var emp = db.Employees.Find(empID);
+                var emp = await db.Employees.FindAsync(empID);
                 Party party = new Party
                 {
                     Address = emp.Address,
@@ -286,16 +286,16 @@ namespace eStore.BL.Exporter.Database
                     PANNo = "",
                     LedgerTypeId = this.SalaryLedgerID
                 };
-                db.Parties.Add(party);
-                db.SaveChanges();
+                await db.Parties.AddAsync(party);
+                await db.SaveChangesAsync();
                 return party.PartyId;
 
             }
         }
-        private int AddOrGetParty(Employee emp)
+        private async System.Threading.Tasks.Task<int> AddOrGetPartyAsync(Employee emp)
         {
             var PName = "EMP# " + emp.StaffName;
-            var id = db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefault();
+            var id = await db.Parties.Where(c => c.PartyName == PName).Select(c => c.PartyId).FirstOrDefaultAsync();
             if (id > 0)
             {
                 return id;
@@ -312,14 +312,14 @@ namespace eStore.BL.Exporter.Database
                     PANNo = "",
                     LedgerTypeId = this.SalaryLedgerID
                 };
-                db.Parties.Add(party);
-                db.SaveChanges();
+                await db.Parties.AddAsync(party);
+                await db.SaveChangesAsync();
                 return party.PartyId;
 
             }
         }
 
-        private void AddCurrentSalar(IXLWorksheet ws)
+        private async System.Threading.Tasks.Task AddCurrentSalarAsync(IXLWorksheet ws)
         {
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title;
@@ -363,8 +363,8 @@ namespace eStore.BL.Exporter.Database
 
                 }
             }
-            db.Salaries.AddRange(salLst);
-            db.SaveChanges();
+            await db.Salaries.AddRangeAsync(salLst);
+            await db.SaveChangesAsync();
 
 
         }
@@ -372,3 +372,14 @@ namespace eStore.BL.Exporter.Database
 
 
 }
+
+//TODO: Drop all Table
+/*
+ * DECLARE @sql NVARCHAR(max)=''
+
+SELECT @sql += ' Drop table ' + QUOTENAME(TABLE_SCHEMA) + '.'+ QUOTENAME(TABLE_NAME) + '; '
+FROM   INFORMATION_SCHEMA.TABLES
+WHERE  TABLE_TYPE = 'BASE TABLE'
+
+Exec Sp_executesql @sql
+ */

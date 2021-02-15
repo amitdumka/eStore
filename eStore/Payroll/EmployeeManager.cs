@@ -45,13 +45,14 @@ namespace eStore.Payroll
         }
         public static async Task AddEmployeeLoginAsync(eStoreDbContext db, Employee employee, UserManager<AppUser> userManager)
         {
-            if (employee != null && employee.IsWorking)
+            if (employee != null)
             {
-                await UserAdmin.AddUserAsync(userManager, employee);
+                
+                if (employee.IsWorking)
+                    await UserAdmin.AddUserAsync(userManager, employee);
 
-                //if (employee.IsWorking)
                 //{
-                     
+
 
                 //    //TODO:    await UserAdmin.AddEmployeeUserAsync(db, employee.StaffName, employee.EmployeeId);
 

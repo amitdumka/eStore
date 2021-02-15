@@ -22,10 +22,10 @@ namespace eStore.BL.Exporter.Database
             _userManager = userManager;
         }
 
-        public bool ImportData(string fileName)
+        public async System.Threading.Tasks.Task<bool> ImportDataAsync(string fileName)
         {
             ImportPayroll iP = new ImportPayroll(Db,_userManager);
-            iP.ReadPayRoll(fileName);
+           await iP.ReadPayRollAsync(fileName);
             return true;
         }
 

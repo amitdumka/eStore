@@ -72,7 +72,7 @@ namespace eStore.Controllers
                 // var data= t.TestImportExcel(_context, pathToExcelFile);
                 // return  View(data);
                 DBImport im = new DBImport(_context,_userManager);
-                bool a=im.ImportData(pathToExcelFile);
+                bool a= await im.ImportDataAsync(pathToExcelFile);
                 if (a)
                 {
                     ViewBag.Message = "It DOne";
