@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using eStore.BL.Exporter.Database;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
+using Newtonsoft.Json;
 
 namespace eStore.BL.Exporter.Importer
 {
@@ -78,14 +79,14 @@ namespace eStore.BL.Exporter.Importer
                         EmployeeId = dR.Cell(7).GetValue<int>(),
                         PartyName = dR.Cell(8).Value.ToString(),
                         Remarks = dR.Cell(9).Value.ToString(),
-                        PartyId = dR.Cell(10).GetValue<int>(),
+                        // PartyId = dR.Cell(10).GetValue<int>(),
                         StoreId = dR.Cell(11).GetValue<int>(),
                         UserId = dR.Cell(12).Value.ToString(),
                         EntryStatus = 0,
                         IsReadOnly = true,
                         IsDyn = false,
                         IsOn = true,
-
+                        IsCash = false
                     };
                     db.Expenses.Add(exp);
 
@@ -116,14 +117,14 @@ namespace eStore.BL.Exporter.Importer
                         Amount = dR.Cell(6).GetValue<decimal>(),
                         PaymentSlipNo = dR.Cell(7).Value.ToString(),
                         Remarks = dR.Cell(8).Value.ToString(),
-                        PartyId = dR.Cell(9).GetValue<int>(),
+                        //PartyId = dR.Cell(9).GetValue<int>(),
                         StoreId = dR.Cell(10).GetValue<int>(),
                         UserId = dR.Cell(11).Value.ToString(),
                         EntryStatus = 0,
                         IsReadOnly = true,
                         IsDyn = false,
                         IsOn = true,
-
+                        
 
                     };
                     db.Payments.Add(exp);
@@ -137,7 +138,7 @@ namespace eStore.BL.Exporter.Importer
         }
         private async System.Threading.Tasks.Task AddRecieptAsync()
         {
-            var ws = xS.GetWS("Reciepts");
+            var ws = xS.GetWS("Receipts");
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title;
             //ReceiptId RecieptDate ReceiptFrom PayMode ReceiptDetails Amount  RecieptSlipNo Remarks PartyId StoreId UserName
@@ -155,7 +156,7 @@ namespace eStore.BL.Exporter.Importer
                         Amount = dR.Cell(6).GetValue<decimal>(),
                         RecieptSlipNo = dR.Cell(7).Value.ToString(),
                         Remarks = dR.Cell(8).Value.ToString(),
-                        PartyId = dR.Cell(9).GetValue<int>(),
+                        //PartyId = dR.Cell(9).GetValue<int>(),
                         StoreId = dR.Cell(10).GetValue<int>(),
                         UserId = dR.Cell(11).Value.ToString(),
                         EntryStatus = 0,
@@ -177,7 +178,7 @@ namespace eStore.BL.Exporter.Importer
         
         private async System.Threading.Tasks.Task AddCashReceiptAsync()
         {
-            var ws = xS.GetWS("Reciepts");
+            var ws = xS.GetWS("CashReceipts");
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title;
             // CashReceiptId	InwardDate	TranscationModeId	Mode	ReceiptFrom	Amount	SlipNo	StoreId	UserName
@@ -208,7 +209,7 @@ namespace eStore.BL.Exporter.Importer
         }
         private async System.Threading.Tasks.Task AddCashPaymentsAsync()
         {
-            var ws = xS.GetWS("Reciepts");
+            var ws = xS.GetWS("CashPayments");
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title;
                         //           CashPaymentId PaymentDate TranscationModeId Mode    PaidTo Amount  SlipNo StoreId UserName
@@ -252,15 +253,17 @@ namespace eStore.BL.Exporter.Importer
             else if (mode.Contains("coffee")) id = 15;
             else if (mode.Contains("cup") ||mode.Contains("glass")) id = 16;
             else if (mode.Contains("batery")) id = 17;
+            Console.Write("\tId: " + id);
             return id;
         }
         private async System.Threading.Tasks.Task AddPettyCashPaymentsAsync()
         {
-            var ws = xS.GetWS("Reciepts");
+            var ws = xS.GetWS("PettyCashExpenses");
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title;
-//            PettyCashExpenseId ExpDate Particulars Amount  EmployeeId PaidTo  Remarks StoreId UserName
+                        //            PettyCashExpenseId ExpDate Particulars Amount  EmployeeId PaidTo  Remarks StoreId UserName
 
+            Console.WriteLine(JsonConvert.SerializeObject(db.TranscationModes));
             foreach (var dR in nonEmptyDataRows)
             {
                 if (dR.RowNumber() > Row)
@@ -275,6 +278,7 @@ namespace eStore.BL.Exporter.Importer
                         UserId = dR.Cell(9).Value.ToString(),
                         EntryStatus = 0,
                         IsReadOnly = true,SlipNo="CashPayment_Imported",
+                        TranscationModeId=9
                         
 
                     };

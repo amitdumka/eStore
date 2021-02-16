@@ -24,12 +24,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsPartialRecovery)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Store)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -47,17 +47,17 @@
         @Html.DisplayFor(modelItem => item.RecoveryDate)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.DailySale.DailySaleId)
+        @Html.DisplayFor(modelItem => item.DailySale.InvNo)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.IsPartialRecovery)
     </td>
-    <td>
+    @*<td>
         @Html.DisplayFor(modelItem => item.Store.StoreId)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.UserId)
-    </td>
+    </td>*@
     <td>
         <a asp-action="Edit" asp-route-id="@item.DuesListId">Edit</a> 
         <a asp-action="Details" asp-route-id="@item.DuesListId">Details</a> |

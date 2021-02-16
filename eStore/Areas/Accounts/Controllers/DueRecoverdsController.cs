@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/DueRecoverds
         public async Task<IActionResult> Index()
         {
-            var eStoreDbContext = _context.DueRecoverds.Include(d => d.DuesList).Include(d => d.Store);
+            var eStoreDbContext = _context.DueRecoverds.Include(d => d.DuesList).Include(c=>c.DuesList.DailySale).Include(d => d.Store);
             return View(await eStoreDbContext.ToListAsync());
         }
 
@@ -50,8 +50,8 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/DueRecoverds/Create
         public IActionResult Create()
         {
-            ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c=>c.DailySale), "DuesListId", "InvNp");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -68,8 +68,8 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
+            ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return  View(dueRecoverd);
         }
 
@@ -86,8 +86,8 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
+            ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return PartialView(dueRecoverd);
         }
 
@@ -123,8 +123,8 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
+            ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return  View(dueRecoverd);
         }
 

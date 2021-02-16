@@ -18,6 +18,22 @@ namespace eStore.BL.Exporter.Database
         {
             db = context;
         }
+
+        public async Task ReadDueAsync(XSReader ixs)
+        {
+            xS = ixs;
+
+            if (xS.WorkBookName == "Daily Sales")
+            {
+                await AddEDCTranscationAsync();
+                await AddDueRecoveredListAsync(await SaleDetailsAsync());
+                
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
         public async System.Threading.Tasks.Task ReadAsync(XSReader ixs)
         {
             xS = ixs;
@@ -61,13 +77,37 @@ namespace eStore.BL.Exporter.Database
 
         }
 
-        
+        private async Task<SortedList<int, int>> SaleDetailsAsync()
+        {
+            var ws = xS.GetWS("DailySales");
+            var nonEmptyDataRows = ws.RowsUsed();
+            int Row = 6;//Title
+            SortedDictionary<int, string> SaleList = new SortedDictionary<int, string>();
+            foreach (var dR in nonEmptyDataRows)            
+                if (dR.RowNumber() > Row)               
+                    SaleList.Add(dR.Cell(1).GetValue<int>(), dR.Cell(3).GetValue<string>());
+
+             ws = xS.GetWS("DueLists");
+             nonEmptyDataRows = ws.RowsUsed();
+             SortedList<int, int> IDList = new SortedList<int, int>();
+            foreach (var dR in nonEmptyDataRows)
+            {
+                if (dR.RowNumber() > Row)
+                    IDList.Add(dR.Cell(1).GetValue<int>(),await GetDueIdAsync(GetSaleId(SaleList.GetValueOrDefault(dR.Cell(5).GetValue<int>()))));
+            }
+            return IDList;
+
+        }
 
         private int GetSaleId(string inv)
         {
             return db.DailySales.Where(c => c.InvNo == inv).Select(c => c.DailySaleId).FirstOrDefault();
         }
+        private async Task<int> GetDueIdAsync(int id)
+        {
+           return await db.DuesLists.Where(c => c.DailySaleId == id).Select(c => c.DuesListId).FirstOrDefaultAsync();
 
+        }
         private async System.Threading.Tasks.Task<int> AddEDCAsync()
         {
             var ws = xS.GetWS("CardMachine");
@@ -199,7 +239,7 @@ namespace eStore.BL.Exporter.Database
                 {
                     DueRecoverd dL = new DueRecoverd
                     {
-                        DueRecoverdId = dR.Cell(1).GetValue<int>(),
+                        //DueRecoverdId = dR.Cell(1).GetValue<int>(),
                         PaidDate = dR.Cell(2).GetDateTime(),
                         DuesListId = dR.Cell(3).GetValue<int>(),
                         AmountPaid = dR.Cell(4).GetValue<decimal>(),

@@ -33,6 +33,10 @@ namespace eStore.BL.Exporter.Database
                 case "Stores":
                     StoreInfoImport sii = new StoreInfoImport(Db);
                    await sii.ReadAsync(xS);
+                    break;
+                case "Expenses":
+                    ImportExpenses ie = new ImportExpenses(Db);
+                    await ie.ReadAsync(xS);
 
                     break;
                 case "Tailoring":
