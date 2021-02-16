@@ -35,8 +35,6 @@ namespace eStore.BL.Exporter.Database
             db.Employees.AddRange(lst);
             Console.WriteLine(JsonConvert.SerializeObject(dt));
             Console.WriteLine("Save: " + db.SaveChanges());
-
-
             return dt;
 
         }

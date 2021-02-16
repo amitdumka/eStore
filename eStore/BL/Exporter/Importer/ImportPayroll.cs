@@ -54,7 +54,7 @@ namespace eStore.BL.Exporter.Database
         private int AddOrGetEmployeeLedger()
         {
             var ID = db.LedgerTypes.Where(c => c.LedgerNameType == "Salary").Select(c => c.LedgerTypeId).FirstOrDefault();
-            if (ID != null && ID <= 0)
+            if (  ID <= 0)
             {
                 LedgerType Lt = new LedgerType
                 {

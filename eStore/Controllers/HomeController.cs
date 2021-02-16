@@ -13,6 +13,7 @@ using System.IO;
 using eStore.BL.Exporter.Database;
 using eStore.Shared.Models.Identity;
 using Microsoft.AspNetCore.Identity;
+using eStore.Ops;
 
 namespace eStore.Controllers
 {
@@ -32,6 +33,8 @@ namespace eStore.Controllers
 
         public IActionResult Index()
         {
+            // Setting Store Info Here
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Home/Index");
             MasterViewReport mvr = DashboardWidget.GetMasterViewReport(_context);
             return View(mvr);
         }

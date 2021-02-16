@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
-            return PartialView(eBillPayment);
+            return  View(eBillPayment);
         }
 
         // GET: Accounts/EBillPayments/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
-            return PartialView(eBillPayment);
+            return  View(eBillPayment);
         }
 
         // GET: Accounts/EBillPayments/Delete/5

@@ -5,7 +5,7 @@ using ClosedXML.Excel;
 
 namespace eStore.BL.Exporter.Database
 {
-    class XSReader
+   public class XSReader
     {
         public XLWorkbook WB { get; private set; }
         protected IXLWorksheet TocWS { get; set; }

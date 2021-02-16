@@ -16,7 +16,48 @@ namespace eStore.BL.Exporter.Importer
             db = dbContext;
         }
 
-        public void AddExpenses()
+        public async System.Threading.Tasks.Task ReadAsync(string fileName)
+        {
+            xS = new XSReader(fileName);
+
+            if (xS.WorkBookName == "Expenses")
+            {
+                await AddExpensesAsync();
+                await AddPaymentAsync();
+                await AddRecieptAsync();
+                await AddCashPaymentsAsync();
+                await AddCashReceiptAsync();
+                await AddPettyCashPaymentsAsync();
+
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
+        public async System.Threading.Tasks.Task ReadAsync(XSReader ixs)
+        {
+            xS = ixs;
+
+            if (xS.WorkBookName == "Expenses")
+            {
+                await AddExpensesAsync();
+                await AddPaymentAsync();
+                await AddRecieptAsync();
+                await AddCashPaymentsAsync();
+                await AddCashReceiptAsync();
+                await AddPettyCashPaymentsAsync();
+
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
+
+        private async System.Threading.Tasks.Task AddExpensesAsync()
         {
             var ws = xS.GetWS("Expenses");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -52,10 +93,10 @@ namespace eStore.BL.Exporter.Importer
                 }
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();;
 
         }
-        public void AddPayment()
+        private async System.Threading.Tasks.Task AddPaymentAsync()
         {
             var ws = xS.GetWS("Payments");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -91,10 +132,10 @@ namespace eStore.BL.Exporter.Importer
                 }
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();;
 
         }
-        public void AddReciept()
+        private async System.Threading.Tasks.Task AddRecieptAsync()
         {
             var ws = xS.GetWS("Reciepts");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -130,37 +171,11 @@ namespace eStore.BL.Exporter.Importer
                 }
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();;
 
         }
-        public void Add()
-        {
-            var ws = xS.GetWS("");
-            var nonEmptyDataRows = ws.RowsUsed();
-            int Row = 9;//Title;
-            foreach (var dR in nonEmptyDataRows)
-            {
-                if (dR.RowNumber() > Row)
-                {
-
-
-                    try
-                    {
-
-
-                    }
-                    catch (Exception e)
-                    {
-
-
-                    }
-
-                }
-            }
-
-            db.SaveChanges();
-        }
-        private void AddCashReceipt()
+        
+        private async System.Threading.Tasks.Task AddCashReceiptAsync()
         {
             var ws = xS.GetWS("Reciepts");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -189,9 +204,9 @@ namespace eStore.BL.Exporter.Importer
                 }
 
             }
-            db.SaveChanges();
+            await db.SaveChangesAsync();;
         }
-        private void AddCashPayments()
+        private async System.Threading.Tasks.Task AddCashPaymentsAsync()
         {
             var ws = xS.GetWS("Reciepts");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -221,7 +236,7 @@ namespace eStore.BL.Exporter.Importer
                 }
 
             }
-            db.SaveChanges();
+            await db.SaveChangesAsync();;
         }
 
         private int GetTranscationMode(string mode)
@@ -239,7 +254,7 @@ namespace eStore.BL.Exporter.Importer
             else if (mode.Contains("batery")) id = 17;
             return id;
         }
-        private void AddPettyCashPayments()
+        private async System.Threading.Tasks.Task AddPettyCashPaymentsAsync()
         {
             var ws = xS.GetWS("Reciepts");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -268,7 +283,7 @@ namespace eStore.BL.Exporter.Importer
                 }
 
             }
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 

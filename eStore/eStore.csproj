@@ -76,6 +76,8 @@
     <Folder Include="BL\Widgets\" />
     <Folder Include="ViewComponents\" />
     <Folder Include="BL\Exporter\Importer\" />
+    <Folder Include="BL\Exporter\Export\" />
+    <Folder Include="BL\Exporter\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

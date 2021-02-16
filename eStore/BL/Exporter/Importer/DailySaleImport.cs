@@ -1,35 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using eStore.DL.Data;
-using eStore.Shared.Models.Identity;
 using eStore.Shared.Models.Sales;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace eStore.BL.Exporter.Database
 {
-    public class DBImport
-    {
-        private string PathName = "";
-        private readonly string BFolder = "ExcelSheet";
-        private string BasePath;
-        private eStoreDbContext Db;
-        private readonly UserManager<AppUser> _userManager;
-
-        public DBImport(eStoreDbContext context,  UserManager<AppUser> userManager)
-        {
-            Db = context;
-            _userManager = userManager;
-        }
-
-        public async System.Threading.Tasks.Task<bool> ImportDataAsync(string fileName)
-        {
-            ImportPayroll iP = new ImportPayroll(Db,_userManager);
-           await iP.ReadPayRollAsync(fileName);
-            return true;
-        }
-
-    }
     class DailySaleImport
     {
         private XSReader xS;
@@ -39,12 +17,32 @@ namespace eStore.BL.Exporter.Database
         {
             db = context;
         }
-        public void Read(string fileName)
+        public async System.Threading.Tasks.Task ReadAsync(XSReader ixs)
+        {
+            xS = ixs;
+
+            if (xS.WorkBookName == "Daily Sales")
+            {
+                await AddEDCAsync();
+                await AddDueRecoveredListAsync(await AddDueListsAsync(await AddDailySalesAsync(GetSaleman())));
+                await AddEDCTranscationAsync();
+
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
+        public async System.Threading.Tasks.Task ReadAsync(string fileName)
         {
             xS = new XSReader(fileName);
 
             if (xS.WorkBookName == "Daily Sales")
             {
+                await AddEDCAsync();
+                await AddDueRecoveredListAsync(await AddDueListsAsync(await AddDailySalesAsync(GetSaleman())));
+                await AddEDCTranscationAsync();
 
             }
             else
@@ -54,12 +52,14 @@ namespace eStore.BL.Exporter.Database
 
         }
 
+        
+
         private int GetSaleId(string inv)
         {
-           return db.DailySales.Where(c => c.InvNo == inv).Select(c => c.DailySaleId).FirstOrDefault();
+            return db.DailySales.Where(c => c.InvNo == inv).Select(c => c.DailySaleId).FirstOrDefault();
         }
 
-        private int AddEDC()
+        private async System.Threading.Tasks.Task<int> AddEDCAsync()
         {
             var ws = xS.GetWS("CardMachine");
             //EDCId	TID	EDCName	AccountNumberId	StartDate	EndDate	IsWorking	MID	Remark	StoreId
@@ -99,10 +99,10 @@ namespace eStore.BL.Exporter.Database
 
             }
             //Add Here
-            db.CardMachine.AddRange(cardM);
-            return db.SaveChanges();
+           await db.CardMachine.AddRangeAsync(cardM);
+            return  await db.SaveChangesAsync();
         }
-        private int AddEDCTranscation()
+        private async System.Threading.Tasks.Task<int> AddEDCTranscationAsync()
         {
             //EDCTranscationId	EDCId	Amount	OnDate	CardEndingNumber	CardTypes	InvoiceNumber	StoreId
             var ws = xS.GetWS("CardTranscations");
@@ -133,11 +133,11 @@ namespace eStore.BL.Exporter.Database
 
             }
             //Add Here
-            db.CardTranscations.AddRange(cardM);
-            return db.SaveChanges();
+           await db.CardTranscations.AddRangeAsync(cardM);
+            return await db.SaveChangesAsync();
 
         }
-        private SortedList<int, int> AddDueLists(SortedDictionary<int, string> SaleList)
+        private async System.Threading.Tasks.Task<SortedList<int, int>> AddDueListsAsync(SortedDictionary<int, string> SaleList)
         {
             //DuesListId	Amount	IsRecovered	RecoveryDate	DailySaleId	IsPartialRecovery	StoreId
 
@@ -162,7 +162,7 @@ namespace eStore.BL.Exporter.Database
                     };
                     dL.DailySaleId = GetSaleId(SaleList.GetValueOrDefault(dL.DailySaleId));
                     db.DuesLists.Add(dL);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     IDList.Add(dR.Cell(1).GetValue<int>(), dL.DuesListId);
                 }
 
@@ -170,7 +170,7 @@ namespace eStore.BL.Exporter.Database
             return IDList;
 
         }
-        private int AddDueRecoveredList(SortedList<int, int> IdList)
+        private async System.Threading.Tasks.Task<int> AddDueRecoveredListAsync(SortedList<int, int> IdList)
         {
             var ws = xS.GetWS("DueLists");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -194,12 +194,12 @@ namespace eStore.BL.Exporter.Database
 
                     };
                     dL.DuesListId = IdList.GetValueOrDefault(dL.DuesListId);
-                    db.DueRecoverds.Add(dL);
+                    await db.DueRecoverds.AddAsync(dL);
 
                 }
 
             }
-           return db.SaveChanges();
+            return await db.SaveChangesAsync();
 
         }
 
@@ -221,12 +221,12 @@ namespace eStore.BL.Exporter.Database
             return smList;
         }
 
-        private int GetSMId(string sname)
+        private System.Threading.Tasks.Task<int> GetSMId(string sname)
         {
-           return db.Salesmen.Where(c => c.SalesmanName == sname).Select(c => c.SalesmanId).FirstOrDefault();
+            return db.Salesmen.Where(c => c.SalesmanName == sname).Select(c => c.SalesmanId).FirstOrDefaultAsync();
         }
 
-        private SortedDictionary<int, string> AddDailySales(SortedList<int, string> smList)
+        private async System.Threading.Tasks.Task<SortedDictionary<int, string>> AddDailySalesAsync(SortedList<int, string> smList)
         {
             var ws = xS.GetWS("DailySales");
             var nonEmptyDataRows = ws.RowsUsed();
@@ -259,15 +259,16 @@ namespace eStore.BL.Exporter.Database
                         //MixAndCouponPaymentId = dR.Cell(15).GetValue<int>(),
                         StoreId = dR.Cell(16).GetValue<int>(),
                         UserId = dR.Cell(17).GetValue<string>(),
-                        EntryStatus=0,
-                        IsReadOnly=true
-                     };
-                    dL.SalesmanId = GetSMId(smList.GetValueOrDefault(dL.SalesmanId));
+                        EntryStatus = 0,
+                        IsReadOnly = true
+                    };
+                    dL.SalesmanId = await GetSMId(smList.GetValueOrDefault(dL.SalesmanId));
                     db.DailySales.Add(dL);
 
                 }
 
             }
+            await db.SaveChangesAsync();
             return SaleList;
 
 
@@ -277,4 +278,4 @@ namespace eStore.BL.Exporter.Database
     }
 
 
-}   
+}

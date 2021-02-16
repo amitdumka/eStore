@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
-            return PartialView(dueRecoverd);
+            return  View(dueRecoverd);
         }
 
         // GET: Accounts/DueRecoverds/Edit/5
@@ -125,7 +125,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists, "DuesListId", "DuesListId", dueRecoverd.DuesListId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", dueRecoverd.StoreId);
-            return PartialView(dueRecoverd);
+            return  View(dueRecoverd);
         }
 
         // GET: Accounts/DueRecoverds/Delete/5

@@ -88,7 +88,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "DailySaleId", duesList.DailySaleId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", duesList.StoreId);
-            return PartialView(duesList);
+            return  View(duesList);
         }
 
         // POST: Accounts/DuesLists/Edit/5
@@ -145,7 +145,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
 
-            return PartialView(duesList);
+            return  View(duesList);
         }
 
         // POST: Accounts/DuesLists/Delete/5

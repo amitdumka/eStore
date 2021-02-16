@@ -70,7 +70,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
-            return PartialView(eletricityBill);
+            return  View(eletricityBill);
         }
 
         // GET: Accounts/EletricityBills/Edit/5

@@ -57,7 +57,7 @@ namespace eStore.Areas.Accounts.Controllers
             // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
 
-            return View();
+            return PartialView();
         }
 
         // POST: Accounts/CashPayments/Create
@@ -77,7 +77,7 @@ namespace eStore.Areas.Accounts.Controllers
             //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
 
-            return PartialView(cashPayment);
+            return View(cashPayment);
         }
 
         // GET: Accounts/CashPayments/Edit/5
@@ -132,7 +132,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
-            return PartialView(cashPayment);
+            return  View(cashPayment);
         }
 
         // GET: Accounts/CashPayments/Delete/5
