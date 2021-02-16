@@ -34,14 +34,15 @@ namespace eStore.BL.Exporter.Database
             {
                 db.Attendances.RemoveRange(db.Attendances);
                 db.SalaryPayments.RemoveRange(db.SalaryPayments);
+                db.Salesmen.RemoveRange(db.Salesmen);
                 db.Employees.RemoveRange(db.Employees);
 
                 db.SaveChanges();
 
 
                 await AddEmployeesAsync(xS.GetWS("Employees"));
-                await AddAllSheetAsync();
-                await AddCurrentSalarAsync(xS.GetWS("CurrentSalaries"));
+               // await AddAllSheetAsync();
+               // await AddCurrentSalarAsync(xS.GetWS("CurrentSalaries"));
 
             }
             else

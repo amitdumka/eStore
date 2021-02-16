@@ -96,7 +96,7 @@ namespace eStore.BL.Exporter.Importer
                         Others = dR.Cell(19).GetValue<int>(),
                         OthersPrice = dR.Cell(20).GetValue<decimal>(),
                         IsDelivered = dR.Cell(21).GetBoolean(),
-                        StoreId = dR.Cell(22).GetValue<int>(),
+                        StoreId = 1,//dR.Cell(22).GetValue<int>(),
                         UserId = dR.Cell(23).GetValue<string>()
 
 

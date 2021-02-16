@@ -25,6 +25,11 @@ namespace eStore.BL.Exporter.Database
 
             switch (xS.WorkBookName)
             {
+                case "PayRoll":
+                    xS = null;
+                    ImportPayroll ip = new ImportPayroll(Db, _userManager);
+                   await ip.ReadPayRollAsync(fileName);
+                    break;
                 case "Stores":
                     StoreInfoImport sii = new StoreInfoImport(Db);
                    await sii.ReadAsync(xS);

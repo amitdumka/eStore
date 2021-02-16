@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eStore.DL.Data;
 using eStore.Shared.Models.Sales;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace eStore.BL.Exporter.Database
 {
@@ -23,10 +24,15 @@ namespace eStore.BL.Exporter.Database
 
             if (xS.WorkBookName == "Daily Sales")
             {
+                //await AddEDCAsync();
+                //await AddDueRecoveredListAsync(await AddDueListsAsync(await AddDailySalesAsync(GetSaleman())));
+                //await AddEDCTranscationAsync();
                 await AddEDCAsync();
-                await AddDueRecoveredListAsync(await AddDueListsAsync(await AddDailySalesAsync(GetSaleman())));
+                var sm = GetSaleman();
+                var ds = await AddDailySalesAsync(sm);
+                var dl = await AddDueListsAsync(ds);
+                await AddDueRecoveredListAsync(dl);
                 await AddEDCTranscationAsync();
-
             }
             else
             {
@@ -41,7 +47,10 @@ namespace eStore.BL.Exporter.Database
             if (xS.WorkBookName == "Daily Sales")
             {
                 await AddEDCAsync();
-                await AddDueRecoveredListAsync(await AddDueListsAsync(await AddDailySalesAsync(GetSaleman())));
+                var sm = GetSaleman();
+                var ds = await AddDailySalesAsync(sm);
+                var dl = await AddDueListsAsync(ds);
+                await AddDueRecoveredListAsync(dl);
                 await AddEDCTranscationAsync();
 
             }
@@ -154,12 +163,20 @@ namespace eStore.BL.Exporter.Database
                     {
                         IsRecovered = dR.Cell(3).GetBoolean(),
                         Amount = dR.Cell(2).GetValue<decimal>(),
-                        RecoveryDate = dR.Cell(4).GetDateTime(),
                         DailySaleId = dR.Cell(5).GetValue<int>(),
                         IsPartialRecovery = dR.Cell(6).GetBoolean(),
                         StoreId = dR.Cell(7).GetValue<int>(),
                         UserId = "Admin"
                     };
+                    try
+                    {
+                        dL.RecoveryDate = (DateTime?)dR.Cell(4).GetDateTime() ?? null;
+                        
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     dL.DailySaleId = GetSaleId(SaleList.GetValueOrDefault(dL.DailySaleId));
                     db.DuesLists.Add(dL);
                     await db.SaveChangesAsync();
@@ -172,7 +189,7 @@ namespace eStore.BL.Exporter.Database
         }
         private async System.Threading.Tasks.Task<int> AddDueRecoveredListAsync(SortedList<int, int> IdList)
         {
-            var ws = xS.GetWS("DueLists");
+            var ws = xS.GetWS("DueRecovereds");
             var nonEmptyDataRows = ws.RowsUsed();
             int Row = 6;//Title
             //DueRecoverdId PaidDate    DuesListId AmountPaid  IsPartialPayment Modes   Remarks StoreId UserName
@@ -218,12 +235,16 @@ namespace eStore.BL.Exporter.Database
                 }
 
             }
+            Console.WriteLine(JsonConvert.SerializeObject(smList));
             return smList;
         }
 
-        private System.Threading.Tasks.Task<int> GetSMId(string sname)
+        private async System.Threading.Tasks.Task<int> GetSMId(string sname)
         {
-            return db.Salesmen.Where(c => c.SalesmanName == sname).Select(c => c.SalesmanId).FirstOrDefaultAsync();
+            int id= await db.Salesmen.Where(c => c.SalesmanName.Contains( sname)).Select(c => c.SalesmanId).FirstOrDefaultAsync();
+            Console.WriteLine($"SM:'{sname}'  id :#{id}");
+            return id;
+
         }
 
         private async System.Threading.Tasks.Task<SortedDictionary<int, string>> AddDailySalesAsync(SortedList<int, string> smList)
@@ -234,7 +255,7 @@ namespace eStore.BL.Exporter.Database
             //DailySaleId	SaleDate	InvNo	Amount	PayMode	CashAmount	SalesmanId	IsDue	IsManualBill	
             //IsTailoringBill	IsSaleReturn	Remarks	IsMatchedWithVOy	EDCTranscationId	MixAndCouponPaymentId	StoreId	UserName
             SortedDictionary<int, string> SaleList = new SortedDictionary<int, string>();
-
+             
             foreach (var dR in nonEmptyDataRows)
             {
                 if (dR.RowNumber() > Row)
@@ -263,6 +284,7 @@ namespace eStore.BL.Exporter.Database
                         IsReadOnly = true
                     };
                     dL.SalesmanId = await GetSMId(smList.GetValueOrDefault(dL.SalesmanId));
+                    Console.WriteLine("SM:# " + dL.SalesmanId);
                     db.DailySales.Add(dL);
 
                 }

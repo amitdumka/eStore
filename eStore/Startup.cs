@@ -37,17 +37,17 @@ namespace eStore
             });
 
 
-            //services.AddDbContext<eStoreDbContext>(options =>
-            //                options.UseSqlServer(
-            //                    Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<AprajitaRetailsDbContext>(options =>
-            //               options.UseSqlServer(
-            //                   Configuration.GetConnectionString("ARConnection")));
-
-
             services.AddDbContext<eStoreDbContext>(options =>
-                            options.UseSqlite(
-                                Configuration.GetConnectionString("DefaultConnectionMac")));
+                            options.UseSqlServer(
+                                Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AprajitaRetailsDbContext>(options =>
+                           options.UseSqlServer(
+                               Configuration.GetConnectionString("ARConnection")));
+
+
+            //services.AddDbContext<eStoreDbContext>(options =>
+            //                options.UseSqlite(
+            //                    Configuration.GetConnectionString("DefaultConnectionMac")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -53,7 +53,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/CashPayments/Create
         public IActionResult Create()
         {
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId");
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation");
             // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
 
@@ -73,7 +73,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashPayment.TranscationModeId);
             //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
 
@@ -93,7 +93,7 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashPayment.TranscationModeId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             return PartialView(cashPayment);
         }
@@ -130,7 +130,7 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "TranscationModeId", cashPayment.TranscationModeId);
+            ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashPayment.TranscationModeId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             return  View(cashPayment);
         }
