@@ -51,7 +51,7 @@ namespace eStore.Areas.Accounts.Controllers
         public IActionResult Create()
         {
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "InvNo");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -69,7 +69,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "InvNo", duesList.DailySaleId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
             return PartialView(duesList);
         }
 
@@ -87,7 +87,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "InvNo", duesList.DailySaleId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
             return  View(duesList);
         }
 
@@ -124,7 +124,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DailySaleId"] = new SelectList(_context.DailySales, "DailySaleId", "InvNo", duesList.DailySaleId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", duesList.StoreId);
             return PartialView(duesList);
         }
 

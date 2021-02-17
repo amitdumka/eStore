@@ -22,9 +22,9 @@ namespace eStore.ViewComponents
         {
             // var emp = db.Employees.Where (c => c.Category == EmpType.Salesman && c.IsWorking).Select (c => new { c.EmployeeId, c.StaffName }).OrderBy(c=>c.EmployeeId).ToList ();
 
-            var yearly = db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SalesmanId != 3).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
-            var montly = db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SalesmanId != 3).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
-            var today = db.DailySales.Where(c => c.SaleDate == DateTime.Today && c.SalesmanId != 3).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var yearly = db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var montly = db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var today = db.DailySales.Where(c => c.SaleDate == DateTime.Today && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
 
             StaffSale saleInfo = new StaffSale();
             List<int> StaffId = new List<int>();
@@ -92,10 +92,10 @@ namespace eStore.ViewComponents
                     "rgba(54, 162, 235, 0.2)",
                     "rgba(255, 206, 86, 0.2)",
                     "rgba(75, 192, 192, 0.2)",
-                    //"rgba(153, 102, 255, 0.2)",
-                    //"rgba(54, 162, 235, 0.2)",
-                    //"rgba(255, 203, 83, 0.2)",
-                    //"rgba(255, 159, 64, 0.2)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(255, 203, 83, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
                     //"rgba(255, 99, 132, 0.2)",
                     //"rgba(54, 162, 235, 0.2)",
                     //"rgba(255, 206, 86, 0.2)",
@@ -106,10 +106,10 @@ namespace eStore.ViewComponents
                     "rgba(54, 162, 235, 1)",
                     "rgba(255, 206, 86, 1)",
                     "rgba(75, 192, 192, 1)",
-                    //"rgba(153, 102, 255, 1)",
-                    //"rgba(255, 203, 83, 1)",
-                    //"rgba(255, 159, 64, 1)",
-                    //"rgba(255, 99, 132, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 203, 83, 1)",
+                    "rgba(255, 159, 64, 1)",
+                    "rgba(255, 99, 132, 1)",
                     //"rgba(54, 162, 235, 1)",
                     //"rgba(255, 206, 86, 1)",
                     //"rgba(75, 192, 192, 1)",
@@ -131,8 +131,8 @@ namespace eStore.ViewComponents
                     "rgba(255, 203, 83, 0.2)",
                    // "rgba(255, 159, 64, 0.2)",
                   //  "rgba(255, 99, 132, 0.2)",
-                  //  "rgba(54, 162, 235, 0.2)",
-                  //  "rgba(255, 206, 86, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(255, 206, 86, 0.2)",
                     //"rgba(75, 192, 192, 0.2)",
                 },
                 borderColor = new string[] {
@@ -145,8 +145,8 @@ namespace eStore.ViewComponents
                     "rgba(255, 159, 64, 1)",
                     //"rgba(255, 99, 132, 1)",
                   //  "rgba(54, 162, 235, 1)",
-                  //  "rgba(255, 206, 86, 1)",
-                   // "rgba(75, 192, 192, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
                   //  "rgba(153, 102, 255, 1)",
                 }
             };
@@ -156,7 +156,7 @@ namespace eStore.ViewComponents
                 label = "Today",
                 data = saleData.CurrentWise.ToArray(),
                 backgroundColor = new string[]{
-                   // "rgba(255, 99, 132, 0.2)",
+                    "rgba(255, 99, 132, 0.2)",
                     "rgba(54, 162, 235, 0.2)",
                    // "rgba(255, 206, 86, 0.2)",
                    // "rgba(75, 192, 192, 0.2)",
@@ -170,7 +170,7 @@ namespace eStore.ViewComponents
                    // "rgba(75, 192, 192, 0.2)",
                 },
                 borderColor = new string[] {
-                    //"rgba(255, 99, 132, 1)",
+                    "rgba(255, 99, 132, 1)",
                     "rgba(54, 162, 235, 1)",
                     //"rgba(255, 206, 86, 1)",
                     //"rgba(75, 192, 192, 1)",

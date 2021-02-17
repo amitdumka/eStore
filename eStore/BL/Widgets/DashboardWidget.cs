@@ -8,6 +8,7 @@ using eStore.DL.Data;
 using eStore.Shared.Models.Common;
 using eStore.Shared.Models.Payroll;
 using eStore.Shared.Models.Tailoring;
+using eStore.Shared.ViewModels.Payroll;
 using Microsoft.EntityFrameworkCore;
 
 namespace eStore.BL.Widgets
@@ -71,7 +72,7 @@ namespace eStore.BL.Widgets
                 TotalExpenses = db.Expenses.Where(c => c.OnDate.Month == onDate.Month).Sum(c => c.Amount),// + db.PettyCashExpenses.Where(c => c.ExpDate.Month == onDate.Month).Sum(c => c.Amount),
                 TotalOthersExpenses = 0,
                 TotalPayments = db.Payments.Where(c => c.OnDate.Month == onDate.Month).Sum(c => c.Amount),
-                TotalStaffPayments = db.SalaryPayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount) ,//+ db.StaffAdvancePayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount),
+                TotalStaffPayments = db.SalaryPayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount),//+ db.StaffAdvancePayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount),
                 // TotalTailoringPayments = db.TailoringSalaryPayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount) + db.TailoringStaffAdvancePayments.Where(c => c.PaymentDate.Month == onDate.Month).Sum(c => c.Amount),
                 TotalCashPayments = db.CashPayments.Where(c => c.PaymentDate.Month == onDate.Month && c.Mode.Transcation != "Home Expenses").Sum(c => c.Amount),
                 TotalHomeExpenses = db.CashPayments.Where(c => c.PaymentDate.Month == onDate.Month && c.Mode.Transcation == "Home Expenses").Sum(c => c.Amount),
@@ -146,6 +147,41 @@ namespace eStore.BL.Widgets
     /// </summary>
     public class DashboardWidget
     {
+
+        public static async System.Threading.Tasks.Task<List<SalesmanInfo>> GetSalesmenInfoAsync(eStoreDbContext db)
+        {
+            List<SalesmanInfo> InfoList = new List<SalesmanInfo>();
+            var sm = db.Salesmen.ToList();
+            foreach (var sales in sm)
+            {
+                var data = await db.DailySales.Where(c => c.SalesmanId == sales.SalesmanId).Select(c => new { c.SaleDate, c.Amount, c.IsSaleReturn }).ToListAsync();
+
+                SalesmanInfo info = new SalesmanInfo
+                {
+                    SalesmanInfoId = sales.SalesmanId,
+                    SalesmanName = sales.SalesmanName,
+                    TotalBillCount = data.Count,
+                    TotalSale = data.Sum(c => c.Amount),
+                    CurrentYear = data.Where(c => c.SaleDate.Year == DateTime.Today.Year).Sum(c => c.Amount),
+                    CurrentMonth = data.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month).Sum(c => c.Amount),
+                    LastYear = data.Where(c => c.SaleDate.Year == DateTime.Today.Year-1).Sum(c => c.Amount),
+                    LastMonth = data.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month-1).Sum(c => c.Amount),
+                    
+                };
+
+                info.Average = info.CurrentYear / 365;
+                InfoList.Add(info);
+
+
+            }
+            return InfoList;
+
+
+
+
+        }
+
+
         public static MasterViewReport GetMasterViewReport(eStoreDbContext _context)
         {
             MasterViewReport reportView = new MasterViewReport
@@ -254,7 +290,7 @@ namespace eStore.BL.Widgets
                 info.CashInBank = cib.InHand;
             }
 
-           // var CashExp = db.CashPayments.Where(c => (c.PaymentDate) == (DateTime.Today) && c.StoreId == StoreId);
+            // var CashExp = db.CashPayments.Where(c => (c.PaymentDate) == (DateTime.Today) && c.StoreId == StoreId);
             var CashPay = db.CashPayments.Where(c => (c.PaymentDate) == (DateTime.Today) && c.StoreId == StoreId);
 
             //if (CashExp != null)
@@ -310,7 +346,7 @@ namespace eStore.BL.Widgets
 
             var empPresent = db.Attendances.Include(c => c.Employee)
                 .Where(c => c.Status == AttUnit.Present && c.AttDate.Year == DateTime.Today.Year && c.AttDate.Month == DateTime.Today.Month && c.IsTailoring == false)
-                .GroupBy(c => c.Employee.FirstName ).OrderBy(c => c.Key).Select(g => new { StaffName = g.Key, Days = g.Count() }).ToList();
+                .GroupBy(c => c.Employee.FirstName).OrderBy(c => c.Key).Select(g => new { StaffName = g.Key, Days = g.Count() }).ToList();
 
             var empAbsent = db.Attendances.Include(c => c.Employee)
                 .Where(c => c.Status == AttUnit.Absent && c.AttDate.Year == DateTime.Today.Year && c.AttDate.Month == DateTime.Today.Month && c.IsTailoring == false)
@@ -541,7 +577,7 @@ namespace eStore.BL.Widgets
             var SalryPaidList = db.SalaryPayments.Where(c => c.EmployeeId == EmpId && c.PaymentDate > sDate.AddDays(-1) && c.PaymentDate < endDate.AddDays(1))
                 .Select(c => new { c.SalaryPaymentId, c.SalaryComponet, c.SalaryMonth, c.Amount }).ToList();
             //TODO:var AdvPaidList = db.StaffAdvancePayments.Where(c => c.EmployeeId == EmpId && c.PaymentDate > sDate.AddDays(-1) && c.PaymentDate < endDate.AddDays(1))
-              //  .Select(c => new { c.Amount, c.StaffAdvancePaymentId }).ToList();
+            //  .Select(c => new { c.Amount, c.StaffAdvancePaymentId }).ToList();
             var AdvRecList = db.StaffAdvanceReceipts.Where(c => c.EmployeeId == EmpId && c.ReceiptDate > sDate.AddDays(-1) && c.ReceiptDate < endDate.AddDays(1))
                .Select(c => new { c.StaffAdvanceReceiptId, c.Amount }).ToList();
 

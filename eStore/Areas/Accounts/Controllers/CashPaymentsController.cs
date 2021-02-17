@@ -94,7 +94,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashPayment.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             return PartialView(cashPayment);
         }
 
@@ -131,7 +131,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TranscationModeId"] = new SelectList(_context.TranscationModes, "TranscationModeId", "Transcation", cashPayment.TranscationModeId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashPayment.StoreId);
             return  View(cashPayment);
         }
 

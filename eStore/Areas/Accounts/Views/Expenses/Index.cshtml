@@ -17,9 +17,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PartyName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PaidBy)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.OnDate)
             </th>
@@ -29,14 +29,14 @@
             @*<th>
                 @Html.DisplayNameFor(model => model.FromAccount)
             </th>*@
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PaymentDetails)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Remarks)
+                @Html.DisplayNameFor(model => model.Party)
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.LedgerEnteryId)
@@ -66,9 +66,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PartyName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.PaidBy.StaffName)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.OnDate)
                 </td>
@@ -78,14 +78,14 @@
                 @*<td>
                     @Html.DisplayFor(modelItem => item.FromAccount.BankAccountId)
                 </td>*@
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.PaymentDetails)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Remarks)
+                    @Html.DisplayFor(modelItem => item.Party.PartyName)
                 </td>
                 @*<td>
                     @Html.DisplayFor(modelItem => item.LedgerEnteryId)

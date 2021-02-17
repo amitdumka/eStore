@@ -51,7 +51,7 @@ namespace eStore.Areas.Accounts.Controllers
         public IActionResult Create()
         {
             ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c=>c.DailySale), "DuesListId", "InvNp");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -69,7 +69,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return  View(dueRecoverd);
         }
 
@@ -87,7 +87,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return NotFound();
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return PartialView(dueRecoverd);
         }
 
@@ -124,7 +124,7 @@ namespace eStore.Areas.Accounts.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DuesListId"] = new SelectList(_context.DuesLists.Include(c => c.DailySale), "DuesListId", "InvNo", dueRecoverd.DuesListId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", dueRecoverd.StoreId);
             return  View(dueRecoverd);
         }
 

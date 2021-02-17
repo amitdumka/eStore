@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using eStore.Shared.Models;
 using eStore.Shared.Models.Common;
@@ -15,6 +15,7 @@ using eStore.Shared.Models.Sales;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Accounts;
 using eStore.Shared.ViewModels.Banking;
+using eStore.Shared.ViewModels.Payroll;
 
 namespace eStore.DL.Data
 {
@@ -223,5 +224,7 @@ namespace eStore.DL.Data
                 context.Database.Migrate();
             }
         }
+
+        public DbSet<eStore.Shared.ViewModels.Payroll.SalesmanInfo> SalesmanInfo { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using eStore.BL.Exporter.Database;
 using eStore.Shared.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using eStore.Ops;
+using eStore.BL.Exporter;
 
 namespace eStore.Controllers
 {
@@ -52,6 +53,17 @@ namespace eStore.Controllers
 
         public IActionResult TestUI()
         {
+            return View();
+        }
+        public async Task<IActionResult> UpdateDBAsync()
+        {
+
+            int a = 0;// Processor.AddExpLedgerType(_context);
+            int b = 0;// Processor.AddPartyList(_context);
+
+            string c = await Processor.ProcessExpensesAsync(_context);
+            ViewBag.MessageMe = $"Details: Type={a}   Party={b}  Exp={c} ";
+
             return View();
         }
         [HttpPost]
