@@ -26,7 +26,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/CashPayments
         public async Task<IActionResult> Index()
         {
-            var eStoreDbContext = _context.CashPayments.Include(c => c.Mode).Include(c => c.Store);
+            var eStoreDbContext = _context.CashPayments.Include(c => c.Mode).Include(c => c.Store).OrderByDescending(c=>c.PaymentDate);
             return View(await eStoreDbContext.ToListAsync());
         }
 

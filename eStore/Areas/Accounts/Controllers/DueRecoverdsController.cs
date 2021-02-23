@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/DueRecoverds
         public async Task<IActionResult> Index()
         {
-            var eStoreDbContext = _context.DueRecoverds.Include(d => d.DuesList).Include(c=>c.DuesList.DailySale).Include(d => d.Store);
+            var eStoreDbContext = _context.DueRecoverds.Include(d => d.DuesList).Include(c=>c.DuesList.DailySale).Include(d => d.Store).OrderByDescending(c => c.PaidDate);
             return View(await eStoreDbContext.ToListAsync());
         }
 

@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/EBillPayments
         public async Task<IActionResult> Index()
         {
-            var eStoreContext = _context.BillPayments.Include(e => e.Bill).Include(e => e.Store);
+            var eStoreContext = _context.BillPayments.Include(e => e.Bill).Include(e => e.Store).OrderByDescending(c => c.PaymentDate);
             return View(await eStoreContext.ToListAsync());
         }
 
@@ -50,8 +50,8 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/EBillPayments/Create
         public IActionResult Create()
         {
-            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId","BillNumber");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -68,8 +68,8 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
+            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId","BillNumber", eBillPayment.EletricityBillId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", eBillPayment.StoreId);
             return  View(eBillPayment);
         }
 
@@ -86,8 +86,8 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
+            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId","BillNumber", eBillPayment.EletricityBillId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", eBillPayment.StoreId);
             return PartialView(eBillPayment);
         }
 
@@ -123,8 +123,8 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId", "EletricityBillId", eBillPayment.EletricityBillId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eBillPayment.StoreId);
+            ViewData["EletricityBillId"] = new SelectList(_context.EletricityBills, "EletricityBillId","BillNumber", eBillPayment.EletricityBillId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", eBillPayment.StoreId);
             return  View(eBillPayment);
         }
 

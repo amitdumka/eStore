@@ -50,8 +50,8 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/Rents/Create
         public IActionResult Create()
         {
-            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "PlaceName");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -68,8 +68,8 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
+            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "PlaceName", rent.RentedLocationId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rent.StoreId);
             return PartialView(rent);
         }
 
@@ -86,8 +86,8 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
+            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "PlaceName", rent.RentedLocationId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rent.StoreId);
             return PartialView(rent);
         }
 
@@ -123,8 +123,8 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "RentedLocationId", rent.RentedLocationId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rent.StoreId);
+            ViewData["RentedLocationId"] = new SelectList(_context.RentedLocations, "RentedLocationId", "PlaceName", rent.RentedLocationId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rent.StoreId);
             return PartialView(rent);
         }
 

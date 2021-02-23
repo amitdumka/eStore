@@ -43,7 +43,7 @@ namespace eStore.Areas.Accounts.Controllers
                 .Include(e => e.FromAccount)
                 .Include(e => e.PaidBy)
                 .Include(e => e.Party)
-                .Include(e => e.Store)
+                .Include(e => e.Store).OrderByDescending(c=>c.OnDate)
                 .FirstOrDefaultAsync(m => m.ExpenseId == id);
             if (expense == null)
             {
@@ -84,7 +84,7 @@ namespace eStore.Areas.Accounts.Controllers
             }
             ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "BankAccountId", "Account", expense.BankAccountId);
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "StaffName", expense.EmployeeId);
-            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyName", expense.PartyId);
+            ViewData["PartyId"] = new SelectList(_context.Parties.OrderBy(c=>c.PartyName), "PartyId", "PartyName", expense.PartyId);
             ViewData["StoreId"] = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, _returnUrl);
 
             Console.WriteLine($"StoreId+{expense.StoreId}\tEnt {expense.EntryStatus},\t us {expense.UserId}, \taa=" + ModelState.IsValid);

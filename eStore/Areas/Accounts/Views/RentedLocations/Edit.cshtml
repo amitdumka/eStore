@@ -14,6 +14,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RentedLocationId" />
             <div class="form-group">
+                <label asp-for="StoreId" class="control-label"></label>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="PlaceName" class="control-label"></label>
                 <input asp-for="PlaceName" class="form-control" />
                 <span asp-validation-for="PlaceName" class="text-danger"></span>
@@ -70,7 +74,6 @@
                 <span asp-validation-for="RentType" class="text-danger"></span>
             </div>
             <div>
-                <input asp-for="StoreId" class="form-control" type="hidden" value="@ViewBag.StoreId" />
                 <input asp-for="UserId" class="form-control" type="hidden" value="@User.Identity.Name" />
                 <input asp-for="IsReadOnly" type="hidden" value="false" />
 

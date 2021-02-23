@@ -26,7 +26,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accountings/Receipts
         public async Task<IActionResult> Index()
         {
-            var aprajitaRetailsContext = _context.Receipts.Include(r => r.FromAccount).Include(r => r.Party).Include(r => r.Store);
+            var aprajitaRetailsContext = _context.Receipts.Include(r => r.FromAccount).Include(r => r.Party).Include(r => r.Store).OrderByDescending(c => c.OnDate);
             return View(await aprajitaRetailsContext.ToListAsync());
         }
 

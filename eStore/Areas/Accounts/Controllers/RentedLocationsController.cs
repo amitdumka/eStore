@@ -49,7 +49,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/RentedLocations/Create
         public IActionResult Create()
         {
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -66,7 +66,7 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rentedLocation.StoreId);
             return PartialView(rentedLocation);
         }
 
@@ -83,7 +83,7 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rentedLocation.StoreId);
             return PartialView(rentedLocation);
         }
 
@@ -119,7 +119,7 @@ namespace eStore.Areas.Accounts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", rentedLocation.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", rentedLocation.StoreId);
             return PartialView(rentedLocation);
         }
 

@@ -50,8 +50,8 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/EletricityBills/Create
         public IActionResult Create()
         {
-            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ConnectioName");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return PartialView();
         }
 
@@ -68,8 +68,8 @@ namespace eStore.Areas.Accounts.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
+            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ConnectioName", eletricityBill.ElectricityConnectionId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", eletricityBill.StoreId);
             return  View(eletricityBill);
         }
 
@@ -86,8 +86,8 @@ namespace eStore.Areas.Accounts.Controllers
             {
                 return NotFound();
             }
-            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ElectricityConnectionId", eletricityBill.ElectricityConnectionId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", eletricityBill.StoreId);
+            ViewData["ElectricityConnectionId"] = new SelectList(_context.ElectricityConnections, "ElectricityConnectionId", "ConnectioName", eletricityBill.ElectricityConnectionId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", eletricityBill.StoreId);
             return PartialView(eletricityBill);
         }
 
