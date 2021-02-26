@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using eStore.BL.Exporter;
+
 using eStore.BL.Triggers;
 using eStore.DL.Data;
 using eStore.Shared.Models.Common;
@@ -64,15 +64,15 @@ namespace eStore.BL.Reports.Accounts
             else
                 cashBookList = GetMontlyCashBook(db, date, Store);
 
-            ExcelExporter.CashBookExporter(fileName, cashBookList, "CashBook", Store);
+        //TODO: Remove Comment    ExcelExporter.CashBookExporter(fileName, cashBookList, "CashBook", Store);
 
             List<CashInHand> InHandList = CreateCashInHands(db, cashBookList, Store);
 
-            ExcelExporter.CashInHandExporter(fileName, InHandList, "New CashInhand", Store);
+            //TODO: Remove Comment         ExcelExporter.CashInHandExporter(fileName, InHandList, "New CashInhand", Store);
 
             InHandList = CashInHandCorrectionForMonth(db, date, Store);
 
-            ExcelExporter.CashInHandExporter(fileName, InHandList, "Updated CashInhand", Store);
+            //TODO: Remove Comment       ExcelExporter.CashInHandExporter(fileName, InHandList, "Updated CashInhand", Store);
             return cashBookList;
         }
 

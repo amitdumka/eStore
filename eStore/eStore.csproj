@@ -63,21 +63,13 @@
     <Folder Include="BL\Tailor\" />
     <Folder Include="BL\Reports\" />
     <Folder Include="BL\Reports\Accounts\" />
-    <Folder Include="BL\Exporter\" />
     <Folder Include="Areas\Reports\" />
     <Folder Include="Areas\Reports\Controllers\" />
     <Folder Include="Areas\Reports\Views\" />
     <Folder Include="Areas\Reports\Views\CashBook\" />
-    <Folder Include="ImportDatabase\" />
-    <Folder Include="ImportDatabase\Models\" />
-    <Folder Include="ImportDatabase\Data\" />
-    <Folder Include="BL\Exporter\Database\" />
     <Folder Include="Views\DatabaseExporters\" />
     <Folder Include="BL\Widgets\" />
     <Folder Include="ViewComponents\" />
-    <Folder Include="BL\Exporter\Importer\" />
-    <Folder Include="BL\Exporter\Export\" />
-    <Folder Include="BL\Exporter\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
@@ -106,6 +98,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Migrations_Win\.DS_Store" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Properties\ServiceDependencies\thearvindstoredumka - Web Deploy\mssql2.arm.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Properties\ServiceDependencies\thearvindstoredumka - Web Deploy\mssql1.arm.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Properties\ServiceDependencies\thearvindstoredumka - Web Deploy\profile.arm.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Properties\serviceDependencies.thearvindstoredumka - Web Deploy.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

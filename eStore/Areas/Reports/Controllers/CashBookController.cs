@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using eStore.DL.Data;
 using eStore.Ops.Printers.Reports;
-using eStore.BL.Exporter;
+//
 
 namespace eStore.Areas.Reports.Controllers
 {
@@ -78,8 +78,8 @@ namespace eStore.Areas.Reports.Controllers
                 }
                 else if (!String.IsNullOrEmpty(OutputType) && OutputType == "XLS")
                 {
-                    if (OpsType == "List")
-                        ExcelExporter.CashBookExporter(path, cashList, "CashBook", StoreId);
+                    //TODO: Remove Comment     if (OpsType == "List")
+                    //TODO: Remove Comment     ExcelExporter.CashBookExporter(path, cashList, "CashBook", StoreId);
 
                     return File(fileName, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                 }
