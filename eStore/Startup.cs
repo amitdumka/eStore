@@ -29,6 +29,7 @@ namespace eStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -40,9 +41,11 @@ namespace eStore
             //services.AddDbContext<eStoreDbContext>(options =>
             //                options.UseSqlServer(
             //                    Configuration.GetConnectionString("DefaultConnection")));
-            ////services.AddDbContext<AprajitaRetailsDbContext>(options =>
-            //               options.UseSqlServer(
-            //                   Configuration.GetConnectionString("ARConnection")));
+
+
+            //services.AddDbContext<AprajitaRetailsDbContext>(options =>
+            //options.UseSqlServer(
+            //    Configuration.GetConnectionString("ARConnection")));
 
 
             services.AddDbContext<eStoreDbContext>(options =>
