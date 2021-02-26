@@ -70,6 +70,7 @@
     <Folder Include="Views\DatabaseExporters\" />
     <Folder Include="BL\Widgets\" />
     <Folder Include="ViewComponents\" />
+    <Folder Include="Areas\API\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

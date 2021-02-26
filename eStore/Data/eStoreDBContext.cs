@@ -26,52 +26,47 @@ namespace eStore.DL.Data
             //ApplyMigrations(this);
         }
 
-        public DbSet<Store> Stores { get; set; } //Ok//UI
+        public DbSet<Store> Stores { get; set; } //Ok//UI /API
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
-        public DbSet<AppInfo> Apps { get; set; } //ok
-        public DbSet<StoreClose> StoreCloses { get; set; }
-        public DbSet<StoreHoliday> StoreHolidays { get; set; }
-        public DbSet<StoreOpen> StoreOpens { get; set; }
+        public DbSet<AppInfo> Apps { get; set; } //ok//API
+        public DbSet<StoreClose> StoreCloses { get; set; }//api
+        public DbSet<StoreHoliday> StoreHolidays { get; set; }//api
+        public DbSet<StoreOpen> StoreOpens { get; set; }//api
 
         ////Payrolls
-        public DbSet<Employee> Employees { get; set; } //ok//UI
+        public DbSet<Employee> Employees { get; set; } //ok//UI //API
         public DbSet<EmployeeUser> EmployeeUsers { get; set; }
-        public DbSet<Attendance> Attendances { get; set; } //ok//UI
-        public DbSet<Salesman> Salesmen { get; set; } //ok
+        public DbSet<Attendance> Attendances { get; set; } //ok//UI//API
+        public DbSet<Salesman> Salesmen { get; set; } //ok//API
 
-        
-
-        public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI
-        public DbSet<SaleTaxType> SaleTaxTypes { get; set; } //ok//UI
-        public DbSet<PurchaseTaxType> PurchaseTaxTypes { get; set; }//UI
+        public DbSet<TranscationMode> TranscationModes { get; set; } //ok//UI //API
+        public DbSet<SaleTaxType> SaleTaxTypes { get; set; } //ok//UI //API
+        public DbSet<PurchaseTaxType> PurchaseTaxTypes { get; set; }//UI //API
 
         //Banking
-        public DbSet<Bank> Banks { get; set; } //ok
+        public DbSet<Bank> Banks { get; set; } //ok //API
 
         ////TODO
         public DbSet<ToDoMessage> ToDoMessages { get; set; }
         public DbSet<TodoItem> Todos { get; set; }
         public DbSet<FileInfo> Files { get; set; }
 
-
         //Tailoring
-        public DbSet<TalioringBooking> TalioringBookings { get; set; }//UI
-        public DbSet<TalioringDelivery> TailoringDeliveries { get; set; }//UI
-
-
+        public DbSet<TalioringBooking> TalioringBookings { get; set; }//UI //API
+        public DbSet<TalioringDelivery> TailoringDeliveries { get; set; }//UI //API
 
         ////End of Day
-        public DbSet<EndOfDay> EndOfDays { get; set; }//UI
-        public DbSet<CashDetail> CashDetail { get; set; }//UI
+        public DbSet<EndOfDay> EndOfDays { get; set; }//UI //API
+        public DbSet<CashDetail> CashDetail { get; set; }//UI //API
 
         //Rent and Electricity
-        public DbSet<RentedLocation> RentedLocations { get; set; }//UI
-        public DbSet<Rent> Rents { get; set; }//UI
-        public DbSet<ElectricityConnection> ElectricityConnections { get; set; }//UI
-        public DbSet<EletricityBill> EletricityBills { get; set; }//UI
-        public DbSet<EBillPayment> BillPayments { get; set; } //UI
+        public DbSet<RentedLocation> RentedLocations { get; set; }//UI//API
+        public DbSet<Rent> Rents { get; set; }//UI //API
+        public DbSet<ElectricityConnection> ElectricityConnections { get; set; }//UI//API
+        public DbSet<EletricityBill> EletricityBills { get; set; }//UI //API
+        public DbSet<EBillPayment> BillPayments { get; set; } //UI //API
 
-        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }// API
 
         ////Import Table Data
         //public DbSet<ImportSearchList> ImportSearches { get; set; }
@@ -85,59 +80,58 @@ namespace eStore.DL.Data
         //Bots
         //public DbSet<TelegramAuthUser> TelegramAuthUsers { get; set; }
 
-        public DbSet<DailySale> DailySales { get; set; }
+        public DbSet<DailySale> DailySales { get; set; } //API
 
-        public DbSet<OnlineSale> OnlineSales { get; set; }
-        public DbSet<OnlineSaleReturn> OnlineSaleReturns { get; set; }
-        public DbSet<OnlineVendor> OnlineVendors { get; set; }
+        public DbSet<OnlineSale> OnlineSales { get; set; } //APi
+        public DbSet<OnlineSaleReturn> OnlineSaleReturns { get; set; } //APi
+        public DbSet<OnlineVendor> OnlineVendors { get; set; }//API
 
 
-        public DbSet<RegularInvoice> RegularInvoices { get; set; }
-        public DbSet<RegularSaleItem> RegularSaleItems { get; set; }
-        public DbSet<PaymentDetail> PaymentDetails { get; set; }
-        public DbSet<CardDetail> CardDetails { get; set; }
+        public DbSet<RegularInvoice> RegularInvoices { get; set; } //Api
+        public DbSet<RegularSaleItem> RegularSaleItems { get; set; } //APi
+        public DbSet<PaymentDetail> PaymentDetails { get; set; } //Api
+        public DbSet<CardDetail> CardDetails { get; set; } //APi
 
-        public DbSet<EDC> CardMachine { get; set; }
-        public DbSet<EDCTranscation> CardTranscations { get; set; }
-        public DbSet<MixAndCouponPayment> MixPayments { get; set; }
-        public DbSet<CouponPayment> CouponPayments { get; set; }
-        public DbSet<PointRedeemed> PointRedeemeds { get; set; }
-        public DbSet<DuesList> DuesLists { get; set; }
-        public DbSet<DueRecoverd> DueRecoverds { get; set; }
+        public DbSet<EDC> CardMachine { get; set; } //APi
+        public DbSet<EDCTranscation> CardTranscations { get; set; }//API
+        public DbSet<MixAndCouponPayment> MixPayments { get; set; } //APi
+        public DbSet<CouponPayment> CouponPayments { get; set; }//API
+        public DbSet<PointRedeemed> PointRedeemeds { get; set; }//API
+        public DbSet<DuesList> DuesLists { get; set; } //API
+        public DbSet<DueRecoverd> DueRecoverds { get; set; } //API
 
-        public DbSet<CashInHand> CashInHands { get; set; }
-        public DbSet<CashInBank> CashInBanks { get; set; }
+        public DbSet<CashInHand> CashInHands { get; set; }//APi
+        public DbSet<CashInBank> CashInBanks { get; set; }//API
 
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<ProductItem> ProductItems { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Customer> Customers { get; set; } //API
+        public DbSet<ProductItem> ProductItems { get; set; }//API
+        public DbSet<Stock> Stocks { get; set; }//API
 
         // New Accounting section
-        public DbSet<LedgerType> LedgerTypes { get; set; }
+        public DbSet<LedgerType> LedgerTypes { get; set; }//API
 
-        public DbSet<Party> Parties { get; set; }
-        public DbSet<LedgerMaster> LedgerMasters { get; set; }
-        public DbSet<LedgerEntry> LedgerEntries { get; set; }
+        public DbSet<Party> Parties { get; set; }//APi
+        public DbSet<LedgerMaster> LedgerMasters { get; set; }//APi
+        public DbSet<LedgerEntry> LedgerEntries { get; set; } //api
        
         // new Expenses/Reciept System with Party Support
-        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense> Expenses { get; set; }//API
+        public DbSet<Payment> Payments { get; set; }//APi
+        public DbSet<Receipt> Receipts { get; set; }//API
 
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Receipt> Receipts { get; set; }
+        public DbSet<CashPayment> CashPayments { get; set; }//API
+        public DbSet<CashReceipt> CashReceipts { get; set; }//API
 
-        public DbSet<CashPayment> CashPayments { get; set; }
-        public DbSet<CashReceipt> CashReceipts { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }//APi
+        public DbSet<CurrentSalary> Salaries { get; set; } //API
+        public DbSet<PaySlip> PaySlips { get; set; }//API
 
-        public DbSet<BankAccount> BankAccounts { get; set; }
-        public DbSet<CurrentSalary> Salaries { get; set; }
-        public DbSet<PaySlip> PaySlips { get; set; }
         //TODO: review
-        public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        public DbSet<SalaryPayment> SalaryPayments { get; set; } //API
         //public DbSet<StaffAdvancePayment> StaffAdvancePayments { get; set; }
-        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
-        public DbSet<BankDeposit> BankDeposits { get; set; }
-        public DbSet<BankWithdrawal> BankWithdrawals { get; set; }
-
+        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } //API
+        public DbSet<BankDeposit> BankDeposits { get; set; } //API
+        public DbSet<BankWithdrawal> BankWithdrawals { get; set; } //API
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -226,5 +220,7 @@ namespace eStore.DL.Data
         }
 
         public DbSet<eStore.Shared.ViewModels.Payroll.SalesmanInfo> SalesmanInfo { get; set; }
+
+        public DbSet<eStore.Shared.Models.Purchases.PurchaseItem> PurchaseItem { get; set; } //API
     }
 }
