@@ -55,17 +55,17 @@ namespace eStore.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> UpdateDBAsync()
-        {
+        //public async Task<IActionResult> UpdateDBAsync()
+        //{
 
-            int a = 0;// Processor.AddExpLedgerType(_context);
-            int b = 0;// Processor.AddPartyList(_context);
+        //    //int a = 0;// Processor.AddExpLedgerType(_context);
+        //    //int b = 0;// Processor.AddPartyList(_context);
 
-            string c = await Processor.ProcessExpensesAsync(_context);
-            ViewBag.MessageMe = $"Details: Type={a}   Party={b}  Exp={c} ";
+        //    //string c = await Processor.ProcessExpensesAsync(_context);
+        //    //ViewBag.MessageMe = $"Details: Type={a}   Party={b}  Exp={c} ";
 
-            return View();
-        }
+        //    return View();
+        //}
         [HttpPost]
         public async Task<IActionResult> TestUIAsync(IFormFile file)
         {

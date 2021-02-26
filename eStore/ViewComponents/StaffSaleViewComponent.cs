@@ -22,27 +22,31 @@ namespace eStore.ViewComponents
         {
             // var emp = db.Employees.Where (c => c.Category == EmpType.Salesman && c.IsWorking).Select (c => new { c.EmployeeId, c.StaffName }).OrderBy(c=>c.EmployeeId).ToList ();
 
-            var yearly = db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
-            var montly = db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
-            var today = db.DailySales.Where(c => c.SaleDate == DateTime.Today && c.SalesmanId != 1).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var yearly = db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year ).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var montly = db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
+            var today = db.DailySales.Where(c => c.SaleDate == DateTime.Today ).GroupBy(a => a.SalesmanId).Select(a => new { Amount = a.Sum(b => (long)b.Amount), EmpId = a.Key }).OrderByDescending(a => a.EmpId).ToList();
 
             StaffSale saleInfo = new StaffSale();
             List<int> StaffId = new List<int>();
 
+            //TODO: Add to index based on EmpId. 
             foreach (var item in yearly)
             {
                 saleInfo.YearWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
+                Console.WriteLine($"Yearly #Id: {item.EmpId}  @Amount: {item.Amount}");
             }
             foreach (var item in montly)
             {
                 saleInfo.MonthWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
+                Console.WriteLine($"Month #Id: {item.EmpId}  @Amount: {item.Amount}");
             }
             foreach (var item in today)
             {
                 saleInfo.CurrentWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
+                Console.WriteLine($"Today #Id: {item.EmpId}  @Amount: {item.Amount}");
             }
 
             if (StaffId.Count == (yearly.Count + today.Count + montly.Count))
@@ -51,6 +55,7 @@ namespace eStore.ViewComponents
             }
             else
             {
+                Console.WriteLine("Not Distinct");
                 StaffId = StaffId.Distinct().ToList();
             }
 

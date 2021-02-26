@@ -1,0 +1,77 @@
+@model IEnumerable<eStore.Shared.ViewModels.Payroll.SalesmanInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesmanName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalBillCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Average)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesmanName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalBillCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Average)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SalesmanInfoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SalesmanInfoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SalesmanInfoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
