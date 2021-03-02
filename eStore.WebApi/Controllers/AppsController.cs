@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models;
 
-namespace eStore.Areas.API
+namespace eStore.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

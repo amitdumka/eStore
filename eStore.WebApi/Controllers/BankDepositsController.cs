@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.ViewModels.Banking;
 
-namespace eStore.Areas.API
+namespace eStore.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
