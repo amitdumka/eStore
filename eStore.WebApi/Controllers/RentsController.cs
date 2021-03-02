@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Accounts.Expenses;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class RentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public RentsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Rents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Rents.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Rents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Rent>> GetRent(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var rent = await _context.Rents.FindAsync(id);
 
-            if (customer == null)
+            if (rent == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return rent;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Rents/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutRent(int id, Rent rent)
         {
-            if (id != customer.CustomerId)
+            if (id != rent.RentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(rent).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!RentExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Rents
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Rent>> PostRent(Rent rent)
         {
-            _context.Customers.Add(customer);
+            _context.Rents.Add(rent);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetRent", new { id = rent.RentId }, rent);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Rents/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteRent(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var rent = await _context.Rents.FindAsync(id);
+            if (rent == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Rents.Remove(rent);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool RentExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Rents.Any(e => e.RentId == id);
         }
     }
 }

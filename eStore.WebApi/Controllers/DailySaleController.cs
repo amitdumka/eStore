@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Sales;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class DailySaleController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public DailySaleController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/DailySale
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<DailySale>>> GetDailySales()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.DailySales.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/DailySale/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<DailySale>> GetDailySale(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var dailySale = await _context.DailySales.FindAsync(id);
 
-            if (customer == null)
+            if (dailySale == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return dailySale;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/DailySale/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutDailySale(int id, DailySale dailySale)
         {
-            if (id != customer.CustomerId)
+            if (id != dailySale.DailySaleId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(dailySale).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!DailySaleExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/DailySale
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<DailySale>> PostDailySale(DailySale dailySale)
         {
-            _context.Customers.Add(customer);
+            _context.DailySales.Add(dailySale);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetDailySale", new { id = dailySale.DailySaleId }, dailySale);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/DailySale/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteDailySale(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var dailySale = await _context.DailySales.FindAsync(id);
+            if (dailySale == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.DailySales.Remove(dailySale);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool DailySaleExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.DailySales.Any(e => e.DailySaleId == id);
         }
     }
 }

@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Accounts;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class LedgerEntriesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public LedgerEntriesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/LedgerEntries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<LedgerEntry>>> GetLedgerEntries()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.LedgerEntries.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/LedgerEntries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<LedgerEntry>> GetLedgerEntry(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var ledgerEntry = await _context.LedgerEntries.FindAsync(id);
 
-            if (customer == null)
+            if (ledgerEntry == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return ledgerEntry;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/LedgerEntries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutLedgerEntry(int id, LedgerEntry ledgerEntry)
         {
-            if (id != customer.CustomerId)
+            if (id != ledgerEntry.LedgerEntryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(ledgerEntry).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!LedgerEntryExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/LedgerEntries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<LedgerEntry>> PostLedgerEntry(LedgerEntry ledgerEntry)
         {
-            _context.Customers.Add(customer);
+            _context.LedgerEntries.Add(ledgerEntry);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetLedgerEntry", new { id = ledgerEntry.LedgerEntryId }, ledgerEntry);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/LedgerEntries/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteLedgerEntry(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var ledgerEntry = await _context.LedgerEntries.FindAsync(id);
+            if (ledgerEntry == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.LedgerEntries.Remove(ledgerEntry);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool LedgerEntryExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.LedgerEntries.Any(e => e.LedgerEntryId == id);
         }
     }
 }

@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Sales;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class OnlineVendorsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public OnlineVendorsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/OnlineVendors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<OnlineVendor>>> GetOnlineVendors()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.OnlineVendors.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/OnlineVendors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<OnlineVendor>> GetOnlineVendor(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var onlineVendor = await _context.OnlineVendors.FindAsync(id);
 
-            if (customer == null)
+            if (onlineVendor == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return onlineVendor;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/OnlineVendors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutOnlineVendor(int id, OnlineVendor onlineVendor)
         {
-            if (id != customer.CustomerId)
+            if (id != onlineVendor.OnlineVendorId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(onlineVendor).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!OnlineVendorExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/OnlineVendors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<OnlineVendor>> PostOnlineVendor(OnlineVendor onlineVendor)
         {
-            _context.Customers.Add(customer);
+            _context.OnlineVendors.Add(onlineVendor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetOnlineVendor", new { id = onlineVendor.OnlineVendorId }, onlineVendor);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/OnlineVendors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteOnlineVendor(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var onlineVendor = await _context.OnlineVendors.FindAsync(id);
+            if (onlineVendor == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.OnlineVendors.Remove(onlineVendor);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool OnlineVendorExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.OnlineVendors.Any(e => e.OnlineVendorId == id);
         }
     }
 }

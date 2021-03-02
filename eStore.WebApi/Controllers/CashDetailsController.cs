@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Common;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class CashDetailsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public CashDetailsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/CashDetails
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CashDetail>>> GetCashDetail()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.CashDetail.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/CashDetails/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CashDetail>> GetCashDetail(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var cashDetail = await _context.CashDetail.FindAsync(id);
 
-            if (customer == null)
+            if (cashDetail == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return cashDetail;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/CashDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCashDetail(int id, CashDetail cashDetail)
         {
-            if (id != customer.CustomerId)
+            if (id != cashDetail.CashDetailId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(cashDetail).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!CashDetailExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/CashDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<CashDetail>> PostCashDetail(CashDetail cashDetail)
         {
-            _context.Customers.Add(customer);
+            _context.CashDetail.Add(cashDetail);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCashDetail", new { id = cashDetail.CashDetailId }, cashDetail);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/CashDetails/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCashDetail(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var cashDetail = await _context.CashDetail.FindAsync(id);
+            if (cashDetail == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.CashDetail.Remove(cashDetail);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool CashDetailExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.CashDetail.Any(e => e.CashDetailId == id);
         }
     }
 }

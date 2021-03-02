@@ -32,6 +32,8 @@
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="Dexiom.EPPlusExporter" Version="1.1.110" />
     <PackageReference Include="EPPlus" Version="5.5.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>

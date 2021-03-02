@@ -7,54 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class EmployeesController : ControllerBase
+    public class SalaryPaymentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public EmployeesController(eStoreDbContext context)
+        public SalaryPaymentsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employees
+        // GET: api/SalaryPayments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPayments()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.SalaryPayments.ToListAsync();
         }
 
-        // GET: api/Employees/5
+        // GET: api/SalaryPayments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetEmployee(int id)
+        public async Task<ActionResult<SalaryPayment>> GetSalaryPayment(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var salaryPayment = await _context.SalaryPayments.FindAsync(id);
 
-            if (employee == null)
+            if (salaryPayment == null)
             {
                 return NotFound();
             }
 
-            return employee;
+            return salaryPayment;
         }
 
-        // PUT: api/Employees/5
+        // PUT: api/SalaryPayments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+        public async Task<IActionResult> PutSalaryPayment(int id, SalaryPayment salaryPayment)
         {
-            if (id != employee.EmployeeId)
+            if (id != salaryPayment.SalaryPaymentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            _context.Entry(salaryPayment).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!SalaryPaymentExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Employees
+        // POST: api/SalaryPayments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<ActionResult<SalaryPayment>> PostSalaryPayment(SalaryPayment salaryPayment)
         {
-            _context.Employees.Add(employee);
+            _context.SalaryPayments.Add(salaryPayment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+            return CreatedAtAction("GetSalaryPayment", new { id = salaryPayment.SalaryPaymentId }, salaryPayment);
         }
 
-        // DELETE: api/Employees/5
+        // DELETE: api/SalaryPayments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> DeleteSalaryPayment(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var salaryPayment = await _context.SalaryPayments.FindAsync(id);
+            if (salaryPayment == null)
             {
                 return NotFound();
             }
 
-            _context.Employees.Remove(employee);
+            _context.SalaryPayments.Remove(salaryPayment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool EmployeeExists(int id)
+        private bool SalaryPaymentExists(int id)
         {
-            return _context.Employees.Any(e => e.EmployeeId == id);
+            return _context.SalaryPayments.Any(e => e.SalaryPaymentId == id);
         }
     }
 }

@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Payroll;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class AttendancesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public AttendancesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Attendances
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendances()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Attendances.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Attendances/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Attendance>> GetAttendance(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var attendance = await _context.Attendances.FindAsync(id);
 
-            if (customer == null)
+            if (attendance == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return attendance;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Attendances/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutAttendance(int id, Attendance attendance)
         {
-            if (id != customer.CustomerId)
+            if (id != attendance.AttendanceId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(attendance).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!AttendanceExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Attendances
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Attendance>> PostAttendance(Attendance attendance)
         {
-            _context.Customers.Add(customer);
+            _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetAttendance", new { id = attendance.AttendanceId }, attendance);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Attendances/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteAttendance(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var attendance = await _context.Attendances.FindAsync(id);
+            if (attendance == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Attendances.Remove(attendance);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool AttendanceExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Attendances.Any(e => e.AttendanceId == id);
         }
     }
 }

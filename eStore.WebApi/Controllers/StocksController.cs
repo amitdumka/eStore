@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Purchases;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class StocksController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public StocksController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Stocks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Stocks.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Stocks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Stock>> GetStock(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var stock = await _context.Stocks.FindAsync(id);
 
-            if (customer == null)
+            if (stock == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return stock;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Stocks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutStock(int id, Stock stock)
         {
-            if (id != customer.CustomerId)
+            if (id != stock.StockId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(stock).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!StockExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Stocks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Stock>> PostStock(Stock stock)
         {
-            _context.Customers.Add(customer);
+            _context.Stocks.Add(stock);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetStock", new { id = stock.StockId }, stock);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Stocks/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteStock(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var stock = await _context.Stocks.FindAsync(id);
+            if (stock == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Stocks.Remove(stock);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool StockExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Stocks.Any(e => e.StockId == id);
         }
     }
 }

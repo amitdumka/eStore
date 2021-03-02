@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Banking;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class BankAccountsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public BankAccountsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/BankAccounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<BankAccount>>> GetBankAccounts()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.BankAccounts.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/BankAccounts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<BankAccount>> GetBankAccount(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var bankAccount = await _context.BankAccounts.FindAsync(id);
 
-            if (customer == null)
+            if (bankAccount == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return bankAccount;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/BankAccounts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutBankAccount(int id, BankAccount bankAccount)
         {
-            if (id != customer.CustomerId)
+            if (id != bankAccount.BankAccountId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(bankAccount).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!BankAccountExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/BankAccounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<BankAccount>> PostBankAccount(BankAccount bankAccount)
         {
-            _context.Customers.Add(customer);
+            _context.BankAccounts.Add(bankAccount);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetBankAccount", new { id = bankAccount.BankAccountId }, bankAccount);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/BankAccounts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteBankAccount(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var bankAccount = await _context.BankAccounts.FindAsync(id);
+            if (bankAccount == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.BankAccounts.Remove(bankAccount);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool BankAccountExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.BankAccounts.Any(e => e.BankAccountId == id);
         }
     }
 }

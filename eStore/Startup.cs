@@ -13,6 +13,8 @@ using eStore.Shared.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 //using eStore.ImportDatabase.Data;
 
 namespace eStore
@@ -29,7 +31,20 @@ namespace eStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                        //builder.WithOrigins("http://localhost",
+                        //                    "http://localhost:3000").AllowAnyHeader()
+                        //                          .AllowAnyMethod(); 
+                    });
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -38,26 +53,34 @@ namespace eStore
             });
 
 
-            //services.AddDbContext<eStoreDbContext>(options =>
-            //                options.UseSqlServer(
-            //                    Configuration.GetConnectionString("DefaultConnection")));
-
-
-            //services.AddDbContext<AprajitaRetailsDbContext>(options =>
-            //options.UseSqlServer(
-            //    Configuration.GetConnectionString("ARConnection")));
-
-
             services.AddDbContext<eStoreDbContext>(options =>
-                            options.UseSqlite(
-                                Configuration.GetConnectionString("DefaultConnectionMac")));
+                            options.UseSqlServer(
+                                Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<eStoreDbContext>(options =>
+            //                options.UseSqlite(
+            //                    Configuration.GetConnectionString("DefaultConnectionMac")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<eStoreDbContext>();
-
             services.AddControllersWithViews();
+
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            //{
+            //    opt.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ClockSkew = TimeSpan.FromMinutes(5),
+            //        RequireSignedTokens = true,
+            //        RequireExpirationTime = true,
+            //        ValidateLifetime = true,
+            //        ValidateAudience = false,
+            //        ValidIssuer = issuer,
+            //        IssuerSigningKey = new X509SecurityKey(certificate),
+            //        ValidateIssuerSigningKey = true,
+            //        NameClaimType = "sub"
+            //    };
+            //    opt.IncludeErrorDetails = true;
+            //});
 
             //Added From Old
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -77,6 +100,27 @@ namespace eStore
                 options.LoginPath = $"/Identity/Account/Login";
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+                //options.Events = new CookieAuthenticationEvents()
+                //{
+                //    OnRedirectToLogin = (ctx) =>
+                //    {
+                //        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                //        {
+                //            ctx.Response.StatusCode = 401;
+                //        }
+
+                //        return Task.CompletedTask;
+                //    },
+                //    OnRedirectToAccessDenied = (ctx) =>
+                //    {
+                //        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                //        {
+                //            ctx.Response.StatusCode = 403;
+                //        }
+
+                //        return Task.CompletedTask;
+                //    }
+                //};
             });
 
             services.AddDistributedMemoryCache();
@@ -96,6 +140,7 @@ namespace eStore
                     .RequireAuthenticatedUser()
                     .Build();
             });
+            services.AddSwaggerGen();
             services.AddControllers(config =>
             {
                 // using Microsoft.AspNetCore.Mvc.Authorization;
@@ -124,10 +169,24 @@ namespace eStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseDefaultFiles();
-            app.UseRouting();
+            app.UseRouting(); app.UseCors();
+
+
 
             app.UseAuthentication();
             app.UseAuthorization();

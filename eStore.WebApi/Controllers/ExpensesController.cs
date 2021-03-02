@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Accounts;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class ExpensesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public ExpensesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Expenses.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Expenses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Expense>> GetExpense(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var expense = await _context.Expenses.FindAsync(id);
 
-            if (customer == null)
+            if (expense == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return expense;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Expenses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutExpense(int id, Expense expense)
         {
-            if (id != customer.CustomerId)
+            if (id != expense.ExpenseId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(expense).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!ExpenseExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Expense>> PostExpense(Expense expense)
         {
-            _context.Customers.Add(customer);
+            _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetExpense", new { id = expense.ExpenseId }, expense);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteExpense(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var expense = await _context.Expenses.FindAsync(id);
+            if (expense == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Expenses.Remove(expense);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool ExpenseExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Expenses.Any(e => e.ExpenseId == id);
         }
     }
 }

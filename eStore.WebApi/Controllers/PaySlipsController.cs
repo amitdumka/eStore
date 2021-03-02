@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Payroll;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class PaySlipsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public PaySlipsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/PaySlips
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlips()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.PaySlips.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/PaySlips/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<PaySlip>> GetPaySlip(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var paySlip = await _context.PaySlips.FindAsync(id);
 
-            if (customer == null)
+            if (paySlip == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return paySlip;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/PaySlips/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutPaySlip(int id, PaySlip paySlip)
         {
-            if (id != customer.CustomerId)
+            if (id != paySlip.PaySlipId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(paySlip).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!PaySlipExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/PaySlips
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<PaySlip>> PostPaySlip(PaySlip paySlip)
         {
-            _context.Customers.Add(customer);
+            _context.PaySlips.Add(paySlip);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetPaySlip", new { id = paySlip.PaySlipId }, paySlip);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/PaySlips/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeletePaySlip(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var paySlip = await _context.PaySlips.FindAsync(id);
+            if (paySlip == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.PaySlips.Remove(paySlip);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool PaySlipExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.PaySlips.Any(e => e.PaySlipId == id);
         }
     }
 }

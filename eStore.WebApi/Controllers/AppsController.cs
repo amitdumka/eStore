@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class AppsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public AppsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Apps
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<AppInfo>>> GetApps()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Apps.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Apps/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<AppInfo>> GetAppInfo(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var appInfo = await _context.Apps.FindAsync(id);
 
-            if (customer == null)
+            if (appInfo == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return appInfo;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Apps/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutAppInfo(int id, AppInfo appInfo)
         {
-            if (id != customer.CustomerId)
+            if (id != appInfo.AppInfoId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(appInfo).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!AppInfoExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Apps
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<AppInfo>> PostAppInfo(AppInfo appInfo)
         {
-            _context.Customers.Add(customer);
+            _context.Apps.Add(appInfo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetAppInfo", new { id = appInfo.AppInfoId }, appInfo);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Apps/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteAppInfo(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var appInfo = await _context.Apps.FindAsync(id);
+            if (appInfo == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Apps.Remove(appInfo);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool AppInfoExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Apps.Any(e => e.AppInfoId == id);
         }
     }
 }

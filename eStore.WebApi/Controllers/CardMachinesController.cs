@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Sales;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class CardMachinesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public CardMachinesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/CardMachines
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<EDC>>> GetCardMachine()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.CardMachine.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/CardMachines/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<EDC>> GetEDC(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var eDC = await _context.CardMachine.FindAsync(id);
 
-            if (customer == null)
+            if (eDC == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return eDC;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/CardMachines/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutEDC(int id, EDC eDC)
         {
-            if (id != customer.CustomerId)
+            if (id != eDC.EDCId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(eDC).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!EDCExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/CardMachines
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<EDC>> PostEDC(EDC eDC)
         {
-            _context.Customers.Add(customer);
+            _context.CardMachine.Add(eDC);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetEDC", new { id = eDC.EDCId }, eDC);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/CardMachines/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteEDC(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var eDC = await _context.CardMachine.FindAsync(id);
+            if (eDC == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.CardMachine.Remove(eDC);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool EDCExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.CardMachine.Any(e => e.EDCId == id);
         }
     }
 }

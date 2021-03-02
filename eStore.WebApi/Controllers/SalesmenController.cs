@@ -7,54 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class SalesmenController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public SalesmenController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Salesmen
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Salesman>>> GetSalesmen()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Salesmen.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Salesmen/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Salesman>> GetSalesman(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var salesman = await _context.Salesmen.FindAsync(id);
 
-            if (customer == null)
+            if (salesman == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return salesman;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Salesmen/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutSalesman(int id, Salesman salesman)
         {
-            if (id != customer.CustomerId)
+            if (id != salesman.SalesmanId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(salesman).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!SalesmanExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Salesmen
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Salesman>> PostSalesman(Salesman salesman)
         {
-            _context.Customers.Add(customer);
+            _context.Salesmen.Add(salesman);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetSalesman", new { id = salesman.SalesmanId }, salesman);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Salesmen/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteSalesman(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var salesman = await _context.Salesmen.FindAsync(id);
+            if (salesman == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Salesmen.Remove(salesman);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool SalesmanExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Salesmen.Any(e => e.SalesmanId == id);
         }
     }
 }

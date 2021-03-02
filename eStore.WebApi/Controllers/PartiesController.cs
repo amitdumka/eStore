@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Accounts;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class PartiesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public PartiesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Parties
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Party>>> GetParties()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Parties.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Parties/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Party>> GetParty(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var party = await _context.Parties.FindAsync(id);
 
-            if (customer == null)
+            if (party == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return party;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Parties/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutParty(int id, Party party)
         {
-            if (id != customer.CustomerId)
+            if (id != party.PartyId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(party).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!PartyExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Parties
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Party>> PostParty(Party party)
         {
-            _context.Customers.Add(customer);
+            _context.Parties.Add(party);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetParty", new { id = party.PartyId }, party);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Parties/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteParty(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var party = await _context.Parties.FindAsync(id);
+            if (party == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Parties.Remove(party);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool PartyExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Parties.Any(e => e.PartyId == id);
         }
     }
 }

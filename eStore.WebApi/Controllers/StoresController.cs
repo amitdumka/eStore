@@ -7,54 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
 
-namespace eStore.Areas.API
+namespace eStore.Areas.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class StoresController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public StoresController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Stores
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Store>>> GetStores()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Stores.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Stores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Store>> GetStore(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var store = await _context.Stores.FindAsync(id);
 
-            if (customer == null)
+            if (store == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return store;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Stores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutStore(int id, Store store)
         {
-            if (id != customer.CustomerId)
+            if (id != store.StoreId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(store).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!StoreExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Stores
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Store>> PostStore(Store store)
         {
-            _context.Customers.Add(customer);
+            _context.Stores.Add(store);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetStore", new { id = store.StoreId }, store);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Stores/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteStore(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var store = await _context.Stores.FindAsync(id);
+            if (store == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Stores.Remove(store);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool StoreExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Stores.Any(e => e.StoreId == id);
         }
     }
 }

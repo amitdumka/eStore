@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Sales;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class CardDetailsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public CardDetailsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/CardDetails
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CardDetail>>> GetCardDetails()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.CardDetails.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/CardDetails/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CardDetail>> GetCardDetail(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var cardDetail = await _context.CardDetails.FindAsync(id);
 
-            if (customer == null)
+            if (cardDetail == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return cardDetail;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/CardDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCardDetail(int id, CardDetail cardDetail)
         {
-            if (id != customer.CustomerId)
+            if (id != cardDetail.CardDetailId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(cardDetail).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!CardDetailExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/CardDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<CardDetail>> PostCardDetail(CardDetail cardDetail)
         {
-            _context.Customers.Add(customer);
+            _context.CardDetails.Add(cardDetail);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCardDetail", new { id = cardDetail.CardDetailId }, cardDetail);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/CardDetails/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCardDetail(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var cardDetail = await _context.CardDetails.FindAsync(id);
+            if (cardDetail == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.CardDetails.Remove(cardDetail);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool CardDetailExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.CardDetails.Any(e => e.CardDetailId == id);
         }
     }
 }

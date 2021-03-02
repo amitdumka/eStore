@@ -7,54 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class StoreClosesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public StoreClosesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/StoreCloses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<StoreClose>>> GetStoreCloses()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.StoreCloses.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/StoreCloses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<StoreClose>> GetStoreClose(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var storeClose = await _context.StoreCloses.FindAsync(id);
 
-            if (customer == null)
+            if (storeClose == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return storeClose;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/StoreCloses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutStoreClose(int id, StoreClose storeClose)
         {
-            if (id != customer.CustomerId)
+            if (id != storeClose.StoreCloseId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(storeClose).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!StoreCloseExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/StoreCloses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<StoreClose>> PostStoreClose(StoreClose storeClose)
         {
-            _context.Customers.Add(customer);
+            _context.StoreCloses.Add(storeClose);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetStoreClose", new { id = storeClose.StoreCloseId }, storeClose);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/StoreCloses/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteStoreClose(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var storeClose = await _context.StoreCloses.FindAsync(id);
+            if (storeClose == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.StoreCloses.Remove(storeClose);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool StoreCloseExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.StoreCloses.Any(e => e.StoreCloseId == id);
         }
     }
 }

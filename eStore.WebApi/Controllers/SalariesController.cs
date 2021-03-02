@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Payroll;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class SalariesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public SalariesController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Salaries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CurrentSalary>>> GetSalaries()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Salaries.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Salaries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CurrentSalary>> GetCurrentSalary(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var currentSalary = await _context.Salaries.FindAsync(id);
 
-            if (customer == null)
+            if (currentSalary == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return currentSalary;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Salaries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCurrentSalary(int id, CurrentSalary currentSalary)
         {
-            if (id != customer.CustomerId)
+            if (id != currentSalary.CurrentSalaryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(currentSalary).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!CurrentSalaryExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/Salaries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<CurrentSalary>> PostCurrentSalary(CurrentSalary currentSalary)
         {
-            _context.Customers.Add(customer);
+            _context.Salaries.Add(currentSalary);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCurrentSalary", new { id = currentSalary.CurrentSalaryId }, currentSalary);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Salaries/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCurrentSalary(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var currentSalary = await _context.Salaries.FindAsync(id);
+            if (currentSalary == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.Salaries.Remove(currentSalary);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool CurrentSalaryExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.Salaries.Any(e => e.CurrentSalaryId == id);
         }
     }
 }

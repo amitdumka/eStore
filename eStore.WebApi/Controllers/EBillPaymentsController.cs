@@ -6,55 +6,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
-using eStore.Shared.Models.Stores;
-using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.Models.Accounts.Expenses;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class CustomersController : ControllerBase
+    public class EBillPaymentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
 
-        public CustomersController(eStoreDbContext context)
+        public EBillPaymentsController(eStoreDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/EBillPayments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<EBillPayment>>> GetBillPayments()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.BillPayments.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/EBillPayments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<EBillPayment>> GetEBillPayment(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var eBillPayment = await _context.BillPayments.FindAsync(id);
 
-            if (customer == null)
+            if (eBillPayment == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return eBillPayment;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/EBillPayments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutEBillPayment(int id, EBillPayment eBillPayment)
         {
-            if (id != customer.CustomerId)
+            if (id != eBillPayment.EBillPaymentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(eBillPayment).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace eStore.Areas.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!EBillPaymentExists(id))
                 {
                     return NotFound();
                 }
@@ -75,36 +73,36 @@ namespace eStore.Areas.API
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/EBillPayments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<EBillPayment>> PostEBillPayment(EBillPayment eBillPayment)
         {
-            _context.Customers.Add(customer);
+            _context.BillPayments.Add(eBillPayment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetEBillPayment", new { id = eBillPayment.EBillPaymentId }, eBillPayment);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/EBillPayments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteEBillPayment(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var eBillPayment = await _context.BillPayments.FindAsync(id);
+            if (eBillPayment == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.BillPayments.Remove(eBillPayment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool EBillPaymentExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.BillPayments.Any(e => e.EBillPaymentId == id);
         }
     }
 }
