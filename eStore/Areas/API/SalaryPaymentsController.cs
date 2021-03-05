@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class SalaryPaymentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;

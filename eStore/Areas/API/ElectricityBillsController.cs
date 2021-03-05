@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts.Expenses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ElectricityBillsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
