@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DailySale>>> GetDailySales()
         {
-            return await _context.DailySales.ToListAsync();
+            return await _context.DailySales.Include(d => d.Salesman).Include(c=>c.Store).Where(c => c.SaleDate == DateTime.Today).ToListAsync();
         }
 
         // GET: api/DailySale/5

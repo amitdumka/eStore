@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendances()
         {
-            return await _context.Attendances.ToListAsync();
+            return await _context.Attendances.Include(a => a.Store).Where(c => c.AttDate == DateTime.Today).ToListAsync();
         }
 
         // GET: api/Attendances/5
