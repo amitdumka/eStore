@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Json\JsonToObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Types\DataTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTOs\Payrolls\AttendanceDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseNT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Store.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Purchases\ProductItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Purchases\ProductPurchase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\InvoiceSaveReturn.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChartJsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChartJSVC\ChartJsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Printers\ReceiptDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Printers\ReceiptItemDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Printers\PrintInvoiceLine.cs" />

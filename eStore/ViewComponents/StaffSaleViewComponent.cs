@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using eStore.DL.Data;
-using eStore.Shared.ViewModels;
+using eStore.Shared.ViewModels.ChartJSVC;
 
 namespace eStore.ViewComponents
 {
@@ -83,7 +83,7 @@ namespace eStore.ViewComponents
             Scales scales = new Scales();
             scales.yAxes = y;
 
-            Data data = new Data();
+            eStore.Shared.ViewModels.ChartJSVC.Data data = new eStore.Shared.ViewModels.ChartJSVC.Data();
 
             StaffSale saleData = GetStaffSaleData();
 
@@ -194,7 +194,7 @@ namespace eStore.ViewComponents
                 type = "bar",
                 responsive = true,
                 options = new Options { scales = scales, title = new Title { Display = true, Text = "Staff Sale" }, legend = new Legend { Position = "Top" } },
-                data = new Data { datasets = new Dataset[] { datasetY, datasetM, datasetC }, labels = saleData.StaffName.ToArray() }
+                data = new eStore.Shared.ViewModels.ChartJSVC.Data { datasets = new Dataset[] { datasetY, datasetM, datasetC }, labels = saleData.StaffName.ToArray() }
             };
 
             var chartModel = new ChartJsViewModel

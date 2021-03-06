@@ -1,4 +1,4 @@
-﻿namespace eStore.Shared.ViewModels
+﻿namespace eStore.Shared.ViewModels.ChartVM
 {
     /// <summary>
     /// @Version: 5.0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using eStore.DL.Data;
 using eStore.Shared.ViewModels;
+using eStore.Shared.ViewModels.ChartJSVC;
 
 namespace eStore.ViewComponents
 {
@@ -44,7 +45,7 @@ namespace eStore.ViewComponents
             Scales scales = new Scales();
             scales.yAxes = y;
 
-            Data data = new Data();
+            eStore.Shared.ViewModels.ChartJSVC.Data data = new eStore.Shared.ViewModels.ChartJSVC.Data();
 
             YearlySaleData saleData = GetYearlySaleData();
 
@@ -79,7 +80,7 @@ namespace eStore.ViewComponents
                 type = "bar",
                 responsive = true,
                 options = new Options { scales = scales },
-                data = new Data { datasets = new Dataset[] { dataset }, labels = saleData.Year.ConvertAll<string>(delegate (int i) { return i.ToString(); }).ToArray() }
+                data = new eStore.Shared.ViewModels.ChartJSVC.Data { datasets = new Dataset[] { dataset }, labels = saleData.Year.ConvertAll<string>(delegate (int i) { return i.ToString(); }).ToArray() }
             };
 
             var chartModel = new ChartJsViewModel

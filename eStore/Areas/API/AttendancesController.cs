@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using eStore.Shared.DTOs.Payrolls;
 
 namespace eStore.Areas.API
 {
@@ -17,17 +19,31 @@ namespace eStore.Areas.API
     public class AttendancesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AttendancesController(eStoreDbContext context)
+        public AttendancesController(eStoreDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Attendances
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendances()
+        public IEnumerable<AttendanceDto> GetAttendances()
         {
-            return await _context.Attendances.Include(a => a.Store).Where(c => c.AttDate == DateTime.Today).ToListAsync();
+            //return await _context.Attendances.Include(a => a.Store).Where(c => c.AttDate == DateTime.Today.Date).ToListAsync();
+            var attList=  _context.Attendances.Include(c=>c.Employee).Include(a => a.Store).Where(c => c.AttDate == DateTime.Today.Date).ToList();
+            return _mapper.Map<IEnumerable<AttendanceDto>>(attList);
+            //return (Task<ActionResult<IEnumerable<AttendanceDto>>>)GetToDto(attList);
+        }
+
+        private IEnumerable<AttendanceDto> GetToDto(IEnumerable<Attendance> colList)
+        {
+            List<AttendanceDto> dto = new List<AttendanceDto>();
+            foreach (var obj in colList)
+            {
+                dto.Add(_mapper.Map<AttendanceDto>(obj));
+            }
+            return dto.ToList();
         }
 
         // GET: api/Attendances/5
@@ -80,6 +96,7 @@ namespace eStore.Areas.API
         [HttpPost]
         public async Task<ActionResult<Attendance>> PostAttendance(Attendance attendance)
         {
+            attendance.AttDate = attendance.AttDate.Date;
             _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
 

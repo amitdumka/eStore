@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using eStore.DL.Data;
 using eStore.Shared.ViewModels;
+using eStore.Shared.ViewModels.ChartJSVC;
 
 namespace eStore.ViewComponents
 {

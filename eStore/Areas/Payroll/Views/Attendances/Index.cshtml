@@ -148,8 +148,8 @@
                             <td class="btn-group d-inline-flex">
                                 <a class="btn btn-warning btn-sm btn-rounded" id="edit" data_modal="" asp-action="Edit" asp-route-id="@item.AttendanceId"><i class="fas fa-pencil-alt mt-0"></i></a>
                                 <a class="btn btn-info btn-sm" id="detail" data_modal="" asp-action="Details" asp-route-id="@item.AttendanceId"><i class="fas fa-info-circle mt-0"></i></a>
-                                <a class="btn btn-danger " id="delete" data_modal="" asp-action="Delete" asp-route-id="@item.AttendanceId"><i class="fas fa-trash-alt mt-0"></i></a>
-                                <a class="btn btn-default btn-sm btn-rounded" asp-action="EmpDetails" asp-route-id="@item.AttendanceId" asp-route-ondate="@item.AttDate.Date.ToString("dd-MM-yyyy")" id="detail" data_modal="">List</a>
+                                <a class="btn btn-danger btn-sm " id="delete" data_modal="" asp-action="Delete" asp-route-id="@item.AttendanceId"><i class="fas fa-trash-alt mt-0"></i></a>
+                                <a class="btn btn-default btn-sm btn-rounded" asp-action="EmpDetails" asp-route-id="@item.AttendanceId" asp-route-ondate="@item.AttDate.Date.ToString("dd-MM-yyyy")" id="detail" data_modal=""><i class="fa fa-list" aria-hidden="true"></i></a>
 
                             </td>
                         </tr>

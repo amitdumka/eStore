@@ -125,25 +125,25 @@
                     <td class="btn-group btn-group-sm ">
                         @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("PowerUser") || Context.User.IsInRole("StoreManager"))
                         {
-                            <a class="btn btn-outline-secondary  waves-effect btn-sm mr-1" asp-action="Edit" asp-route-id="@item.DailySaleId" id="edit" data_modal="">Edit</a>
+                            <a class="btn   waves-effect btn-sm mr-1" asp-action="Edit" asp-route-id="@item.DailySaleId" id="edit" data_modal="">Edit</a>
                         }
 
-                        <a class="btn btn-outline-deep-orange  waves-effect btn-sm mr-1" asp-action="Details" asp-route-id="@item.DailySaleId" id="detail" data_modal="">Details</a>
+                        <a class="btn   waves-effect btn-sm mr-1" asp-action="Details" asp-route-id="@item.DailySaleId" id="detail" data_modal="">Details</a>
                         @if (Context.User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-outline-danger  waves-effect btn-sm mr-1" asp-action="Delete" asp-route-id="@item.DailySaleId" id="delete" data_modal="">Delete</a>
+                            <a class="btn  waves-effect btn-sm mr-1" asp-action="Delete" asp-route-id="@item.DailySaleId" id="delete" data_modal="">Delete</a>
                         }
 
                         @if (item.PayMode != PayMode.Cash)
                         {
-                            <a class="btn btn-outline-brown btn-sm mr-1  waves-effect" onclick="showInPopup('@Url.Action("AddEditPaymentDetails", "DailySales", new { InvNo =@item.InvNo},Context.Request.Scheme)',' Payment Details')" id="paymentInfo">Payment Details</a>
+                            <a class="btn  btn-sm mr-1  waves-effect" onclick="showInPopup('@Url.Action("AddEditPaymentDetails", "DailySales", new { InvNo =@item.InvNo},Context.Request.Scheme)',' Payment Details')" id="paymentInfo">Payment Details</a>
                         }
                     </td>
                 </tr>
             }
             else if (item.IsTailoringBill)
             {
-                <tr class=" light-blue">
+                <tr >
                     <td>
                         @Html.DisplayFor(modelItem => item.SaleDate)
                     </td>
@@ -190,7 +190,7 @@
             }
             else if (item.IsManualBill)
             {
-                <tr class="light-green">
+                <tr >
                     <td>
                         @Html.DisplayFor(modelItem => item.SaleDate)
                     </td>
@@ -237,7 +237,7 @@
             }
             else if (item.IsSaleReturn)
             {
-                <tr class="rgba-pink-light">
+                <tr >
                     <td>
                         @Html.DisplayFor(modelItem => item.SaleDate)
                     </td>

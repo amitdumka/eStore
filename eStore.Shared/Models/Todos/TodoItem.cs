@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using eStore.Shared.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace eStore.Shared.Models.Todos
@@ -65,8 +66,8 @@ namespace eStore.Shared.Models.Todos
     }
     public class ManageUsersViewModel
     {
-        public IEnumerable<IdentityUser> Administrators { get; set; }
-        public IEnumerable<IdentityUser> Users { get; set; }
+        public IEnumerable<AppUser> Administrators { get; set; }
+        public IEnumerable<AppUser> Users { get; set; }
     }
     public class TodoItem
     {
