@@ -166,7 +166,7 @@ namespace eStore.Shared.DTOs.Payrolls
 
         [Display(Name = "Party")]
         public int? PartyId { get; set; }
-        public string PartyName { get; set; }
+       // public string PartyName { get; set; } //TODO: Make Party DTO to handel this
 
         public int StoreId { get; set; }
         public StoreBasicDto Store { get; set; }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.DTOs.Payrolls;
+using AutoMapper;
 
 namespace eStore.Areas.API
 {
@@ -17,17 +19,26 @@ namespace eStore.Areas.API
     public class SalaryPaymentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public SalaryPaymentsController(eStoreDbContext context)
+        public SalaryPaymentsController(eStoreDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/SalaryPayments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPayments()
+      /*  [HttpGet]
+        public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPaymentsAsync()
         {
-            return await _context.SalaryPayments.ToListAsync();
+            return await _context.SalaryPayments.Include(c => c.Employee).Include(c => c.Store).ToListAsync();
+        }*/
+
+        [HttpGet]
+        public  IEnumerable<SalaryPaymentDto> GetSalaryPayments()
+        {
+            //return await _context.SalaryPayments.Include(c=>c.Employee).Include(c=>c.Store).ToListAsync();
+            var data =  _context.SalaryPayments.Include(c => c.Employee).Include(c => c.Store).Where(c=>c.PaymentDate.Year==DateTime.Today.Year).ToList();
+            return _mapper.Map<IEnumerable<SalaryPaymentDto>>(data);
         }
 
         // GET: api/SalaryPayments/5
