@@ -28,15 +28,44 @@ namespace eStore.ViewComponents
 
             StaffSale saleInfo = new StaffSale();
             List<int> StaffId = new List<int>();
+            List<int> EmpList = new List<int>();
 
             //TODO: Add to index based on EmpId. 
             foreach (var item in yearly)
             {
                 saleInfo.YearWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
+                EmpList.Add(item.EmpId);
                 Console.WriteLine($"Yearly #Id: {item.EmpId}  @Amount: {item.Amount}");
             }
-            foreach (var item in montly)
+            foreach (var emp in EmpList)
+            {
+                var m1 = montly.Where(c => c.EmpId == emp).FirstOrDefault();
+                if (m1 != null)
+                {
+                    saleInfo.MonthWise.Add((int)m1.Amount);
+                    StaffId.Add(m1.EmpId);
+                }
+                else
+                {
+                    saleInfo.MonthWise.Add(0);
+                    StaffId.Add(emp);
+                }
+                var t1 = today.Where(c => c.EmpId == emp).FirstOrDefault();
+                if (t1 != null)
+                {
+                    saleInfo.CurrentWise.Add((int)t1.Amount);
+                    StaffId.Add(t1.EmpId);
+                }
+                else
+                {
+                    saleInfo.CurrentWise.Add(0);
+                    StaffId.Add(emp);
+                }
+
+            }
+
+          /*  foreach (var item in montly)
             {
                 saleInfo.MonthWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
@@ -47,7 +76,7 @@ namespace eStore.ViewComponents
                 saleInfo.CurrentWise.Add((int)item.Amount);
                 StaffId.Add(item.EmpId);
                 Console.WriteLine($"Today #Id: {item.EmpId}  @Amount: {item.Amount}");
-            }
+            }*/
 
             if (StaffId.Count == (yearly.Count + today.Count + montly.Count))
             {

@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using eStore.Shared.DTOs.Accounting;
 using eStore.Shared.DTOs.Payrolls;
+using eStore.Shared.Models.Accounts;
+using eStore.Shared.Models.Banking;
 using eStore.Shared.Models.Payroll;
 using eStore.Shared.Models.Stores;
 using System;
@@ -34,6 +37,35 @@ namespace eStore.Data
             CreateMap<CurrentSalaryDto, CurrentSalary>();
            
             CreateMap<Employee, EmployeeDto>();
+
+
+            CreateMap<Party, PartyBasicDto>();
+            CreateMap<Expense, ExpenseDto>();
+            CreateMap<BankAccount, BankAccountDto>();
+            CreateMap<LedgerType, LedgerTypeDto>();
+
+
+            CreateMap<PartyBasicDto, Party>();
+            CreateMap<ExpenseDto, Expense>();
+            CreateMap<BankAccountDto, BankAccount>();
+            CreateMap<LedgerTypeDto, LedgerType>();
+
+            CreateMap<BasicVoucher, BasicVoucherDto>();
+            CreateMap<BasicVoucherDto, BasicVoucher>();
+
+            CreateMap<CashPayment, CashPaymentDto>();
+            CreateMap<CashReceipt,CashReceiptDto>();
+            CreateMap<CashReceiptDto, CashReceipt>();
+            CreateMap<CashPaymentDto, CashPayment>();
+
+            CreateMap<Receipt, ReceiptDto>();
+            CreateMap<Payment, PaymentDto>();
+
+            CreateMap<ReceiptDto, Receipt>();
+            CreateMap<PaymentDto, Payment>();
+
+
+
         }
     }
 }

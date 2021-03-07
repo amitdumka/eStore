@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
+using eStore.Shared.DTOs.Accounting;
+using AutoMapper;
 
 namespace eStore.Areas.API
 {
@@ -17,17 +19,26 @@ namespace eStore.Areas.API
     public class ExpensesController : ControllerBase
     {
         private readonly eStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ExpensesController(eStoreDbContext context)
+        public ExpensesController(eStoreDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context;_mapper = mapper;
         }
 
         // GET: api/Expenses
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
-            return await _context.Expenses.ToListAsync();
+            return await _context.Expenses.Include(c=>c.PaidBy).Include(c=>c.Party).Include(c=>c.FromAccount).Where(c=>c.OnDate.Date.Year==DateTime.Today.Year).ToListAsync();
+
+        }
+
+        [HttpGet("dto")]
+        public IEnumerable<ExpenseDto> GetExpenseDtos()
+        {
+            var data= _context.Expenses.Include(c => c.PaidBy).Include(c => c.Party).Include(c => c.FromAccount).Where(c => c.OnDate.Date.Year == DateTime.Today.Year).ToList();
+            return _mapper.Map<IEnumerable<ExpenseDto>>(data);
         }
 
         // GET: api/Expenses/5

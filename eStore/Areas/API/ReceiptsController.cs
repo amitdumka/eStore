@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using eStore.Shared.DTOs.Accounting;
 
 namespace eStore.Areas.API
 {
@@ -17,18 +19,22 @@ namespace eStore.Areas.API
     public class ReceiptsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ReceiptsController(eStoreDbContext context)
+        public ReceiptsController(eStoreDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Receipts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
         {
-            return await _context.Receipts.ToListAsync();
+            return await _context.Receipts.Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.FromAccount).ToListAsync();
         }
+        // GET: api/Receipts/dto
+        [HttpGet("dto")]
+        public IEnumerable<ReceiptDto> GetReceiptsDto() => _mapper.Map<IEnumerable<ReceiptDto>>(_context.Receipts.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).Where(c => c.OnDate.Year == DateTime.Today.Year).ToList());
 
         // GET: api/Receipts/5
         [HttpGet("{id}")]

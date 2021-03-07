@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using eStore.Shared.Models.Banking;
+using eStore.Shared.Models.Common;
 using eStore.Shared.Models.Payroll;
 
 namespace eStore.Shared.Models.Accounts
@@ -49,6 +50,7 @@ namespace eStore.Shared.Models.Accounts
         public virtual LedgerEntry LedgerEntry { get; set; }
 
     }
+
     public class Expense : BasicVoucher
     {
         public int ExpenseId { get; set; }

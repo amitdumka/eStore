@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using eStore.Shared.DTOs.Accounting;
 
 namespace eStore.Areas.API
 {
@@ -17,11 +19,14 @@ namespace eStore.Areas.API
     public class CashPaymentsController : ControllerBase
     {
         private readonly eStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CashPaymentsController(eStoreDbContext context)
+        public CashPaymentsController(eStoreDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
+
+
 
         // GET: api/CashPayments
         [HttpGet]
@@ -30,6 +35,9 @@ namespace eStore.Areas.API
             return await _context.CashPayments.ToListAsync();
         }
 
+        // GET: api/CashPayments/dt
+        [HttpGet("dto")]
+        public  IEnumerable<CashPaymentDto> GetCashPaymentsDto() => _mapper.Map<IEnumerable<CashPaymentDto>>( _context.CashPayments.Include(c => c.Store).ToList());
         // GET: api/CashPayments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CashPayment>> GetCashPayment(int id)

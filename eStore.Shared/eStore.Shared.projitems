@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Paging\PaginatedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Json\JsonToObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Types\DataTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DTOs\Accounting\ExpensesDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DTOs\Payrolls\AttendanceDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseNT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppInfo.cs" />
