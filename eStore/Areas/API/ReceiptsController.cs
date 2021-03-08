@@ -34,7 +34,7 @@ namespace eStore.Areas.API
         }
         // GET: api/Receipts/dto
         [HttpGet("dto")]
-        public IEnumerable<ReceiptDto> GetReceiptsDto() => _mapper.Map<IEnumerable<ReceiptDto>>(_context.Receipts.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).Where(c => c.OnDate.Year == DateTime.Today.Year).ToList());
+        public IEnumerable<ReceiptDto> GetReceiptsDto() => _mapper.Map<IEnumerable<ReceiptDto>>(_context.Receipts.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).ToList());
 
         // GET: api/Receipts/5
         [HttpGet("{id}")]

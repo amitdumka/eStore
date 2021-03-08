@@ -30,12 +30,12 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CashReceipt>>> GetCashReceipts()
         {
-            return await _context.CashReceipts.ToListAsync();
+            return await _context.CashReceipts.Include(c=>c.Mode).ToListAsync();
         }
 
         // GET: api/CashReceipts/dt
         [HttpGet("dto")]
-        public IEnumerable<CashReceiptDto> GetCashReceiptsDto() => _mapper.Map<IEnumerable<CashReceiptDto>>(_context.CashReceipts.Include(c => c.Store).ToList());
+        public IEnumerable<CashReceiptDto> GetCashReceiptsDto() => _mapper.Map<IEnumerable<CashReceiptDto>>(_context.CashReceipts.Include(c => c.Mode).Include(c => c.Store).ToList());
 
         // GET: api/CashReceipts/5
         [HttpGet("{id}")]

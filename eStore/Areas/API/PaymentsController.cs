@@ -34,7 +34,7 @@ namespace eStore.Areas.API
         }
         // GET: api/Payments/dto
         [HttpGet("dto")]
-        public IEnumerable<PaymentDto> GetPaymentsDto() => _mapper.Map<IEnumerable<PaymentDto>>(_context.Payments.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).Where(c=>c.OnDate.Year==DateTime.Today.Year).ToList());
+        public IEnumerable<PaymentDto> GetPaymentsDto() => _mapper.Map<IEnumerable<PaymentDto>>(_context.Payments.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).ToList());
 
         // GET: api/Payments/5
         [HttpGet("{id}")]

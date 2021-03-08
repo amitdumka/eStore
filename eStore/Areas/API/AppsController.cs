@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AppsController : ControllerBase
     {
         private readonly eStoreDbContext _context;

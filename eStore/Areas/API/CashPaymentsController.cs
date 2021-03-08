@@ -32,12 +32,12 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CashPayment>>> GetCashPayments()
         {
-            return await _context.CashPayments.ToListAsync();
+            return await _context.CashPayments.Include(c => c.Mode).ToListAsync();
         }
 
-        // GET: api/CashPayments/dt
+        // GET: api/CashPayments/dto
         [HttpGet("dto")]
-        public  IEnumerable<CashPaymentDto> GetCashPaymentsDto() => _mapper.Map<IEnumerable<CashPaymentDto>>( _context.CashPayments.Include(c => c.Store).ToList());
+        public  IEnumerable<CashPaymentDto> GetCashPaymentsDto() => _mapper.Map<IEnumerable<CashPaymentDto>>( _context.CashPayments.Include(c => c.Mode).Include(c => c.Store).Where(c=>c.PaymentDate.Year==DateTime.Today.Year).ToList());
         // GET: api/CashPayments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CashPayment>> GetCashPayment(int id)
