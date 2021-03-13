@@ -60,7 +60,6 @@
     <Folder Include="Areas\Tailoring\Views\" />
     <Folder Include="BL\SalePurchase\" />
     <Folder Include="Areas\Admin\Views\UserManagement\" />
-    <Folder Include="BL\DataHelpers\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="BL\Tailor\" />
     <Folder Include="BL\Reports\" />
@@ -72,7 +71,6 @@
     <Folder Include="Views\DatabaseExporters\" />
     <Folder Include="BL\Widgets\" />
     <Folder Include="ViewComponents\" />
-    <Folder Include="Areas\API\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />

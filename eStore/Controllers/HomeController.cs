@@ -65,39 +65,39 @@ namespace eStore.Controllers
 
         //    return View();
         //}
-        //[HttpPost]
-        //public async Task<IActionResult> TestUIAsync(IFormFile file)
-        //{
-        //    if (file.Length > 0)
-        //    {
-        //        //var filePath = Path.GetTempFileName();
-        //        string filename = file.FileName;
+        [HttpPost]
+        public async Task<IActionResult> TestUIAsync(IFormFile file)
+        {
+            if (file.Length > 0)
+            {
+                //var filePath = Path.GetTempFileName();
+                string filename = file.FileName;
 
-        //        string pathToExcelFile = Path.GetTempPath() + filename;
-        //        Console.WriteLine(pathToExcelFile);
+                string pathToExcelFile = Path.GetTempPath() + filename;
+                Console.WriteLine(pathToExcelFile);
 
-        //        using (var stream = System.IO.File.Create(pathToExcelFile))
-        //        {
-        //            await file.CopyToAsync(stream);
-                    
-        //        }
+                using (var stream = System.IO.File.Create(pathToExcelFile))
+                {
+                    await file.CopyToAsync(stream);
 
-        //        // TestImport t = new TestImport();
-        //        // var data= t.TestImportExcel(_context, pathToExcelFile);
-        //        // return  View(data);
-        //        DBImport im = new DBImport(_context,_userManager);
-        //        bool a= await im.ImportDataAsync(pathToExcelFile);
-        //        if (a)
-        //        {
-        //            ViewBag.Message = "It DOne";
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Message = "Not Done";
-        //        }
-        //    }
+                }
 
-        //    return View();
-        //}
+                // TestImport t = new TestImport();
+                // var data= t.TestImportExcel(_context, pathToExcelFile);
+                // return  View(data);
+                //DBImport im = new DBImport(_context, _userManager);
+                //bool a = await im.ImportDataAsync(pathToExcelFile);
+                //if (a)
+                //{
+                //    ViewBag.Message = "It DOne";
+                //}
+                //else
+                //{
+                //    ViewBag.Message = "Not Done";
+                //}
+            }
+
+            return View();
+        }
     }
 }
