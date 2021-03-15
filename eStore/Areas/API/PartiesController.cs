@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Party>>> GetParties()
         {
-            return await _context.Parties.ToListAsync();
+            return await _context.Parties.Include(c=>c.LedgerType).ToListAsync();
         }
 
         // GET: api/Parties/5

@@ -20,10 +20,6 @@ public enum PaymentMode { Cash, Card, RTGS, NEFT, IMPS, Wallets, Cheques, Demand
 public enum AttUnit { Present, Absent, HalfDay, Sunday, Holiday, StoreClosed, SundayHoliday, SickLeave, PaidLeave, CasualLeave, OnLeave };
 public enum SalaryComponet { NetSalary, LastPcs, WOWBill, SundaySalary, Incentive, Others, Advance, PaidLeave, SickLeave }
 public enum BankPayMode { Cash, Card, Cheques, RTGS, NEFT, IMPS, Wallets, Others }
-public enum UploadType { Purchase, SaleRegister, SaleItemWise, InWard, Customer, Attendance, Search }
-
-
-public enum UploadReturn { Success, Error, FileNotFound, NotExcelType, ImportNotSupported, OKGen }
 
 public enum EmpType { Salesman, StoreManager, HouseKeeping, Owner, Accounts, TailorMaster, Tailors, TailoringAssistance, Others }
 public enum TaxType { GST, SGST, CGST, IGST, VAT, CST }
@@ -34,8 +30,11 @@ public enum LoginRole { Admin, StoreManager, Salesman, Accountant, RemoteAccount
 public enum LedgerEntryType { Expenses, Payment, Reciept, Salary, AdvacePayment, AdvaceReciept, ArvindLimited, Others }
 public enum AccountType { Saving, Current, CashCredit, OverDraft, Others, Loan, CF }
 public enum VoucherType { Payment, Reciept, Contra, DebitNote, CreditNote, JV }
+
 public enum LedgerTo { CashSales, POSSale, Cash, TailorBook, Suspense }
 public enum Head { Sale, HDFCCA, TailorBook, BikashPatwari, Sanjeev, Zafar, Suspense, IDBICA, ICICIBankCA, BandhanCA, SBIOD, SBICC, AmitKumar, Others }
 public enum LedgerBy { AmitKumar, Cash, BandhanCA, BHARATQR, EDCBandhan, EDCEASYTAP, EDCHDFC, EDCICICI, EDCSBI, EXPUNDEF, HDFCCA, ICICIBankCA, IDBICA, Others, SBICC, Suspense, Zafar }
 public enum Remark { Uploaded, Payment, Reciept, Expenses, BankDeposit, BankWithdrawal, Others }
 
+public enum UploadType { Purchase, SaleRegister, SaleItemWise, InWard, Customer, Attendance, Search }
+public enum UploadReturn { Success, Error, FileNotFound, NotExcelType, ImportNotSupported, OKGen }

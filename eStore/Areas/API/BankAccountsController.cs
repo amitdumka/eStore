@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BankAccount>>> GetBankAccounts()
         {
-            return await _context.BankAccounts.ToListAsync();
+            return await _context.BankAccounts.Include(c=>c.Bank).ToListAsync();
         }
 
         // GET: api/BankAccounts/5
