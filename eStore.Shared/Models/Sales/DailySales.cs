@@ -152,7 +152,7 @@ namespace eStore.Shared.Models.Sales
 
         public bool IsPartialRecovery { get; set; }
 
-        public virtual ICollection<DueRecoverd> Recoverds { get; set; }
+       // public virtual ICollection<DueRecoverd> Recoverds { get; set; }
         //Version 3.0
         [DefaultValue(1)]
         public int StoreId { get; set; }

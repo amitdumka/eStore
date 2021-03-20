@@ -30,11 +30,11 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
         {
-            return await _context.Receipts.Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.FromAccount).ToListAsync();
+            return await _context.Receipts.Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.FromAccount).OrderByDescending(c=>c.OnDate).ToListAsync();
         }
         // GET: api/Receipts/dto
         [HttpGet("dto")]
-        public IEnumerable<ReceiptDto> GetReceiptsDto() => _mapper.Map<IEnumerable<ReceiptDto>>(_context.Receipts.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).ToList());
+        public IEnumerable<ReceiptDto> GetReceiptsDto() => _mapper.Map<IEnumerable<ReceiptDto>>(_context.Receipts.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).OrderByDescending(c=>c.OnDate).ToList());
 
         // GET: api/Receipts/5
         [HttpGet("{id}")]

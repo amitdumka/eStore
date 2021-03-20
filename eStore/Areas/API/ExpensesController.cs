@@ -30,14 +30,14 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
-            return await _context.Expenses.Include(c=>c.PaidBy).Include(c=>c.Party).Include(c=>c.FromAccount).Where(c=>c.OnDate.Date.Year==DateTime.Today.Year).ToListAsync();
+            return await _context.Expenses.Include(c=>c.PaidBy).Include(c=>c.Party).Include(c=>c.FromAccount).Where(c=>c.OnDate.Date.Year==DateTime.Today.Year).OrderByDescending(c=>c.OnDate).ToListAsync();
 
         }
 
         [HttpGet("dto")]
         public IEnumerable<ExpenseDto> GetExpenseDtos()
         {
-            var data= _context.Expenses.Include(c => c.PaidBy).Include(c => c.Party).Include(c => c.FromAccount).Where(c => c.OnDate.Date.Year == DateTime.Today.Year).ToList();
+            var data= _context.Expenses.Include(c => c.PaidBy).Include(c => c.Party).Include(c => c.FromAccount).Where(c => c.OnDate.Date.Year == DateTime.Today.Year).OrderByDescending(c=>c.OnDate).ToList();
             return _mapper.Map<IEnumerable<ExpenseDto>>(data);
         }
 

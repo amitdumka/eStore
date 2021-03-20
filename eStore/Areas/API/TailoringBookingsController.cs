@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TalioringBooking>>> GetTalioringBookings()
         {
-            return await _context.TalioringBookings.ToListAsync();
+            return await _context.TalioringBookings.OrderByDescending(c=>c.BookingDate).ToListAsync();
         }
 
         // GET: api/TailoringBookings/5

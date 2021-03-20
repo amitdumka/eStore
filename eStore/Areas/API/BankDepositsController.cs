@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BankDeposit>>> GetBankDeposits()
         {
-            return await _context.BankDeposits.ToListAsync();
+            return await _context.BankDeposits.Include(c=>c.Account).OrderByDescending(c=>c.OnDate).ToListAsync();
         }
 
         // GET: api/BankDeposits/5

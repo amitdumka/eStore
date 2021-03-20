@@ -76,7 +76,7 @@ namespace eStore.Shared.Models.Tailoring
         [DefaultValue(false), Display(Name = "Delivered")]
         public bool IsDelivered { get; set; }
 
-        public virtual ICollection<TalioringDelivery> Deliveries { get; set; }
+      //  public virtual ICollection<TalioringDelivery> Deliveries { get; set; }
     }
 
     public class BookingOverDue

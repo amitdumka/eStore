@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TalioringDelivery>>> GetTailoringDeliveries()
         {
-            return await _context.TailoringDeliveries.ToListAsync();
+            return await _context.TailoringDeliveries.Include(c=>c.Booking).OrderByDescending(c=>c.DeliveryDate).ToListAsync();
         }
 
         // GET: api/TalioringDeliverys/5

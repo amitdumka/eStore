@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EBillPayment>>> GetBillPayments()
         {
-            return await _context.BillPayments.ToListAsync();
+            return await _context.BillPayments.Include(c=>c.Bill).ThenInclude(c=>c.Connection).OrderByDescending(c=>c.PaymentDate).ToListAsync();
         }
 
         // GET: api/EBillPayments/5

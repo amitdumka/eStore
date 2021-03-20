@@ -42,9 +42,9 @@ namespace eStore.Shared.Models.Banking
         [Display(Name = "Account Type")]
         public AccountType AccountType { get; set; }
 
-        public ICollection<BankTranscation> BankTranscations { get; set; }
-        public ICollection<BankDeposit> BankDeposits { get; set; }
-        public ICollection<BankWithdrawal> BankWithdrawals { get; set; }
+       // public ICollection<BankTranscation> BankTranscations { get; set; }
+       // public ICollection<BankDeposit> BankDeposits { get; set; }
+       // public ICollection<BankWithdrawal> BankWithdrawals { get; set; }
 
     }
     public class BankTranscation: BaseST

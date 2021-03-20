@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DuesList>>> GetDuesLists()
         {
-            return await _context.DuesLists.ToListAsync();
+            return await _context.DuesLists.Include(c=>c.DailySale).OrderByDescending(c=>c.DailySale.SaleDate).ToListAsync();
         }
 
         // GET: api/DuesLists/5

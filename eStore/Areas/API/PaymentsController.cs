@@ -30,11 +30,11 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
-            return await _context.Payments.Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.FromAccount).ToListAsync();
+            return await _context.Payments.Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.FromAccount).OrderByDescending(c=>c.OnDate).ToListAsync();
         }
         // GET: api/Payments/dto
         [HttpGet("dto")]
-        public IEnumerable<PaymentDto> GetPaymentsDto() => _mapper.Map<IEnumerable<PaymentDto>>(_context.Payments.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).ToList());
+        public IEnumerable<PaymentDto> GetPaymentsDto() => _mapper.Map<IEnumerable<PaymentDto>>(_context.Payments.Include(c => c.Store).Include(c => c.Party).Include(c => c.FromAccount).OrderByDescending(c=>c.OnDate).ToList());
 
         // GET: api/Payments/5
         [HttpGet("{id}")]

@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
         {
-            return await _context.Rents.ToListAsync();
+            return await _context.Rents.Include(c=>c.Location).OrderByDescending(c=>c.OnDate).ToListAsync();
         }
 
         // GET: api/Rents/5

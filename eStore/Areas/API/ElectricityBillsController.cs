@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EletricityBill>>> GetEletricityBills()
         {
-            return await _context.EletricityBills.ToListAsync();
+            return await _context.EletricityBills.Include(c=>c.Connection).OrderByDescending(c=>c.BillDate).ToListAsync();
         }
 
         // GET: api/ElectricityBills/5

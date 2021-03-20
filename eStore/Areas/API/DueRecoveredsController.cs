@@ -27,7 +27,7 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DueRecoverd>>> GetDueRecoverds()
         {
-            return await _context.DueRecoverds.ToListAsync();
+            return await _context.DueRecoverds.Include(c=>c.DuesList).ThenInclude(c=>c.DailySale).OrderByDescending(c=>c.PaidDate).ToListAsync();
         }
 
         // GET: api/DueRecovereds/5
