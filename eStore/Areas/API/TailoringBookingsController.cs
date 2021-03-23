@@ -23,6 +23,28 @@ namespace eStore.Areas.API
             _context = context;
         }
 
+        [HttpGet("pending")]
+        public async Task<ActionResult<IEnumerable<TalioringBooking>>> PendingBooking()
+        {
+            var vd = _context.TalioringBookings.Where(c => c.IsDelivered == false);
+
+            if (vd != null)
+                return await vd.ToListAsync();
+            else
+                return NotFound();
+        }
+
+        [HttpGet("pending/{id}")]
+        public async Task<ActionResult<IEnumerable<TalioringBooking>>> PendingBooking(int id)
+        {
+            var vd = _context.TalioringBookings.Where(c => c.IsDelivered == false && c.StoreId==id);
+
+            if (vd != null)
+                return await vd.ToListAsync();
+            else
+                return NotFound();
+        }
+
         // GET: api/TailoringBookings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TalioringBooking>>> GetTalioringBookings()
@@ -106,5 +128,6 @@ namespace eStore.Areas.API
         {
             return _context.TalioringBookings.Any(e => e.TalioringBookingId == id);
         }
+
     }
 }

@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/Rents
         public async Task<IActionResult> Index()
         {
-            var eStoreContext = _context.Rents.Include(r => r.Location).Include(r => r.Store);
+            var eStoreContext = _context.Rents.Include(r => r.Location).Include(r => r.Store).OrderByDescending(c=>c.OnDate);
             return View(await eStoreContext.ToListAsync());
         }
 

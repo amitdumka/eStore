@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eStore.BL.Tailor;
 using eStore.DL.Data;
+using eStore.Ops;
 using eStore.Shared.Models.Tailoring;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -52,7 +53,8 @@ namespace eStore.Areas.Tailoring.Controllers
         public IActionResult Create()
         {
             ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo");
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Tailoring/TalioringDeliveries");
             return PartialView();
         }
 
@@ -71,7 +73,9 @@ namespace eStore.Areas.Tailoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings.Where(c => !c.IsDelivered), "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
+            // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
+            ViewBag.StoreID = ActiveSession.GetActiveSession(HttpContext.Session, HttpContext.Response, "/Identity/Account/Login?ReturnUrl=/Tailoring/TalioringDeliveries");
+
             return View(talioringDelivery);
         }
 
@@ -89,7 +93,7 @@ namespace eStore.Areas.Tailoring.Controllers
                 return NotFound();
             }
             ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", talioringDelivery.StoreId);
             return PartialView(talioringDelivery);
         }
 
@@ -127,7 +131,7 @@ namespace eStore.Areas.Tailoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TalioringBookingId"] = new SelectList(_context.TalioringBookings, "TalioringBookingId", "BookingSlipNo", talioringDelivery.TalioringBookingId);
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringDelivery.StoreId);
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", talioringDelivery.StoreId);
             return  View(talioringDelivery);
         }
 

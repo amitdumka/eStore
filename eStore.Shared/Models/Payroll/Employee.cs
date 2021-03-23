@@ -21,7 +21,7 @@ namespace eStore.Shared.Models.Payroll
         public string LastName { get; set; }
 
         [Display(Name = "Employee Name")]
-        public string StaffName { get { return FirstName + " " + LastName; } }
+        public string StaffName { get { return (FirstName + " " + LastName).Trim(); } }
 
         [Display(Name = "Mobile No"), Phone]
         public string MobileNo { get; set; }

@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/EletricityBills
         public async Task<IActionResult> Index()
         {
-            var aprajitaRetailsContext = _context.EletricityBills.Include(e => e.Connection).Include(e => e.Store);
+            var aprajitaRetailsContext = _context.EletricityBills.Include(e => e.Connection).Include(e => e.Store).OrderByDescending(c=>c.BillDate);
             return View(await aprajitaRetailsContext.ToListAsync());
         }
 

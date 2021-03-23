@@ -182,6 +182,7 @@ namespace eStore.BL.Widgets
         }
 
 
+
         public static MasterViewReport GetMasterViewReport(eStoreDbContext _context)
         {
             MasterViewReport reportView = new MasterViewReport
@@ -204,7 +205,9 @@ namespace eStore.BL.Widgets
             {
                 DailySale = (decimal?)db.DailySales.Where(C => (C.SaleDate.Date) == (DateTime.Today.Date)).Sum(c => (long?)c.Amount) ?? 0,
                 MonthlySale = (decimal?)db.DailySales.Where(C => (C.SaleDate).Month == (DateTime.Today).Month && C.SaleDate.Year == DateTime.Today.Year).Sum(c => (long?)c.Amount) ?? 0,
-                YearlySale = (decimal?)db.DailySales.Where(C => (C.SaleDate).Year == (DateTime.Today).Year).Sum(c => (long?)c.Amount) ?? 0
+                YearlySale = (decimal?)db.DailySales.Where(C => (C.SaleDate).Year == (DateTime.Today).Year).Sum(c => (long?)c.Amount) ?? 0,
+                WeeklySale= (decimal?)db.DailySales.Where(C => C.SaleDate.Date <= DateTime.Today.Date && C.SaleDate.Date >= DateTime.Today.Date.AddDays(-7)).Sum(c => (long?)c.Amount) ?? 0,
+                QuaterlySale = (decimal?)db.DailySales.Where(C => C.SaleDate.Month >= DateTime.Today.AddMonths(-3).Month && C.SaleDate.Month <= DateTime.Today.Month && C.SaleDate.Year == DateTime.Today.Year).Sum(c => (long?)c.Amount) ?? 0,
             };
 
             return record;
@@ -254,18 +257,18 @@ namespace eStore.BL.Widgets
         {
             return new TailoringReport()
             {
-                TodayBooking = (int?)db.TalioringBookings.Where(c => (c.BookingDate.Date) == (DateTime.Today)).Count() ?? 0,
-                TodayUnit = (int?)db.TalioringBookings.Where(c => (c.BookingDate.Date) == (DateTime.Today)).Sum(c => (int?)c.TotalQty) ?? 0,
+                TodayBooking = (int?)db.TalioringBookings.Where(c => c.BookingDate.Date == DateTime.Today).Count() ?? 0,
+                TodayUnit = (int?)db.TalioringBookings.Where(c => c.BookingDate.Date == DateTime.Today).Sum(c => (int?)c.TotalQty) ?? 0,
 
-                MonthlyBooking = (int?)db.TalioringBookings.Where(c => (c.BookingDate).Month == (DateTime.Today).Month).Count() ?? 0,
-                MonthlyUnit = (int?)db.TalioringBookings.Where(c => (c.BookingDate).Month == (DateTime.Today).Month).Sum(c => (int?)c.TotalQty) ?? 0,
+                MonthlyBooking = (int?)db.TalioringBookings.Where(c => c.BookingDate.Month == DateTime.Today.Month && c.BookingDate.Year == DateTime.Today.Year).Count() ?? 0,
+                MonthlyUnit = (int?)db.TalioringBookings.Where(c => c.BookingDate.Month == DateTime.Today.Month && c.BookingDate.Year == DateTime.Today.Year).Sum(c => (int?)c.TotalQty) ?? 0,
 
                 YearlyBooking = (int?)db.TalioringBookings.Where(c => (c.BookingDate).Year == (DateTime.Today).Year).Count() ?? 0,
                 YearlyUnit = (int?)db.TalioringBookings.Where(c => (c.BookingDate).Year == (DateTime.Today).Year).Sum(c => (int?)c.TotalQty) ?? 0,
 
                 TodaySale = (decimal?)db.TailoringDeliveries.Where(c => (c.DeliveryDate.Date) == (DateTime.Today)).Sum(c => (long?)c.Amount) ?? 0,
                 YearlySale = (decimal?)db.TailoringDeliveries.Where(c => (c.DeliveryDate).Year == (DateTime.Today).Year).Sum(c => (long?)c.Amount) ?? 0,
-                MonthlySale = (decimal?)db.TailoringDeliveries.Where(c => (c.DeliveryDate).Month == (DateTime.Today).Month).Sum(c => (long?)c.Amount) ?? 0,
+                MonthlySale = (decimal?)db.TailoringDeliveries.Where(c => c.DeliveryDate.Year == DateTime.Today.Year &&c.DeliveryDate.Month == DateTime.Today.Month).Sum(c => (long?)c.Amount) ?? 0,
             };
         }
         //Income/Expenses/Accounting
@@ -323,18 +326,18 @@ namespace eStore.BL.Widgets
                 info.CashFromBank = cib.CashOut;
                 info.CashInBank = cib.InHand;
             }
-
-            //var CashExp = db.CashExpenses.Where(c => (c.ExpDate) == (DateTime.Today));
-            var CashPay = db.CashPayments.Where(c => (c.PaymentDate) == (DateTime.Today));
-
-            //if (CashExp != null)
+           
+            var CashPay = db.CashPayments.Where(c => c.PaymentDate == DateTime.Today).Select(c=>c.Amount).Sum();
+            info.TotalCashPayments = (decimal?)CashPay ?? 0;
+            //if (CashPay != null)
             //{
-            //    info.TotalCashPayments = (decimal?)CashExp.Sum(c => (decimal?)c.Amount) ?? 0;
+            //    info.TotalCashPayments = (decimal?)CashPay.Sum(c => (long?)c.Amount) ?? 0;
             //}
-            if (CashPay != null)
-            {
-                info.TotalCashPayments += (decimal?)CashPay.Sum(c => (long?)c.Amount) ?? 0;
-            }
+
+            var exp = db.Expenses.Where(c => c.OnDate == DateTime.Today).Select(c => c.Amount).Sum();
+            var pays = db.Payments.Where(c => c.OnDate == DateTime.Today).Select(c => c.Amount).Sum();
+            info.TotalPayments = (decimal?)pays ?? 0;
+            info.TotalExpenses = (decimal?)exp ?? 0;
             return info;
         }
 
@@ -344,6 +347,7 @@ namespace eStore.BL.Widgets
             var emps = db.Attendances.Include(c => c.Employee).
                 Where(c => c.AttDate == DateTime.Today && c.IsTailoring == false).OrderByDescending(c => c.Employee.FirstName);
 
+          
             var empPresent = db.Attendances.Include(c => c.Employee)
                 .Where(c => c.Status == AttUnit.Present && c.AttDate.Year == DateTime.Today.Year && c.AttDate.Month == DateTime.Today.Month && c.IsTailoring == false)
                 .GroupBy(c => c.Employee.FirstName).OrderBy(c => c.Key).Select(g => new { StaffName = g.Key, Days = g.Count() }).ToList();
@@ -352,7 +356,8 @@ namespace eStore.BL.Widgets
                 .Where(c => c.Status == AttUnit.Absent && c.AttDate.Year == DateTime.Today.Year && c.AttDate.Month == DateTime.Today.Month && c.IsTailoring == false)
                  .GroupBy(c => c.Employee.FirstName).OrderBy(c => c.Key).Select(g => new { StaffName = g.Key, Days = g.Count() }).ToList();
 
-            var totalSale = db.DailySales.Include(c => c.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month).Select(a => new { StaffName = a.Salesman.SalesmanName, a.Amount }).ToList();
+            var totalSale = db.DailySales.Include(c => c.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month)
+                .Select(a => new { StaffName = a.Salesman.SalesmanName, a.Amount }).ToList();
 
             if (WithTailor)
             {
@@ -390,6 +395,8 @@ namespace eStore.BL.Widgets
 
                     if (item.Status == AttUnit.Present || item.Status == AttUnit.Sunday)
                         info.Present = "Present";
+                    else if (item.Status == AttUnit.HalfDay) info.Present = "Half Day Leave";
+
                     else
                         info.Present = "Absent";
 
@@ -402,7 +409,7 @@ namespace eStore.BL.Widgets
 
                         if (empPresent != null)
                         {
-                            var pd = empPresent.Where(c => c.StaffName == info.Name).FirstOrDefault();
+                            var pd = empPresent.Where(c => info.Name.Contains(c.StaffName)).FirstOrDefault();
                             if (pd != null)
                                 info.PresentDays = pd.Days;
                             else
@@ -415,7 +422,7 @@ namespace eStore.BL.Widgets
 
                         if (empAbsent != null)
                         {
-                            var ad = empAbsent.Where(c => c.StaffName == info.Name).FirstOrDefault();
+                            var ad = empAbsent.Where(c => info.Name.Contains(c.StaffName)).FirstOrDefault();
                             if (ad != null)
                                 info.AbsentDays = ad.Days;
                             else
@@ -427,7 +434,7 @@ namespace eStore.BL.Widgets
                         //var ts = db.DailySales.Include(c=>c.Salesman ).Where (c => c.Salesman.SalesmanName == info.Name && (c.SaleDate).Month == (DateTime.Today).Month).ToList();
                         if (totalSale != null && (item.Employee.Category == EmpType.Salesman || item.Employee.Category == EmpType.StoreManager))
                         {
-                            var ts = totalSale.Where(c => c.StaffName == info.Name).ToList();
+                            var ts = totalSale.Where(c => c.StaffName.Trim() == info.Name.Trim()).ToList();
                             info.TotalSale = (decimal?)ts.Sum(c => (decimal?)c.Amount) ?? 0;
                             info.NoOfBills = (int?)ts.Count ?? 0;
                         }
@@ -869,6 +876,12 @@ namespace eStore.BL.Widgets
         [Display(Name = "Withdrawal")]
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal CashFromBank { get; set; }
+        [Display(Name = "Expenses")]
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TotalExpenses { get; set; }
+        [Display(Name = "Payments")]
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TotalPayments { get; set; }
     }
 
 

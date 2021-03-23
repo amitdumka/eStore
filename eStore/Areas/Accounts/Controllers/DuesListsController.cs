@@ -23,7 +23,7 @@ namespace eStore.Areas.Accounts.Controllers
         // GET: Accounts/DuesLists
         public async Task<IActionResult> Index()
         {
-            var eStoreDbContext = _context.DuesLists.Include(d => d.DailySale).Include(d => d.Store);
+            var eStoreDbContext = _context.DuesLists.Include(d => d.DailySale).Include(d => d.Store).OrderByDescending(c=>c.DailySale.SaleDate);
             return View(await eStoreDbContext.ToListAsync());
         }
 
