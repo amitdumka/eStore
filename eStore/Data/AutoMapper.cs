@@ -5,6 +5,8 @@ using eStore.Shared.Models.Accounts;
 using eStore.Shared.Models.Banking;
 using eStore.Shared.Models.Payroll;
 using eStore.Shared.Models.Stores;
+using eStore.Shared.Models.Tailoring;
+using eStore.ViewModes.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +65,8 @@ namespace eStore.Data
 
             CreateMap<ReceiptDto, Receipt>();
             CreateMap<PaymentDto, Payment>();
+            CreateMap<TalioringBooking,BookingBasicDto >();
+            CreateMap<BookingBasicDto, TalioringBooking>();
 
 
 
