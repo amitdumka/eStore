@@ -47,6 +47,11 @@ namespace eStore.Areas.API
         {
             return DashboardWidget.GetAccoutingRecord(_context);
         }
+        [HttpGet("leadingSalesman")]
+        public List<string> GetTopSalesman()
+        {
+            return DashboardWidget.GetTopSalesman(_context);
+        }
         [HttpGet("pendingdeliver")]
         public IEnumerable<BookingOverDue> GetPendingDelivery()
         {

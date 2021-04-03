@@ -164,9 +164,9 @@ namespace eStore.BL.Widgets
                     TotalSale = data.Sum(c => c.Amount),
                     CurrentYear = data.Where(c => c.SaleDate.Year == DateTime.Today.Year).Sum(c => c.Amount),
                     CurrentMonth = data.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month).Sum(c => c.Amount),
-                    LastYear = data.Where(c => c.SaleDate.Year == DateTime.Today.Year-1).Sum(c => c.Amount),
-                    LastMonth = data.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month-1).Sum(c => c.Amount),
-                    
+                    LastYear = data.Where(c => c.SaleDate.Year == DateTime.Today.Year - 1).Sum(c => c.Amount),
+                    LastMonth = data.Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month - 1).Sum(c => c.Amount),
+
                 };
 
                 info.Average = info.CurrentYear / 365;
@@ -192,11 +192,47 @@ namespace eStore.BL.Widgets
                 TailoringReport = GetTailoringReport(_context),
                 EmpInfoList = GetEmpInfo(_context),
                 AccountsInfo = GetAccoutingRecord(_context),
+                LeadingSalesman = GetTopSalesman(_context),
                 BookingOverDues = GetTailoringBookingOverDue(_context)
             };
             return reportView;
         }
+        public static List<string> GetTopSalesman(eStoreDbContext db)
+        {
+            List<string> topSalesmanName = new List<string>();
+            int today = (int?)db.DailySales.Where(c => c.SaleDate.Date == DateTime.Today.Date).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
+            int month = (int?)db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
+            int year = (int?)db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
 
+            string sName = "";
+            if (year > 0)
+            {
+                sName = db.Salesmen.Find(year).SalesmanName;
+                topSalesmanName.Add(sName);
+            }
+            if (month > 0)
+            {
+                if (year != month)
+                    sName = db.Salesmen.Find(month).SalesmanName;
+            }
+            else
+                sName = "";
+
+            topSalesmanName.Add(sName);
+
+            if (today > 0)
+            {
+                if (today != month)
+                    sName = db.Salesmen.Find(today).SalesmanName;
+            }
+            else sName = "";
+
+
+            topSalesmanName.Add(sName);
+            return topSalesmanName;
+
+
+        }
         //Sale
         public static DailySaleReport GetSaleRecord(eStoreDbContext db)
         {
@@ -206,7 +242,7 @@ namespace eStore.BL.Widgets
                 DailySale = (decimal?)db.DailySales.Where(C => (C.SaleDate.Date) == (DateTime.Today.Date)).Sum(c => (long?)c.Amount) ?? 0,
                 MonthlySale = (decimal?)db.DailySales.Where(C => (C.SaleDate).Month == (DateTime.Today).Month && C.SaleDate.Year == DateTime.Today.Year).Sum(c => (long?)c.Amount) ?? 0,
                 YearlySale = (decimal?)db.DailySales.Where(C => (C.SaleDate).Year == (DateTime.Today).Year).Sum(c => (long?)c.Amount) ?? 0,
-                WeeklySale= (decimal?)db.DailySales.Where(C => C.SaleDate.Date <= DateTime.Today.Date && C.SaleDate.Date >= DateTime.Today.Date.AddDays(-7)).Sum(c => (long?)c.Amount) ?? 0,
+                WeeklySale = (decimal?)db.DailySales.Where(C => C.SaleDate.Date <= DateTime.Today.Date && C.SaleDate.Date >= DateTime.Today.Date.AddDays(-7)).Sum(c => (long?)c.Amount) ?? 0,
                 QuaterlySale = (decimal?)db.DailySales.Where(C => C.SaleDate.Month >= DateTime.Today.AddMonths(-3).Month && C.SaleDate.Month <= DateTime.Today.Month && C.SaleDate.Year == DateTime.Today.Year).Sum(c => (long?)c.Amount) ?? 0,
             };
 
@@ -268,7 +304,7 @@ namespace eStore.BL.Widgets
 
                 TodaySale = (decimal?)db.TailoringDeliveries.Where(c => (c.DeliveryDate.Date) == (DateTime.Today)).Sum(c => (long?)c.Amount) ?? 0,
                 YearlySale = (decimal?)db.TailoringDeliveries.Where(c => (c.DeliveryDate).Year == (DateTime.Today).Year).Sum(c => (long?)c.Amount) ?? 0,
-                MonthlySale = (decimal?)db.TailoringDeliveries.Where(c => c.DeliveryDate.Year == DateTime.Today.Year &&c.DeliveryDate.Month == DateTime.Today.Month).Sum(c => (long?)c.Amount) ?? 0,
+                MonthlySale = (decimal?)db.TailoringDeliveries.Where(c => c.DeliveryDate.Year == DateTime.Today.Year && c.DeliveryDate.Month == DateTime.Today.Month).Sum(c => (long?)c.Amount) ?? 0,
             };
         }
         //Income/Expenses/Accounting
@@ -326,8 +362,8 @@ namespace eStore.BL.Widgets
                 info.CashFromBank = cib.CashOut;
                 info.CashInBank = cib.InHand;
             }
-           
-            var CashPay = db.CashPayments.Where(c => c.PaymentDate == DateTime.Today).Select(c=>c.Amount).Sum();
+
+            var CashPay = db.CashPayments.Where(c => c.PaymentDate == DateTime.Today).Select(c => c.Amount).Sum();
             info.TotalCashPayments = (decimal?)CashPay ?? 0;
             //if (CashPay != null)
             //{
@@ -347,7 +383,7 @@ namespace eStore.BL.Widgets
             var emps = db.Attendances.Include(c => c.Employee).
                 Where(c => c.AttDate == DateTime.Today && c.IsTailoring == false).OrderByDescending(c => c.Employee.FirstName);
 
-          
+
             var empPresent = db.Attendances.Include(c => c.Employee)
                 .Where(c => c.Status == AttUnit.Present && c.AttDate.Year == DateTime.Today.Year && c.AttDate.Month == DateTime.Today.Month && c.IsTailoring == false)
                 .GroupBy(c => c.Employee.FirstName).OrderBy(c => c.Key).Select(g => new { StaffName = g.Key, Days = g.Count() }).ToList();
@@ -681,6 +717,7 @@ namespace eStore.BL.Widgets
         //public List<EmpStatus> PresentEmp { get; set; }
         public AccountsInfo AccountsInfo { get; set; }
         public List<BookingOverDue>? BookingOverDues { get; set; }
+        public List<string> LeadingSalesman { get; set; }
 
     }
 
