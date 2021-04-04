@@ -200,9 +200,9 @@ namespace eStore.BL.Widgets
         public static List<string> GetTopSalesman(eStoreDbContext db)
         {
             List<string> topSalesmanName = new List<string>();
-            int today = (int?)db.DailySales.Where(c => c.SaleDate.Date == DateTime.Today.Date).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
-            int month = (int?)db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
-            int year = (int?)db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).First().ID ?? 0;
+            int today = (int?)db.DailySales.Where(c => c.SaleDate.Date == DateTime.Today.Date).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).Select(c => c.ID).FirstOrDefault() ?? 0;
+            int month = (int?)db.DailySales.Where(c => c.SaleDate.Month == DateTime.Today.Month && c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).Select(c => c.ID).FirstOrDefault() ?? 0;
+            int year = (int?)db.DailySales.Where(c => c.SaleDate.Year == DateTime.Today.Year).GroupBy(c => c.SalesmanId).Select(c => new { ID = c.Key, TA = c.Sum(c => c.Amount) }).OrderByDescending(c => c.TA).Select(c => c.ID).FirstOrDefault() ?? 0;
 
             string sName = "";
             if (year > 0)
