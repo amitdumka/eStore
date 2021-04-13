@@ -170,7 +170,7 @@ namespace eStore.BL.Reports.Accounts
             var eexp = db.Expenses.Where(c => c.PayMode == PaymentMode.Cash && (c.OnDate.Date) == (date.Date) && c.StoreId == Store).OrderBy(c => c.OnDate);
             var eDepo = db.BankDeposits.Include(C => C.Account).Where(c => (c.OnDate.Date) == (date.Date) && c.StoreId == Store).OrderBy(c => c.OnDate);
             var eDue = db.DuesLists.Include(c => c.DailySale).Where(c => c.IsRecovered == false && c.StoreId == Store && (c.DailySale.SaleDate.Date) == (date.Date)).OrderBy(c => c.DailySale.SaleDate);
-            var eCashEx = db.Expenses.Where(c => (c.OnDate.Date) == (date.Date) && c.StoreId == Store).OrderBy(c => c.OnDate);
+            //var eCashEx = db.Expenses.Where(c => (c.OnDate.Date) == (date.Date) && c.StoreId == Store).OrderBy(c => c.OnDate);
 
             foreach (var item in eexp)
             {
@@ -182,11 +182,11 @@ namespace eStore.BL.Reports.Accounts
                 CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = "Bank Depo" + item.Account.Account, CashOut = item.Amount, CashBalance = 0 };
                 book.Add(b);
             }
-            foreach (var item in eCashEx)
-            {
-                CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = item.PartyName, CashOut = item.Amount, CashBalance = 0 };
-                book.Add(b);
-            }
+            //foreach (var item in eCashEx)
+            //{
+            //    CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = item.PartyName, CashOut = item.Amount, CashBalance = 0 };
+            //    book.Add(b);
+            //}
             foreach (var item in eDue)
             {
                 CashBook b = new CashBook() { EDate = item.DailySale.SaleDate, CashIn = 0, Particulars = "Dues " + item.DailySale.InvNo, CashOut = item.Amount, CashBalance = 0 };
@@ -286,7 +286,7 @@ namespace eStore.BL.Reports.Accounts
             var eexp = db.Expenses.Where(c => c.PayMode == PaymentMode.Cash && c.OnDate.Month == date.Month && c.OnDate.Year == date.Year && c.StoreId == Store).OrderBy(c => c.OnDate);
             var eDepo = db.BankDeposits.Include(C => C.Account).Where(c => c.OnDate.Month == date.Month && c.OnDate.Year == date.Year && c.StoreId == Store).OrderBy(c => c.OnDate);
             var eDue = db.DuesLists.Include(e => e.DailySale).Where(c => c.IsRecovered == false && c.DailySale.SaleDate.Month == date.Month && c.DailySale.SaleDate.Year == date.Year && c.StoreId == Store).OrderBy(c => c.DailySale.SaleDate);
-            var eCashEx = db.Expenses.Where(c => c.OnDate.Month == date.Month && c.OnDate.Year == date.Year && c.StoreId == Store).OrderBy(c => c.OnDate);
+           // var eCashEx = db.Expenses.Where(c => c.OnDate.Month == date.Month && c.OnDate.Year == date.Year && c.StoreId == Store).OrderBy(c => c.OnDate);
 
             foreach (var item in eexp)
             {
@@ -298,11 +298,11 @@ namespace eStore.BL.Reports.Accounts
                 CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = "Bank Depo=> " + item.Account.Account, CashOut = item.Amount, CashBalance = 0 };
                 book.Add(b);
             }
-            foreach (var item in eCashEx)
-            {
-                CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = item.Particulars, CashOut = item.Amount, CashBalance = 0 };
-                book.Add(b);
-            }
+            //foreach (var item in eCashEx)
+            //{
+            //    CashBook b = new CashBook() { EDate = item.OnDate, CashIn = 0, Particulars = item.Particulars, CashOut = item.Amount, CashBalance = 0 };
+            //    book.Add(b);
+            //}
             foreach (var item in eDue)
             {
                 CashBook b = new CashBook() { EDate = item.DailySale.SaleDate, CashIn = 0, Particulars = "Dues=>" + item.DailySale.InvNo, CashOut = item.Amount, CashBalance = 0 };

@@ -75,7 +75,6 @@ namespace eStore.Shared.Models.Stores
         public virtual ICollection<Store> Stores { get; set; }
     }
 
-    public enum HolidayReason { GovertmentHoliday, Bandha, Festivals, WeeklyOff, ApproveHoliday, Other}
     public class StoreHoliday:BaseST
     {
         public int StoreHolidayId { get; set; }

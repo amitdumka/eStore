@@ -179,5 +179,13 @@ namespace eStore.Areas.API
         {
             return Ok(EnumExtensions.GetValues<ArvindAccount>());
         }
+
+        [HttpGet]
+        [Route("UploadTypes")]
+        public ActionResult GetUploadTypes() => Ok(EnumExtensions.GetValues<UploadType>());
+       
+        [HttpGet]
+        [Route("HolidayReasons")]
+        public ActionResult GetHolidayReason() => Ok(EnumExtensions.GetValues<HolidayReason>());
     }
 }

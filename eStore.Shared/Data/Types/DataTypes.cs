@@ -38,3 +38,5 @@ public enum Remark { Uploaded, Payment, Reciept, Expenses, BankDeposit, BankWith
 
 public enum UploadType { Purchase, SaleRegister, SaleItemWise, InWard, Customer, Attendance, Search }
 public enum UploadReturn { Success, Error, FileNotFound, NotExcelType, ImportNotSupported, OKGen }
+public enum HolidayReason { GovertmentHoliday, Bandha, Festivals, WeeklyOff, ApproveHoliday, Other }
+
