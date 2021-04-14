@@ -15,11 +15,12 @@ namespace eStore.BL.Widgets
 {
     public class IEReport
     {
-        public IncomeExpensesReport GetWeeklyReport(eStoreDbContext db)
+        public IncomeExpensesReport GetWeeklyReport(eStoreDbContext db, DateTime? onDate=null)
         {
 
-            var start = DateTime.Now.StartOfWeek().Date;
-            var end = DateTime.Now.EndOfWeek().Date;
+            if (onDate == null) onDate = DateTime.Today;
+            var start = ((DateTime)onDate).StartOfWeek().Date;
+            var end = ((DateTime)onDate).EndOfWeek().Date;
             IncomeExpensesReport ierData = new IncomeExpensesReport
             {
                 OnDate = DateTime.Today,

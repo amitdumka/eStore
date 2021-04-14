@@ -62,8 +62,6 @@
     <Folder Include="Areas\Admin\Views\UserManagement\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="BL\Tailor\" />
-    <Folder Include="BL\Reports\" />
-    <Folder Include="BL\Reports\Accounts\" />
     <Folder Include="Areas\Reports\" />
     <Folder Include="Areas\Reports\Controllers\" />
     <Folder Include="Areas\Reports\Views\" />
