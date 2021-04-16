@@ -1,5 +1,6 @@
 ﻿using eStore.BL.Widgets;
 using eStore.DL.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace eStore.Areas.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ReportsController : ControllerBase
     {
         private readonly eStoreDbContext db;
