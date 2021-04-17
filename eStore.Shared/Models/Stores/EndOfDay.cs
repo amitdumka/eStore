@@ -34,4 +34,38 @@ namespace eStore.Shared.Models.Stores
         public decimal CashInHand { get; set; }
 
     }
+
+    public class PettyCashBook: BaseSNT
+    {
+        public int PettyCashBookId { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime OnDate { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal OpeningCash { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal ClosingCash { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal SystemSale { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TailoringSale { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal ManualSale { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal CashReciepts { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal OhterReceipts { get; set; }
+        public string RecieptRemarks { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal CardSwipe { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal BankDeposit { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TotalExpenses { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TotalPayments { get; set; }
+        public string PaymentRemarks { get; set; }
+        public string CustomerDuesNames { get; set; }
+        [DataType(DataType.Currency), Column(TypeName = "money")]
+        public decimal TotalDues { get; set; }
+    }
 }

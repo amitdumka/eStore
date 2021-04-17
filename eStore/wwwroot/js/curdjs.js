@@ -156,6 +156,23 @@ function deleteData(activityName, uri, id) {
         method: 'DELETE'
     })
         .then(() => {
+            toastr.success(`${activityName} is deleted Successfully!`, toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "1300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            });
             $('#deleteModal').modal('dispose');
             toastr.success(`${activityName} is deleted Successfully!`, toastr.options = {
                 "closeButton": true,
@@ -165,7 +182,7 @@ function deleteData(activityName, uri, id) {
                 "positionClass": "toast-top-center",
                 "preventDuplicates": false,
                 "onclick": null,
-                "showDuration": "300",
+                "showDuration": "1300",
                 "hideDuration": "1000",
                 "timeOut": "5000",
                 "extendedTimeOut": "1000",
@@ -174,9 +191,27 @@ function deleteData(activityName, uri, id) {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             });
-            
         })
         .then(() => location.reload())
+        .then(() => {
+            toastr.success(`${activityName} is deleted Successfully!`, toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "1300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            });
+        })
         .catch(error => toastr.error("Unable to delete due to error : " + error, toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -185,7 +220,7 @@ function deleteData(activityName, uri, id) {
             "positionClass": "toast-top-center",
             "preventDuplicates": false,
             "onclick": null,
-            "showDuration": "300",
+            "showDuration": "1300",
             "hideDuration": "1000",
             "timeOut": "5000",
             "extendedTimeOut": "1000",
@@ -214,7 +249,7 @@ function initDataTable(datatableID) {
         initComplete: function () {
             this.api().columns().every(function () {
                 var column = this;
-                var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search">`)
+                var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search" id="search" name="search">`)
                     .appendTo($(column.footer()).empty())
                     .on('change input', function () {
                         var val = $(this).val()
@@ -275,13 +310,13 @@ function cardTableInit(tableId, title, activitName) {
     $(`#${tableId}`).attr("width", "100%");
     $(`#${tableId}`).find("thead").children().prepend(thSelect);
     $(`#${tableId}`).find("tbody").children().prepend(tdSelect);
-    $(`#${tableId}`).find("a").addClass("btn btn-sm btn-rounded");
+    $(`#${tableId}`).find("a").addClass("btn btn-sm btn-rounded waves-light");
     $(`#${tableId}`).find("a").parent().addClass("btn-group d-inline-flex");
     $(`#${tableId}`).find("a").parent().attr("id", "btnGrpId");
     $(`#${tableId}`).find("thead").addClass(theadClass);
     $(`#${tableId}`).find("tbody").addClass(tbodyClass);
     $(`#${tableId}`).find("a").empty();
-    $(`#${tableId}`).find("a").attr("id", "opsid");
+    //$(`#${tableId}`).find("a").attr("id", "opsid");
     //$(`#${tableId}`).find("a").attr("data_modal", "");
     var par = $(`#${tableId}`).find("a").parent();
     par.children().contents("Edit").addClass("btn-danger");
@@ -310,6 +345,16 @@ function cardTableInit(tableId, title, activitName) {
                 $(this).attr("data_modal", "");
                 $(this).append('<i class="fas fa-pencil-alt mt-0"></>');
                 $(this).attr("id", "edit");
+            }
+            if (this.id == "paymentInfo") {
+                $(this).addClass("btn-warning")
+                $(this).append('<i class="fas fa-credit-card mt-0"></>');
+                $(this).attr("id", "paymentInfo");
+                $(this).parent().removeClass("btn-group-sm");
+                $(this).parent().parent().parent().parent().removeClass("table-bordered");
+                $(this).parent().parent().parent().parent().addClass("table-borderless");
+
+               
             }
         });
     });

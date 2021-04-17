@@ -1,0 +1,143 @@
+﻿@model IEnumerable<eStore.Shared.Models.Stores.PettyCashBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningCash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingCash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SystemSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TailoringSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManualSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashReciepts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OhterReceipts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecieptRemarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardSwipe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BankDeposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPayments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentRemarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerDuesNames)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalDues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadOnly)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningCash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingCash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TailoringSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManualSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CashReciepts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OhterReceipts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecieptRemarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardSwipe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankDeposit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPayments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentRemarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerDuesNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalDues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.StoreId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReadOnly)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PettyCashBookId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PettyCashBookId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PettyCashBookId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

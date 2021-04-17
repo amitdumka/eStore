@@ -233,9 +233,9 @@ namespace eStore.Areas.Sales.Controllers
 
                 if (paydetails == null)
                 {
-                    return View(new EDCTranscation { OnDate = DateTime.Today.Date, InvoiceNumber = InvNo, StoreId = ViewBag.StoreID });
+                    return PartialView(new EDCTranscation { OnDate = DateTime.Today.Date, InvoiceNumber = InvNo, StoreId = ViewBag.StoreID });
                 }
-                return View(paydetails);
+                return PartialView(paydetails);
             }
 
         }

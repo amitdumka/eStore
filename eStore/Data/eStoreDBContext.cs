@@ -26,6 +26,8 @@ namespace eStore.DL.Data
             //ApplyMigrations(this);
         }
 
+        public DbSet<PettyCashBook> PettyCashBooks { get; set; }
+
         public DbSet<Store> Stores { get; set; } //Ok//UI /API
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<AppInfo> Apps { get; set; } //ok//API
