@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using eStore.DL.Data;
 using eStore.Shared.Models.Sales;
 using Microsoft.AspNetCore.Authorization;
+using eStore.BL.DataHelpers;
 
 namespace eStore.Areas.API
 {
@@ -27,9 +28,47 @@ namespace eStore.Areas.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DailySale>>> GetDailySales()
         {
-            return await _context.DailySales.Include(d => d.Salesman).Include(c=>c.Store).Where(c => c.SaleDate == DateTime.Today).ToListAsync();
+            return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today).ToListAsync();
+        }
+        [HttpGet("find")]
+        public async Task<ActionResult<IEnumerable<DailySale>>> GetCustomDailySales(int mode, int salesmanId=0)
+        {
+            var FilteredData = await FetchCustomDailySalesAsync(mode);
+            if (salesmanId > 0)
+            {
+                FilteredData = FilteredData.Where(c => c.SalesmanId == salesmanId).ToList();
+            }
+
+            return FilteredData;
+            //return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today).ToListAsync();
         }
 
+        private async Task<List<DailySale>> FetchCustomDailySalesAsync(int mode)
+        {
+            switch (mode)
+            {
+                case 1: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today).ToListAsync();  // Today
+                case 0: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today.AddDays(-1)).ToListAsync(); ; // yesterday
+                case 7:
+                    var start = DateTime.Today.StartOfWeek().Date;
+                    var end = DateTime.Today.EndOfWeek().Date; // weekly
+                    return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Date >= start.Date && c.SaleDate.Date <= end.Date).ToListAsync();
+
+                case 30: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.Month).ToListAsync();  //monthly
+                case 31: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.Year && c.SaleDate.Month == DateTime.Today.AddMonths(-1).Month).ToListAsync();  // last month
+                case 365: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.Year).ToListAsync(); ;// yearly
+                case 366: return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Year == DateTime.Today.AddYears(-1).Year).ToListAsync(); ; //last year
+                case 8:
+                    var date = DateTime.Today.AddDays(-7);
+                    var startL = DateTime.Today.StartOfWeek().Date;
+                    var endL = DateTime.Today.EndOfWeek().Date; // weekly
+                    return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate.Date >= startL.Date && c.SaleDate.Date <= endL.Date).ToListAsync();  //last week. 
+                case 999: return await _context.DailySales.Include(d => d.Salesman).OrderByDescending(c => c.SaleDate).ToListAsync();  //all
+                default:
+                    return await _context.DailySales.Include(d => d.Salesman).Where(c => c.SaleDate == DateTime.Today).ToListAsync();
+
+            }
+        }
         // GET: api/DailySale/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DailySale>> GetDailySale(int id)
