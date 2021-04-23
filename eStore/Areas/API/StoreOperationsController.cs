@@ -7,6 +7,7 @@ using eStore.Shared.Models.Stores;
 using eStore.DL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using eStore.BL.Commons;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,7 +53,7 @@ namespace eStore.Areas.API
                     a.ClosingTime = c.ClosingDate; a.Remarks = a.Remarks + "   \t:CR: " + c.Remarks;
                     a.StoreCloseId = c.StoreCloseId;
                 }
-               
+
                 toList.Add(a);
             }
 
@@ -116,6 +117,53 @@ namespace eStore.Areas.API
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [HttpPost("storeClosed")]
+        public async Task<ActionResult<IEnumerable<Shared.Models.Payroll.Attendance>>> PostStoreCloseAsync(StoreHoliday holiday)
+        {
+            db.StoreHolidays.Add(holiday);
+            var status = await db.SaveChangesAsync();
+
+            if (status > 0)
+            {
+
+                var result = await StoreManager.GenerateAttendancForStoreClosedAsync(db, holiday.StoreId, holiday.Reason, holiday.Remarks, holiday.OnDate);
+
+                if (result)
+                {
+                    var att = await db.Attendances.Include(c => c.Employee).Where(c => c.StoreId == holiday.StoreId && c.AttDate == holiday.OnDate).ToListAsync();
+                    return att;
+
+                }
+                else return NotFound();
+            }
+            else return NotFound();
+        }
+        [HttpPost("storeClosedNDays")]
+        public async Task<bool> PostStoreClosedNDaysAsync(StoreHolidays storeHolidays)
+        {
+            DateTime onDate = storeHolidays.Holiday.OnDate;
+            do
+            {
+                storeHolidays.Holiday.OnDate = onDate;
+                db.StoreHolidays.Add(storeHolidays.Holiday);
+            } while (onDate != storeHolidays.EndDate);
+            try
+            {
+                await db.SaveChangesAsync();
+                await StoreManager.GenerateAttendancForStoreClosedAsync(db, storeHolidays.Holiday.StoreId, storeHolidays.Holiday.Reason, storeHolidays.Holiday.Remarks, storeHolidays.Holiday.OnDate, storeHolidays.EndDate);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+
+
         }
     }
 }

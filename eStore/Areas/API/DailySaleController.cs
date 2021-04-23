@@ -9,6 +9,7 @@ using eStore.DL.Data;
 using eStore.Shared.Models.Sales;
 using Microsoft.AspNetCore.Authorization;
 using eStore.BL.DataHelpers;
+using eStore.BL.SalePurchase;
 
 namespace eStore.Areas.API
 {
@@ -80,6 +81,8 @@ namespace eStore.Areas.API
                 return NotFound();
             }
 
+            dailySale.Salesman = await _context.Salesmen.FindAsync(dailySale.SalesmanId);
+
             return dailySale;
         }
 
@@ -98,6 +101,7 @@ namespace eStore.Areas.API
             try
             {
                 await _context.SaveChangesAsync();
+                new SalesManager().OnUpdate(_context, dailySale);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -121,7 +125,7 @@ namespace eStore.Areas.API
         {
             _context.DailySales.Add(dailySale);
             await _context.SaveChangesAsync();
-
+            new SalesManager().OnInsert(_context, dailySale);
             return CreatedAtAction("GetDailySale", new { id = dailySale.DailySaleId }, dailySale);
         }
 
@@ -134,7 +138,7 @@ namespace eStore.Areas.API
             {
                 return NotFound();
             }
-
+            new SalesManager().OnDelete(_context, dailySale);
             _context.DailySales.Remove(dailySale);
             await _context.SaveChangesAsync();
 

@@ -49,12 +49,14 @@ namespace eStore.Shared.Models.Stores
         [Phone]
         [Display(Name = "Mobile No")]
         public string MobileNo { get; set; }
-        [Phone]
+        
         [Display(Name = "Phone No")]
         public string PhoneNo { get; set; }
+        
         [EmailAddress]
         [Display(Name = "eMail")]
-        public string EMailAddress { get; set; }
+        public string? EMailAddress { get; set; }
+        
         [Display(Name = "Notes")]
         public string Remarks { get; set; }
 

@@ -49,7 +49,7 @@ namespace eStore.Areas.Stores.Controllers
         // GET: Stores/CashDetails/Create
         public IActionResult Create()
         {
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace eStore.Areas.Stores.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashDetail.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", cashDetail.StoreId);
             return View(cashDetail);
         }
 
@@ -83,7 +83,7 @@ namespace eStore.Areas.Stores.Controllers
             {
                 return NotFound();
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashDetail.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", cashDetail.StoreId);
             return View(cashDetail);
         }
 
@@ -119,7 +119,7 @@ namespace eStore.Areas.Stores.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", cashDetail.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName", cashDetail.StoreId);
             return View(cashDetail);
         }
 

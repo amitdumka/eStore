@@ -16,79 +16,79 @@ namespace eStore.Areas.API
     {
 
         [HttpGet]
-        [Route("accounttype/all")]
+        [Route("accounttype")]
         public ActionResult GetAccountTypeLevels()
         {
             return Ok(EnumExtensions.GetValues<AccountType>());
         }
 
         [HttpGet]
-        [Route("paymentmode/all")]
+        [Route("paymentmode")]
         public ActionResult GetPaymentModeTypes()
         {
             return Ok(EnumExtensions.GetValues<PaymentMode>());
         }
         [HttpGet]
-        [Route("paymode/all")]
+        [Route("paymode")]
         public ActionResult GetPayModeTypes()
         {
             return Ok(EnumExtensions.GetValues<PayMode>());
         }
 
         [HttpGet]
-        [Route("attendanceunit/all")]
+        [Route("attendanceunit")]
         public ActionResult GetAttendanceTypes()
         {
             return Ok(EnumExtensions.GetValues<AttUnit>());
         }
 
         [HttpGet]
-        [Route("employeetype/all")]
+        [Route("employeetype")]
         public ActionResult GetEmployeeTypes()
         {
             return Ok(EnumExtensions.GetValues<EmpType>());
         }
 
         [HttpGet]
-        [Route("ledgerentrytype/all")]
+        [Route("ledgerentrytype")]
         public ActionResult GetLedgerEntryType()
         {
             return Ok(EnumExtensions.GetValues<LedgerEntryType>());
         }
         [HttpGet]
-        [Route("ledgercategorytype/all")]
+        [Route("ledgercategorytype")]
         public ActionResult GetLedgerCategoryType()
         {
             return Ok(EnumExtensions.GetValues<LedgerCategory>());
         }
 
         [HttpGet]
-        [Route("taxtype/all")]
+        [Route("taxtype")]
         public ActionResult GetTaxType()
         {
             return Ok(EnumExtensions.GetValues<TaxType>());
         }
         [HttpGet]
-        [Route("genders/all")]
+        [Route("genders")]
         public ActionResult GetGenders()
         {
             return Ok(EnumExtensions.GetValues<Gender>());
         }
         [HttpGet]
-        [Route("connectiontype/all")]
+        [Route("connectiontype")]
         public ActionResult GetConnectionType()
         {
             return Ok(EnumExtensions.GetValues<ConnectionType>());
         }
         [HttpGet]
-        [Route("renttype/all")]
+        [Route("renttype")]
         public ActionResult GetRentType()
         {
             return Ok(EnumExtensions.GetValues<RentType>());
         }
 
         [HttpGet]
-        [Route("units/all")]
+        [Route("units")]
         public ActionResult GetUnits()
         {
             return Ok(EnumExtensions.GetValues<Unit>());
@@ -96,21 +96,21 @@ namespace eStore.Areas.API
 
 
         [HttpGet]
-        [Route("sizes/all")]
+        [Route("sizes")]
         public ActionResult GetSizes()
         {
             return Ok(EnumExtensions.GetValues<Size>());
         }
 
         [HttpGet]
-        [Route("productcategory/all")]
+        [Route("productcategory")]
         public ActionResult GetProductCategory()
         {
             return Ok(EnumExtensions.GetValues<ProductCategory>());
         }
 
         [HttpGet]
-        [Route("entrystatus/all")]
+        [Route("entrystatus")]
         public ActionResult GetEntryStatus()
         {
             return Ok(EnumExtensions.GetValues<EntryStatus>());
@@ -118,20 +118,20 @@ namespace eStore.Areas.API
 
 
         [HttpGet]
-        [Route("cardmodes/all")]
+        [Route("cardmodes")]
         public ActionResult GetCardModes()
         {
             return Ok(EnumExtensions.GetValues<CardMode>());
         }
         [HttpGet]
-        [Route("cardtype/all")]
+        [Route("cardtype")]
         public ActionResult GetCardType()
         {
             return Ok(EnumExtensions.GetValues<CardType>());
         }
 
         [HttpGet]
-        [Route("vpaymode/all")]
+        [Route("vpaymode")]
         public ActionResult GetVPayMode()
         {
             return Ok(EnumExtensions.GetValues<VPayMode>());
@@ -139,42 +139,42 @@ namespace eStore.Areas.API
 
 
         [HttpGet]
-        [Route("salarycomponets/all")]
+        [Route("salarycomponets")]
         public ActionResult GetSalaryComponets()
         {
             return Ok(EnumExtensions.GetValues<SalaryComponet>());
         }
 
         [HttpGet]
-        [Route("bankpaymode/all")]
+        [Route("bankpaymode")]
         public ActionResult GetBankPayModes()
         {
             return Ok(EnumExtensions.GetValues<BankPayMode>());
         }
 
         [HttpGet]
-        [Route("mixpaymode/all")]
+        [Route("mixpaymode")]
         public ActionResult GetMixPayMode()
         {
             return Ok(EnumExtensions.GetValues<MixPaymentMode>());
         }
 
         [HttpGet]
-        [Route("vochertype/all")]
+        [Route("vochertype")]
         public ActionResult GetVoucherType()
         {
             return Ok(EnumExtensions.GetValues<VoucherType>());
         }
 
         [HttpGet]
-        [Route("loginrole/all")]
+        [Route("loginrole")]
         public ActionResult GetLoginRoles()
         {
             return Ok(EnumExtensions.GetValues<LoginRole>());
         }
 
         [HttpGet]
-        [Route("arvindaccounts/all")]
+        [Route("arvindaccounts")]
         public ActionResult GetArvindAccounts()
         {
             return Ok(EnumExtensions.GetValues<ArvindAccount>());

@@ -75,6 +75,12 @@ namespace eStore.Shared.Models.Stores
         public virtual ICollection<Store> Stores { get; set; }
     }
 
+    public class StoreHolidays
+    {
+        public StoreHoliday Holiday { get; set; } 
+        public DateTime EndDate { get; set; }
+    }
+
     public class StoreHoliday:BaseST
     {
         public int StoreHolidayId { get; set; }
