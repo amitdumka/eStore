@@ -14,7 +14,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Data\Json\" />
     <Folder Include="$(MSBuildThisFileDirectory)Data\Types\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Stores\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Identity\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Payroll\" />
@@ -24,7 +23,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\Banking\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Accounts\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Accounts\Expenses\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Models\Sales\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Purchases\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Banking\" />
@@ -39,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DTOs\Payrolls\AttendanceDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseNT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Sales\Payment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Store.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Identity\AppUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\Employee.cs" />

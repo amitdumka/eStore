@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.DL.Data;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    partial class eStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430094951_DailySalePaymentsSystem")]
+    partial class DailySalePaymentsSystem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

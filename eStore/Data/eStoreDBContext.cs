@@ -26,6 +26,16 @@ namespace eStore.DL.Data
             //ApplyMigrations(this);
         }
 
+        public DbSet<Shared.Models.Sales.Payment> DailySalePayments { get; set; }
+
+        public DbSet<WalletPayment> WalletPayments { get; set; }
+        public DbSet<BankPayment> BankPayments { get; set; }
+        public DbSet<EDC> CardMachine { get; set; } //APi
+        public DbSet<EDCTranscation> CardTranscations { get; set; }//API
+        public DbSet<MixAndCouponPayment> MixPayments { get; set; } //APi                                                                  
+        public DbSet<CouponPayment> CouponPayments { get; set; }//API
+        public DbSet<PointRedeemed> PointRedeemeds { get; set; }//API
+
         public DbSet<PettyCashBook> PettyCashBooks { get; set; }
 
         public DbSet<Store> Stores { get; set; } //Ok//UI /API
@@ -94,11 +104,6 @@ namespace eStore.DL.Data
         public DbSet<PaymentDetail> PaymentDetails { get; set; } //Api
         public DbSet<CardDetail> CardDetails { get; set; } //APi
 
-        public DbSet<EDC> CardMachine { get; set; } //APi
-        public DbSet<EDCTranscation> CardTranscations { get; set; }//API
-        public DbSet<MixAndCouponPayment> MixPayments { get; set; } //APi
-        public DbSet<CouponPayment> CouponPayments { get; set; }//API
-        public DbSet<PointRedeemed> PointRedeemeds { get; set; }//API
         public DbSet<DuesList> DuesLists { get; set; } //API
         public DbSet<DueRecoverd> DueRecoverds { get; set; } //API
 
@@ -118,7 +123,7 @@ namespace eStore.DL.Data
        
         // new Expenses/Reciept System with Party Support
         public DbSet<Expense> Expenses { get; set; }//API
-        public DbSet<Payment> Payments { get; set; }//APi
+        public DbSet<Shared.Models.Accounts.Payment> Payments { get; set; }//APi
         public DbSet<Receipt> Receipts { get; set; }//API
 
         public DbSet<CashPayment> CashPayments { get; set; }//API

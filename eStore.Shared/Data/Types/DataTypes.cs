@@ -14,8 +14,10 @@ public enum CardMode { DebitCard, CreditCard, AmexCard }
 public enum CardType { Visa, MasterCard, Mastro, Amex, Dinners, Rupay, }
 public enum LedgerCategory { Credit, Debit, Income, Expenses, Assests, Bank, Loan, Purchase, Sale, Vendor, Customer}
 public enum VPayMode { CA, DC, CC, Mix, Wal, CRD, OTH }
+
 // Aprajita Retails Context
-public enum PayMode { Cash, Card, RTGS, NEFT, IMPS, Wallets, Cheques, DemandDraft, Points, Others, Coupons, MixPayments, UPI };
+public enum WalletType { PayTm, GooglePay, PhonePay,AirtelPay,BhimPay,Others}
+public enum PayMode     { Cash, Card, RTGS, NEFT, IMPS, Wallets, Cheques, DemandDraft, Points, Others, Coupons, MixPayments, UPI };
 public enum PaymentMode { Cash, Card, RTGS, NEFT, IMPS, Wallets, Cheques, DemandDraft, Others, UPI };
 public enum AttUnit { Present, Absent, HalfDay, Sunday, Holiday, StoreClosed, SundayHoliday, SickLeave, PaidLeave, CasualLeave, OnLeave };
 public enum SalaryComponet { NetSalary, LastPcs, WOWBill, SundaySalary, Incentive, Others, Advance, PaidLeave, SickLeave }

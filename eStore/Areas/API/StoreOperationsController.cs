@@ -61,6 +61,17 @@ namespace eStore.Areas.API
             return toList;
         }
 
+        [HttpGet("storeStatus")]
+        public async Task<ActionResult<JsonResult>> GetStoreStatusAsync(int StoreId)
+        {
+            var Closeid = await db.StoreCloses.Where(c => c.StoreId == StoreId && c.ClosingDate.Date == DateTime.Today.Date).Select(c => c.StoreCloseId).FirstOrDefaultAsync();
+
+            var Openid = await db.StoreOpens.Where(c => c.StoreId == StoreId && c.OpenningTime.Date == DateTime.Today.Date).Select(c => c.StoreOpenId).FirstOrDefaultAsync();
+            string returnData = $"{{open:{Openid}, closeId: {Closeid}}}";
+            JsonResult result = new JsonResult(returnData);
+            return result;
+        }
+
         // GET api/<StoreOperationsController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StoreDailyOperation>> GetAsync(int id)
@@ -143,14 +154,18 @@ namespace eStore.Areas.API
         [HttpPost("storeClosedNDays")]
         public async Task<bool> PostStoreClosedNDaysAsync(StoreHolidays storeHolidays)
         {
+            List<StoreHoliday> hList = new List<StoreHoliday>();
             DateTime onDate = storeHolidays.Holiday.OnDate;
             do
             {
                 storeHolidays.Holiday.OnDate = onDate;
-                db.StoreHolidays.Add(storeHolidays.Holiday);
-            } while (onDate != storeHolidays.EndDate);
+                hList.Add(storeHolidays.Holiday);
+                onDate = onDate.AddDays(1);
+
+            } while (onDate.Date > storeHolidays.EndDate.Date);
             try
             {
+                await db.StoreHolidays.AddRangeAsync(hList);
                 await db.SaveChangesAsync();
                 await StoreManager.GenerateAttendancForStoreClosedAsync(db, storeHolidays.Holiday.StoreId, storeHolidays.Holiday.Reason, storeHolidays.Holiday.Remarks, storeHolidays.Holiday.OnDate, storeHolidays.EndDate);
                 return true;

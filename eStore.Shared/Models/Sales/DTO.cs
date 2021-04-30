@@ -60,4 +60,13 @@ namespace eStore.Shared.Models.Sales
 
     #endregion DTO
 
+
+    public class MixPayment
+    {
+
+    }
+
+
+
+
 }

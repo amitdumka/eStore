@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.DL.Data;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    partial class eStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430091843_DailySalePayments")]
+    partial class DailySalePayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2115,49 +2117,6 @@ namespace eStore.Migrations
                     b.ToTable("Supplier");
                 });
 
-            modelBuilder.Entity("eStore.Shared.Models.Sales.BankPayment", b =>
-                {
-                    b.Property<int>("BankPaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("money");
-
-                    b.Property<int>("DailySaleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InvoiceNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsReadOnly")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("OnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReferenceNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BankPaymentId");
-
-                    b.HasIndex("DailySaleId");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("BankPayments");
-                });
-
             modelBuilder.Entity("eStore.Shared.Models.Sales.CardDetail", b =>
                 {
                     b.Property<int>("CardDetailId")
@@ -2211,27 +2170,16 @@ namespace eStore.Migrations
                     b.Property<string>("InvoiceNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsReadOnly")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("OnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Remark")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CouponPaymentId");
 
                     b.HasIndex("DailySaleId")
                         .IsUnique();
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("CouponPayments");
                 });
@@ -2482,9 +2430,6 @@ namespace eStore.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
 
-                    b.Property<int>("DailySaleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
@@ -2510,8 +2455,6 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MixAndCouponPaymentId");
-
-                    b.HasIndex("DailySaleId");
 
                     b.HasIndex("ModeMixAndCouponPaymentId");
 
@@ -2683,9 +2626,6 @@ namespace eStore.Migrations
                     b.Property<string>("InvNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LinkInfo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Mode")
                         .HasColumnType("int");
 
@@ -2748,27 +2688,16 @@ namespace eStore.Migrations
                     b.Property<string>("InvoiceNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsReadOnly")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("OnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Remark")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PointRedeemedId");
 
                     b.HasIndex("DailySaleId")
                         .IsUnique();
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("PointRedeemeds");
                 });
@@ -2896,52 +2825,6 @@ namespace eStore.Migrations
                     b.HasIndex("SalesmanId");
 
                     b.ToTable("RegularSaleItems");
-                });
-
-            modelBuilder.Entity("eStore.Shared.Models.Sales.WalletPayment", b =>
-                {
-                    b.Property<int>("WalletPaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("money");
-
-                    b.Property<string>("CustomerMobileNoRef")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DailySaleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InvoiceNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsReadOnly")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("OnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WalletType")
-                        .HasColumnType("int");
-
-                    b.HasKey("WalletPaymentId");
-
-                    b.HasIndex("DailySaleId");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("WalletPayments");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Stores.Company", b =>
@@ -4310,25 +4193,6 @@ namespace eStore.Migrations
                     b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("eStore.Shared.Models.Sales.BankPayment", b =>
-                {
-                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
-                        .WithMany()
-                        .HasForeignKey("DailySaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DailySale");
-
-                    b.Navigation("Store");
-                });
-
             modelBuilder.Entity("eStore.Shared.Models.Sales.CardDetail", b =>
                 {
                     b.HasOne("eStore.Shared.Models.Sales.PaymentDetail", "PaymentDetail")
@@ -4346,15 +4210,7 @@ namespace eStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("DailySale");
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Sales.DailySale", b =>
@@ -4452,12 +4308,6 @@ namespace eStore.Migrations
 
             modelBuilder.Entity("eStore.Shared.Models.Sales.MixAndCouponPayment", b =>
                 {
-                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
-                        .WithMany()
-                        .HasForeignKey("DailySaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("eStore.Shared.Models.Sales.MixAndCouponPayment", "Mode")
                         .WithMany()
                         .HasForeignKey("ModeMixAndCouponPaymentId");
@@ -4467,8 +4317,6 @@ namespace eStore.Migrations
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("DailySale");
 
                     b.Navigation("Mode");
 
@@ -4543,15 +4391,7 @@ namespace eStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("DailySale");
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Sales.RegularInvoice", b =>
@@ -4608,25 +4448,6 @@ namespace eStore.Migrations
                     b.Navigation("Salesman");
 
                     b.Navigation("SaleTaxType");
-                });
-
-            modelBuilder.Entity("eStore.Shared.Models.Sales.WalletPayment", b =>
-                {
-                    b.HasOne("eStore.Shared.Models.Sales.DailySale", "DailySale")
-                        .WithMany()
-                        .HasForeignKey("DailySaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStore.Shared.Models.Stores.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DailySale");
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("eStore.Shared.Models.Stores.EndOfDay", b =>

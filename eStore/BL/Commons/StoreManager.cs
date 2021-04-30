@@ -257,7 +257,7 @@ namespace eStore.BL.Commons
             remarks += " : " + remark;
             var empids = await db.Employees.Where(c => c.StoreId == storeId && c.IsWorking && c.Category != EmpType.Owner).Select(c => new { c.EmployeeId, c.Category }).ToListAsync();
             DateTime onDate = startDate;
-
+            int ctr = 0;
             do
             {
                 foreach (var item in empids)
@@ -286,16 +286,17 @@ namespace eStore.BL.Commons
                             att.IsTailoring = false;
                             break;
                     }
-                    await db.Attendances.AddAsync(att);
+                   db.Attendances.Add(att);
                 }
+               ctr+= await db.SaveChangesAsync();
                 onDate = onDate.AddDays(1);
-            } while (onDate != endDate);
+            } while (onDate > endDate);
 
 
             try
             {
-                int a = await db.SaveChangesAsync();
-                if (a > 0) return true;
+                ctr+= await db.SaveChangesAsync();
+                if (ctr > 0) return true;
                 else
                     return false;
             }

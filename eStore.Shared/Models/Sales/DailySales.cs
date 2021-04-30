@@ -1,9 +1,9 @@
-﻿using System;
+﻿using eStore.Shared.Models.Stores;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using eStore.Shared.Models.Stores;
 
 namespace eStore.Shared.Models.Sales
 {
@@ -38,102 +38,19 @@ namespace eStore.Shared.Models.Sales
         [Display(Name = "Sale Return")]
         public bool IsSaleReturn { get; set; }
         public string Remarks { get; set; }
+
         [DefaultValue(false)]
         public bool IsMatchedWithVOy { get; set; }
 
         public int? EDCTranscationId { get; set; }
         public virtual EDCTranscation EDCTranscation { get; set; }
 
-        public int? MixAndCouponPaymentId { get; set; }
-        public virtual MixAndCouponPayment MixAndCouponPayment { get; set; }
-
         public virtual CouponPayment CouponPayment { get; set; }
         public virtual PointRedeemed PointRedeemed { get; set; }
+
+        public virtual IEnumerable<Payment> Payments { get; set; }
     }
-    public class CouponPayment
-    {
-        public int CouponPaymentId { get; set; }
-        public string CouponNumber { get; set; }
-
-        [DataType(DataType.Currency), Column(TypeName = "money")]
-        public decimal Amount { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime OnDate { get; set; }
-
-        public int DailySaleId { get; set; }
-        public virtual DailySale DailySale { get; set; }
-        public string InvoiceNumber { get; set; }
-
-        public string Remark { get; set; }
-    }
-
-    public class PointRedeemed
-    {
-        public int PointRedeemedId { get; set; }
-        public string CustomerMobileNumber { get; set; }
-
-        [DataType(DataType.Currency), Column(TypeName = "money")]
-        public decimal Amount { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime OnDate { get; set; }
-
-        public int DailySaleId { get; set; }
-        public virtual DailySale DailySale { get; set; }
-        public string InvoiceNumber { get; set; }
-
-        public string Remark { get; set; }
-    }
-
-    public class EDC : BaseSNT
-    {
-        public int EDCId { get; set; }
-        public int TID { get; set; }
-        public string EDCName { get; set; }
-        public int AccountNumberId { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime StartDate { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? EndDate { get; set; }
-        public bool IsWorking { get; set; }
-        public string MID { get; set; }
-        public string Remark { get; set; }
-
-    }
-    public class EDCTranscation : BaseSNT
-    {
-        public int EDCTranscationId { get; set; }
-        public int EDCId { get; set; }
-        public virtual EDC CardMachine { get; set; }
-        [DataType(DataType.Currency), Column(TypeName = "money")]
-        public decimal Amount { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime OnDate { get; set; }
-        public string CardEndingNumber { get; set; }
-        public CardMode CardTypes { get; set; }
-        public string InvoiceNumber { get; set; }
-
-    }
-
-    public class MixAndCouponPayment : BaseSNT
-    {
-        public int MixAndCouponPaymentId { get; set; }
-
-        public string InvoiceNumber { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime OnDate { get; set; }
-        [DataType(DataType.Currency), Column(TypeName = "money")]
-        public decimal Amount { get; set; }
-        public MixAndCouponPayment Mode { get; set; }
-        public string Details { get; set; }
-        public string Remarks { get; set; }
-
-
-    }
-
+   
     public class DuesList
     {
         public int DuesListId { get; set; }
@@ -149,10 +66,7 @@ namespace eStore.Shared.Models.Sales
         public DateTime? RecoveryDate { get; set; }
         public int DailySaleId { get; set; }
         public virtual DailySale DailySale { get; set; }
-
         public bool IsPartialRecovery { get; set; }
-
-       // public virtual ICollection<DueRecoverd> Recoverds { get; set; }
         //Version 3.0
         [DefaultValue(1)]
         public int StoreId { get; set; }
