@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Shared.Models.Sales
 {
-    public class Payment
+    public class DailySalePayment
     {
-        public int PaymentId { get; set; }
+        public int DailySalePaymentId { get; set; }
         public PayMode Mode { get; set; }
         public int DailySaleId { get; set; }
         public string InvNo { get; set; }
@@ -75,6 +75,7 @@ namespace eStore.Shared.Models.Sales
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal Amount { get; set; }
         public string Remarks { get; set; }
+        public PayMode Mode { get; set; }
 
     }
 

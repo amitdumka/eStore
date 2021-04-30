@@ -62,14 +62,16 @@ namespace eStore.Areas.API
         }
 
         [HttpGet("storeStatus")]
-        public async Task<ActionResult<JsonResult>> GetStoreStatusAsync(int StoreId)
+        public async Task<ActionResult<StoreStatusDto>> GetStoreStatusAsync(int StoreId)
         {
             var Closeid = await db.StoreCloses.Where(c => c.StoreId == StoreId && c.ClosingDate.Date == DateTime.Today.Date).Select(c => c.StoreCloseId).FirstOrDefaultAsync();
 
             var Openid = await db.StoreOpens.Where(c => c.StoreId == StoreId && c.OpenningTime.Date == DateTime.Today.Date).Select(c => c.StoreOpenId).FirstOrDefaultAsync();
-            string returnData = $"{{open:{Openid}, closeId: {Closeid}}}";
-            JsonResult result = new JsonResult(returnData);
-            return result;
+
+            StoreStatusDto status = new StoreStatusDto { ClosedId = Closeid, OpenId = Openid };
+            //string returnData = $"{{open:{Openid}, closeId: {Closeid}}}";
+            //JsonResult result = new JsonResult(returnData);
+            return status;
         }
 
         // GET api/<StoreOperationsController>/5
@@ -180,5 +182,11 @@ namespace eStore.Areas.API
 
 
         }
+    }
+
+    public class StoreStatusDto
+    {
+        public int OpenId { get; set; }
+        public int ClosedId { get; set; }
     }
 }

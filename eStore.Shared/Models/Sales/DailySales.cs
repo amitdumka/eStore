@@ -48,7 +48,7 @@ namespace eStore.Shared.Models.Sales
         public virtual CouponPayment CouponPayment { get; set; }
         public virtual PointRedeemed PointRedeemed { get; set; }
 
-        public virtual IEnumerable<Payment> Payments { get; set; }
+        public virtual IEnumerable<DailySalePayment> Payments { get; set; }
     }
    
     public class DuesList
