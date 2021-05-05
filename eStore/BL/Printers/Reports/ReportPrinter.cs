@@ -55,15 +55,21 @@ namespace eStore.Ops.Printers.Reports
             using PdfWriter pdfWriter = new PdfWriter(fileName);
             using PdfDocument pdfDoc = new PdfDocument(pdfWriter);
             using Document doc = new Document(pdfDoc, PageSize.A4);
+          
             Paragraph header = new Paragraph(ReportHeaderDetails.FirstLine + "\n")
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFontColor(ColorConstants.RED);
-            header.Add(ReportHeaderDetails.SecondLine + "\n");
+            header.Add(ReportHeaderDetails.SecondLine +"\n");
+
+
             doc.Add(header);
+
             float[] columnWidths = { 1, 5, 15, 5, 5, 5 };
             Table table = new Table(UnitValue.CreatePercentArray(columnWidths)).SetBorder(new OutsetBorder(2));
-
             PdfFont f = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+            
+
+
             Cell cell = new Cell(1, 6)
                     .Add(new Paragraph(ReportHeaderDetails.CashBook))
                     .SetFont(f)

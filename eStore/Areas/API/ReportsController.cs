@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eStore.BL.Reports.Payroll;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,7 +45,7 @@ namespace eStore.Areas.API
         // Report section 
         // GET: api/<ReportsController>
         [HttpGet("incomeExpenes")]
-        public ActionResult< IEnumerable<IncomeExpensesReport>> GetIncomeExpensesReport(DateTime? onDate )
+        public ActionResult<IEnumerable<IncomeExpensesReport>> GetIncomeExpensesReport(DateTime? onDate)
         {
             if (onDate == null) onDate = DateTime.Today;
 
@@ -64,14 +65,19 @@ namespace eStore.Areas.API
                 Console.WriteLine("Error: " + e.Message);
                 return NotFound();
             }
-           
+
         }
 
-        //public ActionResult<EndofDayDetails> GetEndOfDayDetails()
-        //{
-
-        //}
-
-
+       
+        [HttpGet("AttendanceReport")]
+        public ActionResult<IEnumerable<AttendanceReport>> GetAttendanceReport(int StoreId)
+        {
+            return PayrollReport.GenerateAllEmployeeAttendanceReport(db, StoreId);
+        }
+        [HttpGet("AttendanceReport{empId}")]
+        public ActionResult<AttendanceReport> GetEmployeeAttendanceReport(int empId)
+        {
+            return PayrollReport.GenerateEmployeeAttendanceReport(db, empId);
+        }
     }
 }
