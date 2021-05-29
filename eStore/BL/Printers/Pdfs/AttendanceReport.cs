@@ -131,13 +131,14 @@ namespace eStore.BL.Printers.Pdfs
             foreach (var monthly in report.MonthlyAttendances)
             {
 
-                PrintTable(HeaderCell, FooterCell, columnWidths, f, monthly);
+               doc.Add( PrintTable(HeaderCell, FooterCell, columnWidths, f, monthly));
+                doc.Add (new AreaBreak ());
 
             }
         
         }
 
-        private static void PrintTable(Cell[] HeaderCell, Cell[] FooterCell, float[] columnWidths,  PdfFont f, MonthlyAttendance monthly)
+        private static Table PrintTable(Cell[] HeaderCell, Cell[] FooterCell, float[] columnWidths,  PdfFont f, MonthlyAttendance monthly)
         {
             Table table = new Table(UnitValue.CreatePercentArray(columnWidths)).SetBorder(new OutsetBorder(2));
             Cell cell = new Cell(1, 6)
@@ -169,8 +170,8 @@ namespace eStore.BL.Printers.Pdfs
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.IsValid.ToString())));
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Unit.ToString("0.##"))));
             }
-            
 
+            return table;
 
         }
     }

@@ -84,25 +84,16 @@ namespace eStore.Areas.API
 
 
         [HttpPost("FinReport")]
-        public ActionResult<FileStreamResult> PostFinReport(FinReportDto fin)
+        public FileStreamResult PostFinReport(FinReportDto fin)
         {
             FinReport fr = new FinReport (db, fin.StoreId, fin.StartYead, fin.EndYear,true);
 
             var data =fr.GetFinYearReport (fin.Mode);
           
             var stream = new FileStream (data, FileMode.Open);
-            return File (stream, "application/pdf", "report.pdf");
-        }
-        [HttpPost ("FinReportTest")]
-        public FileStreamResult PostFinReport()
-        {
-            FinReport fr = new FinReport (db, 1, 2020, 2021, true);
-
-            var data = fr.GetFinYearReport (6);
             
-              var stream = new FileStream (data, FileMode.Open);
-             return File (stream, "application/pdf", "FileDownloadName.pdf");
-        }
+            return File (stream, "application/pdf", "report.pdf");
+        }       
     }
    public  class FinReportDto
     {
