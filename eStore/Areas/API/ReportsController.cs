@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eStore.BL.Reports.Payroll;
+using eStore.BL.Reports.CAReports;
+using System.IO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -79,5 +81,37 @@ namespace eStore.Areas.API
         {
             return PayrollReport.GenerateEmployeeAttendanceReport(db, empId);
         }
+
+
+        [HttpPost("FinReport")]
+        public ActionResult<FileStreamResult> PostFinReport(FinReportDto fin)
+        {
+            FinReport fr = new FinReport (db, fin.StoreId, fin.StartYead, fin.EndYear,true);
+
+            var data =fr.GetFinYearReport (fin.Mode);
+          
+            var stream = new FileStream (data, FileMode.Open);
+            return File (stream, "application/pdf", "report.pdf");
+        }
+        [HttpPost ("FinReportTest")]
+        public FileStreamResult PostFinReport()
+        {
+            FinReport fr = new FinReport (db, 1, 2020, 2021, true);
+
+            var data = fr.GetFinYearReport (6);
+            
+              var stream = new FileStream (data, FileMode.Open);
+             return File (stream, "application/pdf", "FileDownloadName.pdf");
+        }
+    }
+   public  class FinReportDto
+    {
+        public int StoreId { get; set; }
+        public int StartYead { get; set; }
+        public int EndYear { get; set; }
+        public int StartMonth { get; set; }
+        public int EndMonth { get; set; }
+        public int Mode { get; set; }
+
     }
 }
