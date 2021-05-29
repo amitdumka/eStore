@@ -48,9 +48,7 @@ namespace eStore.BL.Reports.CAReports
             isPDF = IsPdf;
         }
 
-        private void GenerateSaleData()
-        {
-        }
+       
 
         private void GeneratePurchaseData()
         {
@@ -67,10 +65,69 @@ namespace eStore.BL.Reports.CAReports
         private void GenerateCashBook()
         {
         }
-        private void GenerateSalaryData()
+        private void GenerateSaleData()
         {
-            var data = db.SalaryPayments.Where (c => c.StoreId == StoreId && c.PaymentDate.Date >= StartDate.Date && c.PaymentDate.Date <= EndDate.Date).ToList ();
+            var sale= db.DailySales.Where(c =>!c.IsManualBill && !c.IsSaleReturn && !c.IsTailoringBill  && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList();
+            var manualBill = db.DailySales.Where(c => c.IsManualBill && !c.IsSaleReturn  && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList();
+            var tailorBill = db.DailySales.Where(c =>  !c.IsSaleReturn && !c.IsTailoringBill && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList();
+            var salereturn = db.DailySales.Where(c =>  !c.IsSaleReturn  && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList();
+        }
+        private string GenerateSalaryData()
+        {
+            var data = db.SalaryPayments.Include(c=>c.Employee).Where (c => c.StoreId == StoreId && c.PaymentDate.Date >= StartDate.Date && c.PaymentDate.Date <= EndDate.Date).ToList ();
             var advData = db.StaffAdvanceReceipts.Where (c => c.StoreId == StoreId && c.ReceiptDate.Date >= StartDate.Date && c.ReceiptDate.Date <= EndDate.Date).ToList ();
+            float[] columnWidths = { 1, 5, 15, 5, 5, 15, 5,5 };
+            Cell[] HeaderCell = new Cell[]{
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("#")),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Date").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("EmployeeName").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("SalaryMonth").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Payment Mode").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Details").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Amount").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("").SetTextAlignment(TextAlignment.CENTER))
+
+
+            };
+            Div d = new Div();
+            d.Add(new Paragraph("Salary Payments"));
+
+            Table table = GenTable(columnWidths, HeaderCell);
+            table.SetCaption(d);
+            int count = 0;
+            foreach (var item in data)
+            {
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph((++count) + "")));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.PaymentDate.ToShortDateString())));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Employee.StaffName)));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.SalaryMonth)));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.PayMode.ToString())));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Details)));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("+")));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Amount.ToString("0.##"))));
+                
+            }
+            Table table2 = GenTable(columnWidths, HeaderCell);
+            Div d2 = new Div();
+            d2.Add(new Paragraph("Advance Reciepts"));
+            table2.SetCaption(d2);
+            count = 0;
+            foreach (var item in advData)
+            {
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph((++count) + "")));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.ReceiptDate.ToShortDateString())));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Employee.StaffName)));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("")));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.PayMode.ToString())));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Details)));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("-")));
+                table2.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Amount.ToString("0.##"))));
+                
+            }
+            List<Table> dataTable = new List<Table>();
+            dataTable.Add(table);
+            dataTable.Add(table2);
+            return PrintPDF("Salary", dataTable);
         }
         private string GenerateExpensesData()
         {
@@ -121,17 +178,17 @@ namespace eStore.BL.Reports.CAReports
             Table table2 = GenTable (columnWidths, HeaderCell);
             Div d2 = new Div ();
             d2.Add (new Paragraph ("Cash Expenses"));
-            table.SetCaption (d2);
+            table2.SetCaption (d2);
             count = 0;
             foreach ( var item in cashData )
             {
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( ++count ) + "")));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PaymentDate.ToShortDateString ())));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Mode.Transcation)));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PaidTo)));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.SlipNo)));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Remarks)));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( ++count ) + "")));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PaymentDate.ToShortDateString ())));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Mode.Transcation)));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PaidTo)));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.SlipNo)));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Remarks)));
+                table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
             }
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
@@ -279,23 +336,5 @@ namespace eStore.BL.Reports.CAReports
         }
     }
 
-    internal class ToExcel
-    {
-        public string FileName { get; set; }
-        public string PathName { get; set; }
-    }
-
-    internal class ToPDF
-    {
-        public string FileName { get; set; }
-        public string PathName { get; set; }
-    }
-
-    internal class Headers
-    {
-    }
-
-    internal class Footers
-    {
-    }
+   
 }
