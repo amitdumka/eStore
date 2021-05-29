@@ -1,9 +1,7 @@
 ﻿using eStore.BL.Reports.Accounts;
 using eStore.DL.Data;
 using eStore.Shared.ViewModels;
-using iText.IO.Font.Constants;
 using iText.Kernel.Colors;
-using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -53,26 +51,30 @@ namespace eStore.BL.Reports.CAReports
 
         public string GetFinYearReport(int rep)
         {
-
             switch ( rep )
             {
                 case 1:
                     return GenerateSaleData ();
+
                 case 2:
                     return GenerateCashBook ();
+
                 case 3:
                     return GenerateSalaryData ();
+
                 case 4:
                     return GenerateExpensesData ();
+
                 case 5:
                     return GeneratePaymentData ();
+
                 case 6:
                     return GenerateReceiptData ();
+
                 default:
                     return "Error Selection";
             }
         }
-
 
         private void GeneratePurchaseData()
         {
@@ -80,7 +82,6 @@ namespace eStore.BL.Reports.CAReports
 
         private void GenerateBankData()
         {
-
         }
 
         private string GenerateCashBook()
@@ -89,7 +90,6 @@ namespace eStore.BL.Reports.CAReports
 
             var data = manager.GetMontlyCashBook (db, DateTime.Today, StoreId);
             List<CashBook> CB = new List<CashBook> ();
-
 
             for ( int i = 4 ; i <= 12 ; i++ )
             {
@@ -107,7 +107,7 @@ namespace eStore.BL.Reports.CAReports
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Cash IN").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Cash Out").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Balance").SetTextAlignment(TextAlignment.CENTER)) };
-                    
+
             Table table = GenTable (columnWidths, HeaderCell);
             int count = 0;
             foreach ( var item in CB )
@@ -118,12 +118,12 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashIn.ToString ("0.##"))));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashOut.ToString ("0.##"))));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashBalance.ToString ("0.##"))));
-                
             }
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
             return PrintPDF ("CashBook", dataTable);
         }
+
         private string GenerateSaleData()
         {
             var sale = db.DailySales.Where (c => !c.IsManualBill && !c.IsSaleReturn && !c.IsTailoringBill && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList ();
@@ -140,8 +140,6 @@ namespace eStore.BL.Reports.CAReports
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Cash Amount").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("NON Cash Amount").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Bill Amount").SetTextAlignment(TextAlignment.CENTER))
-
-
             };
             Div d = new Div ();
             d.Add (new Paragraph ("On Book Sale(GST Paid)").SetFontColor (ColorConstants.MAGENTA));
@@ -155,13 +153,12 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.SaleDate.ToShortDateString ())));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.InvNo)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty(item.Remarks)?"":item.Remarks)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Remarks) ? "" : item.Remarks)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashAmount.ToString ("0.##"))));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( item.Amount - item.CashAmount ).ToString ("0.##"))));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
-            Div d2 = new Div ();                      
+            Div d2 = new Div ();
             d2.Add (new Paragraph ("Manual Bill Sale").SetFontColor (ColorConstants.MAGENTA));
 
             Table table2 = GenTable (columnWidths, HeaderCell);
@@ -177,7 +174,6 @@ namespace eStore.BL.Reports.CAReports
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashAmount.ToString ("0.##"))));
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( item.Amount - item.CashAmount ).ToString ("0.##"))));
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
             Div d3 = new Div ();
             d3.Add (new Paragraph ("Tailoring Bill Sale").SetFontColor (ColorConstants.MAGENTA));
@@ -195,7 +191,6 @@ namespace eStore.BL.Reports.CAReports
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashAmount.ToString ("0.##"))));
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( item.Amount - item.CashAmount ).ToString ("0.##"))));
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
             Div d4 = new Div ();
             d4.Add (new Paragraph (" Sale Return").SetFontColor (ColorConstants.MAGENTA));
@@ -213,7 +208,6 @@ namespace eStore.BL.Reports.CAReports
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.CashAmount.ToString ("0.##"))));
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( item.Amount - item.CashAmount ).ToString ("0.##"))));
                 table3.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
@@ -221,8 +215,8 @@ namespace eStore.BL.Reports.CAReports
             dataTable.Add (table3);
             dataTable.Add (table4);
             return PrintPDF ("Sales", dataTable);
-
         }
+
         private string GenerateSalaryData()
         {
             var data = db.SalaryPayments.Include (c => c.Employee).Where (c => c.StoreId == StoreId && c.PaymentDate.Date >= StartDate.Date && c.PaymentDate.Date <= EndDate.Date).ToList ();
@@ -237,8 +231,6 @@ namespace eStore.BL.Reports.CAReports
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Details").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("+/-").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Amount").SetTextAlignment(TextAlignment.CENTER))
-
-
             };
             Div d = new Div ();
             d.Add (new Paragraph ("Salary Payments").SetFontColor (ColorConstants.MAGENTA));
@@ -256,7 +248,6 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Details) ? "" : item.Details)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("+")));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
             Table table2 = GenTable (columnWidths, HeaderCell);
             Div d2 = new Div ();
@@ -273,13 +264,13 @@ namespace eStore.BL.Reports.CAReports
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Details) ? "" : item.Details)));
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("-")));
                 table2.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
-
             }
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
             dataTable.Add (table2);
             return PrintPDF ("Salary", dataTable);
         }
+
         private string GenerateExpensesData()
         {
             var data = db.Expenses.Include (c => c.FromAccount).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
@@ -312,8 +303,8 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.PartyName) ? "" : item.PartyName)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.PaymentDetails) ? "" : item.PaymentDetails)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
-                if(item.FromAccount!=null)
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.FromAccount.Account) ? "" : item.FromAccount.Account)));
+                if ( item.FromAccount != null )
+                    table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.FromAccount.Account) ? "" : item.FromAccount.Account)));
                 else
                     table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("")));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Remarks)));
@@ -347,8 +338,9 @@ namespace eStore.BL.Reports.CAReports
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
             dataTable.Add (table2);
-            return PrintPDF ("Expenses", dataTable,true);
+            return PrintPDF ("Expenses", dataTable, true);
         }
+
         private string GeneratePaymentData()
         {
             var data = db.Payments.Include (c => c.FromAccount).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
@@ -372,17 +364,17 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PartyName)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.PaymentDetails) ? "" : item.PaymentSlipNo)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
-                if(item.FromAccount !=null)
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.FromAccount.Account) ? "" : item.FromAccount.Account)));
+                if ( item.FromAccount != null )
+                    table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.FromAccount.Account) ? "" : item.FromAccount.Account)));
                 else
-                    table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("" )));
+                    table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("")));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Remarks)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
             }
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
 
-            return PrintPDF ("Payments", dataTable,true);
+            return PrintPDF ("Payments", dataTable, true);
         }
 
         private string GenerateReceiptData()
@@ -415,8 +407,8 @@ namespace eStore.BL.Reports.CAReports
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PartyName)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.RecieptSlipNo)));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
-                if(item.FromAccount!=null && !String.IsNullOrEmpty(item.FromAccount.Account))
-                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.FromAccount.Account)));
+                if ( item.FromAccount != null && !String.IsNullOrEmpty (item.FromAccount.Account) )
+                    table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.FromAccount.Account)));
                 else
                     table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph ("")));
                 table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Remarks) ? "" : item.Remarks)));
@@ -442,7 +434,7 @@ namespace eStore.BL.Reports.CAReports
             List<Table> dataTable = new List<Table> ();
             dataTable.Add (table);
             dataTable.Add (table2);
-            return PrintPDF ("Reciepts", dataTable,true);
+            return PrintPDF ("Reciepts", dataTable, true);
         }
 
         private Table GenTable(float [] columnWidths, Cell [] HeaderCell)
@@ -453,15 +445,15 @@ namespace eStore.BL.Reports.CAReports
                 new Cell(1,2).Add(new Paragraph("D:"+DateTime.Now) .SetFontColor(DeviceGray.GRAY)),
             };
             Table table = new Table (UnitValue.CreatePercentArray (columnWidths)).SetBorder (new OutsetBorder (2));
-            
+
             table.SetFontColor (ColorConstants.BLUE);
             table.SetFontSize (10);
             table.SetPadding (10f);
             table.SetMarginRight (5f);
-        
+
             foreach ( Cell hfCell in HeaderCell )
             {
-                table.AddHeaderCell (hfCell.SetFontColor(ColorConstants.RED).SetFontSize(12).SetItalic());
+                table.AddHeaderCell (hfCell.SetFontColor (ColorConstants.RED).SetFontSize (12).SetItalic ());
             }
             foreach ( Cell hfCell in FooterCell )
             {
@@ -470,14 +462,14 @@ namespace eStore.BL.Reports.CAReports
             return table;
         }
 
-        private string PrintPDF(string repName, List<Table> dataTable, bool IsLandscape=false)
+        private string PrintPDF(string repName, List<Table> dataTable, bool IsLandscape = false)
         {
             string fileNameExp = $"FinReport_{repName}_{StartYear}_{EndYear}_{DateTime.Now.ToFileTimeUtc ()}.pdf";
             string fileName = $"FinReport_{repName}_{StartYear}_{EndYear}.pdf";
             string path = Path.Combine (ConData.WWWroot, fileName);
-            var PageType = PageSize.A4; 
-            if(IsLandscape )
-                PageType = PageSize.A4.Rotate();
+            var PageType = PageSize.A4;
+            if ( IsLandscape )
+                PageType = PageSize.A4.Rotate ();
 
             using PdfWriter pdfWriter = new PdfWriter (fileName);
             using PdfDocument pdfDoc = new PdfDocument (pdfWriter);
@@ -501,29 +493,22 @@ namespace eStore.BL.Reports.CAReports
                 }
             else
             {
-                Paragraph nodata= new Paragraph("No Data Avilable!").SetTextAlignment (iText.Layout.Properties.TextAlignment.CENTER).SetFontColor (ColorConstants.GREEN);
+                Paragraph nodata = new Paragraph ("No Data Avilable!").SetTextAlignment (iText.Layout.Properties.TextAlignment.CENTER).SetFontColor (ColorConstants.GREEN);
                 doc.Add (nodata);
             }
-            doc.Add (new AreaBreak ());
-            Paragraph PageList = new Paragraph ("FileList:\n").SetTextAlignment (iText.Layout.Properties.TextAlignment.CENTER).SetFontColor (ColorConstants.GREEN);
-            string [] fl = FileList ();
-            foreach ( var item in fl )
-            {
-                PageList.Add (item + "\n");
-            }
-            doc.Add (PageList);
             doc.Close ();
             pdfDoc.Close ();
             pdfWriter.Close ();
             return AddPageNumber (fileName, fileNameExp);
         }
-    
+
         private string AddPageNumber(string sourceFileName, string fileName)
         {
-            PdfDocument pdfDoc = new PdfDocument (new PdfReader (sourceFileName), new PdfWriter (fileName));
-            Document doc = new Document (pdfDoc);
+            using PdfDocument pdfDoc = new PdfDocument (new PdfReader (sourceFileName), new PdfWriter (fileName));
+            using Document doc = new Document (pdfDoc);
 
             int numberOfPages = pdfDoc.GetNumberOfPages ();
+
             for ( int i = 1 ; i <= numberOfPages ; i++ )
             {
                 // Write aligned text to the specified by parameters point
@@ -532,16 +517,31 @@ namespace eStore.BL.Reports.CAReports
             }
 
             doc.Close ();
+            pdfDoc.Close ();
+            CleanUp (fileName);
             return fileName;
         }
 
         private string [] FileList()
         {
-            string [] filePaths = Directory.GetFiles (Directory.GetCurrentDirectory ());
+            string [] filePaths = Directory.GetFiles (Directory.GetCurrentDirectory (), "*.pdf");
 
             return filePaths;
         }
+
+        private bool CleanUp(string fileName)
+        {
+            string [] filePaths = Directory.GetFiles (Directory.GetCurrentDirectory (), "*.pdf");
+            foreach ( var item in filePaths )
+            {
+                if ( item.Contains (fileName) )
+                { }
+                else
+                {
+                    File.Delete (item);
+                }
+            }
+            return true;
+        }
     }
-
-
 }
