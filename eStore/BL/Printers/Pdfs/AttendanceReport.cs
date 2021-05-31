@@ -132,16 +132,19 @@ namespace eStore.BL.Printers.Pdfs
             {
 
                doc.Add( PrintTable(HeaderCell, FooterCell, columnWidths, f, monthly));
-                doc.Add (new AreaBreak ());
+               doc.Add (new AreaBreak ());
 
             }
+            doc.Close();
+            pdfDoc.Close();
+            pdfWriter.Close();
         
         }
 
         private static Table PrintTable(Cell[] HeaderCell, Cell[] FooterCell, float[] columnWidths,  PdfFont f, MonthlyAttendance monthly)
         {
             Table table = new Table(UnitValue.CreatePercentArray(columnWidths)).SetBorder(new OutsetBorder(2));
-            Cell cell = new Cell(1, 6)
+            Cell cell = new Cell(1, columnWidths.Length)
                    .Add(new Paragraph($"Year: {monthly.OnDate.Year}"))
                    .SetFont(f)
                    .SetFontSize(13)
@@ -165,7 +168,7 @@ namespace eStore.BL.Printers.Pdfs
             {
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph((++count) + "")));
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.OnDate.ToShortDateString())));
-                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(AttStatus( item.Status))));
+                table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Status.ToString())));
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Remarks)));
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.IsValid.ToString())));
                 table.AddCell(new Cell().SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(item.Unit.ToString("0.##"))));
