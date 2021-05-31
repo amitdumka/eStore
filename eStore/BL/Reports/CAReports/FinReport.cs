@@ -49,43 +49,116 @@ namespace eStore.BL.Reports.CAReports
             isPDF = IsPdf;
         }
 
-        public string GetFinYearReport(int rep)
+        public string GetFinYearReport(int rep, bool isRefreshed=true)
         {
             switch ( rep )
             {
                 case 1:
-                    return GenerateSaleData ();
+                    return GenerateSaleData (isRefreshed);
 
                 case 2:
-                    return GenerateCashBook ();
+                    return GenerateCashBook (isRefreshed);
 
                 case 3:
-                    return GenerateSalaryData ();
+                    return GenerateSalaryData (isRefreshed);
 
                 case 4:
-                    return GenerateExpensesData ();
+                    return GenerateExpensesData (isRefreshed);
 
                 case 5:
-                    return GeneratePaymentData ();
+                    return GeneratePaymentData (isRefreshed);
 
                 case 6:
-                    return GenerateReceiptData ();
+                    return GenerateReceiptData (isRefreshed);
+                case 7:
+                    return GenerateBankData (isRefreshed);
 
                 default:
                     return "Error Selection";
             }
         }
 
-        private void GeneratePurchaseData()
+        private void GeneratePurchaseData(bool isRefreshed = true)
         {
         }
 
-        private void GenerateBankData()
+        private string GenerateBankData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Banks");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
+            var depo= db.BankDeposits.Include(c=>c.Account).ThenInclude(c=>c.Bank).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
+            var withdrw=db.BankWithdrawals.Include(c=>c.Account).ThenInclude (c => c.Bank).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
+            float [] columnWidths = { 1, 5, 5, 5, 5, 5, 5, 5, 5,5 };
+
+            Cell [] HeaderCell = new Cell []{
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("#")),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Date").SetTextAlignment(TextAlignment.CENTER)),
+                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Bank").SetTextAlignment(TextAlignment.CENTER)),
+                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Account").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Cheque No").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("In Name Of").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Mode").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Details").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Remarks").SetTextAlignment(TextAlignment.CENTER)),
+                    new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Amount").SetTextAlignment(TextAlignment.CENTER))
+            };
+            Div d = new Div ();
+            d.Add (new Paragraph ("Bank Deposit").SetFontColor (ColorConstants.MAGENTA));
+
+            Table table = GenTable (columnWidths, HeaderCell);
+            table.SetCaption (d);
+            int count = 0;
+            foreach ( var item in depo )
+            {
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( ++count ) + "")));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.OnDate.ToShortDateString ())));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Account.Bank.BankName)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Account.Account)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.ChequeNo) ? "" : item.ChequeNo)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.InNameOf) ? "" : item.InNameOf)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Details) ? "" : item.Details)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Remarks) ? "" : item.Remarks)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
+            }
+            Div d2 = new Div ();
+            d2.Add (new Paragraph ("Bank Withdrawal").SetFontColor (ColorConstants.MAGENTA));
+
+            Table table2 = GenTable (columnWidths, HeaderCell);
+            table2.SetCaption (d2);
+            count = 0;
+            foreach ( var item in withdrw )
+            {
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (( ++count ) + "")));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.OnDate.ToShortDateString ())));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Account.Bank.BankName)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Account.Account)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.ChequeNo) ? "" : item.ChequeNo)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.InNameOf) ? "" : item.InNameOf)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.PayMode.ToString ())));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Details) ? "" : item.Details)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (String.IsNullOrEmpty (item.Remarks) ? "" : item.Remarks)));
+                table.AddCell (new Cell ().SetTextAlignment (TextAlignment.CENTER).Add (new Paragraph (item.Amount.ToString ("0.##"))));
+            }
+            List<Table> dataTable = new List<Table> ();
+            dataTable.Add (table);
+            dataTable.Add (table2);
+           
+            return PrintPDF ("Banks", dataTable);
         }
 
-        private string GenerateCashBook()
+        private string GenerateCashBook(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("CashBook");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             CashBookManager manager = new CashBookManager (StoreId);
 
             var data = manager.GetMontlyCashBook (db, DateTime.Today, StoreId);
@@ -124,8 +197,14 @@ namespace eStore.BL.Reports.CAReports
             return PrintPDF ("CashBook", dataTable);
         }
 
-        private string GenerateSaleData()
+        private string GenerateSaleData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Sales");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             var sale = db.DailySales.Where (c => !c.IsManualBill && !c.IsSaleReturn && !c.IsTailoringBill && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList ();
             var manualBill = db.DailySales.Where (c => c.IsManualBill && !c.IsSaleReturn && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList ();
             var tailorBill = db.DailySales.Where (c => !c.IsSaleReturn && !c.IsTailoringBill && c.StoreId == StoreId && c.SaleDate.Date >= StartDate.Date && c.SaleDate.Date <= EndDate.Date).ToList ();
@@ -217,8 +296,14 @@ namespace eStore.BL.Reports.CAReports
             return PrintPDF ("Sales", dataTable);
         }
 
-        private string GenerateSalaryData()
+        private string GenerateSalaryData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Salary");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             var data = db.SalaryPayments.Include (c => c.Employee).Where (c => c.StoreId == StoreId && c.PaymentDate.Date >= StartDate.Date && c.PaymentDate.Date <= EndDate.Date).ToList ();
             var advData = db.StaffAdvanceReceipts.Where (c => c.StoreId == StoreId && c.ReceiptDate.Date >= StartDate.Date && c.ReceiptDate.Date <= EndDate.Date).ToList ();
             float [] columnWidths = { 1, 5, 15, 5, 5, 15, 2, 5 };
@@ -271,8 +356,14 @@ namespace eStore.BL.Reports.CAReports
             return PrintPDF ("Salary", dataTable);
         }
 
-        private string GenerateExpensesData()
+        private string GenerateExpensesData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Expenses");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             var data = db.Expenses.Include (c => c.FromAccount).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
             var cashData = db.CashPayments.Include (c => c.Mode).Where (c => c.StoreId == StoreId && c.PaymentDate.Date >= StartDate.Date && c.PaymentDate.Date <= EndDate.Date).ToList ();
             float [] columnWidths = { 1, 5, 15, 15, 5, 5, 15, 10, 5 };
@@ -320,7 +411,8 @@ namespace eStore.BL.Reports.CAReports
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Remarks").SetTextAlignment(TextAlignment.CENTER)),
                     new Cell().SetBackgroundColor(new DeviceGray(0.75f)).Add(new Paragraph("Amount").SetTextAlignment(TextAlignment.CENTER))
             };
-            Table table2 = GenTable (columnWidths, HeaderCell);
+            float [] columnWidths2 = { 1, 5, 5, 5, 5, 5, 5,  };
+            Table table2 = GenTable (columnWidths2, HeaderCell);
             Div d2 = new Div ();
             d2.Add (new Paragraph ("Cash Expenses").SetFontColor (ColorConstants.MAGENTA));
             table2.SetCaption (d2);
@@ -341,8 +433,14 @@ namespace eStore.BL.Reports.CAReports
             return PrintPDF ("Expenses", dataTable, true);
         }
 
-        private string GeneratePaymentData()
+        private string GeneratePaymentData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Payments");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             var data = db.Payments.Include (c => c.FromAccount).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
             float [] columnWidths = { 1, 5, 5, 5, 5, 5, 5, 5 };
             Cell [] HeaderCell = new Cell []{
@@ -377,8 +475,14 @@ namespace eStore.BL.Reports.CAReports
             return PrintPDF ("Payments", dataTable, true);
         }
 
-        private string GenerateReceiptData()
+        private string GenerateReceiptData(bool isRefreshed = true)
         {
+            if ( !isRefreshed )
+            {
+                var fn = IsExist ("Reciepts");
+                if ( fn != "ERROR" )
+                    return fn;
+            }
             var data = db.Receipts.Include (c => c.FromAccount).Where (c => c.StoreId == StoreId && c.OnDate.Date >= StartDate.Date && c.OnDate.Date <= EndDate.Date).ToList ();
             var cashData = db.CashReceipts.Include (c => c.Mode).Where (c => c.StoreId == StoreId && c.InwardDate.Date >= StartDate.Date && c.InwardDate.Date <= EndDate.Date).ToList ();
             float [] columnWidths = { 1, 5, 15, 5, 5, 15, 10, 5 };
@@ -450,10 +554,11 @@ namespace eStore.BL.Reports.CAReports
             table.SetFontSize (10);
             table.SetPadding (10f);
             table.SetMarginRight (5f);
+            table.SetMarginTop (10f);
 
             foreach ( Cell hfCell in HeaderCell )
             {
-                table.AddHeaderCell (hfCell.SetFontColor (ColorConstants.RED).SetFontSize (12).SetItalic ());
+                table.AddHeaderCell (hfCell.SetFontColor (ColorConstants.RED).SetFontSize (12).SetItalic ().SetBackgroundColor(ColorConstants.YELLOW));
             }
             foreach ( Cell hfCell in FooterCell )
             {
@@ -474,6 +579,7 @@ namespace eStore.BL.Reports.CAReports
             using PdfWriter pdfWriter = new PdfWriter (fileName);
             using PdfDocument pdfDoc = new PdfDocument (pdfWriter);
             using Document doc = new Document (pdfDoc, PageType);
+            doc.SetBorderTop (new SolidBorder (2));
             Paragraph header = new Paragraph (ConData.CName + "\n")
                .SetTextAlignment (iText.Layout.Properties.TextAlignment.CENTER)
                .SetFontColor (ColorConstants.RED);
@@ -512,8 +618,10 @@ namespace eStore.BL.Reports.CAReports
             for ( int i = 1 ; i <= numberOfPages ; i++ )
             {
                 // Write aligned text to the specified by parameters point
-                doc.ShowTextAligned (new Paragraph ("Page " + i + " of " + numberOfPages),
-                        559, 806, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                //doc.ShowTextAligned (new Paragraph ("Page " + i + " of " + numberOfPages),
+                //        559, 806, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                doc.ShowTextAligned (new Paragraph ("Page " + i + " of " + numberOfPages).SetFontColor(ColorConstants.DARK_GRAY),
+                       1, 1, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
             }
 
             doc.Close ();
@@ -543,5 +651,39 @@ namespace eStore.BL.Reports.CAReports
             }
             return true;
         }
+    
+        private string IsExist(string repName)
+        {
+            string fileName = $"FinReport_{repName}_{StartYear}_{EndYear}.pdf";
+            if ( File.Exists (fileName) )
+                return fileName;
+            else
+                return "ERROR";
+        }
+
+        /// <summary>
+        /// Add Page number at top of pdf file. 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns> filename saved as</returns>
+        public static string AddPageNumberToPdf(string fileName)
+        {
+            using PdfReader reader = new PdfReader (fileName);
+            string fName = "cashBook_" + ( DateTime.Now.ToFileTimeUtc () + 1001 ) + ".pdf";
+            using PdfWriter writer = new PdfWriter (Path.Combine ("wwwroot", fName));
+
+            using PdfDocument pdfDoc2 = new PdfDocument (reader, writer);
+            Document doc2 = new Document (pdfDoc2);
+
+            int numberOfPages = pdfDoc2.GetNumberOfPages ();
+            for ( int i = 1 ; i <= numberOfPages ; i++ )
+            {
+                doc2.ShowTextAligned (new Paragraph ("Page " + i + " of " + numberOfPages),
+                        559, 806, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+            }
+            doc2.Close ();
+            return fName;
+        }
+
     }
 }

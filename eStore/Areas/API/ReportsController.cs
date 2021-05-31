@@ -86,9 +86,10 @@ namespace eStore.Areas.API
         [HttpPost("FinReport")]
         public FileStreamResult PostFinReport(FinReportDto fin)
         {
-            FinReport fr = new FinReport (db, fin.StoreId, fin.StartYead, fin.EndYear,true);
 
-            var data =fr.GetFinYearReport (fin.Mode);
+            FinReport fr = new FinReport (db, fin.StoreId, fin.StartYead, fin.EndYear,fin.IsPdf);
+
+            var data =fr.GetFinYearReport (fin.Mode,fin.ForcedRefresh);
           
             var stream = new FileStream (data, FileMode.Open);
             
@@ -103,6 +104,8 @@ namespace eStore.Areas.API
         public int StartMonth { get; set; }
         public int EndMonth { get; set; }
         public int Mode { get; set; }
+        public bool ForcedRefresh { get; set; }
+        public bool IsPdf { get; set; }
 
     }
 }
