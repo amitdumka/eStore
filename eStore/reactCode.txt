@@ -229,5 +229,670 @@ import React, {useCallback, useState} from 'react';
         export default App;
 
 //end of code
+//site for code https://stackblitz.com/edit/react-excel-to-json-parser?file=types.js
+//start of code
+import React, { useState } from "react";
+import "./App.css";
+import * as XLSX from "xlsx";
+
+class ExcelToJson extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      file: "",
+    };
+  }
+
+  handleClick(e) {
+    this.refs.fileUploader.click();
+  }
+
+  filePathset(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var file = e.target.files[0];
+    console.log(file);
+    this.setState({ file });
+
+    console.log(this.state.file);
+  }
+
+  readFile() {
+    var f = this.state.file;
+    var name = f.name;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      // evt = on_file_select event
+      /* Parse data */
+      const bstr = evt.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      /* Get first worksheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      /* Convert array of arrays */
+      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+      /* Update state */
+      console.log("Data>>>" + data);// shows that excel data is read
+      console.log(this.convertToJson(data)); // shows data in json format
+    };
+    reader.readAsBinaryString(f);
+  }
+
+  convertToJson(csv) {
+    var lines = csv.split("\n");
+
+    var result = [];
+
+    var headers = lines[0].split(",");
+
+    for (var i = 1; i < lines.length; i++) {
+      var obj = {};
+      var currentline = lines[i].split(",");
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+    }
+
+    //return result; //JavaScript object
+    return JSON.stringify(result); //JSON
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type="file"
+          id="file"
+          ref="fileUploader"
+          onChange={this.filePathset.bind(this)}
+        />
+        <button
+          onClick={() => {
+            this.readFile();
+          }}
+        >
+          Read File
+        </button>
+      </div>
+    );
+  }
+}
+
+export default ExcelToJson;
+
+
+//End of code
+
+
+// start of code
+
+
+npm install read-excel-file --save
+
+<input type="file" id="input" />
+import readXlsxFile from 'read-excel-file'
+
+const input = document.getElementById('input')
+
+input.addEventListener('change', () => {
+  readXlsxFile(input.files[0]).then((rows) => {
+    // `rows` is an array of rows
+    // each row being an array of cells.
+  })
+})
+Node.js
+
+const readXlsxFile = require('read-excel-file/node');
+
+// File path.
+readXlsxFile('/path/to/file').then((rows) => {
+  // `rows` is an array of rows
+  // each row being an array of cells.
+})
+
+// Readable Stream.
+readXlsxFile(fs.createReadStream('/path/to/file')).then((rows) => {
+  ...
+})
+JSON
+
+To convert rows to JSON pass schema option to readXlsxFile(). It will return { rows, errors } object instead of just rows.
+
+// An example *.xlsx document:
+// -----------------------------------------------------------------------------------------
+// | START DATE | NUMBER OF STUDENTS | IS FREE | COURSE TITLE |    CONTACT     |  STATUS   |
+// -----------------------------------------------------------------------------------------
+// | 03/24/2018 |         10         |   true  |  Chemistry   | (123) 456-7890 | SCHEDULED |
+// -----------------------------------------------------------------------------------------
+
+const schema = {
+  'START DATE': {
+    prop: 'date',
+    type: Date
+    // Excel stores dates as integers.
+    // E.g. '24/03/2018' === 43183.
+    // Such dates are parsed to UTC+0 timezone with time 12:00 .
+  },
+  'NUMBER OF STUDENTS': {
+    prop: 'numberOfStudents',
+    type: Number,
+    required: true
+  },
+  // 'COURSE' is not a real Excel file column name,
+  // it can be any string — it's just for code readability.
+  'COURSE': {
+    prop: 'course',
+    type: {
+      'IS FREE': {
+        prop: 'isFree',
+        type: Boolean
+        // Excel stored booleans as numbers:
+        // `1` is `true` and `0` is `false`.
+        // Such numbers are parsed to booleans.
+      },
+      'COURSE TITLE': {
+        prop: 'title',
+        type: String
+      }
+    }
+  },
+  'CONTACT': {
+    prop: 'contact',
+    required: true,
+    type: (value) => {
+      const number = parsePhoneNumber(value)
+      if (!number) {
+        throw new Error('invalid')
+      }
+      return number
+    }
+  },
+  'STATUS': {
+    prop: 'status',
+    type: String,
+    oneOf: [
+      'SCHEDULED',
+      'STARTED',
+      'FINISHED'
+    ]
+  }
+}
+
+readXlsxFile(file, { schema }).then(({ rows, errors }) => {
+  // `errors` have shape `{ row, column, error, value }`.
+  errors.length === 0
+
+  rows === [{
+    date: new Date(2018, 2, 24),
+    numberOfStudents: 10,
+    course: {
+      isFree: true,
+      title: 'Chemistry'
+    },
+    contact: '+11234567890',
+    status: 'SCHEDULED'
+  }]
+})
+
+
+//end of code
+
+//Start  of code
+Simple-Excel-to-json
+Read excel file and parse it to javascript Object.
+
+Install
+npm install simple-excel-to-json
+Simplified Usage
+You can just require the modure "simple-excel-to-json" and execute the method 'parseXls2Json'
+
+var parser = require('simple-excel-to-json')
+var doc = parser.parseXls2Json('./example/sample8.xlsx'); 
+Apply transform function
+
+This approach will use the same parser instance to convert a xls into the json data. If you have many xls which need different particular transform function, you can create many XlsParser instances then apply the transform functions(see basic usage and advance usage).
+
+Basic Usage
+Normal case
+Output Nested JSON
+Case (Normal)
+
+.parseXls2Json(path)
+
+Where
+
+path is your excel file path
+Example
+// Create an instance for XlsParser
+var parser = new (require('simple-excel-to-json').XlsParser)();
+var doc = parser.parseXls2Json('./example/sample.xlsx');
+//print the data of the first sheet
+console.log(doc[0]);
+Input
+item	price	number
+apple	100	2
+banana	200	12
+coffee	150	3
+Output
+[
+    [
+        {
+            "item":"apple",
+            "price":100,
+            "number":2    
+        },
+        {
+            "item":"banana",
+            "price":200,
+            "number":12
+        },
+        {
+            "item":"coffee",
+            "price":150,
+            "number":3
+        }
+    ]
+]
+Case (Nested JSON)
+
+ .parseXls2Json(path, { isNested: true })
+Assign true as second parameter to enable output nested JSON
+Example
+// Create an instance for XlsParser
+var parser = new (require('simple-excel-to-json').XlsParser)();
+var doc = parser.parseXls2Json('./example/sample.xlsx', { isNested: true });
+//print the data of the first sheet
+console.log(doc[0]);
+Input
+Type	Dealership.us[0].location	Dealership.us[1].location	Dealership.jp[0].location
+Sedan	New York	Dallas	Tokyo
+SUV	Ohio		Osaka
+Output
+[
+    [
+        {
+            "type": "Sedan",
+            "dealership":
+            {
+                "us": 
+                [
+                    {
+                        "location": "New York"
+                    },
+                    {
+                        "location": "Dallas"
+                    }
+                ],
+                "jp":
+                [
+                    {
+                        "location": "Tokyo"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "SUV",
+            "dealership":
+            {
+                "us": 
+                [
+                    {
+                        "location": "Ohio"
+                    },
+                    {
+                        "location": ""
+                    }
+                ],
+                "jp":
+                [
+                    {
+                        "location": "Osaka"
+                    }
+                ]
+            }
+        }
+    ]
+]
+Case (To Camel Case)
+
+If you want to have output json with camel case properties, you can apply an 'option' { isToCamelCase: true } to parseXls2Json() e.g 'Car Name' to 'carName' 'product.Type.hasGPS' to 'product.type.hasGPS'
+
+Example
+// Create an instance for XlsParser
+var parser = new (require('simple-excel-to-json').XlsParser)();
+var option = 
+{
+    isToCamelCase: true,
+    isNested: true,
+}
+var doc = parser.parseXls2Json('./example/sample6.xlsx', option );
+Input
+price	product.Type.hasGPS	Model Name
+100	y	sedan 01
+150	y	SUV 22
+200	n	Sport Cars IV
+Output
+[
+    [
+        {
+            'price': 100,
+            'product':
+            {
+                'type':
+                {
+                    'hasGPS': 'y'
+                }
+            },
+            'modelName': 'sedan 01'
+        },
+        {
+            'price': 150,
+            'product':
+            {
+                'type':
+                {
+                    'hasGPS': 'y'
+                }
+            },
+            'modelName': 'SUV 22'
+        },
+        {
+            'price': 200,
+            'product':
+            {
+                'type':
+                {
+                    'hasGPS': 'n'
+                }
+            },
+            'modelName': 'Sport Cars IV'
+        },
+    ]
+]
+Advance Usage
+You can apply transfomation function to transform the output
+
+.setTranseform(func)
+
+Where
+
+func is your transfomation function to convert the output into you expected
+Example
+// Create an instance for XlsParser
+var parser = new (require('simple-excel-to-json').XlsParser)();
+parse.setTranseform( [
+    function(sheet1){
+        sheet1.number = sheet1.number.trim();
+        sheet1.buyer = sheet1.buyer.split(';').filter( item=>item.trim()!=='');
+        sheet1.buyer.forEach( (e,i,arr) => {
+            arr[i]=e.trim();
+        });     
+   
+    },
+    function(sheet2){
+        sheet2.Type = sheet2.Type.toLowerCase();
+    }        
+]);
+
+
+var doc = parser.parseXls2Json('./example/sample2.xlsx');
+Input
+sheet 1
+item	price	number	buyer
+apple	100	two	Andy;Bob
+banana	200	twelve	Tom;
+coffee	150	three	Mary; Calvin
+sheet 2
+Type	Price
+Car	10000
+Bus	200000
+Output
+[
+    [
+        {
+            "item":"apple",
+            "price":100,
+            "number":"two",
+            "buyer": ["Andy","Bob"]    
+        },
+        {
+            "item":"banana",
+            "price":200,
+            "number":"twelve",
+            "buyer":["Tom"]
+        },
+        {
+            "item":"coffee",
+            "price":150,
+            "number":"three",
+            "buyer":["Mary","Calvin"]
+        }
+    ],
+    [
+        {
+            "Type":"car",
+            "Price":10000
+        },
+        {
+            "Type":"bus",
+            "Price":20000
+        }
+    ]
+]
+Case (Nested JSON)
+
+Example
+// Create an instance for XlsParser
+var parser = new (require('simple-excel-to-json').XlsParser)();
+parse.setTranseform( [
+    function(sheet1){
+        sheet1['type'] = sheet1['type'].toLowerCase(); 
+        sheet1['price'] = sheet1['price'].split(';').map( e => e.trim());     
+        sheet1['dealership.us[0].location'] = sheet1['dealership.us[0].location'].trim(); 
+    },      
+]);
+
+
+var doc = parser.parseXls2Json('./example/sample2.xlsx', { isNested: true });
+Input
+type	price	dealership.us[0].location
+Sedan	2000;1000	New York
+SUV	2000;500	Ohio
+Output
+[
+    [
+        {
+            "type": "sedan",
+            "price": ["2000","1000"],
+            "dealership":
+            {
+                "us":
+                [
+                    {
+                        "location": "new york"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "suv",
+            "price": ["2000";"500"],
+            "dealership":
+            {
+                "us":
+                [
+                    {
+                        "location": "ohio"
+                    }
+                }
+            }
+        }
+    ]
+]
+Sheet has empty cell
+If your sheet contains empty cell, simple-excel-to-json will give "" for this cell in result object.
+
+Normal case
+Output Nested JSON case
+Case (Normal)
+
+Type	Price
+Car	
+Bus	200000
+    [
+        {
+            "Type":"car",
+            "Price":""
+        },
+        {
+            "Type":"bus",
+            "Price":20000
+        }
+    ]
+]
+Case (Nested JSON)
+
+Type	Price	Dealership.us[0].location
+Sedan	2000	
+SUV	2000	Ohio
+[
+    [
+        {
+            "type": "Sedan",
+            "price": 2000,
+            "dealership":
+            {
+                "us":
+                [
+                    {
+                        "location": ""
+                    }
+                ]
+            }
+        },
+        {
+            "type": "SUV",
+            "price": 2000,
+            "dealership":
+            {
+                "us":
+                [
+                    {
+                        "location": "ohio"
+                    }
+                }
+            }
+        }
+    ]
+]
+
+//end of code
+//start of code
+const [showLoader, setShowLoader] = useState(false)
+const [filePaths, setFilesPaths] = useState([]);
+const [parsedData, setParsedData] = useState({})
+const [validationErrors, setValidationErrors] = useState([])
+const [fileTypeError, setFileTypeError] = useState("")
+const [uploadError, setUploadError] = useState("")
+
+const onDrop = useCallback((acceptedFiles) => {
+  setShowLoader(true)
+  let data = {...parsedData};
+  let files = [...filePaths];
+  let errors = []
+
+  if (validationErrors.length > 0) {
+    setValidationErrors([])
+  }
+
+  if (fileTypeError) {
+    setFileTypeError("")
+  }
+
+  if (uploadError) {
+    setUploadError("")
+  }
+
+  acceptedFiles.forEach((file) => {
+    const reader = new FileReader()
+
+    reader.onabort = () => console.log('file reading was aborted')
+    reader.onerror = () => console.log('file reading has failed')
+    reader.onload = () => {
+      const isExcelFile = file.type === XLSX_MIME_TYPE
+
+      if (!isExcelFile) {
+        setFileTypeError("One or more of the files added were removed because they were not excel files");
+        return;
+      }
+
+      if (filePaths.includes(file.path)) {
+        setUploadError("One or more of the files wasn't added because a file of that name already exists");
+        return
+      }
+
+      let bstr = reader.result;
+      const wb = XLSX.read(bstr, { type: 'array', bookVBA : true, cellDates: true, cellStyles: true});
+      /* Get first worksheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      /* Convert array of arrays */
+      const data = XLSX.utils.sheet_to_json(ws);
+
+      const validateData = data.map(dataItem => {
+        const validTypes = ["Major", "Patch", "Maint", "Dependency", "Infrastructure"]
+        if (!dataItem["Application Description"] || !validTypes.includes(dataItem["Event Type"]) || !dataItem["Event Type"]) {
+          return "error"
+        } else {
+          return "valid"
+        }
+      })
+
+      if (validateData.includes("error")) {
+        reader.errorMessage = "error";
+      } else {
+        reader.data = [...data].map((item, index) => {
+          return {
+            id: index,
+            ...item
+          }
+        })
+      }
+    }
+    reader.readAsArrayBuffer(file)
+    setTimeout(() => {
+      if (reader.errorMessage) {
+        errors.push(`${file.path} contains errors, please make sure it was filled out correctly`)
+      } else {
+        files.push(file.path)
+        data[file.path] = reader.data
+      }
+    }, 250)
+  })
+
+  setTimeout(() => {
+    if (errors.length > 0) {
+      setValidationErrors(errors)
+    }
+    setFilesPaths(files)
+    setParsedData(data)
+    setShowLoader(false)
+  }, 250)
+}, [
+  validationErrors,
+  fileTypeError,
+  uploadError,
+  parsedData,
+  filePaths
+])
+
+//end of code
+
+
 
  
