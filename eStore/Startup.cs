@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using eStore.Services.BTask;
 //using eStore.ImportDatabase.Data;
 
 namespace eStore
@@ -151,6 +152,8 @@ namespace eStore
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddHostedService<QueuedHostedService> ();
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
