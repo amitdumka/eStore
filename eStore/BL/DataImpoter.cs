@@ -106,5 +106,43 @@ namespace eStore.BL
     }
 
 
+    public class ImportVoyData
+    {
+        public void ImportJson(eStoreDbContext db, string Command, dynamic jsonData, string email, string callbackUrl)
+        {
+            try
+            {
+                switch ( Command )
+                {
+                    case "VoyBrandName": break;
+                    case "ProductMaster":
+                        break;
+                    case "ProductList":
+                        break;
+                    case "TaxRegister": break;
+                    case "VoySaleInvoice":
+                        break;
+                    case "VoySaleInvoiceSum":
+                        break;
+                    case "VoyPurchaseInward":
+                        break;
+                    case "InwardSummary":
+                        break;
+                    case "SaleWithCustomer": break; 
+
+                    default:
+                        break;
+                }
+
+            }
+            catch ( Exception e )
+            {
+
+            }
+
+        }
+    }
+
+
 
 }

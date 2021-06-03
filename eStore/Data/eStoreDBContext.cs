@@ -16,6 +16,7 @@ using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Accounts;
 using eStore.Shared.ViewModels.Banking;
 using eStore.Shared.ViewModels.Payroll;
+using eStore.Shared.Uploader;
 
 namespace eStore.DL.Data
 {
@@ -139,6 +140,18 @@ namespace eStore.DL.Data
         public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } //API
         public DbSet<BankDeposit> BankDeposits { get; set; } //API
         public DbSet<BankWithdrawal> BankWithdrawals { get; set; } //API
+
+        //Voyager Data
+        public DbSet<InwardSummary> InwardSummaries { get; set; }
+        public DbSet<VoyBrandName> VoyBrandNames { get; set; }
+        public DbSet<VoyPurchaseInward> VoyPurchaseInwards { get; set; }
+        public DbSet<VoySaleInvoice> VoySaleInvoices { get; set; }
+        public DbSet<VoySaleInvoiceSum> VoySaleInvoiceSums { get; set; }
+        public DbSet<TaxRegister> TaxRegisters { get; set; }
+        public DbSet<ProductMaster> ProductMasters { get; set; }
+        public DbSet<ProductList> ProductLists { get; set; }
+        public DbSet<SaleWithCustomer> SaleWithCustomers { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
