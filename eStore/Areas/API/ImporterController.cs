@@ -50,5 +50,19 @@ namespace eStore.Areas.API
             });
             return Ok ("Uploader is processing! It will be inform after completation. ");
         }
+        [HttpPost("voyagerImport")]
+        public ActionResult PostVoyagerData(ImportDto import)
+        {
+            _queue.QueueBackgroundWorkItem (async token =>
+            {
+                using ( var scope = _serviceScopeFactory.CreateScope () )
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<eStoreDbContext> ();
+                     ImportVoyData.ImportJsonAsync (db, import.CommandMode, import.JsonData, import.EmailId, import.CallBackUrl);
+                    await Task.Delay (TimeSpan.FromSeconds (5), token);
+                }
+            });
+            return Ok ("Uploader is processing! It will be inform after completation. ");
+        }
     }
 }
