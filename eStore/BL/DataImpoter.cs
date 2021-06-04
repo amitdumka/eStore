@@ -2,6 +2,7 @@
 using eStore.Shared.Models.Banking;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Uploader;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,14 +98,16 @@ namespace eStore.BL
     }
 
 
-    public class SaveData<T>
-    {
-        public static async System.Threading.Tasks.Task<int> SaveAsync(List<T> dataList, eStoreDbContext db)
-        {
-            await db.AddRangeAsync (dataList);
-            return await db.SaveChangesAsync ();
-        }
-    }
+    //public class SaveData<T>
+    //{
+    //    public static async System.Threading.Tasks.Task<int> SaveAsync(IEnumerable<T> dataList, eStoreDbContext db)
+    //    {
+    //        IEnumerable<T> dl = (IEnumerable<T>) dataList;
+
+    //        db.AddRange ((IEnumerable<T>) dl);
+    //        return await db.SaveChangesAsync ();
+    //    }
+    //}
 
 
     public class ImportVoyData
@@ -113,62 +116,76 @@ namespace eStore.BL
         {
             string returndata = JsonSerializer.Serialize (jsonData);
             int recordCount = 0;
+            string rData = "";
             try
             {
-               
+
                 switch ( Command )
                 {
                     case "VoyBrandName":
-                        recordCount = await SaveData<VoyBrandName>.SaveAsync( JsonSerializer.Deserialize<List<VoyBrandName>> (returndata),db);
-                      
+                        var jd = JsonSerializer.Deserialize<IEnumerable<VoyBrandName>> (returndata);
+                        await db.AddRangeAsync (jd);
                         break;
                     case "ProductMaster":
-                        recordCount = await SaveData< ProductMaster>.SaveAsync (JsonSerializer.Deserialize<List<ProductMaster>> (returndata), db);
+                        //recordCount = await SaveData<ProductMaster>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<ProductMaster>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<ProductMaster>> (returndata));
                         break;
                     case "ProductList":
-                        recordCount = await SaveData<ProductList>.SaveAsync (JsonSerializer.Deserialize<List<ProductList>> (returndata), db);
+                        // recordCount = await SaveData<ProductIEnumerable>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<ProductIEnumerable>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<ProductList>> (returndata));
                         break;
                     case "TaxRegister":
-                        recordCount = await SaveData<TaxRegister>.SaveAsync (JsonSerializer.Deserialize<List<TaxRegister>> (returndata), db);
+                        // recordCount = await SaveData<TaxRegister>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<TaxRegister>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<TaxRegister>> (returndata));
                         break;
                     case "VoySaleInvoice":
-                        recordCount = await SaveData<VoySaleInvoice>.SaveAsync (JsonSerializer.Deserialize<List<VoySaleInvoice>> (returndata), db);
+                        // recordCount = await SaveData<VoySaleInvoice>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<VoySaleInvoice>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<VoySaleInvoice>> (returndata));
                         break;
                     case "VoySaleInvoiceSum":
-                        recordCount = await SaveData<VoySaleInvoiceSum>.SaveAsync (JsonSerializer.Deserialize<List<VoySaleInvoiceSum>> (returndata), db);
+                        // recordCount = await SaveData<VoySaleInvoiceSum>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<VoySaleInvoiceSum>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<VoySaleInvoiceSum>> (returndata));
                         break;
                     case "VoyPurchaseInward":
-                        recordCount = await SaveData<VoyPurchaseInward>.SaveAsync (JsonSerializer.Deserialize<List<VoyPurchaseInward>> (returndata), db);
+                        // recordCount = await SaveData<VoyPurchaseInward>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<VoyPurchaseInward>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<VoyPurchaseInward>> (returndata));
                         break;
                     case "InwardSummary":
-                        recordCount = await SaveData<InwardSummary>.SaveAsync (JsonSerializer.Deserialize<List<InwardSummary>> (returndata), db);
+                        // recordCount = await SaveData<InwardSummary>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<InwardSummary>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<InwardSummary>> (returndata));
                         break;
                     case "SaleWithCustomer":
-                        recordCount = await SaveData<SaleWithCustomer>.SaveAsync (JsonSerializer.Deserialize<List<SaleWithCustomer>> (returndata), db);
-                        break; 
+                        // recordCount = await SaveData<SaleWithCustomer>.SaveAsync (JsonSerializer.Deserialize<IEnumerable<SaleWithCustomer>> (returndata), db);
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<SaleWithCustomer>> (returndata));
+                        break;
 
                     default:
                         recordCount = -1;
+                        rData = "Option Not Found!\t";
                         break;
                 }
+               
+                recordCount = await db.SaveChangesAsync ();
+               
+                if ( recordCount > 0 )
+                {
+                    rData += $"DataLength:{recordCount}";
+                }
+                else if ( recordCount < 0 )
+                    rData += "Error: Option not Supported!";
+                else
+                    rData += "Error: Unkown Error!";
 
+
+                return rData;
             }
             catch ( Exception e )
             {
-                returndata = "Error: " + e.Message;
+                return "Error: " + e.Message;
+
+
             }
 
-            if ( recordCount > 0 )
-            {
-                returndata = $"DataLength:{recordCount}";
-            }
-            else if ( recordCount < 0 )
-                returndata = "Error: Option not Supported!";
-            else
-                returndata = "Error: Unkown Error!";
-
-
-            return returndata;
         }
     }
 

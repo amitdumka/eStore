@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace eStore.Shared.Uploader
 {
@@ -108,9 +109,10 @@ namespace eStore.Shared.Uploader
 
     public class VoyBrandName
     {
+        [Key]
         public int ID { get; set; }
-        public string BrandCode { get; set; }
-        public string BrandName { get; set; }
+        public string BRANDCODE { get; set; }
+        public string BRANDNAME { get; set; }
     }
 
     //BRANDCODE BRANDNAME
@@ -147,7 +149,7 @@ namespace eStore.Shared.Uploader
         public string UOM { get; set; }
         public string TaxCode { get; set; }
         public string TaxType { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         public string PRINCIPAL_FCD { get; set; }
     }
 
@@ -164,7 +166,7 @@ namespace eStore.Shared.Uploader
     {
         public int Id { get; set; }
         public string InvoiceNo { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public string InvoiceDate { get; set; }
         public string InvoiceType { get; set; }
         public string BrandName { get; set; }
         public string ProductName { get; set; }

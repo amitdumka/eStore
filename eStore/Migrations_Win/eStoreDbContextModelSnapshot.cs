@@ -3694,8 +3694,8 @@ namespace eStore.Migrations
                     b.Property<string>("PRINCIPAL_FCD")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Price")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductCode")
                         .HasColumnType("nvarchar(max)");
@@ -3799,8 +3799,8 @@ namespace eStore.Migrations
                     b.Property<decimal>("DiscountAmt")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("InvoiceDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InvoiceNo")
                         .HasColumnType("nvarchar(max)");
@@ -3844,10 +3844,10 @@ namespace eStore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BrandCode")
+                    b.Property<string>("BRANDCODE")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BrandName")
+                    b.Property<string>("BRANDNAME")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
