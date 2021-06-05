@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Shared.Uploader
 {
@@ -10,7 +11,7 @@ namespace eStore.Shared.Uploader
     {
         public int ID { get; set; }
         public string InvoiceNo { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public string InvoiceDate { get; set; }
         public string InvoiceType { get; set; }
         public string BrandName { get; set; }
         public string ProductName { get; set; }
@@ -18,17 +19,29 @@ namespace eStore.Shared.Uploader
         public string HSNCode { get; set; }
         public string BARCODE { get; set; }
         public string StyleCode { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Quantity { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal MRP { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal DiscountAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BasicAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TaxAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal SGSTAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal CGSTAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal CESSAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal LineTotal { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal RoundOff { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BillAmt { get; set; }
+        
         public string PaymentMode { get; set; }
         public string SalesManName { get; set; }
         public string Coupon { get; set; }
@@ -50,16 +63,26 @@ namespace eStore.Shared.Uploader
         public string InvoiceNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public string InvoiceType { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Quantity { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal MRP { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal DiscountAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BasicAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TaxAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal RoundOff { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BillAmt { get; set; }
+        
         public string PaymentMode { get; set; }
-        public string Coupon { get; set; }
-        public string CouponAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
+        public decimal Coupon { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
+        public decimal CouponAmt { get; set; }
         public string LPFlag { get; set; }
         public string InstOrderCD { get; set; }
         public string TailoringFlag { get; set; }
@@ -73,21 +96,32 @@ namespace eStore.Shared.Uploader
         public string GRNNo { get; set; }
         public DateTime GRNDate { get; set; }
         public string InvoiceNo { get; set; }
+        [DataType (DataType.Date), DisplayFormat (DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InvoiceDate { get; set; }
         public string SupplierName { get; set; }
         public string Barcode { get; set; }
         public string ProductName { get; set; }
         public string StyleCode { get; set; }
         public string ItemDesc { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Quantity { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal MRP { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal MRPValue { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Cost { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal CostValue { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TaxAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal ExmillCost { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Excise1 { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Excise2 { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Excise3 { get; set; }
     }
 
@@ -100,17 +134,20 @@ namespace eStore.Shared.Uploader
         public string InwardNo { get; set; }
         public DateTime InwardDate { get; set; }
         public string InvoiceNo { get; set; }
+        [DataType (DataType.Date), DisplayFormat (DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InvoiceDate { get; set; }
         public string PartyName { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TotalQty { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TotalMRPValue { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TotalCost { get; set; }
     }
 
     public class VoyBrandName
     {
         [Key]
-        public int ID { get; set; }
         public string BRANDCODE { get; set; }
         public string BRANDNAME { get; set; }
     }
@@ -140,7 +177,7 @@ namespace eStore.Shared.Uploader
 
     public class ProductList
     {
-        public int Id { get; set; }
+       [Key]
         public string BarCode { get; set; }
         public string ItemCode { get; set; }
         public string ItemDesc { get; set; }
@@ -155,7 +192,7 @@ namespace eStore.Shared.Uploader
 
     public class ProductMaster
     {
-        public int Id { get; set; }
+        [Key]
         public string PRODUCTCODE { get; set; }
         public string PRODUCTNAME { get; set; }
     }
@@ -173,13 +210,21 @@ namespace eStore.Shared.Uploader
         public string ItemDesc { get; set; }
         public string BARCODE { get; set; }
         public string StyleCode { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Quantity { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal SaleValue { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal DiscountAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BasicAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TaxAmt { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal TaxRate { get; set; }
-        public decimal TaxDesc { get; set; }
+        
+        public string TaxDesc { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BillAmt { get; set; }
     }
 
@@ -191,7 +236,9 @@ namespace eStore.Shared.Uploader
         public string InvoiceNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public string InvoiceType { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Quantity { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BillAmt { get; set; }
         public string PaymentType { get; set; }
         public string CustomerName { get; set; }

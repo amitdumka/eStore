@@ -1,0 +1,10 @@
+﻿truncate table VoySaleInvoices ;
+truncate table TaxRegisters;
+truncate table [dbo].[VoySaleInvoiceSums];
+  truncate table   [dbo].[VoySaleInvoices]	;
+  truncate table	[dbo].[VoyPurchaseInwards]	 ;
+  truncate table	 [dbo].[VoyBrandNames] ;
+  truncate table   [dbo].[SaleWithCustomers];
+   truncate table	[dbo].[ProductLists];
+   truncate table	 [dbo].[ProductMasters];
+   truncate table	  [dbo].[InwardSummaries]  ;

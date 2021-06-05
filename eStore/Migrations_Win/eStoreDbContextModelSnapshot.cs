@@ -3659,13 +3659,13 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("TotalMRPValue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("TotalQty")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
@@ -3674,13 +3674,8 @@ namespace eStore.Migrations
 
             modelBuilder.Entity("eStore.Shared.Uploader.ProductList", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("BarCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BrandCode")
                         .HasColumnType("nvarchar(max)");
@@ -3709,25 +3704,20 @@ namespace eStore.Migrations
                     b.Property<string>("UOM")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("BarCode");
 
                     b.ToTable("ProductLists");
                 });
 
             modelBuilder.Entity("eStore.Shared.Uploader.ProductMaster", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("PRODUCTCODE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PRODUCTNAME")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PRODUCTCODE");
 
                     b.ToTable("ProductMasters");
                 });
@@ -3743,7 +3733,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BillAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
@@ -3770,7 +3760,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -3788,16 +3778,16 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BasicAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("BillAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("BrandName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("InvoiceDate")
                         .HasColumnType("nvarchar(max)");
@@ -3815,22 +3805,22 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("SaleValue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("StyleCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
-                    b.Property<decimal>("TaxDesc")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("TaxDesc")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -3839,18 +3829,13 @@ namespace eStore.Migrations
 
             modelBuilder.Entity("eStore.Shared.Uploader.VoyBrandName", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("BRANDCODE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BRANDNAME")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("BRANDCODE");
 
                     b.ToTable("VoyBrandNames");
                 });
@@ -3866,22 +3851,22 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("CostValue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("Excise1")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("Excise2")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("Excise3")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("ExmillCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<DateTime>("GRNDate")
                         .HasColumnType("datetime2");
@@ -3899,16 +3884,16 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("MRP")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("MRPValue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("StyleCode")
                         .HasColumnType("nvarchar(max)");
@@ -3917,7 +3902,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
@@ -3935,10 +3920,10 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BasicAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("BillAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("BillDiscount")
                         .HasColumnType("nvarchar(max)");
@@ -3947,10 +3932,10 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CESSAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("CGSTAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("Coupon")
                         .HasColumnType("nvarchar(max)");
@@ -3959,7 +3944,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("HSNCode")
                         .HasColumnType("nvarchar(max)");
@@ -3967,8 +3952,8 @@ namespace eStore.Migrations
                     b.Property<string>("InstOrderCD")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("InvoiceDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InvoiceNo")
                         .HasColumnType("nvarchar(max)");
@@ -3983,10 +3968,10 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("LineTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("MRP")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("PaymentMode")
                         .HasColumnType("nvarchar(max)");
@@ -3995,13 +3980,13 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("RoundOff")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("SGSTAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("SUBTYPE")
                         .HasColumnType("nvarchar(max)");
@@ -4016,7 +4001,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
@@ -4031,19 +4016,19 @@ namespace eStore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("BasicAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("BillAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
-                    b.Property<string>("Coupon")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Coupon")
+                        .HasColumnType("money");
 
-                    b.Property<string>("CouponAmt")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("CouponAmt")
+                        .HasColumnType("money");
 
                     b.Property<decimal>("DiscountAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("InstOrderCD")
                         .HasColumnType("nvarchar(max)");
@@ -4061,22 +4046,22 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("MRP")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("PaymentMode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<decimal>("RoundOff")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("TailoringFlag")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmt")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
