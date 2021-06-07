@@ -77,7 +77,6 @@ namespace eStore.Shared.Uploader
         public decimal RoundOff { get; set; }
         [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal BillAmt { get; set; }
-        
         public string PaymentMode { get; set; }
         [DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal Coupon { get; set; }

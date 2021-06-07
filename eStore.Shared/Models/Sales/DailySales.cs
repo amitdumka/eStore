@@ -42,6 +42,9 @@ namespace eStore.Shared.Models.Sales
         [DefaultValue(false)]
         public bool IsMatchedWithVOy { get; set; }
 
+        [DefaultValue(0.0)]
+        public decimal? TaxAmount { get; set; }
+
         public int? EDCTranscationId { get; set; }
         public virtual EDCTranscation EDCTranscation { get; set; }
 
