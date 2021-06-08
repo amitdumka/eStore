@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using eStore.DL.Data;
+using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Sales;
 
 namespace eStore.BL.Importer
@@ -11,9 +12,20 @@ namespace eStore.BL.Importer
         {
         }
 
+        public static int ProcessBrand(eStoreDbContext db)
+        {
+            var data = db.VoyBrandNames.ToList();
+            foreach (var item in data)
+            {
+                Brand b = new Brand {BCode=item.BRANDCODE, BrandName=item.BRANDNAME };
+                db.Brands.Add(b);
+
+            }
+            return db.SaveChanges(); 
+        }
         
 
-        public static void ProcessSaleSummary(eStoreDbContext db, int StoreId, int year) 
+        public static int ProcessSaleSummary(eStoreDbContext db, int StoreId, int year) 
         {
             var data = db.VoySaleInvoiceSums.Where(c => c.InvoiceDate.Year == year).ToList();
             var sData = db.DailySales.Where(c => c.SaleDate.Year == year && c.StoreId == StoreId && !c.IsManualBill).ToList();
@@ -53,6 +65,7 @@ namespace eStore.BL.Importer
                     if(eD.IsMatchedWithVOy)
                     eD.Remarks += "\t#AutoVerified";
                     else eD.Remarks += "\t#Auto-BugInEntry";
+                    db.DailySales.Update(eD);
                 }
                 else
                 {
@@ -79,10 +92,12 @@ namespace eStore.BL.Importer
                     var smid = idata.Where(c => c.InvoiceNo == sale.InvNo).FirstOrDefault().SalesManName;
                     sale.SalesmanId = sms.Where(c=>c.SalesmanName.Contains(smid)).Select(c=>c.SalesmanId).FirstOrDefault();
 
-                    
+                    db.DailySales.Add(sale);
                 }
             }
 
+
+            return db.SaveChanges();
         }
     }
 }
