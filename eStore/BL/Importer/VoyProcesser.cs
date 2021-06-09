@@ -99,5 +99,29 @@ namespace eStore.BL.Importer
 
             return db.SaveChanges();
         }
+   
+    
+        public static int ProcessInwardSummary(eStoreDbContext db, int StoreId, int year)
+        {
+            var data = db.InwardSummaries.Where (c => c.InvoiceDate.Year == year).ToList ();
+            var sData = db.Suppliers.ToList ();
+
+            foreach ( var item in data )
+            {
+
+                ProductPurchase purchase = new ProductPurchase {
+                EntryStatus=EntryStatus.Added, IsPaid=true, IsReadOnly=true, StoreId=StoreId, ShippingCost=0, 
+                InvoiceNo=item.InvoiceNo, InWardDate=item.InwardDate, InWardNo=item.InwardNo, PurchaseDate=item.InvoiceDate, 
+                Remarks="AutoAdded", TotalAmount=0, TotalBasicAmount=0, TotalCost=0, TotalMRPValue=item.TotalMRPValue, TotalQty=(double)item.TotalQty, 
+                TotalTax=0, UserId="AutoAdded", 
+                SupplierID= sData.Where(c=>c.SuppilerName.Contains(item.PartyName)).Select(c=>c.SupplierID).FirstOrDefault(),
+                };
+                db.ProductPurchases.Add (purchase); 
+            }
+            return db.SaveChanges ();
+        }
+
+
+    
     }
 }
