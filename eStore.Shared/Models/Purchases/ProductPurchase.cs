@@ -56,35 +56,4 @@ namespace eStore.Shared.Models.Purchases
 
 
     }
-    public class Supplier
-    {
-        public int SupplierID { get; set; }
-        [Display(Name = "Supplier")]
-        public string SuppilerName { get; set; }
-        public string Warehouse { get; set; }
-        public string LocationCode { get; set; }
-        public ICollection<ProductPurchase> ProductPurchases { get; set; }
-    }
-    /// <summary>
-    /// @Version: 5.0
-    /// </summary>
-    //Store Based Class
-    public class Stock : BaseSNT
-    {
-        public int StockId { set; get; }
-
-        [Display(Name = "Product")]
-        public int ProductItemId { set; get; }
-        public virtual ProductItem ProductItem { get; set; }
-
-        public double Quantity { set; get; }
-
-        [Display(Name = "Sale Qty")]
-        public double SaleQty { get; set; }
-
-        [Display(Name = "Purchase Qty")]
-        public double PurchaseQty { get; set; }
-
-        public Unit Units { get; set; }
-    }
 }
