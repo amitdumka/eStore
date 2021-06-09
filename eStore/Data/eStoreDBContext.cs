@@ -151,10 +151,14 @@ namespace eStore.DL.Data
         public DbSet<ProductMaster> ProductMasters { get; set; }
         public DbSet<ProductList> ProductLists { get; set; }
         public DbSet<SaleWithCustomer> SaleWithCustomers { get; set; }
+        public DbSet<LocationMaster> LocationMasters { get; set; }
 
 
         //purchase
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<ProductPurchase> ProductPurchases { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

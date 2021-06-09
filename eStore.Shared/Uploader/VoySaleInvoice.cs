@@ -246,4 +246,16 @@ namespace eStore.Shared.Uploader
         public string Email { get; set; }
         public string DateofBirth { get; set; }
     }
+
+
+    public class LocationMaster
+    {
+        [Key]
+       public string LOCATIONCODE { get; set; }
+        public string LOCATIONNAME { get; set; }
+        public string ADDRESS { get; set; }
+
+    }
+
+
 }
