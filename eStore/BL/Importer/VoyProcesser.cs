@@ -26,6 +26,41 @@ namespace eStore.BL.Importer
             return db.SaveChanges ();
         }
 
+        public static int ProcessCusomterSale(eStoreDbContext db, int StoreId, int year)
+        {
+            // TODO: here reduce data size as much as possible
+            var data = db.SaleWithCustomers.Where(c => c.InvoiceDate.Year == year).ToList();
+            var custs = data.Select(c => new Customer { FirstName = c.CustomerName, City = c.Address, MobileNo = c.Phone }).Distinct().ToList();
+            foreach (var item in custs)
+            {
+                if (!string.IsNullOrEmpty(item.FirstName))
+                {
+                    var names = item.FirstName.Split(" ");
+                    if (names[0] == "Mrs" || names[0] == "Ms")
+                        item.Gender = Gender.Female;
+                    else
+                        item.Gender = Gender.Male;
+                    item.FirstName = names[1];
+                    for (int i = 2; i < names.Length; i++) item.LastName += names[i];
+                    item.Age = 30; ; item.CreatedDate = DateTime.Today;
+
+                    item.TotalAmount = data.Where(c => c.Phone == item.MobileNo).Select(c => new { billAmt = (decimal)c.BillAmt }).Sum(c => c.billAmt);
+                    item.NoOfBills = data.Where(c => c.Phone == item.MobileNo).Count();
+                }
+                else
+                {
+                    custs.Remove(item);
+                }
+
+               
+            }
+            db.Customers.AddRange(custs);
+            return db.SaveChanges();
+
+
+        }
+
+
 
         public static int ProcessSaleSummary(eStoreDbContext db, int StoreId, int year)
         {
