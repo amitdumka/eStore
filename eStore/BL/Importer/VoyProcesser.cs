@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using eStore.DL.Data;
 using eStore.Shared.Models.Purchases;
@@ -59,8 +60,6 @@ namespace eStore.BL.Importer
 
 
         }
-
-
 
         public static int ProcessSaleSummary(eStoreDbContext db, int StoreId, int year)
         {
@@ -174,7 +173,6 @@ namespace eStore.BL.Importer
             return db.SaveChanges ();
         }
 
-
         public static int ProcessInwardSummary(eStoreDbContext db, int StoreId, int year)
         {
             var data = db.InwardSummaries.Where (c => c.InvoiceDate.Year == year).ToList ();
@@ -209,22 +207,45 @@ namespace eStore.BL.Importer
             return db.SaveChanges ();
         }
 
-        public static void ProcessPurchase(eStoreDbContext db, int StoreId, int year)
+        public static int ProcessPurchase(eStoreDbContext db, int StoreId, int year)
         {
             var data = db.VoyPurchaseInwards.Where (c => c.GRNDate.Year == year).OrderBy (c => c.InvoiceNo).ToList ();
             if ( data != null && data.Count > 0 )
             {
                 var pData = db.ProductPurchases.Where (c => c.StoreId == StoreId && c.InWardDate.Year == year).OrderBy (c => c.InvoiceNo).ToList ();
-                ProductPurchase PurchasedProduct = null;
+                ProductPurchase pur = null;
                
                 foreach ( var item in data )
                 {
+                    if (pur == null)
+                    {
+                        pur = pData.Where(c => c.InvoiceNo == item.InvoiceNo).FirstOrDefault();
+                        pur.PurchaseItems = new List<PurchaseItem>();
+                        // create purchase item 
 
+                    }
+                    else if (pur.InvoiceNo != item.InvoiceNo) {
+
+                        pur = pData.Where(c => c.InvoiceNo == item.InvoiceNo).FirstOrDefault();
+                        pur.PurchaseItems = new List<PurchaseItem>();
+                    }
+
+                    //TODO: Need to Add or Create ProductItem and get ProductId
+                    PurchaseItem pItem = new PurchaseItem {
+                       Barcode=item.Barcode, Cost=item.Cost, CostValue=item.CostValue, Qty=(double)item.Quantity,
+                       TaxAmout=item.TaxAmt
+                    };
+                    pur.TotalBasicAmount += item.Cost; pur.TotalTax += item.TaxAmt;
+                    pur.PurchaseItems.Add(pItem);
+                    UpdateProductItem(db, item.Barcode, item.MRP, item.Cost, "", null, false);
+                    
                 }
+                db.ProductPurchases.UpdateRange(pData);
+                return db.SaveChanges();
             }
             else
             {
-                //return error;
+                return -999;
             }
 
 
@@ -297,7 +318,7 @@ namespace eStore.BL.Importer
 
 
 
-        private int GetSalesPersonId(eStoreDbContext db, string salesman)
+        private static int GetSalesPersonId(eStoreDbContext db, string salesman)
         {
             try
             {
@@ -323,9 +344,7 @@ namespace eStore.BL.Importer
             }
         }
 
-
-
-        private int AddOrUpdateStock(eStoreDbContext db, int StoreId, string barCode, double inQty, double outQty, Unit unit)
+        private static int AddOrUpdateStock(eStoreDbContext db, int StoreId, string barCode, double inQty, double outQty, Unit unit)
         {
             Stock stcks = db.Stocks.Where (c => c.BarCode == barCode).FirstOrDefault ();
             if ( stcks != null )
@@ -354,8 +373,7 @@ namespace eStore.BL.Importer
 
         }
 
-
-        private int UpdateProductItem(eStoreDbContext db, string barcode, decimal Mrp, decimal cost, string hsn, Size? size)
+        private static int UpdateProductItem(eStoreDbContext db, string barcode, decimal Mrp, decimal cost, string hsn, Size? size, bool saveIt=false)
         {
 
             var pItem = db.ProductItems.Where (c => c.Barcode == barcode).FirstOrDefault ();
@@ -368,7 +386,9 @@ namespace eStore.BL.Importer
                     pItem.Size = (Size) size;
                 db.ProductItems.Update (pItem);
             }
-            return db.SaveChanges ();
+            if (saveIt)
+                return db.SaveChanges();
+            else return -111;
 
         }
 
