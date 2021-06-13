@@ -143,15 +143,21 @@ namespace eStore.Shared.Models.Sales
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal MixAmount { get; set; }
 
-        public CardDetail? CardDetail { get; set; }
+        public RegularCardDetail? CardDetail { get; set; }
 
         [DefaultValue(false)]
         public bool IsManualBill { get; set; }
     }
 
-    public class CardDetail
+    public class RegularCardDetail : BaseCardDetail
     {
-        public int CardDetailId { get; set; }
+        public int RegularCardDetailId { get; set; }
+        [ForeignKey ("InvoiceNo")]
+        public virtual PaymentDetail PaymentDetail { get; set; }
+    }
+    public class BaseCardDetail
+    {
+       
 
         [Display(Name = "Card Type")]
         public CardMode CardType { get; set; }
@@ -168,8 +174,7 @@ namespace eStore.Shared.Models.Sales
 
         public string InvoiceNo { get; set; }
 
-        [ForeignKey("InvoiceNo")]
-        public virtual PaymentDetail PaymentDetail { get; set; }
+       
     }
 
     #endregion BaseInvoice
@@ -223,11 +228,16 @@ namespace eStore.Shared.Models.Sales
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal OtherAmount { get; set; }
 
-        public CardDetail? CardDetail { get; set; }
+        public SaleCardDetail? CardDetail { get; set; }
 
         
     }
-
+    public class SaleCardDetail : BaseCardDetail
+    {
+        public int SaleCardDetailId { get; set; }
+        [ForeignKey ("InvoiceNo")]
+        public virtual PaymentDetail PaymentDetail { get; set; }
+    }
     public class NonCashDetail
     {
         public int NonCashDetialId { get; set; }

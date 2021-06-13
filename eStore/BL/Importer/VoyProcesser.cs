@@ -358,7 +358,7 @@ namespace eStore.BL.Importer
                 {
                     invoice.CustomerId = 2;
                 }
-                //db.SaleInvoices.Add(invoice);
+                db.SaleInvoices.Add(invoice);
 
             }
             return db.SaveChanges();
@@ -376,7 +376,7 @@ namespace eStore.BL.Importer
                      BasicAmount=item.BasicAmt, BillAmount=item.LineTotal,HSNCode=long.Parse( item.HSNCode.Trim()),
                      Discount=item.DiscountAmt, Units =Unit.NoUnit
                 };
-                //db.SaleItems.Add(sale);
+                db.SaleItems.Add(sale);
             }
             return db.SaveChanges();
         }

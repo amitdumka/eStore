@@ -103,7 +103,7 @@ namespace eStore.DL.Data
         public DbSet<RegularInvoice> RegularInvoices { get; set; } //Api
         public DbSet<RegularSaleItem> RegularSaleItems { get; set; } //APi
         public DbSet<PaymentDetail> PaymentDetails { get; set; } //Api
-        public DbSet<CardDetail> CardDetails { get; set; } //APi
+        public DbSet<RegularCardDetail> CardDetails { get; set; } //APi
 
         public DbSet<DuesList> DuesLists { get; set; } //API
         public DbSet<DueRecoverd> DueRecoverds { get; set; } //API
@@ -112,9 +112,7 @@ namespace eStore.DL.Data
         public DbSet<CashInBank> CashInBanks { get; set; }//API
 
         public DbSet<Customer> Customers { get; set; } //API
-        public DbSet<ProductItem> ProductItems { get; set; }//API
-        public DbSet<Stock> Stocks { get; set; }//API
-
+      
         // New Accounting section
         public DbSet<LedgerType> LedgerTypes { get; set; }//API
 
@@ -159,8 +157,18 @@ namespace eStore.DL.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<ProductPurchase> ProductPurchases { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }//API
+        public DbSet<Stock> Stocks { get; set; }//API
+        public DbSet<eStore.Shared.Models.Purchases.PurchaseItem> PurchaseItem { get; set; } //API
+        //Salepurchase
 
+        public DbSet<SaleItem> SaleItems { get; set; }
+        public DbSet<SaleInvoice> SaleInvoices { get; set; }
+        public DbSet<InvoicePayment> SaleInvoicePayments { get; set; }
+        public DbSet<SaleCardDetail> SaleCardDetails { get; set; }
 
+        public DbSet<eStore.Shared.ViewModels.Payroll.SalesmanInfo> SalesmanInfo { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -247,8 +255,6 @@ namespace eStore.DL.Data
             }
         }
 
-        public DbSet<eStore.Shared.ViewModels.Payroll.SalesmanInfo> SalesmanInfo { get; set; }
-
-        public DbSet<eStore.Shared.Models.Purchases.PurchaseItem> PurchaseItem { get; set; } //API
+       
     }
 }

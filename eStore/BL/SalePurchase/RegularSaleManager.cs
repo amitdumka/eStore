@@ -152,7 +152,7 @@ namespace eStore.BL.SalePurchase
 
 
                 stock.SaleQty += item.Quantity;
-                stock.Quantity -= item.Quantity;
+                //TODO:Quantity stock.Quantity -= item.Quantity;
                 stockList.Add(stock);
             }
             var totalBillamt = itemList.Sum(c => c.BillAmount);
@@ -181,7 +181,7 @@ namespace eStore.BL.SalePurchase
                     pd.PayMode = SalePayMode.Card;
                 }
 
-                CardDetail cd = new CardDetail
+                RegularCardDetail cd = new RegularCardDetail
                 {
                     CardCode = CardType.Visa,//TODO: default
                     Amount = sales.PaymentInfo.CardAmount,
@@ -295,7 +295,7 @@ namespace eStore.BL.SalePurchase
             Stock stock = db.Stocks.Where(c => c.StoreId == StoreId && c.ProductItemId == rSale.ProductItemId).FirstOrDefault();
 
             stock.SaleQty += rSale.Qty;
-            stock.Quantity -= rSale.Qty;
+            //TODO:Quantity  stock.Quantity -= rSale.Qty;
             db.Stocks.Update(stock);
             return rSale;
         }
@@ -305,7 +305,7 @@ namespace eStore.BL.SalePurchase
             Stock stock = db.Stocks.Where(c => c.StoreId == StoreId && c.ProductItemId == saleItem.ProductItemId).FirstOrDefault();
             if (stock == null) return false;
             stock.SaleQty -= saleItem.Qty;
-            stock.Quantity += saleItem.Qty;
+            //TODO:Quantity  stock.Quantity += saleItem.Qty;
             db.Stocks.Update(stock);
             db.RegularSaleItems.Remove(saleItem);
             return true;

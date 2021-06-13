@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.DL.Data;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    partial class eStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210613063253_SalePurchaseU")]
+    partial class SalePurchaseU
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -562,7 +564,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("AdvanceAmount")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -586,7 +588,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RentAmount")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RentType")
                         .HasColumnType("int");
@@ -1867,7 +1869,7 @@ namespace eStore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("CESS")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -2282,7 +2284,7 @@ namespace eStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("TaxAmount")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -3919,7 +3921,7 @@ namespace eStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductCode")
                         .HasColumnType("nvarchar(max)");
@@ -4400,19 +4402,19 @@ namespace eStore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Average")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("CurrentMonth")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("CurrentYear")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("LastMonth")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("LastYear")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SalesmanName")
                         .HasColumnType("nvarchar(max)");
@@ -4421,7 +4423,7 @@ namespace eStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalSale")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SalesmanInfoId");
 

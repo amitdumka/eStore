@@ -16,8 +16,9 @@ namespace eStore.Shared.Models.Purchases
 
     public class ProductItem
     {
+        [DatabaseGenerated (DatabaseGeneratedOption.Identity)]
         public int ProductItemId { set; get; }
-
+        [Key]
         public string Barcode { get; set; }
 
         [Display(Name = "Brand")]

@@ -43,6 +43,7 @@ namespace eStore.Shared.Models.Sales
         public bool IsMatchedWithVOy { get; set; }
 
         [DefaultValue(0.0)]
+        [Display (Name = "Tax Amount"), DataType (DataType.Currency), Column (TypeName = "money")]
         public decimal? TaxAmount { get; set; }
 
         public int? EDCTranscationId { get; set; }
