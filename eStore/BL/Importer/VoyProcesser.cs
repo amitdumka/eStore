@@ -363,7 +363,7 @@ namespace eStore.BL.Importer
             }
             return db.SaveChanges();
         }
-        public static void ProcessSale(eStoreDbContext db, int StoreId,int year)
+        public static int ProcessSale(eStoreDbContext db, int StoreId,int year)
         {
             var data = db.VoySaleInvoices.Where(c => c.InvoiceDate.EndsWith("" + year)).ToList();
 
@@ -372,10 +372,13 @@ namespace eStore.BL.Importer
             {
                 SaleItem sale = new SaleItem {
                      BarCode=item.BARCODE, InvoiceNo=item.InvoiceNo, TaxAmount=item.TaxAmt,
-                     MRP=item.MRP, Qty=(double)item.Quantity,
-
-                }; 
+                     MRP=item.MRP, Qty=(double)item.Quantity,SalesmanId= salesman.Where(c=>c.SalesmanName.Contains(item.SalesManName)).Select(c=>c.SalesmanId).FirstOrDefault(),
+                     BasicAmount=item.BasicAmt, BillAmount=item.LineTotal,HSNCode=long.Parse( item.HSNCode.Trim()),
+                     Discount=item.DiscountAmt, Units =Unit.NoUnit
+                };
+                //db.SaleItems.Add(sale);
             }
+            return db.SaveChanges();
         }
 
         private static int GetSalesPersonId(eStoreDbContext db, string salesman)
