@@ -61,7 +61,7 @@ namespace eStore.BL.Importer
 
         }
 
-        public static int ProcessSaleSummary(eStoreDbContext db, int StoreId, int year)
+        public static int ProcessDailySale(eStoreDbContext db, int StoreId, int year)
         {
             var data = db.VoySaleInvoiceSums.Where (c => c.InvoiceDate.Year == year).ToList ();
             var sData = db.DailySales.Where (c => c.SaleDate.Year == year && c.StoreId == StoreId && !c.IsManualBill).ToList ();
@@ -317,6 +317,18 @@ namespace eStore.BL.Importer
         }
 
 
+        public static void ProcessSaleSummary(eStoreDbContext db,int StoreId, int year)
+        {
+            var data = db.VoySaleInvoiceSums.Where(c => c.InvoiceDate.Year == year).ToList();
+            foreach (var item in data)
+            {
+                
+            }
+        }
+        public static void ProcessSale(eStoreDbContext db, int StoreId,int year)
+        {
+            var data = db.VoySaleInvoices.Where(c => c.InvoiceDate.EndsWith("" + year)).ToList();
+        }
 
         private static int GetSalesPersonId(eStoreDbContext db, string salesman)
         {
@@ -392,7 +404,7 @@ namespace eStore.BL.Importer
 
         }
 
-
+        private  static void UpdateSaleItem(eStoreDbContext db, string barcode, double qty, decimal price, decimal discount) { }
 
     }
 
