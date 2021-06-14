@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eStore.BL;
+using eStore.BL.Importer;
 using eStore.DL.Data;
 using eStore.Services.BTask;
 using Microsoft.AspNetCore.Authorization;
@@ -29,9 +30,11 @@ namespace eStore.Areas.API
     {
         public IBackgroundTaskQueue _queue { get; }
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        public ImporterController(IBackgroundTaskQueue queue, IServiceScopeFactory serviceScopeFactory)
+        private readonly eStoreDbContext db;
+        public ImporterController(IBackgroundTaskQueue queue, IServiceScopeFactory serviceScopeFactory, eStoreDbContext con)
         {
             _queue = queue;
+            db = con;
             _serviceScopeFactory = serviceScopeFactory;
         }
 
@@ -63,6 +66,16 @@ namespace eStore.Areas.API
                 }
             });
             return Ok ("Uploader is processing! It will be inform after completation. ");
+        }
+
+        [HttpGet("ProcessVoyager{command}")]
+        public ActionResult GetProcessVoyagerUpload(ProcessorCommand command)
+        {
+            if (
+            new UploadProcessor().ProcessVoyagerUpload(db, command.StoreId, command.Year, command.Command))
+
+                return Ok("Command Processed");
+            else return Ok("Error occured");
         }
     }
 }

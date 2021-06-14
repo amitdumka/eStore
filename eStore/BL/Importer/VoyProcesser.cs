@@ -460,4 +460,36 @@ namespace eStore.BL.Importer
     }
 
 
+    public class UploadProcessor
+    {
+        public bool ProcessVoyagerUpload(eStoreDbContext db, int StoreId, int Year, string Command)
+        {
+            switch (Command)
+            {
+                case "Brand":
+                    if (VoyProcesser.ProcessBrand(db) > 0) return true; else return false;
+                case "Product":
+                    break;
+                case "PurchaseInward": break;
+                case "PurchaseItem": break;
+                case "Sale": break;
+                case "SaleItem": break;
+                case "Other": break;
+                default:
+                    return false;
+                    
+
+            }
+            return false;
+
+        }
+    }
+
+    public class ProcessorCommand
+    {
+        public int StoreId { get; set; }
+        public int Year { get; set; }
+        public string Command { get; set; }
+    }
+
 }
