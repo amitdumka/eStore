@@ -462,18 +462,28 @@ namespace eStore.BL.Importer
 
     public class UploadProcessor
     {
-        public bool ProcessVoyagerUpload(eStoreDbContext db, int StoreId, int Year, string Command)
+        public bool ProcessVoyagerUpload(eStoreDbContext db, ProcessorCommand cmd)
         {
-            switch (Command)
+            int StoreId = cmd.StoreId; int Year = cmd.Year;
+            switch (cmd.Command)
             {
+                case "DailySale": if (VoyProcesser.ProcessDailySale(db, StoreId, Year) > 0) return true; else return false;
                 case "Brand":
                     if (VoyProcesser.ProcessBrand(db) > 0) return true; else return false;
                 case "Product":
-                    break;
+                    if (VoyProcesser.ProcessProductItem(db, cmd.BrandName) > 0) return true; else return false;
+                     
                 case "PurchaseInward": break;
                 case "PurchaseItem": break;
-                case "Sale": break;
-                case "SaleItem": break;
+                case "Sale":
+                    if (VoyProcesser.ProcessSaleSummary(db, StoreId,Year) > 0) return true; else return false;
+                      
+                case "SaleItem":
+                    if (VoyProcesser.ProcessSale(db, StoreId, Year) > 0) return true; else return false;
+                     
+                case "Customer":
+                    if(VoyProcesser.ProcessCusomterSale(db, StoreId, Year)>0) return true; else return false;
+                     
                 case "Other": break;
                 default:
                     return false;
@@ -490,6 +500,7 @@ namespace eStore.BL.Importer
         public int StoreId { get; set; }
         public int Year { get; set; }
         public string Command { get; set; }
+        public string BrandName { get; set; }
     }
 
 }
