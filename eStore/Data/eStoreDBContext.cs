@@ -150,6 +150,7 @@ namespace eStore.DL.Data
         public DbSet<ProductList> ProductLists { get; set; }
         public DbSet<SaleWithCustomer> SaleWithCustomers { get; set; }
         public DbSet<LocationMaster> LocationMasters { get; set; }
+        public DbSet<ItemData> ItemDatas { get; set; }
 
 
         //purchase
@@ -166,6 +167,7 @@ namespace eStore.DL.Data
         public DbSet<SaleInvoice> SaleInvoices { get; set; }
         public DbSet<InvoicePayment> SaleInvoicePayments { get; set; }
         public DbSet<SaleCardDetail> SaleCardDetails { get; set; }
+        public DbSet<TaxName> Taxes { get; set; }
 
         public DbSet<eStore.Shared.ViewModels.Payroll.SalesmanInfo> SalesmanInfo { get; set; }
         
@@ -237,13 +239,29 @@ namespace eStore.DL.Data
 
 
 
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 1, CompositeRate = 5, TaxName = "Local Output GST@ 5%  ", TaxType = TaxType.GST });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 2, CompositeRate = 12, TaxName = "Local Output GST@ 12%  ", TaxType = TaxType.GST });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 3, CompositeRate = 5, TaxName = "Output IGST@ 5%  ", TaxType = TaxType.IGST });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 4, CompositeRate = 12, TaxName = "Output IGST@ 12%  ", TaxType = TaxType.IGST });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 5, CompositeRate = 5, TaxName = "Output Vat@ 12%  ", TaxType = TaxType.VAT });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 6, CompositeRate = 12, TaxName = "Output VAT@ 5%  ", TaxType = TaxType.VAT });
-            modelBuilder.Entity<SaleTaxType>().HasData(new SaleTaxType { SaleTaxTypeId = 7, CompositeRate = 5, TaxName = "Output Vat Free  ", TaxType = TaxType.VAT });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 1, CompositeRate = 5, TaxName = "Local Output GST@ 5%  ", TaxType = TaxType.GST });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 2, CompositeRate = 12, TaxName = "Local Output GST@ 12%  ", TaxType = TaxType.GST });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 3, CompositeRate = 5, TaxName = "Output IGST@ 5%  ", TaxType = TaxType.IGST });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 4, CompositeRate = 12, TaxName = "Output IGST@ 12%  ", TaxType = TaxType.IGST });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 5, CompositeRate = 5, TaxName = "Output Vat@ 12%  ", TaxType = TaxType.VAT });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 6, CompositeRate = 12, TaxName = "Output VAT@ 5%  ", TaxType = TaxType.VAT });
+            modelBuilder.Entity<SaleTaxType> ().HasData (new SaleTaxType { SaleTaxTypeId = 7, CompositeRate = 5, TaxName = "Output Vat Free  ", TaxType = TaxType.VAT });
+
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 1, CompositeRate = 5, Name = "Local Output GST@ 5%  ", TaxType = TaxType.GST, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 2, CompositeRate = 12, Name = "Local Output GST@ 12%  ", TaxType = TaxType.GST, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 3, CompositeRate = 5, Name = "Output IGST@ 5%  ", TaxType = TaxType.IGST, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 4, CompositeRate = 12, Name = "Output IGST@ 12%  ", TaxType = TaxType.IGST, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 5, CompositeRate = 5, Name = "Output Vat@ 12%  ", TaxType = TaxType.VAT, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 6, CompositeRate = 12, Name = "Output VAT@ 5%  ", TaxType = TaxType.VAT, OutPutTax = false });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 7, CompositeRate = 0, Name = "Output Vat Free  ", TaxType = TaxType.VAT, OutPutTax = false });
+
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 8, CompositeRate = 5, Name = "Local Input GST@ 5%  ", TaxType = TaxType.GST, OutPutTax=true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 9, CompositeRate = 12, Name = "Local Input GST@ 12%  ", TaxType = TaxType.GST, OutPutTax = true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 10, CompositeRate = 5, Name = "Input IGST@ 5%  ", TaxType = TaxType.IGST, OutPutTax = true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 11, CompositeRate = 12, Name = "Input IGST@ 12%  ", TaxType = TaxType.IGST, OutPutTax = true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId =12, CompositeRate = 5, Name = "Input Vat@ 12%  ", TaxType = TaxType.VAT, OutPutTax = true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 13, CompositeRate = 12, Name = "Input VAT@ 5%  ", TaxType = TaxType.VAT, OutPutTax = true });
+            modelBuilder.Entity<TaxName> ().HasData (new TaxName { TaxNameId = 14, CompositeRate = 0, Name = "Input Vat Free  ", TaxType = TaxType.VAT, OutPutTax = true });
 
         }
 

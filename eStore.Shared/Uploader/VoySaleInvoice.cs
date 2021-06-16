@@ -257,6 +257,21 @@ namespace eStore.Shared.Uploader
         public string ADDRESS { get; set; }
 
     }
+//    BrandName ProductName ItemDesc BARCODE StyleCode TaxRate TaxDesc
 
+    public class ItemData
+    {  
+        public int ItemDataId { get; set; }
+        public string BARCODE { get; set; }
+        public string BrandName { get; set; }
+        public string ProductType { get; set; }
+        public string ProductCategory { get; set; }
+        public string ProductName { get; set; }
+        public string ItemDesc { get; set; }
+        public string StyleCode { get; set; }
+        [DataType (DataType.Currency), Column (TypeName = "money")]
+        public decimal TaxRate { get; set; }
+        public string TaxDesc { get; set; }
+    }
 
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.DL.Data;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    partial class eStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210616133239_itemdata")]
+    partial class itemdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4025,13 +4027,8 @@ namespace eStore.Migrations
 
             modelBuilder.Entity("eStore.Shared.Uploader.ItemData", b =>
                 {
-                    b.Property<int>("ItemDataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("BARCODE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BrandName")
                         .HasColumnType("nvarchar(max)");
@@ -4057,7 +4054,7 @@ namespace eStore.Migrations
                     b.Property<decimal>("TaxRate")
                         .HasColumnType("money");
 
-                    b.HasKey("ItemDataId");
+                    b.HasKey("BARCODE");
 
                     b.ToTable("ItemDatas");
                 });

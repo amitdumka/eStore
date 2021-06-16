@@ -68,8 +68,8 @@ namespace eStore.Areas.API
             return Ok ("Uploader is processing! It will be inform after completation. ");
         }
 
-        [HttpGet("ProcessVoyager{command}")]
-        public ActionResult GetProcessVoyagerUpload(ProcessorCommand command)
+        [HttpPost("ProcessVoyager")]
+        public ActionResult PostProcessVoyagerUpload(ProcessorCommand command)
         {
             if (
             new UploadProcessor().ProcessVoyagerUpload(db, command))

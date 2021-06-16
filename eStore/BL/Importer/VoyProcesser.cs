@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using eStore.DL.Data;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Sales;
@@ -11,9 +12,9 @@ namespace eStore.BL.Importer
 {
     public class VoyProcesser
     {
-        public VoyProcesser()
-        {
-        }
+        //public VoyProcesser()
+        //{
+        //}
 
         public static int ProcessBrand(eStoreDbContext db)
         {
@@ -177,7 +178,25 @@ namespace eStore.BL.Importer
         {
             var data = db.InwardSummaries.Where (c => c.InvoiceDate.Year == year).ToList ();
             var sData = db.Suppliers.ToList ();
+            if(sData==null || sData.Count < 1 )
+            {
+                var sup = db.InwardSummaries.Select (c => c.PartyName).Distinct ();
+                foreach ( var item in sup )
+                {
+                    Supplier s = new Supplier {
+                        SuppilerName = item, Warehouse = item
+                    };
+                    db.Suppliers.Add (s);
+                }
+               ;
+                if ( db.SaveChanges () > 0 )
+                    sData = db.Suppliers.ToList ();
+                else
+                    return -111;
 
+            }
+
+            if(sData !=null  && data!=null && sData.Count>0 && data.Count>0)
             foreach ( var item in data )
             {
 
@@ -195,7 +214,7 @@ namespace eStore.BL.Importer
                     Remarks = "AutoAdded",
                     TotalAmount = 0,
                     TotalBasicAmount = 0,
-                    TotalCost = 0,
+                    TotalCost = item.TotalCost,
                     TotalMRPValue = item.TotalMRPValue,
                     TotalQty = (double) item.TotalQty,
                     TotalTax = 0,
@@ -251,14 +270,94 @@ namespace eStore.BL.Importer
 
         }
 
-        public static int ProcessProductItem(eStoreDbContext db, string brandName)
+        public  int ProcessProductItem(eStoreDbContext db, string brandName)
         {
-            var data = db.TaxRegisters.Where (c => c.BrandName == brandName && c.InvoiceType == "Sales").Select (c => new { c.BARCODE, c.StyleCode, c.ProductName, c.ItemDesc, c.TaxRate, c.TaxDesc }).Distinct ().ToList ();
+            try
+            {
+                string bName = brandName;
+                Console.WriteLine ("B:" + bName);
+
+                int brandId = db.Brands.Where (c => c.BrandName == brandName).Select (c => c.BrandId).FirstOrDefault ();
+
+                var data = db.TaxRegisters.Where (c => c.BrandName == brandName && c.InvoiceType == "Sales").Select (c => new { c.BARCODE, c.StyleCode, c.ProductName, c.ItemDesc, c.TaxRate, c.TaxDesc }).Distinct ().ToList ();
+                var cData = db.Categories.ToList ();
+                foreach ( var purchase in data )
+                {
+                    var cats = purchase.ProductName.Split ("/");
+                    ProductItem pItem = new ProductItem
+                    {
+                        Barcode = purchase.BARCODE,
+                        Cost = 0,
+                        MRP = 0,
+                        StyleCode = purchase.StyleCode,
+                        ProductName = purchase.ProductName,
+                        ItemDesc = purchase.ItemDesc,
+                        HSNCode = "",
+                        TaxRate = purchase.TaxRate,
+                        BrandId = brandId,
+                        MainCategory = cData.Where (c => c.CategoryName.Contains (cats [0])).FirstOrDefault (),
+                        ProductCategory = cData.Where (c => c.CategoryName.Contains (cats [1])).FirstOrDefault (),
+                        ProductType = cData.Where (c => c.CategoryName.Contains (cats [2])).FirstOrDefault (),
+                    };
+
+                    switch ( cats [0] )
+                    {
+                        case "Shirting":
+                        case "Suiting":
+                            pItem.Categorys = ProductCategory.Fabric;
+                            pItem.Units = Unit.Meters;
+                            break;
+                        case "Apparel":
+                            pItem.Categorys = ProductCategory.ReadyMade;
+                            pItem.Units = Unit.Pcs;
+                            break;
+                        // case ProductCategory.Accessiories:
+                        //    break;
+                        case "Tailoring":
+                            pItem.Categorys = ProductCategory.Tailoring;
+                            pItem.Units = Unit.Nos;
+                            break;
+                        //case ProductCategory.Trims:
+                        //    break;
+                        case "Promo":
+                            pItem.Categorys = ProductCategory.PromoItems;
+                            pItem.Units = Unit.Nos;
+                            break;
+                        //case ProductCategory.Coupons:
+                        //    break;
+                        //case ProductCategory.GiftVouchers:
+                        //    break;
+                        //case ProductCategory.Others:
+                        //    break;
+                        default:
+                            pItem.Categorys = ProductCategory.Others;
+                            pItem.Units = Unit.Nos;
+                            break;
+                    }
+
+                    db.ProductItems.Add (pItem);
+
+                }
+                return db.SaveChanges ();
+            }
+            catch ( Exception e)
+            {
+                Console.WriteLine ("Error: " + e.Message);
+                return -1;
+            }
+        }
+
+        public static int ProcessItem(eStoreDbContext db)
+        {
+            var data = db.ItemDatas.Select(c=> new {c.BARCODE,c.BrandName,c.ItemDesc,c.ProductCategory,c.ProductName,c.ProductType,c.StyleCode })
+                .OrderBy (c => c.BARCODE).Distinct ().ToList ();
+           
+
             var cData = db.Categories.ToList ();
-            int brandId = db.Brands.Where (c => c.BrandName == brandName).Select (c => c.BrandId).FirstOrDefault ();
+            var bData = db.Brands.ToList ();
+            List<ProductItem> pro = new List<ProductItem> ();
             foreach ( var purchase in data )
             {
-                var cats = purchase.ProductName.Split ("/");
                 ProductItem pItem = new ProductItem
                 {
                     Barcode = purchase.BARCODE,
@@ -268,35 +367,42 @@ namespace eStore.BL.Importer
                     ProductName = purchase.ProductName,
                     ItemDesc = purchase.ItemDesc,
                     HSNCode = "",
-                    TaxRate = purchase.TaxRate,
-                    BrandId = brandId,
-                    MainCategory = cData.Where (c => c.CategoryName.Contains (cats [0])).FirstOrDefault (),
-                    ProductCategory = cData.Where (c => c.CategoryName.Contains (cats [1])).FirstOrDefault (),
-                    ProductType = cData.Where (c => c.CategoryName.Contains (cats [2])).FirstOrDefault (),
-                 };
+                    TaxRate = -1,
+                    
+                    MainCategory = cData.Where (c => c.CategoryName.Contains (purchase.ProductType)).FirstOrDefault (),
+                    ProductCategory = cData.Where (c => c.CategoryName.Contains (purchase.ProductType)).FirstOrDefault (),
+                    ProductType = cData.Where (c => c.CategoryName.Contains (purchase.ProductName)).FirstOrDefault (),
 
-                switch ( cats [0] )
+                };
+                pItem.BrandId = bData.Where (c => c.BrandName.Contains (purchase.BrandName)).Select (c => c.BrandId).FirstOrDefault ();
+                if ( pItem.BrandId <1 )
+                    pItem.BrandId = 1;
+                switch ( purchase.ProductType )
                 {
                     case "Shirting":
                     case "Suiting":
                         pItem.Categorys = ProductCategory.Fabric;
                         pItem.Units = Unit.Meters;
+                        pItem.Size = Size.NS;
                         break;
                     case "Apparel":
                         pItem.Categorys = ProductCategory.ReadyMade;
                         pItem.Units = Unit.Pcs;
+                        pItem.Size = GetSize (pItem.StyleCode);
                         break;
                     // case ProductCategory.Accessiories:
                     //    break;
                     case "Tailoring":
                         pItem.Categorys = ProductCategory.Tailoring;
                         pItem.Units = Unit.Nos;
+                        pItem.Size = Size.FreeSize;
                         break;
                     //case ProductCategory.Trims:
                     //    break;
                     case "Promo":
                         pItem.Categorys = ProductCategory.PromoItems;
                         pItem.Units = Unit.Nos;
+                        pItem.Size = Size.NOTVALID;
                         break;
                     //case ProductCategory.Coupons:
                     //    break;
@@ -307,14 +413,88 @@ namespace eStore.BL.Importer
                     default:
                         pItem.Categorys = ProductCategory.Others;
                         pItem.Units = Unit.Nos;
+                        pItem.Size = Size.NOTVALID;
                         break;
                 }
 
-                db.ProductItems.Add (pItem);
-
+                pro.Add (pItem);
             }
+            db.ProductItems.AddRange (pro);
             return db.SaveChanges ();
+
+
         }
+
+        private void GetUnitSize(string sCode)
+        {
+            var result = Regex.Match (sCode, @"(.{3})\s*$");
+        }
+
+        private static Size GetSize(string sCode)
+        {
+            Size size;
+            if ( sCode.EndsWith ("S") )
+            { size = Size.S; }
+            else if ( sCode.EndsWith ("M") )
+            { size = Size.M; }
+            else if ( sCode.EndsWith ("XL") )
+            { size = Size.XL; }
+            else if ( sCode.EndsWith ("XXL") )
+            { size = Size.XXL; }
+            else if ( sCode.EndsWith ("XXXL") )
+            { size = Size.XXXL; }
+            else if ( sCode.EndsWith ("L") )
+            { size = Size.L; }
+            else
+            {
+                var result = Regex.Match (sCode, @"(.{2})\s*$").Value;
+                switch ( result )
+                {
+                    case "28":
+                        size = Size.T28;
+                        break;
+                    case "30":
+                        size = Size.T30;
+                        break;
+                    case "32":
+                        size = Size.T32;
+                        break;
+                    case "34":
+                        size = Size.T34;
+                        break;
+                    case "36":
+                        size = Size.T36;
+                        break;
+
+                    case "38":
+                        size = Size.T38;
+                        break;
+                    case "40":
+                        size = Size.T40;
+                        break;
+                    case "42":
+                        size = Size.T42;
+                        break;
+                    case "44":
+                        size = Size.T44;
+                        break;
+                    case "46":
+                        size = Size.T46;
+                        break;
+                    case "48":
+                        size = Size.T48;
+                        break;
+
+                    default:
+                        size = Size.NOTVALID;
+                        break;
+                }
+            }
+                
+            return size;
+
+        }
+
 
 
         public static int ProcessSaleSummary(eStoreDbContext db,int StoreId, int year)
@@ -464,38 +644,78 @@ namespace eStore.BL.Importer
     {
         public bool ProcessVoyagerUpload(eStoreDbContext db, ProcessorCommand cmd)
         {
-            int StoreId = cmd.StoreId; int Year = cmd.Year;
-            switch (cmd.Command)
+            try
             {
-                case "DailySale":
-                    if (VoyProcesser.ProcessDailySale(db, StoreId, Year) > 0) return true; else return false;
-                case "Brand":
-                    if (VoyProcesser.ProcessBrand(db) > 0) return true; else return false;
-                case "Product":
-                    if (VoyProcesser.ProcessProductItem(db, cmd.BrandName) > 0) return true; else return false;
-                     
-                case "PurchaseInward":
-                    if (VoyProcesser.ProcessInwardSummary(db, cmd.StoreId, cmd.Year) > 0) return true; else return false;
-                case "PurchaseItem":
-                    if (VoyProcesser.ProcessPurchase(db, cmd.StoreId, cmd.Year) > 0) return true; else return false;
 
-                case "Sale":
-                    if (VoyProcesser.ProcessSaleSummary(db, StoreId,Year) > 0) return true; else return false;
-                      
-                case "SaleItem":
-                    if (VoyProcesser.ProcessSale(db, StoreId, Year) > 0) return true; else return false;
-                     
-                case "Customer":
-                    if(VoyProcesser.ProcessCusomterSale(db, StoreId, Year)>0) return true; else return false;
-                     
-                case "Other": break;
-                default:
-                    return false;
-                    
+                int StoreId = cmd.StoreId;
+                int Year = cmd.Year;
+                switch ( cmd.Command )
+                {
+                    case "DailySale":
+                        if ( VoyProcesser.ProcessDailySale (db, StoreId, Year) > 0 )
+                            return true;
+                        else
+                            return false;
+                    case "Brand":
+                        if ( VoyProcesser.ProcessBrand (db) > 0 )
+                            return true;
+                        else
+                            return false;
+                    case "Product":
+                        if ( new VoyProcesser().ProcessProductItem (db, cmd.BrandName) > 0 )
+                            return true;
+                        else
+                            return false;
+                    case "ProductItem":
+                        if (  VoyProcesser.ProcessItem (db) > 0 )
+                            return true;
+                        else
+                            return false;
+
+                    case "PurchaseInward":
+                        if ( VoyProcesser.ProcessInwardSummary (db, cmd.StoreId, cmd.Year) > 0 )
+                            return true;
+                        else
+                            return false;
+                    case "PurchaseItem":
+                        if ( VoyProcesser.ProcessPurchase (db, cmd.StoreId, cmd.Year) > 0 )
+                            return true;
+                        else
+                            return false;
+
+                    case "Sale":
+                        if ( VoyProcesser.ProcessSaleSummary (db, StoreId, Year) > 0 )
+                            return true;
+                        else
+                            return false;
+
+                    case "SaleItem":
+                        if ( VoyProcesser.ProcessSale (db, StoreId, Year) > 0 )
+                            return true;
+                        else
+                            return false;
+
+                    case "Customer":
+                        if ( VoyProcesser.ProcessCusomterSale (db, StoreId, Year) > 0 )
+                            return true;
+                        else
+                            return false;
+
+                    case "Other":
+                        break;
+                    default:
+                        return false;
+
+
+                }
+                return false;
 
             }
-            return false;
-
+            catch ( Exception e )
+            {
+                Console.WriteLine ("Error: " + e.Message);
+                return false;
+            }
         }
     }
 

@@ -180,6 +180,10 @@ namespace eStore.BL
                         await db.AddRangeAsync(JsonSerializer.Deserialize<IEnumerable<Category>>(returndata));
 
                         break;
+                    case "ItemData":
+                        await db.AddRangeAsync (JsonSerializer.Deserialize<IEnumerable<ItemData>> (returndata));
+
+                        break;
 
                     default:
                         recordCount = -1;

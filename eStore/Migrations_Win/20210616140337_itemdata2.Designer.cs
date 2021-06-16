@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.DL.Data;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(eStoreDbContext))]
-    partial class eStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210616140337_itemdata2")]
+    partial class itemdata2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4021,45 +4023,6 @@ namespace eStore.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("InwardSummaries");
-                });
-
-            modelBuilder.Entity("eStore.Shared.Uploader.ItemData", b =>
-                {
-                    b.Property<int>("ItemDataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BARCODE")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BrandName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ItemDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StyleCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaxDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TaxRate")
-                        .HasColumnType("money");
-
-                    b.HasKey("ItemDataId");
-
-                    b.ToTable("ItemDatas");
                 });
 
             modelBuilder.Entity("eStore.Shared.Uploader.LocationMaster", b =>
