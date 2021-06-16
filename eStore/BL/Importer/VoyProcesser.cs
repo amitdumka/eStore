@@ -467,14 +467,18 @@ namespace eStore.BL.Importer
             int StoreId = cmd.StoreId; int Year = cmd.Year;
             switch (cmd.Command)
             {
-                case "DailySale": if (VoyProcesser.ProcessDailySale(db, StoreId, Year) > 0) return true; else return false;
+                case "DailySale":
+                    if (VoyProcesser.ProcessDailySale(db, StoreId, Year) > 0) return true; else return false;
                 case "Brand":
                     if (VoyProcesser.ProcessBrand(db) > 0) return true; else return false;
                 case "Product":
                     if (VoyProcesser.ProcessProductItem(db, cmd.BrandName) > 0) return true; else return false;
                      
-                case "PurchaseInward": break;
-                case "PurchaseItem": break;
+                case "PurchaseInward":
+                    if (VoyProcesser.ProcessInwardSummary(db, cmd.StoreId, cmd.Year) > 0) return true; else return false;
+                case "PurchaseItem":
+                    if (VoyProcesser.ProcessPurchase(db, cmd.StoreId, cmd.Year) > 0) return true; else return false;
+
                 case "Sale":
                     if (VoyProcesser.ProcessSaleSummary(db, StoreId,Year) > 0) return true; else return false;
                       

@@ -72,10 +72,11 @@ namespace eStore.Areas.API
         public ActionResult GetProcessVoyagerUpload(ProcessorCommand command)
         {
             if (
-            new UploadProcessor().ProcessVoyagerUpload(db, command.StoreId, command.Year, command.Command))
+            new UploadProcessor().ProcessVoyagerUpload(db, command))
 
                 return Ok("Command Processed");
-            else return Ok("Error occured");
+            else
+                return Ok("Error occured");
         }
     }
 }
