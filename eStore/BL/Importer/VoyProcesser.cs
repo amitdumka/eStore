@@ -637,6 +637,58 @@ namespace eStore.BL.Importer
 
         private  static void UpdateSaleItem(eStoreDbContext db, string barcode, double qty, decimal price, decimal discount) { }
 
+        public static bool MissingBarcode(eStoreDbContext db)
+        {
+            bool flag = false;
+            var data = db.ProductItems.Select (c => c.Barcode).ToList ();
+            var pData = db.VoyPurchaseInwards.Select (c => c.Barcode).Distinct ().ToList ();
+            if(pData.Count!= data.Count )
+            {
+
+                var purI = db.VoyPurchaseInwards.Select (c => new {c.Barcode, c.ItemDesc,c.StyleCode }).ToList();
+                foreach ( var item in data )
+                {
+                    pData.Remove (item);
+                }
+                if ( pData.Count > 0 )
+                {
+                    var Cat = db.Categories.Find (1);
+                    foreach ( var item in pData )
+                    {
+
+                        ProductItem p = new ProductItem
+                        {
+                            Barcode = item,
+                            BrandId = 1,
+                            Categorys = ProductCategory.Others,
+                            Cost = 0,
+                            HSNCode = "",
+                            ProductCategory = Cat,
+                            ItemDesc = "",
+                            MainCategory = Cat,
+                            MRP = 0,
+                            StyleCode = "",
+                            Units = Unit.NoUnit,
+                            ProductName = "NOT",
+                            ProductType = Cat,
+                            Size = Size.NOTVALID,
+                            TaxRate = 0
+                        };
+                        db.ProductItems.Add (p);
+                    }
+                    int ctr = db.SaveChanges ();
+                    if ( ctr > 0 )
+                        flag = true;
+
+                }
+                else
+                    flag = true;
+            }
+            else
+                flag = true;
+            return flag;
+
+        }
     }
 
 
@@ -651,6 +703,8 @@ namespace eStore.BL.Importer
                 int Year = cmd.Year;
                 switch ( cmd.Command )
                 {
+                    case "MISSINGITEM":
+                        return VoyProcesser.MissingBarcode (db);
                     case "DailySale":
                         if ( VoyProcesser.ProcessDailySale (db, StoreId, Year) > 0 )
                             return true;
