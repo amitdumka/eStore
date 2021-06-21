@@ -82,5 +82,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SalePuchase\SaleInfoUIVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Payroll\EmployeeAttendaceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChartJSVC\ChartJs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Purchases\Stock.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Purchases\Supplier.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
   </ItemGroup>
 </Project>
