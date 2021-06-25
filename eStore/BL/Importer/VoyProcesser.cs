@@ -495,7 +495,80 @@ namespace eStore.BL.Importer
 
         }
 
+        public static void ProcessPitem(eStoreDbContext db)
+        {
+            var data = db.VoyPurchaseInwards.Select (c => new {c.Barcode,c.Cost,c.MRP,c.ItemDesc,c.ProductName,c.StyleCode,c.SupplierName }).OrderBy(c=>c.Barcode).Distinct ().ToList ();
+            var cData = db.Categories.ToList ();
+            var bData = db.Brands.ToList ();
+            List<ProductItem> pro = new List<ProductItem> ();
+            foreach ( var purchase in data )
+            {
+                var cats = purchase.ProductName.Split ("/");
+                ProductItem pItem = new ProductItem
+                {
+                    Barcode = purchase.Barcode,
+                    Cost = 0,
+                    MRP = 0,
+                    StyleCode = purchase.StyleCode,
+                    ProductName = purchase.ProductName,
+                    ItemDesc = purchase.ItemDesc,
+                    HSNCode = "",
+                    TaxRate = -1,
 
+                    MainCategory = cData.Where (c => c.CategoryName.Contains (cats [0])).FirstOrDefault (),
+                    ProductCategory = cData.Where (c => c.CategoryName.Contains (cats [1])).FirstOrDefault (),
+                    ProductType = cData.Where (c => c.CategoryName.Contains (cats [2])).FirstOrDefault (),
+
+                };
+                pItem.BrandId = bData.Where (c => c.BrandName.Contains (purchase.BrandName)).Select (c => c.BrandId).FirstOrDefault ();
+                if ( pItem.BrandId < 1 )
+                    pItem.BrandId = 1;
+               
+                switch ( purchase.ProductType )
+                {
+                    case "Shirting":
+                    case "Suiting":
+                        pItem.Categorys = ProductCategory.Fabric;
+                        pItem.Units = Unit.Meters;
+                        pItem.Size = Size.NS;
+                        break;
+                    case "Apparel":
+                        pItem.Categorys = ProductCategory.ReadyMade;
+                        pItem.Units = Unit.Pcs;
+                        pItem.Size = GetSize (pItem.StyleCode);
+                        break;
+                    // case ProductCategory.Accessiories:
+                    //    break;
+                    case "Tailoring":
+                        pItem.Categorys = ProductCategory.Tailoring;
+                        pItem.Units = Unit.Nos;
+                        pItem.Size = Size.FreeSize;
+                        break;
+                    //case ProductCategory.Trims:
+                    //    break;
+                    case "Promo":
+                        pItem.Categorys = ProductCategory.PromoItems;
+                        pItem.Units = Unit.Nos;
+                        pItem.Size = Size.NOTVALID;
+                        break;
+                    //case ProductCategory.Coupons:
+                    //    break;
+                    //case ProductCategory.GiftVouchers:
+                    //    break;
+                    //case ProductCategory.Others:
+                    //    break;
+                    default:
+                        pItem.Categorys = ProductCategory.Others;
+                        pItem.Units = Unit.Nos;
+                        pItem.Size = Size.NOTVALID;
+                        break;
+                }
+
+                pro.Add (pItem);
+            }
+            db.ProductItems.AddRange (pro);
+
+        }
 
         public static int ProcessSaleSummary(eStoreDbContext db,int StoreId, int year)
         {
