@@ -72,7 +72,8 @@ namespace eStore.Areas.API
         public ActionResult PostProcessVoyagerUpload(ProcessorCommand command)
         {
             if (
-            new UploadProcessor().ProcessVoyagerUpload(db, command))
+           // new UploadProcessor().ProcessVoyagerUpload(db, command))
+           UploadProcessor.ProcessUpload(db, command))
 
                 return Ok("Command Processed");
             else

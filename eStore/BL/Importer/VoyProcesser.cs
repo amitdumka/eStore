@@ -668,7 +668,7 @@ namespace eStore.BL.Importer
 
         private static int AddOrUpdateStock(eStoreDbContext db, int StoreId, string barCode, double inQty, double outQty, Unit unit)
         {
-            Stock stcks = db.Stocks.Where (c => c.BarCode == barCode).FirstOrDefault ();
+            Stock stcks = db.Stocks.Where (c => c.Barcode == barCode).FirstOrDefault ();
             if ( stcks != null )
             {
                 stcks.PurchaseQty += inQty;
@@ -683,7 +683,7 @@ namespace eStore.BL.Importer
                     SaleQty = outQty,
                     Units = unit,
                     StoreId = StoreId,
-                    BarCode = barCode,
+                    Barcode = barCode,
                     HoldQty = 0,
                     IsReadOnly = false,
                     UserId = "AutoAdd",
@@ -773,6 +773,72 @@ namespace eStore.BL.Importer
 
     public class UploadProcessor
     {
+
+        public static bool ProcessUpload(eStoreDbContext db , ProcessorCommand cmd)
+        {
+            try
+            {
+
+                int StoreId = cmd.StoreId;
+                int Year = cmd.Year;
+                switch (cmd.Command)
+                {
+                    case "DailySale":
+                        if (VoyProcesser.ProcessDailySale(db, StoreId, Year) > 0)
+                            return true;
+                        else
+                            return false;
+                    case "Brand":
+                        if (VoyProcesser.ProcessBrand(db) > 0)
+                            return true;
+                        else
+                            return false;
+                    case "PItem":
+                        if (VoyProcesser.ProcessPitem(db) > 0)
+                            return true;
+                        else
+                            return false;
+
+                    case "PurchaseInward":
+                        if (VoyProcesser.ProcessInwardSummary(db, cmd.StoreId, cmd.Year) > 0)
+                            return true;
+                        else
+                            return false;
+                    case "Sale":
+                        if (VoyProcesser.ProcessSaleSummary(db, StoreId, Year) > 0)
+                            return true;
+                        else
+                            return false;
+
+                    case "SaleItem":
+                        if (VoyProcesser.ProcessSale(db, StoreId, Year) > 0)
+                            return true;
+                        else
+                            return false;
+
+                    case "Customer":
+                        if (VoyProcesser.ProcessCusomterSale(db, StoreId, Year) > 0)
+                            return true;
+                        else
+                            return false;
+                    case "PurchaseItem":
+                        if (VoyProcesser.ProcessPurchase(db, cmd.StoreId, cmd.Year) > 0)
+                            return true;
+                        else
+                            return false;
+                    case "Other":
+                        
+                    default:
+                        return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+                return false;
+            }
+        }
+
         public bool ProcessVoyagerUpload(eStoreDbContext db, ProcessorCommand cmd)
         {
             try
@@ -801,6 +867,11 @@ namespace eStore.BL.Importer
                             return false;
                     case "ProductItem":
                         if (  VoyProcesser.ProcessItem (db) > 0 )
+                            return true;
+                        else
+                            return false;
+                    case "PItem":
+                        if (VoyProcesser.ProcessPitem(db) > 0)
                             return true;
                         else
                             return false;
@@ -835,13 +906,13 @@ namespace eStore.BL.Importer
                             return false;
 
                     case "Other":
-                        break;
+                        
                     default:
                         return false;
 
 
                 }
-                return false;
+                
 
             }
             catch ( Exception e )
