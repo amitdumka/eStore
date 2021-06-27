@@ -31,8 +31,13 @@ namespace eStore.BL.Importer
         public static int ProcessCusomterSale(eStoreDbContext db, int StoreId, int year)
         {
             // TODO: here reduce data size as much as possible
-            var data = db.SaleWithCustomers.Where(c => c.InvoiceDate.Year == year).ToList();
+            var data = db.SaleWithCustomers.Where(c => c.Phone!=null && c.Phone!="" ).ToList();
+            int count = data.Count;
             var custs = data.Select(c => new Customer { FirstName = c.CustomerName, City = c.Address, MobileNo = c.Phone }).Distinct().ToList();
+            int cCnt = custs.Count;
+            int s = count - cCnt;
+            Console.WriteLine (s);
+
             foreach (var item in custs)
             {
                 if (!string.IsNullOrEmpty(item.FirstName))
