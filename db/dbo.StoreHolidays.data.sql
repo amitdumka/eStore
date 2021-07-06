@@ -1,0 +1,13 @@
+﻿SET IDENTITY_INSERT [dbo].[StoreHolidays] ON
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (1, N'2021-04-09 18:33:52', 0, N'Dumy', N'AmitKumar', NULL, 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (2, N'2021-04-11 07:08:00', 0, N'Store Closed For Corona guideline', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (3, N'2021-04-25 05:53:41', 0, N'Closed due to Corona Guidelines ', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (4, N'2021-04-26 04:46:47', 0, N'Closed for Corona', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (5, N'2021-04-27 04:49:16', 0, N'Closed Due to Corona Guidelines ', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (6, N'2021-04-28 05:14:13', 0, N'Closed for Cornoa', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (7, N'2021-04-28 21:18:16', 0, N'Testing for Ndays leave', N'Amit kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (8, N'2021-04-29 21:20:04', 0, N'Testing', N'AmitKumar', N'TestData', 0, 1, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (9, N'2021-05-03 21:20:04', 0, N'Testing', N'AmitKumar', N'TestData', 0, 1, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (10, N'2021-05-01 21:34:56', 0, N'Testing', N'Amit Kumar', N'WebUI', 0, 0, 1)
+INSERT INTO [dbo].[StoreHolidays] ([StoreHolidayId], [OnDate], [Reason], [Remarks], [ApprovedBy], [UserId], [EntryStatus], [IsReadOnly], [StoreId]) VALUES (11, N'2021-05-25 05:50:39', 0, N'Closed for Cornoa', N'Amit Kumar', N'WebUI', 0, 0, 1)
+SET IDENTITY_INSERT [dbo].[StoreHolidays] OFF
