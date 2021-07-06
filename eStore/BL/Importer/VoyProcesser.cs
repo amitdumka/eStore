@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using eStore.DL.Data;
+﻿using eStore.DL.Data;
 using eStore.Shared.Models.Purchases;
 using eStore.Shared.Models.Sales;
 using eStore.Shared.Models.Stores;
-using eStore.Shared.Uploader;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace eStore.BL.Importer
 {
     public class VoyProcesser
     {
-        //public VoyProcesser()
-        //{
-        //}
-
         public static int ProcessBrand(eStoreDbContext db)
         {
             var data = db.VoyBrandNames.ToList ();
@@ -23,7 +18,6 @@ namespace eStore.BL.Importer
             {
                 Brand b = new Brand { BCode = item.BRANDCODE, BrandName = item.BRANDNAME };
                 db.Brands.Add (b);
-
             }
             return db.SaveChanges ();
         }
@@ -61,13 +55,9 @@ namespace eStore.BL.Importer
                 {
                     custs.Remove (item);
                 }
-
-
             }
             db.Customers.AddRange (custs);
             return db.SaveChanges ();
-
-
         }
 
         public static int ProcessDailySale(eStoreDbContext db, int StoreId, int year)
@@ -104,18 +94,21 @@ namespace eStore.BL.Importer
                             else
                                 eD.IsMatchedWithVOy = false;
                             break;
+
                         case "CAS":
                             if ( eD.PayMode == PayMode.Cash )
                                 eD.IsMatchedWithVOy = true;
                             else
                                 eD.IsMatchedWithVOy = false;
                             break;
+
                         case "MIX":
                             if ( eD.PayMode == PayMode.MixPayments )
                                 eD.IsMatchedWithVOy = true;
                             else
                                 eD.IsMatchedWithVOy = false;
                             break;
+
                         default:
                             if ( eD.PayMode == PayMode.Others )
                                 eD.IsMatchedWithVOy = true;
@@ -158,12 +151,15 @@ namespace eStore.BL.Importer
                             sale.PayMode = PayMode.Card;
                             sale.CashAmount = 0;
                             break;
+
                         case "CAS":
                             sale.PayMode = PayMode.Cash;
                             break;
+
                         case "MIX":
                             sale.PayMode = PayMode.MixPayments;
                             break;
+
                         default:
                             sale.PayMode = PayMode.Others;
                             sale.Remarks += "\t#PayMode:" + item.PaymentMode;
@@ -177,7 +173,6 @@ namespace eStore.BL.Importer
                     db.DailySales.Add (sale);
                 }
             }
-
 
             return db.SaveChanges ();
         }
@@ -203,13 +198,11 @@ namespace eStore.BL.Importer
                     sData = db.Suppliers.ToList ();
                 else
                     return -111;
-
             }
 
             if ( sData != null && data != null && sData.Count > 0 && data.Count > 0 )
                 foreach ( var item in data )
                 {
-
                     ProductPurchase purchase = new ProductPurchase
                     {
                         EntryStatus = EntryStatus.Added,
@@ -239,7 +232,7 @@ namespace eStore.BL.Importer
         public static int ProcessPurchase(eStoreDbContext db, int StoreId, int year)
         {
             var data = db.VoyPurchaseInwards.Where (c => c.GRNDate.Year == year).OrderBy (c => c.InvoiceNo).ToList ();
-           
+
             if ( data != null && data.Count > 0 )
             {
                 var pData = db.ProductPurchases.Where (c => c.StoreId == StoreId && c.InWardDate.Year == year).OrderBy (c => c.InvoiceNo).ToList ();
@@ -251,12 +244,10 @@ namespace eStore.BL.Importer
                     {
                         pur = pData.Where (c => c.InvoiceNo == item.InvoiceNo).FirstOrDefault ();
                         pur.PurchaseItems = new List<PurchaseItem> ();
-                        // create purchase item 
-
+                        // create purchase item
                     }
                     else if ( pur.InvoiceNo != item.InvoiceNo )
                     {
-
                         pur = pData.Where (c => c.InvoiceNo == item.InvoiceNo).FirstOrDefault ();
                         pur.PurchaseItems = new List<PurchaseItem> ();
                     }
@@ -273,7 +264,6 @@ namespace eStore.BL.Importer
                     pur.TotalTax += item.TaxAmt;
                     pur.PurchaseItems.Add (pItem);
                     //UpdateProductItem (db, item.Barcode, item.MRP, item.Cost, "", null, false);
-
                 }
                 db.ProductPurchases.UpdateRange (pData);
                 return db.SaveChanges ();
@@ -282,8 +272,6 @@ namespace eStore.BL.Importer
             {
                 return -999;
             }
-
-
         }
 
         public int ProcessProductItem(eStoreDbContext db, string brandName)
@@ -323,6 +311,7 @@ namespace eStore.BL.Importer
                             pItem.Categorys = ProductCategory.Fabric;
                             pItem.Units = Unit.Meters;
                             break;
+
                         case "Apparel":
                             pItem.Categorys = ProductCategory.ReadyMade;
                             pItem.Units = Unit.Pcs;
@@ -352,7 +341,6 @@ namespace eStore.BL.Importer
                     }
 
                     db.ProductItems.Add (pItem);
-
                 }
                 return db.SaveChanges ();
             }
@@ -367,7 +355,6 @@ namespace eStore.BL.Importer
         {
             var data = db.ItemDatas.Select (c => new { c.BARCODE, c.BrandName, c.ItemDesc, c.ProductCategory, c.ProductName, c.ProductType, c.StyleCode })
                 .OrderBy (c => c.BARCODE).Distinct ().ToList ();
-
 
             var cData = db.Categories.ToList ();
             var bData = db.Brands.ToList ();
@@ -388,7 +375,6 @@ namespace eStore.BL.Importer
                     MainCategory = cData.Where (c => c.CategoryName.Contains (purchase.ProductType)).FirstOrDefault (),
                     ProductCategory = cData.Where (c => c.CategoryName.Contains (purchase.ProductType)).FirstOrDefault (),
                     ProductType = cData.Where (c => c.CategoryName.Contains (purchase.ProductName)).FirstOrDefault (),
-
                 };
                 pItem.BrandId = bData.Where (c => c.BrandName.Contains (purchase.BrandName)).Select (c => c.BrandId).FirstOrDefault ();
                 if ( pItem.BrandId < 1 )
@@ -401,6 +387,7 @@ namespace eStore.BL.Importer
                         pItem.Units = Unit.Meters;
                         pItem.Size = Size.NS;
                         break;
+
                     case "Apparel":
                         pItem.Categorys = ProductCategory.ReadyMade;
                         pItem.Units = Unit.Pcs;
@@ -437,24 +424,22 @@ namespace eStore.BL.Importer
             }
             db.ProductItems.AddRange (pro);
             return db.SaveChanges ();
-
-
         }
+
         public static int ProcessPitem(eStoreDbContext db)
         {
             var data = db.VoyPurchaseInwards.Where (c => !c.SupplierName.Contains ("Aprajita Retails")).Select (c => new { c.Barcode, c.Cost, c.MRP, c.ItemDesc, c.ProductName, c.StyleCode, c.SupplierName }).OrderBy (c => c.Barcode).Distinct ().ToList ();
             var cData = db.Categories.ToList ();
             var bData = db.Brands.ToList ();
-            var barcodeList = data.Select (c => c.Barcode).Distinct ().ToList();
+            var barcodeList = data.Select (c => c.Barcode).Distinct ().ToList ();
             Console.WriteLine ("Barcodes=" + barcodeList.Count);
-
 
             var taxReg = db.TaxRegisters.Select (c => new { c.BARCODE, c.BrandName, c.TaxDesc, c.TaxRate }).OrderBy (c => c.BARCODE).Distinct ().ToList ();
             List<ProductItem> pro = new List<ProductItem> ();
 
             foreach ( var purchase in data )
             {
-                if (barcodeList.Contains(purchase.Barcode))
+                if ( barcodeList.Contains (purchase.Barcode) )
                 {
                     var cats = purchase.ProductName.Split ("/");
                     var tr = taxReg.Where (c => c.BARCODE == purchase.Barcode).FirstOrDefault ();
@@ -481,7 +466,6 @@ namespace eStore.BL.Importer
                     else
                         pItem.BrandId = 22;
 
-
                     switch ( cats [0] )
                     {
                         case "Shirting":
@@ -490,6 +474,7 @@ namespace eStore.BL.Importer
                             pItem.Units = Unit.Meters;
                             pItem.Size = Size.NS;
                             break;
+
                         case "Apparel":
                             pItem.Categorys = ProductCategory.ReadyMade;
                             pItem.Units = Unit.Pcs;
@@ -525,7 +510,6 @@ namespace eStore.BL.Importer
                     pro.Add (pItem);
                     do
                     {
-
                     } while ( barcodeList.Remove (pItem.Barcode) );
                 }
                 else
@@ -566,15 +550,19 @@ namespace eStore.BL.Importer
                     case "28":
                         size = Size.T28;
                         break;
+
                     case "30":
                         size = Size.T30;
                         break;
+
                     case "32":
                         size = Size.T32;
                         break;
+
                     case "34":
                         size = Size.T34;
                         break;
+
                     case "36":
                         size = Size.T36;
                         break;
@@ -582,18 +570,23 @@ namespace eStore.BL.Importer
                     case "38":
                         size = Size.T38;
                         break;
+
                     case "40":
                         size = Size.T40;
                         break;
+
                     case "42":
                         size = Size.T42;
                         break;
+
                     case "44":
                         size = Size.T44;
                         break;
+
                     case "46":
                         size = Size.T46;
                         break;
+
                     case "48":
                         size = Size.T48;
                         break;
@@ -605,9 +598,7 @@ namespace eStore.BL.Importer
             }
 
             return size;
-
         }
-
 
         public static int ProcessSaleSummary(eStoreDbContext db, int StoreId, int year)
         {
@@ -621,14 +612,17 @@ namespace eStore.BL.Importer
                         payment.PayMode = SalePayMode.Cash;
                         payment.CashAmount = item.BillAmt;
                         break;
+
                     case "CRD":
                         payment.PayMode = SalePayMode.Card;
                         payment.NonCashAmount = item.BillAmt;
                         break;
+
                     case "MIX":
                         payment.PayMode = SalePayMode.Mix;
                         payment.OtherAmount = item.BillAmt;
                         break;
+
                     default:
                         payment.PayMode = SalePayMode.Mix;
                         payment.OtherAmount = item.BillAmt;
@@ -650,7 +644,6 @@ namespace eStore.BL.Importer
                     TotalBillAmount = item.BillAmt,
                     TotalTaxAmount = item.TaxAmt,
                     RoundOffAmount = item.RoundOff,
-
                 };
 
                 if ( item.PaymentMode == "CAS" )
@@ -662,10 +655,10 @@ namespace eStore.BL.Importer
                     invoice.CustomerId = 2;
                 }
                 db.SaleInvoices.Add (invoice);
-
             }
             return db.SaveChanges ();
         }
+
         public static int ProcessSale(eStoreDbContext db, int StoreId, int year)
         {
             var data = db.VoySaleInvoices.Where (c => c.InvoiceDate.EndsWith ("" + year)).ToList ();
@@ -688,7 +681,7 @@ namespace eStore.BL.Importer
                     Units = Unit.NoUnit
                 };
 
-                if(!String.IsNullOrEmpty(item.HSNCode))
+                if ( !String.IsNullOrEmpty (item.HSNCode) )
                     sale.HSNCode = long.Parse (item.HSNCode.Trim ());
                 db.SaleItems.Add (sale);
             }
@@ -742,17 +735,14 @@ namespace eStore.BL.Importer
                     HoldQty = 0,
                     IsReadOnly = false,
                     UserId = "AutoAdd",
-
                 };
                 db.Stocks.Add (stcks);
             }
             return db.SaveChanges ();
-
         }
 
         private static int UpdateProductItem(eStoreDbContext db, string barcode, decimal Mrp, decimal cost, string hsn, Size? size, bool saveIt = false)
         {
-
             var pItem = db.ProductItems.Where (c => c.Barcode == barcode).FirstOrDefault ();
             if ( pItem != null )
             {
@@ -767,10 +757,11 @@ namespace eStore.BL.Importer
                 return db.SaveChanges ();
             else
                 return -111;
-
         }
 
-        private static void UpdateSaleItem(eStoreDbContext db, string barcode, double qty, decimal price, decimal discount) { }
+        private static void UpdateSaleItem(eStoreDbContext db, string barcode, double qty, decimal price, decimal discount)
+        {
+        }
 
         public static bool MissingBarcode(eStoreDbContext db)
         {
@@ -779,7 +770,6 @@ namespace eStore.BL.Importer
             var pData = db.VoyPurchaseInwards.Select (c => c.Barcode).Distinct ().ToList ();
             if ( pData.Count != data.Count )
             {
-
                 var purI = db.VoyPurchaseInwards.Select (c => new { c.Barcode, c.ItemDesc, c.StyleCode }).ToList ();
                 foreach ( var item in data )
                 {
@@ -790,7 +780,6 @@ namespace eStore.BL.Importer
                     var Cat = db.Categories.Find (1);
                     foreach ( var item in pData )
                     {
-
                         ProductItem p = new ProductItem
                         {
                             Barcode = item,
@@ -814,7 +803,6 @@ namespace eStore.BL.Importer
                     int ctr = db.SaveChanges ();
                     if ( ctr > 0 )
                         flag = true;
-
                 }
                 else
                     flag = true;
@@ -822,19 +810,15 @@ namespace eStore.BL.Importer
             else
                 flag = true;
             return flag;
-
         }
     }
 
-
     public class UploadProcessor
     {
-
         public static bool ProcessUpload(eStoreDbContext db, ProcessorCommand cmd)
         {
             try
             {
-
                 int StoreId = cmd.StoreId;
                 int Year = cmd.Year;
                 switch ( cmd.Command )
@@ -844,11 +828,13 @@ namespace eStore.BL.Importer
                             return true;
                         else
                             return false;
+
                     case "Brand":
                         if ( VoyProcesser.ProcessBrand (db) > 0 )
                             return true;
                         else
                             return false;
+
                     case "PItem":
                         if ( VoyProcesser.ProcessPitem (db) > 0 )
                             return true;
@@ -860,6 +846,7 @@ namespace eStore.BL.Importer
                             return true;
                         else
                             return false;
+
                     case "Sale":
                         if ( VoyProcesser.ProcessSaleSummary (db, StoreId, Year) > 0 )
                             return true;
@@ -877,11 +864,13 @@ namespace eStore.BL.Importer
                             return true;
                         else
                             return false;
+
                     case "PurchaseItem":
                         if ( VoyProcesser.ProcessPurchase (db, cmd.StoreId, cmd.Year) > 0 )
                             return true;
                         else
                             return false;
+
                     case "Other":
 
                     default:
@@ -899,33 +888,37 @@ namespace eStore.BL.Importer
         {
             try
             {
-
                 int StoreId = cmd.StoreId;
                 int Year = cmd.Year;
                 switch ( cmd.Command )
                 {
                     case "MISSINGITEM":
                         return VoyProcesser.MissingBarcode (db);
+
                     case "DailySale":
                         if ( VoyProcesser.ProcessDailySale (db, StoreId, Year) > 0 )
                             return true;
                         else
                             return false;
+
                     case "Brand":   //Over
                         if ( VoyProcesser.ProcessBrand (db) > 0 )
                             return true;
                         else
                             return false;
+
                     case "Product":    //Over
                         if ( new VoyProcesser ().ProcessProductItem (db, cmd.BrandName) > 0 )
                             return true;
                         else
                             return false;
+
                     case "ProductItem":     //Over
                         if ( VoyProcesser.ProcessItem (db) > 0 )
                             return true;
                         else
                             return false;
+
                     case "PItem":    //Over
                         if ( VoyProcesser.ProcessPitem (db) > 0 )
                             return true;
@@ -937,6 +930,7 @@ namespace eStore.BL.Importer
                             return true;
                         else
                             return false;
+
                     case "PurchaseItem":    //Over
                         if ( VoyProcesser.ProcessPurchase (db, cmd.StoreId, cmd.Year) > 0 )
                             return true;
@@ -965,11 +959,7 @@ namespace eStore.BL.Importer
 
                     default:
                         return false;
-
-
                 }
-
-
             }
             catch ( Exception e )
             {
@@ -986,5 +976,26 @@ namespace eStore.BL.Importer
         public string Command { get; set; }
         public string BrandName { get; set; }
     }
-
 }
+
+//SQL Query to Delete Duplicate Row
+/** WITH cte AS (
+    SELECT CustomerId,
+        FirstName,
+        LastName,
+        Age,
+        City,MobileNo, NoOfBills,TotalAmount,Gender,
+        ROW_NUMBER() OVER (
+            PARTITION BY
+                MobileNo
+            ORDER BY
+                FirstName,
+                LastName,
+                MobileNo
+        ) row_num
+     FROM
+        [dbo].[Customers]
+)
+DELETE FROM cte
+WHERE row_num > 1;
+ */
