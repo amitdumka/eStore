@@ -31,7 +31,6 @@ namespace eStore.BL.Commons
             await db.StoreOpens.AddAsync(so);
             return await db.SaveChangesAsync();
         }
-
         public static PettyCashBook GeneratePettyCashBook(eStoreDbContext db, int storeId)
         {
             DateTime date = DateTime.Today.Date;
@@ -137,7 +136,6 @@ namespace eStore.BL.Commons
             return pettyCash;
 
         }
-
         public static async System.Threading.Tasks.Task<bool> GenerateAttendancForStoreClosedAsync(eStoreDbContext db, int storeId, HolidayReason reason, string remark, DateTime onDate)
         {
             string remarks = "";
