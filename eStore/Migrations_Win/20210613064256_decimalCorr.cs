@@ -6,53 +6,53 @@ namespace eStore.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "TotalSale",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "TotalSale",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "LastYear",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "LastYear",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "LastMonth",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "LastMonth",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "CurrentYear",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "CurrentYear",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "CurrentMonth",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "CurrentMonth",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
-            //migrationBuilder.AlterColumn<decimal>(
-            //    name: "Average",
-            //    table: "SalesmanInfo",
-            //    type: "money",
-            //    nullable: false,
-            //    oldClrType: typeof(decimal),
-            //    oldType: "decimal(18,2)");
+            migrationBuilder.AlterColumn<decimal> (
+                name: "Average",
+                table: "SalesmanInfo",
+                type: "money",
+                nullable: false,
+                oldClrType: typeof (decimal),
+                oldType: "decimal(18,2)");
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "RentAmount",
