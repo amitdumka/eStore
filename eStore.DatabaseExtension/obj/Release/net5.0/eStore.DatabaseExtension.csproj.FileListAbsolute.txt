@@ -1,0 +1,5 @@
+C:\Users\amitn\Documents\GitHub\eStore\eStore.DatabaseExtension\obj\Release\net5.0\eStore.DatabaseExtension.csprojAssemblyReference.cache
+C:\Users\amitn\Documents\GitHub\eStore\eStore.DatabaseExtension\obj\Release\net5.0\eStore.DatabaseExtension.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amitn\Documents\GitHub\eStore\eStore.DatabaseExtension\obj\Release\net5.0\eStore.DatabaseExtension.AssemblyInfoInputs.cache
+C:\Users\amitn\Documents\GitHub\eStore\eStore.DatabaseExtension\obj\Release\net5.0\eStore.DatabaseExtension.AssemblyInfo.cs
+C:\Users\amitn\Documents\GitHub\eStore\eStore.DatabaseExtension\obj\Release\net5.0\eStore.DatabaseExtension.csproj.CoreCompileInputs.cache

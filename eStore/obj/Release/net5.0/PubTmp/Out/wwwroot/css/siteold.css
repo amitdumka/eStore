@@ -1,0 +1,120 @@
+﻿.themed-grid-col {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgba(86, 61, 124, .15);
+    border: 1px solid rgba(86, 61, 124, .2);
+}
+
+.themed-container {
+    padding: 15px;
+    margin-bottom: 30px;
+    background-color: rgba(0, 123, 255, .15);
+    border: 1px solid rgba(0, 123, 255, .2);
+}
+
+
+/* Chat containers */
+#chat .container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    font-family: "Open Sans", serif;
+}
+
+#chat .sender {
+    font-size: 0.8em;
+    font-weight: bold;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+/* Darker chat container */
+#chat .darker {
+    border-color: #fff;
+    background-color: #007bff;
+}
+
+/* Clear floats */
+#chat .container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+#chat .container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+#chat .container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Style time text */
+#chat .time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+#chat .time-left {
+    float: left;
+    color: #999;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+table tr.done {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.timeStampValue, .timeStampValueModernized {
+}
+
+.expand-button {
+    position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+    position: absolute;
+    left: .75rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+    content: '+';
+}
